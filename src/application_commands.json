@@ -1,0 +1,1961 @@
+[
+  {
+    "id": "cad-mesh-bridge",
+    "domain": "CAD",
+    "name": "Bridge edge loops",
+    "nameJa": "辺ループをブリッジ",
+    "description": "Connect existing mesh boundary loops by creating faces between them.",
+    "descriptionJa": "既存メッシュの境界辺ループ間に面を作って接続します。",
+    "family": "mesh-topology",
+    "tags": [
+      "bridge edge loops",
+      "辺ループをブリッジ",
+      "mesh-topology"
+    ],
+    "sourceId": "blender-bridge",
+    "sourceTitle": "Blender Bridge Edge Loops",
+    "sourceUrl": "https://docs.blender.org/manual/en/5.2/modeling/meshes/editing/edge/bridge_edge_loops.html",
+    "sourceScope": "Official manual indexed as 5.2; use for operation semantics only.",
+    "reviewNote": "cad-loftは断面から形状を生成するが、本操作は既存meshの境界接続を変更する。"
+  },
+  {
+    "id": "cad-mesh-inset",
+    "domain": "CAD",
+    "name": "Inset faces",
+    "nameJa": "面をインセット",
+    "description": "Create an inset boundary and surrounding faces inside selected mesh faces.",
+    "descriptionJa": "選択したメッシュ面の内側に境界と周囲の面を作ります。",
+    "family": "mesh-topology",
+    "tags": [
+      "inset faces",
+      "面をインセット",
+      "mesh-topology"
+    ],
+    "sourceId": "blender-mesh-toolbar",
+    "sourceTitle": "Blender mesh edit toolbar",
+    "sourceUrl": "https://docs.blender.org/manual/en/latest/modeling/meshes/tools/toolbar.html",
+    "sourceScope": "Official Blender manual; command semantics only, not a current-version assertion.",
+    "reviewNote": "cad-sketch-offsetは曲線のオフセット。本操作は面と辺の接続を変更する。"
+  },
+  {
+    "id": "cad-mesh-loop-cut",
+    "domain": "CAD",
+    "name": "Loop cut",
+    "nameJa": "ループカット",
+    "description": "Insert an edge loop through a connected strip of mesh faces.",
+    "descriptionJa": "連続するメッシュ面を横断する辺ループを挿入します。",
+    "family": "mesh-topology",
+    "tags": [
+      "loop cut",
+      "ループカット",
+      "mesh-topology"
+    ],
+    "sourceId": "blender-mesh-toolbar",
+    "sourceTitle": "Blender mesh edit toolbar",
+    "sourceUrl": "https://docs.blender.org/manual/en/latest/modeling/meshes/tools/toolbar.html",
+    "sourceScope": "Official Blender manual; command semantics only, not a current-version assertion.",
+    "reviewNote": "cad-split-bodyは物体を分離。本操作は一体のmeshを保って辺を追加する。"
+  },
+  {
+    "id": "cad-mesh-knife",
+    "domain": "CAD",
+    "name": "Knife cut",
+    "nameJa": "ナイフカット",
+    "description": "Add mesh vertices and edges along an interactively drawn cut.",
+    "descriptionJa": "対話的に描いた切断線に沿ってメッシュへ頂点と辺を追加します。",
+    "family": "mesh-topology",
+    "tags": [
+      "knife cut",
+      "ナイフカット",
+      "mesh-topology"
+    ],
+    "sourceId": "blender-mesh-toolbar",
+    "sourceTitle": "Blender mesh edit toolbar",
+    "sourceUrl": "https://docs.blender.org/manual/en/latest/modeling/meshes/tools/toolbar.html",
+    "sourceScope": "Official Blender manual; command semantics only, not a current-version assertion.",
+    "reviewNote": "cad-sketch-trimは曲線の一部を除去。本操作は面内へ切断線を新設する。"
+  },
+  {
+    "id": "cad-mesh-merge-vertices",
+    "domain": "CAD",
+    "name": "Merge mesh vertices / nodes",
+    "nameJa": "メッシュ頂点・節点統合",
+    "description": "Merge mesh vertices or finite-element nodes that lie within a specified distance tolerance.",
+    "descriptionJa": "指定した距離許容差内のメッシュ頂点または有限要素節点を統合します。",
+    "family": "mesh-repair",
+    "tags": [
+      "merge by distance",
+      "距離で頂点を統合",
+      "mesh-repair",
+      "mesh",
+      "nodes",
+      "merge",
+      "節点",
+      "重複",
+      "統合"
+    ],
+    "sourceId": "blender-mesh-cleanup",
+    "sourceTitle": "Blender mesh cleanup",
+    "sourceUrl": "https://docs.blender.org/manual/en/latest/modeling/meshes/editing/mesh/cleanup.html",
+    "sourceScope": "Official Blender manual; polygon cleanup and repair commands.",
+    "additionalReferences": [
+      {
+        "id": "salome-merge-nodes",
+        "title": "SALOME merging nodes",
+        "url": "https://docs.salome-platform.org/latest/gui/SMESH/merging_nodes.html",
+        "scope": "Merge coincident nodes by tolerance"
+      }
+    ],
+    "sharedCategories": [
+      "CAE"
+    ],
+    "aliases": [
+      "Merge coincident nodes",
+      "重複節点統合",
+      "merge by distance",
+      "距離でマージ"
+    ],
+    "reviewNote": "cad-boolean-unionは体積和。本操作は近接頂点の重複と接続を処理する。"
+  },
+  {
+    "id": "cad-mesh-dissolve",
+    "domain": "CAD",
+    "name": "Dissolve edges",
+    "nameJa": "辺を溶解",
+    "description": "Remove selected mesh edges while joining the neighboring faces without opening holes.",
+    "descriptionJa": "選択したメッシュ辺を除去し、穴を開けずに隣接面を結合します。",
+    "family": "mesh-topology",
+    "tags": [
+      "dissolve edges",
+      "辺を溶解",
+      "mesh-topology"
+    ],
+    "sourceId": "blender-dissolve",
+    "sourceTitle": "Blender Deleting and Dissolving",
+    "sourceUrl": "https://docs.blender.org/manual/en/5.0/modeling/meshes/editing/mesh/delete.html",
+    "sourceScope": "Blender 5.0 manual; dissolve operation reference.",
+    "reviewNote": "common-deleteは構成要素を削除。本操作は面領域を保持して内部境界を除く。"
+  },
+  {
+    "id": "cad-mesh-fill-holes",
+    "domain": "CAD",
+    "name": "Fill mesh holes",
+    "nameJa": "メッシュ穴埋め",
+    "description": "Close mesh boundary holes by generating replacement faces.",
+    "descriptionJa": "メッシュの境界穴に面を生成して欠損を塞ぎます。",
+    "family": "mesh-repair",
+    "tags": [
+      "fill mesh holes",
+      "メッシュ穴埋め",
+      "mesh-repair"
+    ],
+    "sourceId": "blender-mesh-cleanup",
+    "sourceTitle": "Blender mesh cleanup",
+    "sourceUrl": "https://docs.blender.org/manual/en/latest/modeling/meshes/editing/mesh/cleanup.html",
+    "sourceScope": "Official Blender manual; polygon cleanup and repair commands.",
+    "reviewNote": "cad-surface-patchはB-rep曲面生成。本操作はpolygon meshの欠損修復。"
+  },
+  {
+    "id": "cad-mesh-decimate",
+    "domain": "CAD",
+    "name": "Decimate mesh",
+    "nameJa": "メッシュ簡略化",
+    "description": "Reduce the number of mesh faces while limiting changes to the shape.",
+    "descriptionJa": "形状変化を抑えながらメッシュの面数を減らします。",
+    "family": "mesh-optimization",
+    "tags": [
+      "decimate mesh",
+      "メッシュ簡略化",
+      "mesh-optimization"
+    ],
+    "sourceId": "blender-mesh-cleanup",
+    "sourceTitle": "Blender mesh cleanup",
+    "sourceUrl": "https://docs.blender.org/manual/en/latest/modeling/meshes/editing/mesh/cleanup.html",
+    "sourceScope": "Official Blender manual; polygon cleanup and repair commands.",
+    "reviewNote": "cae-mesh-refinementは解析要素を増やす。本操作は表面meshのpolygon数を削減する。"
+  },
+  {
+    "id": "cad-mesh-remesh",
+    "domain": "CAD",
+    "name": "Remesh",
+    "nameJa": "リメッシュ",
+    "description": "Generate new mesh topology that follows the input surface.",
+    "descriptionJa": "入力表面に追従する新しいメッシュ接続を生成します。",
+    "family": "mesh-topology",
+    "tags": [
+      "remesh",
+      "リメッシュ",
+      "mesh-topology"
+    ],
+    "sourceId": "blender-remesh",
+    "sourceTitle": "Blender Remesh modifier",
+    "sourceUrl": "https://docs.blender.org/manual/id/4.5/modeling/modifiers/generate/remesh.html",
+    "sourceScope": "Blender 4.5 manual; remeshing modes are treated as one operation.",
+    "modelTree": {
+      "name": "Remesh modifier",
+      "nameJa": "リメッシュモディファイア",
+      "objectType": "mesh-modifier"
+    },
+    "reviewNote": "cae-tet/hexは解析用体積要素。mesh-to-brepは表現変換。本操作は表面meshを再構築する。"
+  },
+  {
+    "id": "cad-mesh-smooth",
+    "domain": "CAD",
+    "name": "Smooth mesh vertices / nodes",
+    "nameJa": "メッシュ頂点・節点平滑化",
+    "description": "Reposition mesh vertices or nodes to smooth a surface or improve neighboring element shapes.",
+    "descriptionJa": "メッシュ頂点や節点の位置を調整し、表面を平滑化するか周辺の要素形状を改善します。",
+    "family": "mesh-deformation",
+    "tags": [
+      "smooth vertices",
+      "頂点を平滑化",
+      "mesh-deformation",
+      "mesh",
+      "smooth",
+      "quality",
+      "メッシュ",
+      "平滑化",
+      "節点移動"
+    ],
+    "sourceId": "blender-smooth-vertices",
+    "sourceTitle": "Blender Smooth Vertices",
+    "sourceUrl": "https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/vertex/smooth_vertices.html",
+    "sourceScope": "Blender 4.5 LTS manual; vertex-position smoothing.",
+    "additionalReferences": [
+      {
+        "id": "salome-smoothing",
+        "title": "SALOME smoothing",
+        "url": "https://docs.salome-platform.org/latest/gui/SMESH/smoothing.html",
+        "scope": "Improve mesh shape by repositioning nodes"
+      }
+    ],
+    "sharedCategories": [
+      "CAE"
+    ],
+    "aliases": [
+      "Smooth mesh",
+      "メッシュ平滑化"
+    ],
+    "reviewNote": "cad-filletは辺近傍に丸みの面を作る。本操作は既存頂点を緩和する。"
+  },
+  {
+    "id": "cad-mesh-shrinkwrap",
+    "domain": "CAD",
+    "name": "Shrinkwrap",
+    "nameJa": "シュリンクラップ",
+    "description": "Move mesh vertices onto or near the surface of a target object.",
+    "descriptionJa": "メッシュ頂点を対象オブジェクトの表面またはその近傍へ移動します。",
+    "family": "mesh-deformation",
+    "tags": [
+      "shrinkwrap",
+      "シュリンクラップ",
+      "mesh-deformation"
+    ],
+    "sourceId": "blender-shrinkwrap",
+    "sourceTitle": "Blender Shrinkwrap modifier",
+    "sourceUrl": "https://docs.blender.org/manual/en/2.81/modeling/modifiers/deform/shrinkwrap.html",
+    "sourceScope": "Blender 2.81 historical manual; stable operation semantics, also corroborated by official ShrinkwrapModifier API.",
+    "modelTree": {
+      "name": "Shrinkwrap modifier",
+      "nameJa": "シュリンクラップモディファイア",
+      "objectType": "mesh-modifier"
+    },
+    "reviewNote": "cad-sketch-projectは参照曲線生成。本操作は既存meshを対象面へ変形する。"
+  },
+  {
+    "id": "cad-uv-unwrap",
+    "domain": "CAD",
+    "name": "UV unwrap",
+    "nameJa": "UV展開",
+    "description": "Flatten mesh faces across seams into a two-dimensional texture-coordinate layout.",
+    "descriptionJa": "継ぎ目に沿ってメッシュ面を開き、2次元のテクスチャ座標へ配置します。",
+    "family": "mesh-uv",
+    "tags": [
+      "uv unwrap",
+      "UV展開",
+      "mesh-uv"
+    ],
+    "sourceId": "blender-uv-unwrap",
+    "sourceTitle": "Blender UV operators",
+    "sourceUrl": "https://docs.blender.org/manual/en/5.4/modeling/meshes/editing/uv.html",
+    "sourceScope": "Official manual indexed as 5.4; reference for UV operation semantics, not a current-version assertion.",
+    "reviewNote": "cad-sheet-metal-flat-patternは実材料の加工展開。本操作はUV座標で物理寸法保存を保証しない。"
+  },
+  {
+    "id": "cad-surface-blend",
+    "domain": "CAD",
+    "name": "Blend surface",
+    "nameJa": "曲面ブレンド",
+    "description": "Create a transitional surface between two edges with continuity control.",
+    "descriptionJa": "2つのエッジ間に連続性を制御した遷移曲面を作成します。",
+    "family": "surface-modeling",
+    "tags": [
+      "blend surface",
+      "曲面ブレンド",
+      "surface-modeling"
+    ],
+    "sourceId": "rhino-blendsrf",
+    "sourceTitle": "Rhino blendsrf",
+    "sourceUrl": "https://docs.mcneel.com/rhino/8/help/en-us/commands/blendsrf.htm",
+    "sourceScope": "Rhino 8 official command help; operation semantics.",
+    "reviewNote": "cad-filletの一定円弧状の丸めとは異なり、端の連続性と形を制御して面間をつなぐ。"
+  },
+  {
+    "id": "cad-surface-match",
+    "domain": "CAD",
+    "name": "Match surface",
+    "nameJa": "曲面マッチ",
+    "description": "Adjust an existing surface edge to match another edge in position, tangency or curvature.",
+    "descriptionJa": "既存曲面の端を別のエッジへ位置・接線・曲率の条件で合わせます。",
+    "family": "surface-editing",
+    "tags": [
+      "match surface",
+      "曲面マッチ",
+      "surface-editing"
+    ],
+    "sourceId": "rhino-matchsrf",
+    "sourceTitle": "Rhino matchsrf",
+    "sourceUrl": "https://docs.mcneel.com/rhino/8mac/help/en-us/commands/matchsrf.htm",
+    "sourceScope": "Rhino 8 official command help; operation semantics.",
+    "reviewNote": "cad-surface-sewは既存境界の接合。本操作は曲面の制御形状を変えて連続性を整える。"
+  },
+  {
+    "id": "cad-surface-network",
+    "domain": "CAD",
+    "name": "Network surface",
+    "nameJa": "ネットワーク曲面",
+    "description": "Create a surface through a crossing network of curves in two directions.",
+    "descriptionJa": "2方向に交差する曲線網を通る曲面を作成します。",
+    "family": "surface-modeling",
+    "tags": [
+      "network surface",
+      "ネットワーク曲面",
+      "surface-modeling"
+    ],
+    "sourceId": "rhino-networksrf",
+    "sourceTitle": "Rhino networksrf",
+    "sourceUrl": "https://docs.mcneel.com/rhino/8mac/help/en-us/commands/networksrf.htm",
+    "sourceScope": "Rhino 8 official command help; operation semantics.",
+    "reviewNote": "cad-loftは一方向の断面列、surface-patchは境界穴埋め。本操作は内部を含む二方向曲線網を使用。"
+  },
+  {
+    "id": "cad-nurbs-rebuild",
+    "domain": "CAD",
+    "name": "Rebuild NURBS",
+    "nameJa": "NURBS再構築",
+    "description": "Reconstruct curves or surfaces with a specified degree and control-point count.",
+    "descriptionJa": "次数と制御点数を指定して曲線や曲面を再構築します。",
+    "family": "nurbs-editing",
+    "tags": [
+      "rebuild nurbs",
+      "NURBS再構築",
+      "nurbs-editing"
+    ],
+    "sourceId": "rhino-rebuild",
+    "sourceTitle": "Rhino rebuild",
+    "sourceUrl": "https://docs.mcneel.com/rhino/8/help/en-us/commands/rebuild.htm",
+    "sourceScope": "Rhino 8 official command help; operation semantics.",
+    "reviewNote": "cad-recomputeは既存履歴再計算。本操作はNURBSの次数・制御構造を変更する。"
+  },
+  {
+    "id": "cad-extract-isocurve",
+    "domain": "CAD",
+    "name": "Extract isocurve",
+    "nameJa": "アイソカーブ抽出",
+    "description": "Create independent curves along selected surface parameter lines.",
+    "descriptionJa": "曲面上の指定した等パラメータ線を独立した曲線として抽出します。",
+    "family": "curve-extraction",
+    "tags": [
+      "extract isocurve",
+      "アイソカーブ抽出",
+      "curve-extraction"
+    ],
+    "sourceId": "rhino-extractisocurve",
+    "sourceTitle": "Rhino extractisocurve",
+    "sourceUrl": "https://docs.mcneel.com/rhino/8mac/help/en-us/commands/extractisocurve.htm",
+    "sourceScope": "Rhino 8 official command help; operation semantics.",
+    "reviewNote": "cad-sketch-projectは平面投影。本操作は曲面上のUV一定線を3D曲線として取り出す。"
+  },
+  {
+    "id": "cad-cage-deform",
+    "domain": "CAD",
+    "name": "Cage deform",
+    "nameJa": "ケージ変形",
+    "description": "Deform enclosed geometry by editing a surrounding control cage.",
+    "descriptionJa": "周囲の制御ケージを編集して内部の形状を変形します。",
+    "family": "freeform-deformation",
+    "tags": [
+      "cage deform",
+      "ケージ変形",
+      "freeform-deformation"
+    ],
+    "sourceId": "rhino-cageedit",
+    "sourceTitle": "Rhino cageedit",
+    "sourceUrl": "https://docs.mcneel.com/rhino/8mac/help/en-us/commands/cageedit.htm",
+    "sourceScope": "Rhino 8 official command help; operation semantics.",
+    "reviewNote": "cad-move-body/scale-bodyは剛体または一様変換。本操作は局所的な自由変形。"
+  },
+  {
+    "id": "cad-flow-along-surface",
+    "domain": "CAD",
+    "name": "Flow along surface",
+    "nameJa": "サーフェスに沿ってフロー",
+    "description": "Morph objects from a base surface onto a target surface.",
+    "descriptionJa": "基準サーフェスから対象サーフェスへオブジェクトを写して変形します。",
+    "family": "freeform-deformation",
+    "tags": [
+      "flow along surface",
+      "サーフェスに沿ってフロー",
+      "freeform-deformation"
+    ],
+    "sourceId": "rhino-flowalongsrf",
+    "sourceTitle": "Rhino flowalongsrf",
+    "sourceUrl": "https://docs.mcneel.com/rhino/8/help/en-us/commands/flowalongsrf.htm",
+    "sourceScope": "Rhino 8 official command help; operation semantics.",
+    "reviewNote": "cad-sweepは断面から生成。本操作は既存物体全体を面のパラメータ対応で変形する。"
+  },
+  {
+    "id": "cad-zebra-analysis",
+    "domain": "CAD",
+    "name": "Zebra analysis",
+    "nameJa": "ゼブラ解析",
+    "description": "Evaluate surface smoothness and continuity with reflected stripe patterns.",
+    "descriptionJa": "反射縞を使って曲面の滑らかさと接続の連続性を評価します。",
+    "family": "geometry-analysis",
+    "tags": [
+      "zebra analysis",
+      "ゼブラ解析",
+      "geometry-analysis"
+    ],
+    "sourceId": "rhino-zebra",
+    "sourceTitle": "Rhino zebra",
+    "sourceUrl": "https://docs.mcneel.com/rhino/8/help/en-us/commands/zebra.htm",
+    "sourceScope": "Rhino 8 official command help; operation semantics.",
+    "reviewNote": "cae-stress-contourは解析結果。本操作は形状の面連続性を調べる。"
+  },
+  {
+    "id": "cad-draft-analysis",
+    "domain": "CAD",
+    "name": "Draft angle analysis",
+    "nameJa": "抜き勾配解析",
+    "description": "Evaluate surface draft angles relative to a chosen pull direction.",
+    "descriptionJa": "指定した抜き方向に対する曲面の勾配角度を評価します。",
+    "family": "geometry-analysis",
+    "tags": [
+      "draft angle analysis",
+      "抜き勾配解析",
+      "geometry-analysis"
+    ],
+    "sourceId": "rhino-draftangleanalysis",
+    "sourceTitle": "Rhino draftangleanalysis",
+    "sourceUrl": "https://docs.mcneel.com/rhino/8/help/en-us/commands/draftangleanalysis.htm",
+    "sourceScope": "Rhino 8 official command help; operation semantics.",
+    "reviewNote": "cad-draftは形状変更、本操作は金型からの抜け方向を検査する。"
+  },
+  {
+    "id": "cmm-cloud-subsample",
+    "domain": "CMM",
+    "name": "Subsample point cloud",
+    "nameJa": "点群間引き",
+    "description": "Reduce a point cloud by retaining a spatially or numerically chosen subset of its original points.",
+    "descriptionJa": "元の点の位置を保ったまま点群から選んだ部分集合を残し、点数を減らします。",
+    "family": "point-cloud-processing",
+    "tags": [
+      "subsample point cloud",
+      "点群間引き",
+      "point-cloud-processing"
+    ],
+    "sourceId": "cloudcompare-subsample",
+    "sourceTitle": "CloudCompare Subsample point cloud",
+    "sourceUrl": "https://cloudcompare.org/doc/wiki/index.php/Edit%5CSubsample",
+    "sourceScope": "Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims.",
+    "sharedCategories": [
+      "CAD"
+    ],
+    "reviewNote": "cmm-point-cloudはデータ対象。cad-mesh-decimateは面接続を持つmesh。本操作は点群の点数を制御する。"
+  },
+  {
+    "id": "cmm-cloud-outlier-removal",
+    "domain": "CMM",
+    "name": "Remove point-cloud outliers",
+    "nameJa": "点群外れ値除去",
+    "description": "Remove statistically isolated points using distances to neighboring points.",
+    "descriptionJa": "近傍点までの距離を使い、統計的に孤立した点を除去します。",
+    "family": "point-cloud-cleanup",
+    "tags": [
+      "remove point-cloud outliers",
+      "点群外れ値除去",
+      "point-cloud-cleanup"
+    ],
+    "sourceId": "cloudcompare-outlier-removal",
+    "sourceTitle": "CloudCompare Remove point-cloud outliers",
+    "sourceUrl": "https://cloudcompare.org/doc/wiki/index.php/SOR_filter",
+    "sourceScope": "Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims.",
+    "sharedCategories": [
+      "CAD"
+    ],
+    "reviewNote": "common-filterは一覧絞り込み。本操作は幾何的な外れ値を判定して新しい点群を作る。"
+  },
+  {
+    "id": "cmm-cloud-normals",
+    "domain": "CMM",
+    "name": "Compute point-cloud normals",
+    "nameJa": "点群法線計算",
+    "description": "Estimate local surface normals from each point and its neighbors.",
+    "descriptionJa": "各点とその近傍から局所表面の法線を推定します。",
+    "family": "point-cloud-processing",
+    "tags": [
+      "compute point-cloud normals",
+      "点群法線計算",
+      "point-cloud-processing"
+    ],
+    "sourceId": "cloudcompare-normals",
+    "sourceTitle": "CloudCompare Compute point-cloud normals",
+    "sourceUrl": "https://cloudcompare.org/doc/wiki/index.php/Normals%5CCompute",
+    "sourceScope": "Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims.",
+    "sharedCategories": [
+      "CAD"
+    ],
+    "reviewNote": "cmm-patch-scanはデータ取得。本操作は取得済み点へ向き情報を算出する。"
+  },
+  {
+    "id": "cmm-cloud-components",
+    "domain": "CMM",
+    "name": "Extract connected components",
+    "nameJa": "点群連結成分抽出",
+    "description": "Separate a point cloud into connected groups using a chosen spatial gap.",
+    "descriptionJa": "指定した空間的な間隔に基づいて点群を連結したグループへ分けます。",
+    "family": "point-cloud-segmentation",
+    "tags": [
+      "extract connected components",
+      "点群連結成分抽出",
+      "point-cloud-segmentation"
+    ],
+    "sourceId": "cloudcompare-components",
+    "sourceTitle": "CloudCompare Extract connected components",
+    "sourceUrl": "https://cloudcompare.org/doc/wiki/index.php/Label_Connected_Components",
+    "sourceScope": "Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims.",
+    "sharedCategories": [
+      "CAD"
+    ],
+    "reviewNote": "common-groupはユーザーの整理。本操作は空間的連結性を計算して点群を自動分割する。"
+  },
+  {
+    "id": "cmm-cloud-primitive-detection",
+    "domain": "CMM",
+    "name": "Detect point-cloud primitives",
+    "nameJa": "点群プリミティブ検出",
+    "description": "Detect geometric primitives and their supporting points in a scanned cloud.",
+    "descriptionJa": "スキャン点群から幾何プリミティブとそれを支持する点を検出します。",
+    "family": "point-cloud-segmentation",
+    "tags": [
+      "detect point-cloud primitives",
+      "点群プリミティブ検出",
+      "point-cloud-segmentation"
+    ],
+    "sourceId": "cloudcompare-primitive-detection",
+    "sourceTitle": "CloudCompare Detect point-cloud primitives",
+    "sourceUrl": "https://cloudcompare.org/doc/wiki/index.php/PluginRansacSD",
+    "sourceScope": "Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims.",
+    "sharedCategories": [
+      "CAD"
+    ],
+    "reviewNote": "cmm-construct-featureは既存測定形体からの構築。本操作は未分類の点群で形状と支持領域を発見する。"
+  },
+  {
+    "id": "cmm-cloud-reconstruct",
+    "domain": "CMM",
+    "name": "Reconstruct surface from points",
+    "nameJa": "点群サーフェス再構成",
+    "description": "Generate a surface mesh from an oriented point cloud using Poisson reconstruction.",
+    "descriptionJa": "向きの整った法線付き点群からPoisson再構成で表面メッシュを生成します。",
+    "family": "point-cloud-reconstruction",
+    "tags": [
+      "reconstruct surface from points",
+      "点群サーフェス再構成",
+      "point-cloud-reconstruction"
+    ],
+    "sourceId": "cloudcompare-reconstruct",
+    "sourceTitle": "CloudCompare Reconstruct surface from points",
+    "sourceUrl": "https://cloudcompare.org/doc/wiki/index.php/Poisson_Surface_Reconstruction_%28plugin%29",
+    "sourceScope": "Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims.",
+    "sharedCategories": [
+      "CAD"
+    ],
+    "reviewNote": "cad-mesh-to-brepは既存meshを入力とする。本操作は接続のない点から面を生成する。"
+  },
+  {
+    "id": "cmm-cloud-rasterize",
+    "domain": "CMM",
+    "name": "Rasterize point cloud",
+    "nameJa": "点群ラスタ化",
+    "description": "Project point-cloud heights or scalar values onto a regular two-dimensional grid.",
+    "descriptionJa": "点群の高さやスカラー値を規則的な2次元格子へ投影します。",
+    "family": "point-cloud-projection",
+    "tags": [
+      "rasterize point cloud",
+      "点群ラスタ化",
+      "point-cloud-projection"
+    ],
+    "sourceId": "cloudcompare-rasterize",
+    "sourceTitle": "CloudCompare Rasterize point cloud",
+    "sourceUrl": "https://cloudcompare.org/doc/wiki/index.php/Rasterize",
+    "sourceScope": "Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims.",
+    "sharedCategories": [
+      "CAD"
+    ],
+    "reviewNote": "cad-orthographic-viewは表示だけ。本操作は2.5D格子データを生成する。"
+  },
+  {
+    "id": "cad-sheet-metal-hem",
+    "domain": "CAD",
+    "name": "Sheet-metal hem",
+    "nameJa": "板金ヘム",
+    "description": "Create a folded-back edge treatment on a sheet-metal part.",
+    "descriptionJa": "板金部品の端を折り返すヘムを作成します。",
+    "family": "sheet-metal",
+    "tags": [
+      "sheet-metal hem",
+      "板金ヘム",
+      "sheet-metal",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-hem",
+    "sourceTitle": "SOLIDWORKS Hems",
+    "sourceUrl": "https://help.solidworks.com/2024/english/SolidWorks/sldworks/c_Hems.htm?id=474d0dc2a50946878872d45b767b9d21",
+    "sourceScope": "SOLIDWORKS 2024 official help; dedicated Hem command.",
+    "modelTree": {
+      "name": "Sheet-metal hem",
+      "nameJa": "板金ヘム",
+      "objectType": "feature"
+    },
+    "reviewNote": "既存bend/flangeは通常の曲げ・立上げ。本操作は端を折り返す専用の端処理で、断面選択肢の増殖ではない。"
+  },
+  {
+    "id": "cad-sheet-metal-jog",
+    "domain": "CAD",
+    "name": "Sheet-metal jog",
+    "nameJa": "板金ジョグ",
+    "description": "Create a sheet-metal offset with two bends based on one sketch line.",
+    "descriptionJa": "1本のスケッチ線を基に2つの曲げで板金の段差を作成します。",
+    "family": "sheet-metal",
+    "tags": [
+      "sheet-metal jog",
+      "板金ジョグ",
+      "sheet-metal",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-jog",
+    "sourceTitle": "SOLIDWORKS Jogs",
+    "sourceUrl": "https://help.solidworks.com/2024/English/SolidWorks/sldworks/c_Jogs.htm?id=fa64ae6f294049598ffaec44d7f221e4",
+    "sourceScope": "SOLIDWORKS 2024 official help; dedicated Jog command.",
+    "modelTree": {
+      "name": "Sheet-metal jog",
+      "nameJa": "板金ジョグ",
+      "objectType": "feature"
+    },
+    "reviewNote": "既存sheet-metal-bendは1つの曲げ。本操作は平行な面をずらす2曲げの成形機能。"
+  },
+  {
+    "id": "cad-sheet-metal-form-tool",
+    "domain": "CAD",
+    "name": "Apply forming tool",
+    "nameJa": "フォームツールを適用",
+    "description": "Imprint a forming-tool feature into a sheet-metal target part.",
+    "descriptionJa": "フォームツールを使って対象の板金部品へ成形形状を作成します。",
+    "family": "sheet-metal-forming",
+    "tags": [
+      "apply forming tool",
+      "フォームツールを適用",
+      "sheet-metal-forming",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-forming-tools",
+    "sourceTitle": "SOLIDWORKS Using Forming Tools with Sheet Metal",
+    "sourceUrl": "https://help.solidworks.com/2024/English/solidworks/sldworks/c_Forming_Tools.htm",
+    "sourceScope": "SOLIDWORKS 2024 official help; applying library forming tools to a sheet-metal target.",
+    "modelTree": {
+      "name": "Formed feature",
+      "nameJa": "成形フィーチャ",
+      "objectType": "feature"
+    },
+    "reviewNote": "既存extrude/pocketは体積加除。本操作は工具形状で薄板を成形し、切開や伸びを含む形状を扱う。"
+  },
+  {
+    "id": "cad-sheet-metal-corner-relief",
+    "domain": "CAD",
+    "name": "Sheet-metal corner relief",
+    "nameJa": "板金コーナーリリーフ",
+    "description": "Add relief geometry where sheet-metal bends meet.",
+    "descriptionJa": "板金の曲げが交わる箇所に逃げ形状を追加します。",
+    "family": "sheet-metal",
+    "tags": [
+      "sheet-metal corner relief",
+      "板金コーナーリリーフ",
+      "sheet-metal",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-corner-relief",
+    "sourceTitle": "SOLIDWORKS Corner Relief PropertyManager",
+    "sourceUrl": "https://help.solidworks.com/2023/English/SolidWorks/sldworks/HIDD_SHEET_METAL_CORNER_RELIEF.htm",
+    "sourceScope": "SOLIDWORKS 2023 official help; reliefs at two- or three-bend corners, one semantic entry.",
+    "modelTree": {
+      "name": "Sheet-metal corner relief",
+      "nameJa": "板金コーナーリリーフ",
+      "objectType": "feature"
+    },
+    "reviewNote": "既存chamferは稜線面取り。本操作は展開後も追跡する板金曲げ交点の逃げ。"
+  },
+  {
+    "id": "cad-sheet-metal-tab-slot",
+    "domain": "CAD",
+    "name": "Tab and slot",
+    "nameJa": "タブとスロット",
+    "description": "Create matching tabs and slots to locate and join fabricated parts.",
+    "descriptionJa": "製作部品の位置決めと接合に使う対応したタブとスロットを作成します。",
+    "family": "sheet-metal-joining",
+    "tags": [
+      "tab and slot",
+      "タブとスロット",
+      "sheet-metal-joining",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-tab-slot",
+    "sourceTitle": "SOLIDWORKS Creating a Tab and Slot",
+    "sourceUrl": "https://help.solidworks.com/2026/english/SolidWorks/sldworks/t_creating_a_tab_and_slot.htm?id=25.1.7.0",
+    "sourceScope": "SOLIDWORKS 2026 official help; tab/slot pairs on sheet-metal or eligible nonsheet parts.",
+    "modelTree": {
+      "name": "Tab and slot",
+      "nameJa": "タブとスロット",
+      "objectType": "feature"
+    },
+    "reviewNote": "既存pocket/linear-patternでは相手部品との対応を作らない。本操作は接合用の対を生成する。"
+  },
+  {
+    "id": "cad-convert-sheet-metal",
+    "domain": "CAD",
+    "name": "Convert to sheet metal",
+    "nameJa": "板金へ変換",
+    "description": "Convert eligible constant-thickness geometry into a sheet-metal model with bend definitions.",
+    "descriptionJa": "対応する一定厚さの形状を、曲げ定義を持つ板金モデルへ変換します。",
+    "family": "sheet-metal-conversion",
+    "tags": [
+      "convert to sheet metal",
+      "板金へ変換",
+      "sheet-metal-conversion",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-convert-sheetmetal",
+    "sourceTitle": "SOLIDWORKS Converting an Imported Part to a Sheet Metal Part",
+    "sourceUrl": "https://help.solidworks.com/2026/english/solidworks/sldworks/t_converting_imported_part_sheet_metal.htm",
+    "sourceScope": "SOLIDWORKS 2026 official help; constant-thickness imported sheet-metal-type parts.",
+    "modelTree": {
+      "name": "Sheet-metal conversion",
+      "nameJa": "板金変換",
+      "objectType": "feature"
+    },
+    "reviewNote": "既存mesh-to-brepは表現変換。本操作は厚み・固定面・曲げを認識して板金機能を有効にする。"
+  },
+  {
+    "id": "cad-weldment-member",
+    "domain": "CAD",
+    "name": "Structural member",
+    "nameJa": "鋼材部材作成",
+    "description": "Create structural members along a sketch framework using a selected standard profile.",
+    "descriptionJa": "選択した規格断面をスケッチ骨格に沿わせて構造部材を作成します。",
+    "family": "weldment",
+    "tags": [
+      "structural member",
+      "鋼材部材作成",
+      "weldment",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-weldments",
+    "sourceTitle": "SOLIDWORKS Weldments",
+    "sourceUrl": "https://help.solidworks.com/2026/English/SolidWorks/Sldworks/c_Weldments_Overview.htm",
+    "sourceScope": "SOLIDWORKS 2026 official help; grouped sketch segments and library structural profiles.",
+    "modelTree": {
+      "name": "Structural member",
+      "nameJa": "鋼材部材",
+      "objectType": "structural-member"
+    },
+    "reviewNote": "既存sweepは一般形状生成。本操作は部材規格・グループ・端処理と製造部材としての構成を作る。"
+  },
+  {
+    "id": "cad-weldment-trim-extend",
+    "domain": "CAD",
+    "name": "Trim or extend members",
+    "nameJa": "鋼材のトリム・延長",
+    "description": "Trim or extend structural-member ends to meet other members or bodies.",
+    "descriptionJa": "構造部材の端を他の部材やボディに合うようにトリムまたは延長します。",
+    "family": "weldment",
+    "tags": [
+      "trim or extend members",
+      "鋼材のトリム・延長",
+      "weldment",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-weldment-trim",
+    "sourceTitle": "SOLIDWORKS Weldments Trim and Extend",
+    "sourceUrl": "https://help.solidworks.com/2020/english/SolidWorks/Sldworks/c_Weldments_Trim_and_Extend.htm",
+    "sourceScope": "SOLIDWORKS 2020 official help; member end treatments and cut-length accuracy.",
+    "modelTree": {
+      "name": "Member end treatment",
+      "nameJa": "鋼材端部処理",
+      "objectType": "feature"
+    },
+    "reviewNote": "既存sketch-trim/extendは2D曲線。本操作は部材端の突合せや留め切りを作り製造長へ反映する。"
+  },
+  {
+    "id": "cad-weldment-end-cap",
+    "domain": "CAD",
+    "name": "Member end cap",
+    "nameJa": "鋼材エンドキャップ",
+    "description": "Close an open structural-member end with a plate of specified thickness.",
+    "descriptionJa": "構造部材の開口端を指定厚さの板で塞ぎます。",
+    "family": "weldment",
+    "tags": [
+      "member end cap",
+      "鋼材エンドキャップ",
+      "weldment",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-end-cap",
+    "sourceTitle": "SOLIDWORKS Adding End Caps",
+    "sourceUrl": "https://help.solidworks.com/2026/english/SolidWorks/sldworks/t_adding_an_end_cap.htm?id=35.0.14.0",
+    "sourceScope": "SOLIDWORKS 2026 official help; End Cap command and thickness/offset controls.",
+    "modelTree": {
+      "name": "Member end cap",
+      "nameJa": "鋼材エンドキャップ",
+      "objectType": "feature"
+    },
+    "reviewNote": "既存surface-patchは曲面補間。本操作は部材端の製作用厚み付き閉止板。"
+  },
+  {
+    "id": "cad-weldment-gusset",
+    "domain": "CAD",
+    "name": "Weldment gusset",
+    "nameJa": "溶接構造ガセット",
+    "description": "Add a reinforcing plate between structural members.",
+    "descriptionJa": "構造部材の間に補強用のガセット板を追加します。",
+    "family": "weldment",
+    "tags": [
+      "weldment gusset",
+      "溶接構造ガセット",
+      "weldment",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-gusset",
+    "sourceTitle": "SOLIDWORKS Weldments Gussets",
+    "sourceUrl": "https://help.solidworks.com/2026/English/SolidWorks/sldworks/c_Weldments_Gussets.htm?id=58a3c7988bad44a4843f5bbe55cec5a4",
+    "sourceScope": "SOLIDWORKS 2026 official help; dedicated weldment Gusset command.",
+    "modelTree": {
+      "name": "Weldment gusset",
+      "nameJa": "溶接構造ガセット",
+      "objectType": "feature"
+    },
+    "reviewNote": "既存cad-ribは部品フィーチャのリブ。本操作は構造部材間に配置する製作用補強板。"
+  },
+  {
+    "id": "cad-weld-bead",
+    "domain": "CAD",
+    "name": "Weld bead",
+    "nameJa": "溶接ビード",
+    "description": "Define a weld bead along the joint between two bodies for model and drawing documentation.",
+    "descriptionJa": "2つのボディの接合部に溶接ビードを定義し、モデルや図面に記録します。",
+    "family": "weldment",
+    "tags": [
+      "weld bead",
+      "溶接ビード",
+      "weldment",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-weld-bead",
+    "sourceTitle": "SOLIDWORKS Weld Beads",
+    "sourceUrl": "https://help.solidworks.com/2026/english/SolidWorks/sldworks/c_Weld_Beads.htm?id=35.0.15",
+    "sourceScope": "SOLIDWORKS 2026 official help; lightweight graphical weld-bead feature, not newly created solid geometry.",
+    "modelTree": {
+      "name": "Weld bead",
+      "nameJa": "溶接ビード",
+      "objectType": "weld-bead"
+    },
+    "reviewNote": "既存geometric-tolerance/surface-textureは別種の注記。本操作は接合位置と溶接仕様をモデルに持つ。"
+  },
+  {
+    "id": "cad-mold-parting-line",
+    "domain": "CAD",
+    "name": "Mold parting line",
+    "nameJa": "金型パーティングライン",
+    "description": "Define the boundary between the core and cavity sides of a molded part.",
+    "descriptionJa": "成形品のコア側とキャビティ側を分ける境界を定義します。",
+    "family": "mold-design",
+    "tags": [
+      "mold parting line",
+      "金型パーティングライン",
+      "mold-design",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-parting-line",
+    "sourceTitle": "SOLIDWORKS Parting Lines",
+    "sourceUrl": "https://help.solidworks.com/2026/english/SolidWorks/sldworks/c_parting_lines.htm?id=d1404aa33b544f98b65f89fcd8c80846",
+    "sourceScope": "SOLIDWORKS 2026 official help; core/cavity boundary and surface classification.",
+    "modelTree": {
+      "name": "Mold parting line",
+      "nameJa": "金型パーティングライン",
+      "objectType": "feature"
+    },
+    "reviewNote": "既存split-bodyは単なる物体分割。本操作は抜き方向とコア/キャビティの分類境界を作る。"
+  },
+  {
+    "id": "cad-mold-tooling-split",
+    "domain": "CAD",
+    "name": "Tooling split",
+    "nameJa": "金型分割",
+    "description": "Create core and cavity tooling blocks from prepared mold surfaces.",
+    "descriptionJa": "準備した金型サーフェスを使ってコアとキャビティの型ブロックを作成します。",
+    "family": "mold-design",
+    "tags": [
+      "tooling split",
+      "金型分割",
+      "mold-design",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-tooling-split",
+    "sourceTitle": "SOLIDWORKS Tooling Split PropertyManager",
+    "sourceUrl": "https://help.solidworks.com/2025/english/SolidWorks/sldworks/HIDD_MOLD_CAVITY_CORE_SOLIDS.htm",
+    "sourceScope": "SOLIDWORKS 2025 official help; creation of core/cavity blocks from three surface-body roles.",
+    "modelTree": {
+      "name": "Tooling split",
+      "nameJa": "金型分割",
+      "objectType": "feature"
+    },
+    "reviewNote": "既存split-bodyは既存ボディを分ける。本操作は成形品を包む上下の型ブロックを生成する。"
+  },
+  {
+    "id": "cad-auto-route",
+    "domain": "CAD",
+    "name": "Auto route",
+    "nameJa": "自動配線ルート",
+    "description": "Generate a routed connection between connectors and optional guide hardware.",
+    "descriptionJa": "コネクタと必要なガイド部品を結ぶ配線ルートを生成します。",
+    "family": "routing",
+    "tags": [
+      "auto route",
+      "自動配線ルート",
+      "routing",
+      "SOLIDWORKS"
+    ],
+    "sourceId": "solidworks-auto-route",
+    "sourceTitle": "SOLIDWORKS Creating Flexible Ribbon Cable Routes",
+    "sourceUrl": "https://help.solidworks.com/2026/english/SolidWorks/sldpiping/t_creating_flexible_ribbon_cable_routes.htm",
+    "sourceScope": "SOLIDWORKS 2026 official help; connector-to-connector Auto Route example for flexible ribbon cable.",
+    "modelTree": {
+      "name": "Routed connection",
+      "nameJa": "配線ルート",
+      "objectType": "route"
+    },
+    "reviewNote": "既存sweepは断面・経路から形状生成。本操作は接続先とガイド部品の関係を持つ配線アセンブリ。"
+  },
+  {
+    "id": "cad-edit-path-nodes",
+    "domain": "CAD",
+    "name": "Edit path nodes",
+    "nameJa": "パスノード編集",
+    "description": "Edit a vector path by moving its nodes, handles and segments.",
+    "descriptionJa": "ノード・ハンドル・セグメントを動かしてベクターパスを編集します。",
+    "family": "vector-editing",
+    "tags": [
+      "edit path nodes",
+      "パスノード編集",
+      "vector-editing"
+    ],
+    "sourceId": "inkscape-node-editing",
+    "sourceTitle": "Inkscape Advanced tutorial: editing paths",
+    "sourceUrl": "https://inkscape.org/es/doc/tutorials/advanced/tutorial-advanced.html?switchlang=es",
+    "sourceScope": "Official localized Inkscape tutorial with path-editing description; function reference, no current-version assertion.",
+    "reviewNote": "cad-sketch-splineは曲線の作成。本操作は既存パスの節点と接線ハンドルを直接編集する。"
+  },
+  {
+    "id": "cad-stroke-to-path",
+    "domain": "CAD",
+    "name": "Stroke to path",
+    "nameJa": "ストロークをパスへ変換",
+    "description": "Convert a vector stroke's visible outline into editable path geometry.",
+    "descriptionJa": "ベクターストロークの見た目の輪郭を編集可能なパス形状へ変換します。",
+    "family": "vector-conversion",
+    "tags": [
+      "stroke to path",
+      "ストロークをパスへ変換",
+      "vector-conversion"
+    ],
+    "sourceId": "inkscape-stroke-to-path",
+    "sourceTitle": "Inkscape 1.0 release notes: Stroke to Path",
+    "sourceUrl": "https://wiki.inkscape.org/wiki/Release_notes/1.0",
+    "sourceScope": "Official Inkscape 1.0 release notes; historical reference for stroke-outline conversion.",
+    "reviewNote": "cad-sketch-offsetは片側の平行線。本操作は線幅・端部を含むストロークの外形を閉じたパスに変換。"
+  },
+  {
+    "id": "cad-trace-bitmap",
+    "domain": "CAD",
+    "name": "Trace bitmap",
+    "nameJa": "ビットマップをトレース",
+    "description": "Convert a raster image into editable vector paths.",
+    "descriptionJa": "ラスター画像を編集可能なベクターパスへ変換します。",
+    "family": "vector-conversion",
+    "tags": [
+      "trace bitmap",
+      "ビットマップをトレース",
+      "vector-conversion"
+    ],
+    "sourceId": "inkscape-trace-bitmap",
+    "sourceTitle": "Inkscape Tracing bitmaps tutorial",
+    "sourceUrl": "https://inkscape.org/en/doc/tutorials/tracing/tutorial-tracing.ru.html/",
+    "sourceScope": "Official Inkscape localized tutorial; bitmap-to-vector tracing command, not claims about fidelity.",
+    "reviewNote": "common-importはデータ読込。本操作は画素からベクター輪郭を推定する。"
+  },
+  {
+    "id": "cad-drawing-hatch",
+    "domain": "CAD",
+    "name": "Hatch closed area",
+    "nameJa": "閉領域ハッチング",
+    "description": "Fill a closed drawing boundary with a hatch pattern or solid fill.",
+    "descriptionJa": "閉じた図面境界の内側をハッチパターンまたは塗りで満たします。",
+    "family": "drawing-annotation",
+    "tags": [
+      "hatch closed area",
+      "閉領域ハッチング",
+      "drawing-annotation"
+    ],
+    "sourceId": "qcad-hatch",
+    "sourceTitle": "QCAD Hatch from Selection",
+    "sourceUrl": "https://qcad.org/doc/qcad/latest/reference/en/scripts/Draw/Hatch/HatchFromSelection/doc/HatchFromSelection_en.html",
+    "sourceScope": "Official QCAD user reference; hatch creation from closed boundaries.",
+    "modelTree": {
+      "name": "Hatch",
+      "nameJa": "ハッチ",
+      "objectType": "drawing-hatch"
+    },
+    "reviewNote": "cad-drawing-section-viewは断面図生成。本操作は任意の閉じた2D領域へハッチを作成する。"
+  },
+  {
+    "id": "cad-create-block",
+    "domain": "CAD",
+    "name": "Create drawing block",
+    "nameJa": "図面ブロック作成",
+    "description": "Create a named reusable drawing block from selected entities and a reference point.",
+    "descriptionJa": "選択した図形と基準点から名前付きの再利用可能な図面ブロックを作成します。",
+    "family": "drawing-blocks",
+    "tags": [
+      "create drawing block",
+      "図面ブロック作成",
+      "drawing-blocks"
+    ],
+    "sourceId": "qcad-create-block",
+    "sourceTitle": "QCAD Create Block from Selection",
+    "sourceUrl": "https://qcad.org/en/manual/scripts/block/createblock/doc/createblock/",
+    "sourceScope": "Official QCAD user manual; block definitions and reusable references.",
+    "modelTree": {
+      "name": "Block definition",
+      "nameJa": "ブロック定義",
+      "objectType": "drawing-block"
+    },
+    "reviewNote": "common-groupは選択のまとめ。本操作は1つの定義から複数参照を挿入できる再利用単位を作成する。"
+  },
+  {
+    "id": "cad-explode-entities",
+    "domain": "CAD",
+    "name": "Explode drawing entities",
+    "nameJa": "図面要素を分解",
+    "description": "Convert compound drawing entities into their basic editable components.",
+    "descriptionJa": "複合的な図面要素を基本的な編集可能要素へ分解します。",
+    "family": "drawing-blocks",
+    "tags": [
+      "explode drawing entities",
+      "図面要素を分解",
+      "drawing-blocks"
+    ],
+    "sourceId": "qcad-explode",
+    "sourceTitle": "QCAD Explode",
+    "sourceUrl": "https://www.qcad.org/doc/qcad/latest/reference/en/scripts/Modify/Explode/doc/Explode_en.html",
+    "sourceScope": "Official QCAD user reference; block references and compound drawing entities.",
+    "reviewNote": "common-ungroupはグループ解除。cad-assembly-explodeは表示上の部品移動。本操作は複合図形を線・円弧等へ実際に変換する。"
+  },
+  {
+    "id": "common-align-objects",
+    "domain": "Common",
+    "name": "Align objects",
+    "nameJa": "オブジェクト整列",
+    "description": "Align selected objects to a common positional reference.",
+    "descriptionJa": "選択したオブジェクトを共通の位置基準に揃えます。",
+    "family": "object-arrangement",
+    "tags": [
+      "align objects",
+      "オブジェクト整列",
+      "object-arrangement"
+    ],
+    "sourceId": "inkscape-actions",
+    "sourceTitle": "Inkscape action reference",
+    "sourceUrl": "https://wiki.inkscape.org/wiki/Action",
+    "sourceScope": "Official action table explicitly covering Inkscape 1.2; align and distribute command semantics.",
+    "sharedCategories": [
+      "CAD"
+    ],
+    "reviewNote": "cad-move-bodyは自由移動。本操作は複数物体へ同じ位置条件を適用する。"
+  },
+  {
+    "id": "common-distribute-objects",
+    "domain": "Common",
+    "name": "Distribute objects",
+    "nameJa": "オブジェクト等間隔配置",
+    "description": "Distribute selected objects with uniform spacing along a chosen direction.",
+    "descriptionJa": "選択したオブジェクトを指定方向へ等間隔に配置します。",
+    "family": "object-arrangement",
+    "tags": [
+      "distribute objects",
+      "オブジェクト等間隔配置",
+      "object-arrangement"
+    ],
+    "sourceId": "inkscape-actions",
+    "sourceTitle": "Inkscape action reference",
+    "sourceUrl": "https://wiki.inkscape.org/wiki/Action",
+    "sourceScope": "Official action table explicitly covering Inkscape 1.2; align and distribute command semantics.",
+    "sharedCategories": [
+      "CAD"
+    ],
+    "reviewNote": "cad-linear-patternは複製の生成。本操作は既存の異なる複数物体の間隔を揃える。"
+  },
+  {
+    "id": "cam-wire-edm",
+    "domain": "CAM",
+    "name": "Wire EDM",
+    "nameJa": "ワイヤ放電加工",
+    "description": "Create a wire electrical-discharge machining toolpath.",
+    "descriptionJa": "導電性材料をワイヤ放電で切断する工具軌跡を作成します。",
+    "tags": [
+      "wire",
+      "edm",
+      "cut",
+      "ワイヤ",
+      "放電",
+      "切断"
+    ],
+    "sourceId": "mastercam-wire",
+    "sourceTitle": "Mastercam Wire",
+    "sourceUrl": "https://www.mastercam.com/solutions/products/wire/",
+    "sourceScope": "Wire EDM toolpath programming",
+    "family": "machining-edm",
+    "reviewNote": "輪郭フライスとは除去原理と工具構造が異なる。"
+  },
+  {
+    "id": "cam-cutter-compensation",
+    "domain": "CAM",
+    "name": "Cutter radius compensation",
+    "nameJa": "工具径補正",
+    "description": "Configure the offset between a programmed contour and the actual cutter radius.",
+    "descriptionJa": "指令輪郭と実際の工具半径との差を補正する設定を行います。",
+    "tags": [
+      "cutter",
+      "radius",
+      "compensation",
+      "工具径",
+      "補正",
+      "摩耗"
+    ],
+    "sourceId": "linuxcnc-tool-compensation",
+    "sourceTitle": "LinuxCNC Tool Compensation",
+    "sourceUrl": "https://linuxcnc.org/docs/html/gcode/tool-compensation.html",
+    "sourceScope": "Tool radius compensation and tool-length touch-off",
+    "family": "machining-control",
+    "reviewNote": "進入退出設定や工具ライブラリではない径差補正。"
+  },
+  {
+    "id": "cam-tool-touch-off",
+    "domain": "CAM",
+    "name": "Tool touch-off",
+    "nameJa": "工具タッチオフ",
+    "description": "Set a tool-length offset by touching a known reference.",
+    "descriptionJa": "既知の基準に工具を接触させて工具長オフセットを設定します。",
+    "tags": [
+      "tool",
+      "touch off",
+      "offset",
+      "工具長",
+      "タッチオフ",
+      "測定"
+    ],
+    "sourceId": "linuxcnc-tool-compensation",
+    "sourceTitle": "LinuxCNC Tool Compensation",
+    "sourceUrl": "https://linuxcnc.org/docs/html/gcode/tool-compensation.html",
+    "sourceScope": "Tool radius compensation and tool-length touch-off",
+    "family": "machining-control",
+    "reviewNote": "工具定義/工具交換ではなく実機基準からのオフセット設定。"
+  },
+  {
+    "id": "cam-stock-model",
+    "domain": "CAM",
+    "name": "Update in-process stock",
+    "nameJa": "加工途中素材更新",
+    "description": "Calculate the remaining stock after selected machining operations.",
+    "descriptionJa": "選択した加工工程による除去後の素材形状を計算します。",
+    "tags": [
+      "stock",
+      "in process",
+      "remaining",
+      "素材",
+      "中間素材",
+      "残材"
+    ],
+    "sourceId": "powermill-stock-model",
+    "sourceTitle": "PowerMill stock model",
+    "sourceUrl": "https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/How-to-create-a-stock-model-in-PowerMILL.html",
+    "sourceScope": "Update in-process material using machining operations",
+    "family": "machining-stock",
+    "reviewNote": "初期素材設定でも残材を切るoperationでもなく中間素材計算。"
+  },
+  {
+    "id": "cam-recognize-holes",
+    "domain": "CAM",
+    "name": "Recognize machining holes",
+    "nameJa": "加工穴自動認識",
+    "description": "Identify hole features and derive hole-machining operations.",
+    "descriptionJa": "モデルの穴形状を認識して穴加工工程を導き出します。",
+    "tags": [
+      "hole",
+      "recognition",
+      "automation",
+      "穴群",
+      "認識",
+      "工程"
+    ],
+    "sourceId": "solidcam-hole-recognition",
+    "sourceTitle": "SolidCAM automatic feature recognition",
+    "sourceUrl": "https://solidcam.com/de/cam-loesungen/automatische-feature-erkennung/",
+    "sourceScope": "Recognize holes and derive machining operations",
+    "family": "machining-automation",
+    "reviewNote": "穴あけoperationの作成とは別にCAD穴情報を自動抽出する。"
+  },
+  {
+    "id": "cam-groove-turning",
+    "domain": "CAM",
+    "name": "Groove turning",
+    "nameJa": "旋削溝入れ",
+    "description": "Create a lathe operation that cuts a groove into a turned part.",
+    "descriptionJa": "旋削部品に溝を加工する旋盤工程を作成します。",
+    "tags": [
+      "lathe",
+      "groove",
+      "turning",
+      "旋盤",
+      "溝入れ"
+    ],
+    "sourceId": "mastercam-lathe",
+    "sourceTitle": "Mastercam Lathe",
+    "sourceUrl": "https://www.mastercam.com/solutions/products/lathe-programming-software/",
+    "sourceScope": "Grooving and single-point thread turning",
+    "family": "machining-turning",
+    "reviewNote": "突切りは分離、こちらは部品に溝形状を残す加工。"
+  },
+  {
+    "id": "cam-thread-turning",
+    "domain": "CAM",
+    "name": "Thread turning",
+    "nameJa": "旋削ねじ切り",
+    "description": "Create a synchronized single-point threading operation on a lathe.",
+    "descriptionJa": "旋盤の回転と送りを同期させるバイトねじ切り工程を作成します。",
+    "tags": [
+      "lathe",
+      "thread",
+      "synchronized",
+      "旋盤",
+      "ねじ切り"
+    ],
+    "sourceId": "mastercam-lathe",
+    "sourceTitle": "Mastercam Lathe",
+    "sourceUrl": "https://www.mastercam.com/solutions/products/lathe-programming-software/",
+    "sourceScope": "Grooving and single-point thread turning",
+    "family": "machining-turning",
+    "reviewNote": "既存ねじ切りフライス/タップとは単刃旋削である点が異なる。"
+  },
+  {
+    "id": "cam-constant-z-finishing",
+    "domain": "CAM",
+    "name": "Constant-Z finishing",
+    "nameJa": "等高線仕上げ",
+    "description": "Generate finishing passes at successive constant heights.",
+    "descriptionJa": "一定の高さごとに連続する等高線仕上げ軌跡を生成します。",
+    "tags": [
+      "constant z",
+      "waterline",
+      "finishing",
+      "等高線",
+      "仕上げ"
+    ],
+    "sourceId": "powermill-finishing",
+    "sourceTitle": "PowerMill finishing strategies",
+    "sourceUrl": "https://help.autodesk.com/cloudhelp/2022/ENU/PWRM-ReferenceHelp/files/GUID-B5C85060-9C1C-4EAE-960F-41F89B1E7C1D.htm",
+    "sourceScope": "Constant-Z and corner-pencil finishing",
+    "family": "machining-finishing",
+    "reviewNote": "平行仕上げとは走査方向と軌跡生成原理が異なる。"
+  },
+  {
+    "id": "cam-pencil-finishing",
+    "domain": "CAM",
+    "name": "Pencil finishing",
+    "nameJa": "ペンシル仕上げ",
+    "description": "Trace a finishing path along internal surface junctions.",
+    "descriptionJa": "サーフェスの内側交線に沿う仕上げ軌跡を作成します。",
+    "tags": [
+      "pencil",
+      "corner",
+      "finishing",
+      "隅部",
+      "ペンシル"
+    ],
+    "sourceId": "powermill-finishing",
+    "sourceTitle": "PowerMill finishing strategies",
+    "sourceUrl": "https://help.autodesk.com/cloudhelp/2022/ENU/PWRM-ReferenceHelp/files/GUID-B5C85060-9C1C-4EAE-960F-41F89B1E7C1D.htm",
+    "sourceScope": "Constant-Z and corner-pencil finishing",
+    "family": "machining-finishing",
+    "reviewNote": "残材量から領域を選ぶrest-machiningではなく交線追従のstrategy。"
+  },
+  {
+    "id": "cam-nesting",
+    "domain": "CAM",
+    "name": "Nest parts on stock",
+    "nameJa": "素材へのネスティング",
+    "description": "Arrange part outlines or toolpaths to use sheet stock efficiently.",
+    "descriptionJa": "板材を効率よく使えるよう部品輪郭や工具軌跡を配置します。",
+    "tags": [
+      "nesting",
+      "sheet",
+      "layout",
+      "ネスティング",
+      "板取り"
+    ],
+    "sourceId": "mastercam-nesting",
+    "sourceTitle": "Mastercam CNC Router nesting",
+    "sourceUrl": "https://www.mastercam.com/solutions/products/cnc-router-software/",
+    "sourceScope": "Geometry and toolpath nesting on sheet stock",
+    "family": "machining-automation",
+    "reviewNote": "単純パターン配置とは異なり形状と板材利用率を考慮する。"
+  },
+  {
+    "id": "cam-port-machining",
+    "domain": "CAM",
+    "name": "Multiaxis port machining",
+    "nameJa": "多軸ポート加工",
+    "description": "Generate multiaxis toolpaths for the inside of curved ports.",
+    "descriptionJa": "曲がったポートの内部を加工する多軸工具軌跡を生成します。",
+    "tags": [
+      "port",
+      "multiaxis",
+      "internal",
+      "ポート",
+      "多軸",
+      "内部"
+    ],
+    "sourceId": "mastercam-port",
+    "sourceTitle": "Mastercam Port Expert",
+    "sourceUrl": "https://www.mastercam.com/solutions/add-ons/port-export/",
+    "sourceScope": "Multiaxis internal port machining",
+    "family": "machining-multiaxis",
+    "reviewNote": "既存swarfは工具側面、こちらは内部曲面へ姿勢を変えて追従。"
+  },
+  {
+    "id": "cam-trim-toolpath",
+    "domain": "CAM",
+    "name": "Trim toolpath",
+    "nameJa": "工具軌跡トリム",
+    "description": "Keep selected portions of a toolpath using a boundary or plane.",
+    "descriptionJa": "境界や平面を使って既存の工具軌跡の必要な部分だけを残します。",
+    "tags": [
+      "toolpath",
+      "trim",
+      "boundary",
+      "軌跡",
+      "トリム",
+      "領域"
+    ],
+    "sourceId": "fusion-trim-toolpath",
+    "sourceTitle": "Fusion trim a toolpath",
+    "sourceUrl": "https://help.autodesk.com/view/fusion360/ENU/?contextId=MFG-TRIM-TOOLPATH",
+    "sourceScope": "Limit an existing toolpath by polygon, plane or boundary",
+    "family": "toolpath-edit",
+    "reviewNote": "CADの輪郭トリムと違い加工軌跡を後編集する。"
+  },
+  {
+    "id": "cam-reorder-toolpath",
+    "domain": "CAM",
+    "name": "Reorder toolpath segments",
+    "nameJa": "工具軌跡順序変更",
+    "description": "Change the sequence or direction of cutting segments and their links.",
+    "descriptionJa": "切削区間の加工順序や方向を変更し接続移動を調整します。",
+    "tags": [
+      "toolpath",
+      "reorder",
+      "sequence",
+      "加工順",
+      "区間",
+      "接続"
+    ],
+    "sourceId": "powermill-reorder",
+    "sourceTitle": "PowerMill reorder toolpath segments",
+    "sourceUrl": "https://help.autodesk.com/cloudhelp/2022/ENU/PWRM-ReferenceHelp/files/GUID-12327ECE-5C71-4175-B13C-F4E46261C4CB.htm",
+    "sourceScope": "Change segment sequence and directions with rebuilt links",
+    "family": "toolpath-edit",
+    "reviewNote": "Common sortは一覧の並べ替え。これは切削シーケンスとリンク変更。"
+  },
+  {
+    "id": "cae-sew-mesh",
+    "domain": "CAE",
+    "name": "Sew mesh borders",
+    "nameJa": "メッシュ境界縫合",
+    "description": "Connect mesh borders by matching their nodes and inserting nodes where required for compatible topology.",
+    "descriptionJa": "メッシュ境界の節点対応を合わせ、必要な節点挿入を行って接続します。",
+    "tags": [
+      "mesh",
+      "sew",
+      "connectivity",
+      "メッシュ",
+      "縫合",
+      "接続"
+    ],
+    "sourceId": "salome-sew",
+    "sourceTitle": "SALOME sewing meshes",
+    "sourceUrl": "https://docs.salome-platform.org/latest/gui/SMESH/sewing_meshes.html",
+    "sourceScope": "Connect mesh borders or mesh sides",
+    "family": "mesh-edit",
+    "reviewNote": "CAD面縫合ではなく要素と節点の接続を変更。"
+  },
+  {
+    "id": "cae-orient-faces",
+    "domain": "CAE",
+    "name": "Orient mesh faces",
+    "nameJa": "メッシュ面方向統一",
+    "description": "Make selected mesh-face orientations consistent.",
+    "descriptionJa": "選択したメッシュ面の向きを一貫した方向にそろえます。",
+    "tags": [
+      "mesh",
+      "normal",
+      "orientation",
+      "法線",
+      "要素方向",
+      "反転"
+    ],
+    "sourceId": "salome-orient-faces",
+    "sourceTitle": "SALOME orient faces",
+    "sourceUrl": "https://docs.salome-platform.org/latest/gui/SMESH/reorient_faces.html",
+    "sourceScope": "Make mesh face orientations consistent",
+    "family": "mesh-edit",
+    "sharedCategories": [
+      "CAD"
+    ],
+    "reviewNote": "材料異方性方向設定とは異なりメッシュ面の接続順/法線を変更。"
+  },
+  {
+    "id": "cae-element-order",
+    "domain": "CAE",
+    "name": "Convert element order",
+    "nameJa": "要素次数変換",
+    "description": "Convert between linear and quadratic mesh elements.",
+    "descriptionJa": "一次要素と二次要素の間でメッシュを変換します。",
+    "tags": [
+      "element",
+      "order",
+      "quadratic",
+      "次数",
+      "一次要素",
+      "二次要素"
+    ],
+    "sourceId": "salome-quadratic",
+    "sourceTitle": "SALOME convert to/from quadratic mesh",
+    "sourceUrl": "https://docs.salome-platform.org/latest/gui/SMESH/convert_to_from_quadratic_mesh.html",
+    "sourceScope": "Convert finite-element interpolation order",
+    "family": "mesh-edit",
+    "reviewNote": "refinementと異なり要素分割数ではなく補間次数を変える。"
+  },
+  {
+    "id": "cae-boundary-elements",
+    "domain": "CAE",
+    "name": "Generate boundary elements",
+    "nameJa": "メッシュ境界要素生成",
+    "description": "Create surface or edge elements on exposed mesh boundaries.",
+    "descriptionJa": "メッシュの露出境界に面要素や辺要素を生成します。",
+    "tags": [
+      "boundary",
+      "surface",
+      "mesh",
+      "境界",
+      "面要素",
+      "抽出",
+      "メッシュ境界"
+    ],
+    "sourceId": "salome-boundary-elements",
+    "sourceTitle": "SALOME generate boundary elements",
+    "sourceUrl": "https://docs.salome-platform.org/latest/gui/SMESH/make_2dmesh_from_3d.html",
+    "sourceScope": "Create lower-dimensional boundary elements from higher-dimensional mesh",
+    "family": "mesh-generation",
+    "reviewNote": "shell-elementの一般作成とは異なり既存高次元メッシュから生成。"
+  },
+  {
+    "id": "cae-material-orientation",
+    "domain": "CAE",
+    "name": "Assign material orientation",
+    "nameJa": "材料方向割当",
+    "description": "Assign local material directions to anisotropic elements.",
+    "descriptionJa": "異方性材料の要素に局所的な材料方向を割り当てます。",
+    "tags": [
+      "material",
+      "orientation",
+      "anisotropic",
+      "材料方向",
+      "異方性"
+    ],
+    "sourceId": "altair-material-orientation",
+    "sourceTitle": "HyperMesh Material Orientation",
+    "sourceUrl": "https://help.altair.com/2024/hwdesktop/hwx/topics/pre_processing/aerospace/model_orientation_r.htm",
+    "sourceScope": "Assign anisotropic material directions",
+    "family": "analysis-material",
+    "reviewNote": "材料そのものの割当とは別の方向情報。"
+  },
+  {
+    "id": "cae-composite-layup",
+    "domain": "CAE",
+    "name": "Define composite layup",
+    "nameJa": "複合材積層定義",
+    "description": "Define laminate plies, their order and their properties.",
+    "descriptionJa": "積層材の層構成、積層順序、各層の属性を定義します。",
+    "tags": [
+      "composite",
+      "laminate",
+      "ply",
+      "複合材",
+      "積層",
+      "繊維"
+    ],
+    "sourceId": "altair-composite-model",
+    "sourceTitle": "HyperMesh Composite Analysis",
+    "sourceUrl": "https://help.altair.com/hwdesktop/hwx/topics/tutorials/hwx/composite_analysis_t.htm",
+    "sourceScope": "Define laminate plies, stacking and composite properties",
+    "family": "analysis-material",
+    "modelTree": {
+      "name": "Composite layup",
+      "nameJa": "複合材積層",
+      "objectType": "composite-layup"
+    },
+    "reviewNote": "単一材料割当や単一shellの属性とは異なる層別構成。"
+  },
+  {
+    "id": "cae-rigid-connection",
+    "domain": "CAE",
+    "name": "Create rigid connection",
+    "nameJa": "剛体結合作成",
+    "description": "Couple multiple mesh nodes to a reference node through a rigid connection.",
+    "descriptionJa": "複数の節点を参照節点に剛体結合で拘束します。",
+    "tags": [
+      "rigid",
+      "coupling",
+      "spider",
+      "剛体",
+      "結合",
+      "参照節点"
+    ],
+    "sourceId": "altair-rigid-link",
+    "sourceTitle": "HyperMesh bracket and cradle preprocessing",
+    "sourceUrl": "https://2022.help.altair.com/2022/hwdesktop/hm/topics/tutorials/hm/hm_4340_pre_processing_for_bracket_and_cradle_analysis_c.htm",
+    "sourceScope": "Create rigid spider links and kinematic couplings",
+    "family": "analysis-connection",
+    "modelTree": {
+      "name": "Rigid connection",
+      "nameJa": "剛体結合",
+      "objectType": "analysis-connection"
+    },
+    "reviewNote": "固定支持は地面に固定。こちらは節点間の相対運動を拘束。"
+  },
+  {
+    "id": "cae-spring-connection",
+    "domain": "CAE",
+    "name": "Create spring connection",
+    "nameJa": "ばね結合作成",
+    "description": "Connect model nodes using a spring element and its stiffness properties.",
+    "descriptionJa": "ばね要素と剛性属性を用いてモデルの節点間を結合します。",
+    "tags": [
+      "spring",
+      "stiffness",
+      "connector",
+      "ばね",
+      "剛性",
+      "結合"
+    ],
+    "sourceId": "altair-spring-element",
+    "sourceTitle": "HyperMesh Springs Panel",
+    "sourceUrl": "https://2022.help.altair.com/2022/hwdesktop/hm/topics/panels/help057.htm",
+    "sourceScope": "Create spring elements between nodes",
+    "family": "analysis-connection",
+    "modelTree": {
+      "name": "Spring connection",
+      "nameJa": "ばね結合",
+      "objectType": "analysis-connection"
+    },
+    "reviewNote": "beamと異なる集中ばね剛性で結合する要素。"
+  },
+  {
+    "id": "cae-bolt-pretension",
+    "domain": "CAE",
+    "name": "Apply bolt pretension",
+    "nameJa": "ボルト初期軸力設定",
+    "description": "Apply a preload or length adjustment to a modeled bolt.",
+    "descriptionJa": "モデル化したボルトに初期軸力または締付け調整量を設定します。",
+    "tags": [
+      "bolt",
+      "pretension",
+      "preload",
+      "ボルト",
+      "初期軸力",
+      "締付け"
+    ],
+    "sourceId": "ansys-bolt-pretension",
+    "sourceTitle": "Ansys Mechanical Bolt Pretension",
+    "sourceUrl": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/wb_sim/ds_Pretension.html",
+    "sourceScope": "Define bolt preload boundary conditions",
+    "family": "analysis-load",
+    "reviewNote": "集中荷重と異なり締結部の予荷重状態を定義。"
+  },
+  {
+    "id": "cae-map-loads",
+    "domain": "CAE",
+    "name": "Map imported loads",
+    "nameJa": "外部荷重マッピング",
+    "description": "Map externally defined load fields onto the target analysis mesh.",
+    "descriptionJa": "外部で定義された荷重場を対象の解析メッシュへ対応付けます。",
+    "tags": [
+      "mapping",
+      "loads",
+      "transfer",
+      "荷重",
+      "マッピング",
+      "外部データ"
+    ],
+    "sourceId": "ansys-load-mapping",
+    "sourceTitle": "Ansys Mechanical Importing Loads",
+    "sourceUrl": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/wb_sim/ds_ext_file_import_loads.html",
+    "sourceScope": "Map external load fields onto the analysis model",
+    "family": "analysis-load",
+    "reviewNote": "material assignmentでも通常importでもなく空間分布の補間転送。"
+  },
+  {
+    "id": "cae-harmonic-response",
+    "domain": "CAE",
+    "name": "Create harmonic-response study",
+    "nameJa": "周波数応答解析作成",
+    "description": "Set up a steady-state structural response study for sinusoidal excitation.",
+    "descriptionJa": "正弦波励振に対する構造の定常周波数応答解析を設定します。",
+    "tags": [
+      "harmonic",
+      "frequency",
+      "response",
+      "周波数応答",
+      "定常振動"
+    ],
+    "sourceId": "ansys-harmonic-response",
+    "sourceTitle": "Ansys Harmonic Response",
+    "sourceUrl": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/wb2_help/wb2h_harmrespAN.html",
+    "sourceScope": "Create steady-state frequency-response analysis",
+    "family": "analysis-study",
+    "modelTree": {
+      "name": "Harmonic-response study",
+      "nameJa": "周波数応答スタディ",
+      "objectType": "analysis-study"
+    },
+    "reviewNote": "modalは固有値/自由振動。こちらは外力に対する強制振動応答。"
+  },
+  {
+    "id": "cae-coupling-interface",
+    "domain": "CAE",
+    "name": "Define coupling interface",
+    "nameJa": "連成インターフェース定義",
+    "description": "Define a region that exchanges data between coupled physics solvers.",
+    "descriptionJa": "連成する物理ソルバー間でデータを受け渡す領域を定義します。",
+    "tags": [
+      "multiphysics",
+      "coupling",
+      "interface",
+      "連成",
+      "流体構造",
+      "界面"
+    ],
+    "sourceId": "ansys-system-coupling",
+    "sourceTitle": "Ansys System Coupling Region",
+    "sourceUrl": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/wb_sim/ds_system_coupling_region.html",
+    "sourceScope": "Define the interface used to exchange multiphysics data",
+    "family": "analysis-coupling",
+    "modelTree": {
+      "name": "Coupling interface",
+      "nameJa": "連成インターフェース",
+      "objectType": "analysis-coupling"
+    },
+    "reviewNote": "contact-pairは接触力学。こちらは異なる解析場間の連成境界。"
+  },
+  {
+    "id": "cae-isosurface",
+    "domain": "CAE",
+    "name": "Extract isosurface",
+    "nameJa": "等値面抽出",
+    "description": "Extract surfaces where a scalar result equals a specified value.",
+    "descriptionJa": "スカラー解析結果が指定値となる等値面を抽出します。",
+    "tags": [
+      "isosurface",
+      "contour",
+      "scalar",
+      "等値面",
+      "抽出"
+    ],
+    "sourceId": "paraview-data-filters",
+    "sourceTitle": "ParaView Filtering Data",
+    "sourceUrl": "https://docs.paraview.org/en/latest/UsersGuide/filteringData.html",
+    "sourceScope": "Extract isosurfaces, generate vector glyphs and compute derived data",
+    "family": "analysis-result",
+    "reviewNote": "既存stress-contourは表面色分布、こちらは値から新たな幾何面を抽出。"
+  },
+  {
+    "id": "cae-vector-glyphs",
+    "domain": "CAE",
+    "name": "Show vector glyphs",
+    "nameJa": "ベクトル矢印表示",
+    "description": "Display result-vector direction and magnitude as oriented glyphs.",
+    "descriptionJa": "結果ベクトルの向きと大きさを矢印状グリフで表示します。",
+    "tags": [
+      "vector",
+      "glyph",
+      "direction",
+      "ベクトル",
+      "矢印",
+      "結果"
+    ],
+    "sourceId": "paraview-data-filters",
+    "sourceTitle": "ParaView Filtering Data",
+    "sourceUrl": "https://docs.paraview.org/en/latest/UsersGuide/filteringData.html",
+    "sourceScope": "Extract isosurfaces, generate vector glyphs and compute derived data",
+    "family": "analysis-result",
+    "reviewNote": "流線は積分した曲線、こちらは位置ごとのベクトル表示。"
+  },
+  {
+    "id": "cae-integrate-results",
+    "domain": "CAE",
+    "name": "Integrate result field",
+    "nameJa": "結果場の空間積分",
+    "description": "Integrate result values over a line, surface or volume.",
+    "descriptionJa": "線、面、体積にわたって解析結果の値を空間積分します。",
+    "tags": [
+      "integrate",
+      "field",
+      "total",
+      "積分",
+      "合計",
+      "面積分"
+    ],
+    "sourceId": "paraview-integrate",
+    "sourceTitle": "ParaView IntegrateVariables",
+    "sourceUrl": "https://www.paraview.org/paraview-docs/v5.13.2/python/paraview.simple.IntegrateVariables.html",
+    "sourceScope": "Spatial integration of point and cell fields",
+    "family": "analysis-result",
+    "reviewNote": "probeは局所値、XY plotは表示。こちらは領域全体の数値集計。"
+  },
+  {
+    "id": "cae-field-calculator",
+    "domain": "CAE",
+    "name": "Calculate derived field",
+    "nameJa": "派生結果場計算",
+    "description": "Create a derived result array by evaluating expressions on existing fields.",
+    "descriptionJa": "既存の結果場に式を適用して派生結果配列を作成します。",
+    "tags": [
+      "calculator",
+      "expression",
+      "field",
+      "場演算",
+      "派生結果",
+      "式"
+    ],
+    "sourceId": "paraview-data-filters",
+    "sourceTitle": "ParaView Filtering Data",
+    "sourceUrl": "https://docs.paraview.org/en/latest/UsersGuide/filteringData.html",
+    "sourceScope": "Extract isosurfaces, generate vector glyphs and compute derived data",
+    "family": "analysis-result",
+    "reviewNote": "solver実行と異なり既存結果を後処理で演算。"
+  },
+  {
+    "id": "cae-temporal-statistics",
+    "domain": "CAE",
+    "name": "Compute temporal statistics",
+    "nameJa": "時系列統計計算",
+    "description": "Compute per-location statistics across result timesteps.",
+    "descriptionJa": "結果の各位置について時間ステップを横断した統計を計算します。",
+    "tags": [
+      "temporal",
+      "statistics",
+      "average",
+      "時系列",
+      "統計",
+      "平均"
+    ],
+    "sourceId": "paraview-temporal-statistics",
+    "sourceTitle": "ParaView TemporalStatistics",
+    "sourceUrl": "https://www.paraview.org/paraview-docs/v5.13.2/python/paraview.simple.TemporalStatistics.html",
+    "sourceScope": "Compute timestep statistics of result fields",
+    "family": "analysis-result",
+    "reviewNote": "convergence monitorとは異なり完了した時系列結果から統計量を計算。"
+  },
+  {
+    "id": "cmm-temperature-compensation",
+    "domain": "CMM",
+    "name": "Set temperature compensation",
+    "nameJa": "測定温度補正設定",
+    "description": "Configure temperature compensation for dimensional measurements.",
+    "descriptionJa": "寸法測定に適用する温度補正を設定します。",
+    "tags": [
+      "temperature",
+      "compensation",
+      "metrology",
+      "温度補正",
+      "熱膨張",
+      "計測"
+    ],
+    "sourceId": "pcdmis-temperature",
+    "sourceTitle": "PC-DMIS Temperature Compensation",
+    "sourceUrl": "https://docs.hexagonmi.com/pcdmis/2019.1/en/helpcenter/mergedProjects/core/06_pref_topics/Temperature_Compensation.htm",
+    "sourceScope": "Compensate measured part dimensions using temperature",
+    "family": "inspection-setup",
+    "reviewNote": "CAE thermal-boundaryは解析条件。こちらは計測寸法の熱膨張補正。"
+  },
+  {
+    "id": "cmm-optimize-path",
+    "domain": "CMM",
+    "name": "Optimize inspection path",
+    "nameJa": "検査経路最適化",
+    "description": "Optimize tactile measurement order and probe-tip orientations.",
+    "descriptionJa": "接触測定の順序とプローブ先端の姿勢を最適化します。",
+    "tags": [
+      "inspection",
+      "path",
+      "optimize",
+      "検査",
+      "測定順",
+      "経路最適化"
+    ],
+    "sourceId": "pcdmis-optimize-path",
+    "sourceTitle": "PC-DMIS Optimizing the Path",
+    "sourceUrl": "https://docs.hexagonmi.com/pcdmis/2019.1/en/helpcenter/mergedProjects/core/inspection_plans/Optimizing_the_Path.htm",
+    "sourceScope": "Optimize tactile inspection sequence and probe-tip angles",
+    "family": "inspection-program",
+    "reviewNote": "inspection planは工程定義、こちらは測定順と先端角度の最適化。"
+  },
+  {
+    "id": "olp-curve-follow",
+    "domain": "OLP",
+    "name": "Create curve-follow path",
+    "nameJa": "曲線追従軌道作成",
+    "description": "Generate robot targets and motions from geometric curves and normals.",
+    "descriptionJa": "幾何曲線と法線からロボットの目標姿勢と移動列を生成します。",
+    "tags": [
+      "curve",
+      "path",
+      "robot",
+      "曲線追従",
+      "軌道",
+      "自動教示"
+    ],
+    "sourceId": "robodk-curve-follow",
+    "sourceTitle": "RoboDK Curve Follow Project",
+    "sourceUrl": "https://robodk.com/doc/en/Robot-Machining-Curve-Follow-Project.html",
+    "sourceScope": "Generate robot paths from geometric curves and surface normals",
+    "family": "robot-path",
+    "reviewNote": "単一MoveL/MoveCではなく幾何形状から連続姿勢列を生成。"
+  },
+  {
+    "id": "olp-plan-collision-free",
+    "domain": "OLP",
+    "name": "Plan collision-free path",
+    "nameJa": "衝突回避軌道計画",
+    "description": "Find a robot motion path around modeled obstacles.",
+    "descriptionJa": "モデル化された障害物を回避するロボット移動経路を探索します。",
+    "tags": [
+      "planning",
+      "collision free",
+      "path",
+      "軌道計画",
+      "衝突回避"
+    ],
+    "sourceId": "robodk-collision-planner",
+    "sourceTitle": "RoboDK Collision-Free Motion Planner",
+    "sourceUrl": "https://robodk.com/doc/en/Collision-Avoidance-Collision-Free-Motion-Planner.html",
+    "sourceScope": "Generate collision-free paths through robot configuration space",
+    "family": "robot-path",
+    "reviewNote": "collision-checkは検出のみ、こちらは回避経路生成。"
+  },
+  {
+    "id": "olp-synchronize-axes",
+    "domain": "OLP",
+    "name": "Synchronize external axes",
+    "nameJa": "外部軸同期設定",
+    "description": "Combine a robot and supported external axes into coordinated motion.",
+    "descriptionJa": "ロボットと対応する外部軸を協調動作する機構として設定します。",
+    "tags": [
+      "external axes",
+      "synchronization",
+      "motion",
+      "外部軸",
+      "同期",
+      "協調"
+    ],
+    "sourceId": "robodk-synchronize-axes",
+    "sourceTitle": "RoboDK Synchronize Additional Axes",
+    "sourceUrl": "https://robodk.com/doc/en/General-Synchronize-Additional-Axes.html",
+    "sourceScope": "Synchronize external mechanisms with robot motion",
+    "family": "robot-kinematics",
+    "reviewNote": "外部直動軸/positionerの配置ではなく協調運動関係を設定。"
+  },
+  {
+    "id": "olp-robot-calibration",
+    "domain": "OLP",
+    "name": "Calibrate robot kinematics",
+    "nameJa": "ロボット機構校正",
+    "description": "Estimate robot kinematic error parameters using measured poses.",
+    "descriptionJa": "測定した姿勢からロボット機構の誤差パラメータを推定します。",
+    "tags": [
+      "calibration",
+      "kinematics",
+      "accuracy",
+      "機構校正",
+      "誤差",
+      "ロボット"
+    ],
+    "sourceId": "robodk-robot-calibration",
+    "sourceTitle": "RoboDK Robot Calibration",
+    "sourceUrl": "https://robodk.com/doc/en/Robot-Calibration-LaserTracker.html",
+    "sourceScope": "Estimate robot kinematic error parameters from measurements",
+    "family": "robot-calibration",
+    "reviewNote": "TCP校正が工具offsetを対象にするのに対し機構パラメータが対象。"
+  },
+  {
+    "id": "olp-change-configuration",
+    "domain": "OLP",
+    "name": "Change robot configuration",
+    "nameJa": "ロボット構え変更",
+    "description": "Choose a kinematic configuration that reaches the target pose.",
+    "descriptionJa": "同じ目標姿勢に到達するロボットの運動学的な構えを選びます。",
+    "tags": [
+      "configuration",
+      "inverse kinematics",
+      "elbow",
+      "構え",
+      "逆運動学",
+      "肘"
+    ],
+    "sourceId": "robodk-configurations",
+    "sourceTitle": "RoboDK Robot Configurations",
+    "sourceUrl": "https://robodk.com/doc/en/Interface-Robot-Configurations.html",
+    "sourceScope": "Choose a robot kinematic solution for a target pose",
+    "family": "robot-kinematics",
+    "reviewNote": "到達可能性検査ではなく同一目標への解枝を選択する。"
+  }
+]

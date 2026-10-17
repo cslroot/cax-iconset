@@ -124,6 +124,36 @@ class CatalogTests(unittest.TestCase):
                 self.assertNotIn(signature, seen, (item['id'], seen.get(signature)))
                 seen[signature] = item['id']
 
+    def test_reviewed_application_commands_and_alias_reuse(self):
+        import sys
+        sys.path.insert(0,str(ROOT/'src'))
+        from application import APPLICATION, GLYPHS, APPLICATION_REUSE
+        by_id={i['id']:i for i in M['icons']}
+        reviewed=json.loads((ROOT/'src/application_commands.json').read_text())
+        self.assertEqual(set(GLYPHS),{i['id'] for i in reviewed})
+        self.assertEqual(len(GLYPHS),sum(len(v) for v in APPLICATION.values()))
+        self.assertTrue(set(GLYPHS) <= set(by_id))
+        self.assertTrue(set(APPLICATION_REUSE) <= set(by_id))
+        for i in reviewed:
+            output=by_id[i['id']]
+            self.assertEqual(output['role'],'command')
+            self.assertIn(i['sourceId'],output['sources'])
+            self.assertEqual(output['body'],GLYPHS[i['id']])
+        for i in M['icons']:
+            self.assertEqual(len(i.get('aliases',[])),len(set(i.get('aliases',[]))))
+            for alias in i.get('aliases',[]):self.assertTrue(isinstance(alias,str) and alias.strip())
+        for id in ['cad-mesh-merge-vertices','cad-mesh-smooth']:
+            self.assertIn('CAE',by_id[id]['categories'])
+            self.assertTrue(by_id[id]['aliases'])
+            self.assertEqual(len(by_id[id]['sources']),2)
+        self.assertIn('CAD',by_id['cae-orient-faces']['categories'])
+        self.assertIn('ICP',by_id['cmm-best-fit-alignment']['aliases'])
+        self.assertIn('raster finishing',by_id['cam-parallel-finishing']['aliases'])
+        self.assertIn('shut-off patch',by_id['cad-surface-patch']['aliases'])
+        self.assertFalse({'cae-merge-nodes','cae-smooth-mesh','cmm-filter-outliers','cmm-subsample-cloud','cmm-reconstruct-mesh','cad-mold-shutoff'} & set(by_id))
+        for id in ['cad-sheet-metal-form-tool','cae-harmonic-response','cae-composite-layup','cae-rigid-connection']:
+            self.assertEqual(by_id[id]['usages'],['command','model-tree'])
+
     def test_bundle_and_document_links(self):
         bundle = (ROOT/'catalog.js').read_text()
         self.assertEqual(json.loads(bundle.removeprefix('window.CAX_CATALOG=').strip().removesuffix(';')), M)

@@ -4,32 +4,32 @@ Original rounded SVG symbols for everyday application commands, model-tree objec
 
 **The collection is organized by meaning, not by a target icon count.** Shape/profile/trajectory combinations have been removed from the catalog, source generator and exported SVGs. The previous collection remains recoverable in Git history.
 
-![Common application commands](qa/common.png)
+![Additional application command families](qa/application-additions.png)
 
 ## Coverage
 
 <!-- coverage:start -->
 | Primary category | Symbols |
 | --- | ---: |
-| Common | 70 |
-| CAD | 82 |
-| CAM | 31 |
-| CAE | 35 |
-| CMM | 25 |
-| OLP | 27 |
-| **Total** | **270** |
+| Common | 72 |
+| CAD | 123 |
+| CAM | 44 |
+| CAE | 52 |
+| CMM | 34 |
+| OLP | 32 |
+| **Total** | **357** |
 
-Primary roles: 254 commands, 5 selectable tools, 8 objects and 3 status symbols. Every SVG is counted once.
+Primary roles: 341 commands, 5 selectable tools, 8 objects and 3 status symbols. Every SVG is counted once.
 
-118 entries support model-tree use, including reused command/tool symbols; these are not additional SVGs.
+141 entries support model-tree use, including reused command/tool symbols; these are not additional SVGs.
 <!-- coverage:end -->
 
 - Common: new, open, recent files, close, save / save as / save all, import, export, print, undo / redo, clipboard, search / replace, filtering, selection, display, navigation and application controls
-- CAD: sketching, constraints, dimensions, solid features, assembly, sheet metal, surfaces and viewing
-- CAM: setup, tooling, machining operations, toolpath calculation, verification and NC output
-- CAE: studies, material, mesh, boundaries, loads, contact, solver and results
-- CMM: probes, calibration, alignment, measured/constructed features, tolerances and reporting
-- OLP: cell setup, targets, motion, IO, simulation, verification and robot programs
+- CAD: sketching, constraints, dimensions, solid features, assembly, sheet metal, weldments, mold tooling, free-form surfaces, mesh editing, vector paths and drawing blocks
+- CAM: setup, tooling, milling/turning/EDM operations, stock models, compensation, nesting, toolpath editing, verification and NC output
+- CAE: studies, material directions/layups, mesh topology, connections, coupling, boundaries, loads, solver and scalar/vector/derived results
+- CMM: probes, calibration, alignment, point-cloud processing/reconstruction, path optimization, temperature compensation, features, tolerances and reporting
+- OLP: cell setup, targets, motion, IO, curve-follow/collision-free planning, external-axis synchronization, calibration, simulation and robot programs
 
 Reusable drawing primitives keep the style coherent, but a different section shape, color, orientation or trajectory does not create another catalog entry. Related commands such as Save and Save as remain separate because they perform different actions. Status and tool symbols are identified by `role` rather than advertised as additional commands. See [design, scope and primary references](docs/REFERENCE.md).
 
@@ -47,7 +47,7 @@ Open `http://127.0.0.1:8000` in a modern browser. No public deployment is config
 - Common and five engineering-category filters; 96-item pagination
 - Independent usage filter: commands, model-tree nodes, tools and status
 - Contextual node names; existing feature, material, mesh, condition and result SVGs are reused
-- [Native 16 px model-tree integration specimen](qa/model-tree.png) with CAD, CAM and CAE hierarchies
+- [Native 16 px model-tree integration](qa/model-tree.png) and [advanced fabrication/mesh/analysis trees](qa/application-model-tree.png)
 - 16 / 24 / 32 / 48 / 64 px previews; light / dark / checker backgrounds
 - Detail view with bilingual purpose, copy SVG and individual SVG download
 - Keyboard focus, `/` search shortcut, native dialog and empty-state reset
@@ -65,7 +65,7 @@ Interface labels are English; the language selector switches icon names and purp
 
 SVGs use basic vector elements without fonts or external resources. Each file has a title and a 32 × 32 viewBox. Namespace internal IDs if embedding multiple files inline; the catalog handles its preview IDs automatically.
 
-`manifest.json` contains the metadata, original SVG body, SHA-256 hash, primary role, supported usages, contextual node names, category memberships and taxonomy references for each symbol. `catalog.js` contains the same data for the static app. Both are generated: edit `src/` and rebuild. The top-level `categories` counts use each icon’s primary `category` and sum to the unique SVG count; an icon’s `categories` array can also include shared disciplines. `categoryMemberships` records those overlapping browser-filter counts. `role: "object"` means an object-only entry; `usages` can include both `command` and `model-tree` without making another file. See the [expansion review](docs/EXPANSION_REVIEW.md) for the per-function additions and reuse decisions.
+`manifest.json` contains the metadata, original SVG body, SHA-256 hash, primary role, supported usages, contextual node names, category memberships and taxonomy references for each symbol. `catalog.js` contains the same data for the static app. Both are generated: edit `src/` and rebuild. The top-level `categories` counts use each icon’s primary `category` and sum to the unique SVG count; an icon’s `categories` array can also include shared disciplines. `categoryMemberships` records those overlapping browser-filter counts. `role: "object"` means an object-only entry; `usages` can include both `command` and `model-tree` without making another file. See the [application-family expansion review](docs/APPLICATION_EXPANSION.md) for per-function evidence and reuse decisions, and the [earlier model-tree expansion](docs/EXPANSION_REVIEW.md). The optional `aliases` field records alternate application vocabulary; shared categories still produce one SVG.
 
 ## Rebuild and verify
 
@@ -80,11 +80,13 @@ node tests/test_app.js
 python3 scripts/raster_audit.py
 python3 scripts/contact_sheet.py
 python3 scripts/model_tree_sheet.py
+python3 scripts/application_tree_sheet.py
 python3 scripts/update_docs.py
-for category in common cad cam cae cmm olp additions; do
+for category in common cad cam cae cmm olp additions application-additions; do
   inkscape "qa/$category.svg" --export-type=png --export-filename="qa/$category.png"
 done
 inkscape qa/model-tree.svg --export-type=png --export-filename=qa/model-tree.png
+inkscape qa/application-model-tree.svg --export-type=png --export-filename=qa/application-model-tree.png
 ```
 
 The XML/integrity suite checks every SVG, its safe elements, local references, hash, bilingual metadata and normalized geometry. The raster audit checks all entries for blank output, painting outside the viewBox and identical color-normalized renders. Script-level app tests cover filtering, bilingual search, pagination, detail interactions, clipboard fallback and download content.
@@ -94,7 +96,8 @@ The XML/integrity suite checks every SVG, its safe elements, local references, h
 ## Files and license
 
 - `icons/`: individual SVG files; only reviewed semantic entries
-- `src/core.py`, `src/common.py`, `src/engineering.py`, `src/extension.py`: hand-authored drawings and meanings
+- `src/core.py`, `src/common.py`, `src/engineering.py`, `src/extension.py`, `src/application.py`: hand-authored geometry
+- `src/application_commands.json`, `src/application_reuse.json`: individually reviewed meanings, references and aliases
 - `src/usage.py`: reviewed reuse, object types and model-tree names
 - `scripts/`, `tests/`: deterministic build and verification tools
 - `qa/`: category contact sheets and complete raster-audit summary
@@ -104,4 +107,6 @@ The XML/integrity suite checks every SVG, its safe elements, local references, h
 
 ## 日本語
 
-一般的なアプリ操作とCAD/CAM/CAE/CMM/ロボットOLP向けのSVGアイコン集です。新規・開く・保存・名前を付けて保存・印刷・検索などの共通操作を追加し、断面形状や軌跡の組合せによる派生を削除しました。件数合わせは行わず、実際の機能または用途を持つシンボルごとに整理しています。公式CAD/CAM/CAE資料を照合して38件の不足機能・オブジェクトを追加し、既存図柄の再利用を含む118件をモデルツリーに対応させました。コマンド／ツリーノード／工具／状態の用途フィルタと、16pxの階層表示見本があります。全件に意味を表すID、日英の名前・タグ・用途説明があります。旧版はGit履歴から復元できます。実ブラウザ統合検証は未実施です。
+一般アプリ操作とCAD/CAM/CAE/CMM/ロボットOLP向けの独自SVGアイコン集です。新規・開く・保存などの基本操作に加え、他アプリの実在機能を参考に、メッシュ編集、自由曲面、点群処理、板金・溶接・金型、2D編集、加工、解析前後処理、ロボット軌道計画を追加しました。
+
+今回の追加は独立した87機能で、全357件です。CAD/CAE共通のメッシュ操作や点群処理の重複候補は統合し、既存機能の別名は検索語と出典の追加で対応しています。断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。141件はモデルツリーにも同じSVGを再利用できます。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。16pxの階層表示見本を同梱しています。実ブラウザ統合検証は未実施です。

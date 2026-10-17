@@ -1,0 +1,77 @@
+[
+  {
+    "id": "cam-parallel-finishing",
+    "aliases": [
+      "raster finishing",
+      "ラスタ仕上げ"
+    ],
+    "sourceId": "powermill-raster-finishing",
+    "sourceTitle": "PowerMill Raster Finishing",
+    "sourceUrl": "https://help.autodesk.com/cloudhelp/2022/ENU/PWRM-ReferenceHelp/files/GUID-72851E2B-E8E1-46D9-98F7-B9EB47CE2E4B.htm",
+    "sourceScope": "Parallel surface-finishing passes; historical PowerMill 2022 terminology"
+  },
+  {
+    "id": "cam-swarf-milling",
+    "aliases": [
+      "swarf finishing",
+      "スワーフ仕上げ"
+    ],
+    "sourceId": "powermill-swarf-finishing",
+    "sourceTitle": "PowerMill Swarf Finishing",
+    "sourceUrl": "https://help.autodesk.com/cloudhelp/2022/ENU/PWRM-ReferenceHelp/files/GUID-B5C85060-9C1C-4EAE-960F-41F89B1E7C1D.htm",
+    "sourceScope": "Cutter-flank surface finishing; historical PowerMill 2022 terminology"
+  },
+  {
+    "id": "cae-streamline-result",
+    "aliases": [
+      "stream tracer",
+      "流線追跡"
+    ],
+    "sourceId": "paraview-stream-tracer",
+    "sourceTitle": "ParaView filtering data",
+    "sourceUrl": "https://docs.paraview.org/en/latest/UsersGuide/filteringData.html",
+    "sourceScope": "Stream Tracer integrates a vector field into streamlines"
+  },
+  {
+    "id": "cae-mesh-quality",
+    "aliases": [
+      "quality controls",
+      "品質指標",
+      "要素品質"
+    ],
+    "sourceId": "salome-quality-controls",
+    "sourceTitle": "SALOME mesh quality controls",
+    "sourceUrl": "https://docs.salome-platform.org/latest/gui/SMESH/index.html",
+    "sourceScope": "Mesh quality checks; different quality metrics reuse the quality-check symbol"
+  },
+  {
+    "id": "cmm-best-fit-alignment",
+    "aliases": [
+      "ICP",
+      "iterative closest point",
+      "fine registration",
+      "詳細位置合わせ"
+    ],
+    "description": "Align measured data to nominal or reference geometry by minimizing registration error.",
+    "descriptionJa": "位置合わせ誤差を最小化し、測定データを設計形状または参照形状へ整合させます。",
+    "sourceId": "cloudcompare-icp",
+    "sourceTitle": "CloudCompare ICP fine registration",
+    "sourceUrl": "https://cloudcompare.org/doc/wiki/index.php/ICP",
+    "sourceScope": "Iterative closest-point fine registration of measured geometry"
+  },
+  {
+    "id": "cad-surface-patch",
+    "aliases": [
+      "shut-off patch",
+      "穴閉じパッチ"
+    ],
+    "tags": [
+      "mold surface",
+      "金型面"
+    ],
+    "sourceId": "solidworks-shutoff",
+    "sourceTitle": "SOLIDWORKS Shut-off Surfaces",
+    "sourceUrl": "https://help.solidworks.com/2025/english/solidworks/sldworks/c_shut_off_surfaces.htm",
+    "sourceScope": "SOLIDWORKS 2025 official help; through-hole shutoffs populate core and cavity surface bodies."
+  }
+]

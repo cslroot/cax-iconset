@@ -29,4 +29,7 @@ sys.path.insert(0,str(ROOT/'src'))
 from extension import EXTENSION
 added={domain.lower()+'-'+i['id'] for domain,items in EXTENSION.items() for i in items}
 sheet([i for i in manifest['icons'] if i['id'] in added],'additions','CAX / source-reviewed additions')
-print('Built six category sheets and the reviewed-additions sheet')
+from application import APPLICATION
+current={domain.lower()+'-'+i['id'] for domain,items in APPLICATION.items() for i in items}
+sheet([i for i in manifest['icons'] if i['id'] in current],'application-additions','CAX / application command families')
+print('Built six category sheets and both reviewed-additions sheets')

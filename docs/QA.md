@@ -1,20 +1,21 @@
 # QA report
 
-Date: 2026-10-17. Scope: the semantic v2.1 catalog and model-tree integration, with all profile/trajectory variants excluded.
+Date: 2026-10-17. Scope: the semantic v2.2 application-family catalog and model-tree integration, with all profile/trajectory variants excluded.
 
 <!-- results:start -->
-- Final collection: **270 SVGs** (primary categories: Common 70, CAD 82, CAM 31, CAE 35, CMM 25, OLP 27)
-- Added independent symbols: **38** (30 commands and 8 persistent objects)
-- Model-tree-compatible entries: **118**, reusing the same SVGs rather than emitting variants
-- XML, safety, metadata, hash, geometry, reuse and removed-generator checks: **5 test groups passed**
+- Final collection: **357 SVGs** (primary categories: Common 72, CAD 123, CAM 44, CAE 52, CMM 34, OLP 32)
+- This expansion: **87 independent commands**; zero new object-only or state-variant entries
+- Model-tree-compatible entries: **141**, including 23 additions that reuse their command SVG
+- XML, safety, metadata, hash, geometry, alias/reuse and removed-generator checks: **6 test groups passed**
 - Normalized-geometry duplicates: **0**
-- All 270 SVGs rendered at 2×: **0 blank, 0 overflow, 0 identical normalized raster groups**
+- All 357 SVGs rendered at 2×: **0 blank, 0 overflow, 0 identical normalized raster groups**
 - JavaScript syntax: **passed** for app.js and catalog.js
-- Script-level application interactions: **11 groups passed**
-- All six category sheets and the 38-addition sheet inspected at 48 / 24 / 16 px
-- Model-tree integration specimen: **58 rows at native 16 px**, inspected as three indented hierarchies
-- Independent CAD and CAM/CAE semantic and visual reviews: **no blocking issues**
-- Deterministic rebuild: **passed**, generated SVGs, metadata, sheets and coverage blocks unchanged
+- Script-level application interactions: **12 groups passed**
+- All six category sheets and the 87-addition sheet inspected at 48 / 24 / 16 px
+- Additional model-tree specimen: **60 rows at native 16 px**, inspected as three hierarchies; the original 58-row specimen is retained
+- Independent application-family and manufacturing/analysis semantic and visual reviews: **no blocking issues**
+- Existing 270 SVG bodies: **unchanged**; vocabulary and references expand six existing entries
+- Deterministic rebuild: **passed**, generated SVGs, metadata, sheets and documentation unchanged
 - Actual browser integration: **not run**
 <!-- results:end -->
 
@@ -26,8 +27,8 @@ Date: 2026-10-17. Scope: the semantic v2.1 catalog and model-tree integration, w
 - Render every icon at 2× using Inkscape and measure visible alpha bounds without a per-icon viewport clip
 - Compare color-normalized raster pixels for identical drawings
 - Run real `app.js` and `catalog.js` in a dependency-free Node DOM harness
-- Export and inspect Common, CAD, CAM, CAE, CMM and OLP contact sheets, plus the source-reviewed additions, at 48 / 24 / 16 px
-- Render the actual SVG geometry at native 16 px inside 58 indented CAD/CAM/CAE tree rows
+- Export and inspect Common, CAD, CAM, CAE, CMM and OLP contact sheets, plus both source-reviewed additions sheets, at 48 / 24 / 16 px
+- Render the actual SVG geometry at native 16 px inside the original 58 rows and 60 additional fabrication/mesh/analysis tree rows
 - Independently review additions for semantic distinction, individual primary references, and appropriate glyph reuse
 
 The machine-readable raster summary is [`qa/raster-audit.json`](../qa/raster-audit.json). Full raster intermediates are gitignored. Hash/XML/raster uniqueness cannot establish semantic uniqueness by themselves: the semantic review separately checks that every item describes a distinct command, tool or interface symbol.
@@ -45,6 +46,7 @@ The machine-readable raster summary is [`qa/raster-audit.json`](../qa/raster-aud
 9. Download filename, SVG type and content
 10. `/` shortcut guarded while typing or viewing a dialog
 11. Usage filters, model-tree noun labels, Japanese node labels, category/usage/search intersections, shared entries without duplicate cards, instance alias search and complete reset
+12. Application aliases (raster finishing, ICP, shut-off patch, mesh nodes), shared CAD/CAE search and advanced model-tree names
 
 ## Not executed / limits
 
@@ -60,6 +62,7 @@ The machine-readable raster summary is [`qa/raster-audit.json`](../qa/raster-aud
 Serve the repository locally as described in the README, then inspect desktop and narrow-mobile widths:
 
 - Search `open`, `保存`, `名前を付けて保存`, `extrude`, `押し出し` and a nonsense term
+- Search `raster finishing`, `ICP`, `shut-off patch`, `merge coincident nodes`, `メッシュ`, `点群` and `溶接`
 - Use Common and all five engineering categories; navigate the last page and back
 - Combine Model-tree nodes with CAD, search `材料`, and reset; verify one shared material entry
 - Switch command/tool/status usage filters and inspect the 16 px hierarchy specimen
@@ -71,4 +74,4 @@ Serve the repository locally as described in the README, then inspect desktop an
 
 ## Visual sheets
 
-[Common](../qa/common.png) · [CAD](../qa/cad.png) · [CAM](../qa/cam.png) · [CAE](../qa/cae.png) · [CMM](../qa/cmm.png) · [OLP](../qa/olp.png) · [38 additions](../qa/additions.png) · [Native 16 px model-tree hierarchy](../qa/model-tree.png)
+[Common](../qa/common.png) · [CAD](../qa/cad.png) · [CAM](../qa/cam.png) · [CAE](../qa/cae.png) · [CMM](../qa/cmm.png) · [OLP](../qa/olp.png) · [Earlier 38 additions](../qa/additions.png) · [87 application-family additions](../qa/application-additions.png) · [Original native 16 px hierarchy](../qa/model-tree.png) · [Additional native 16 px hierarchies](../qa/application-model-tree.png)

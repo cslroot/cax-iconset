@@ -9,17 +9,17 @@ The earlier operation × profile/trajectory generator has been removed, along wi
 <!-- coverage:start -->
 | Primary category | Symbols |
 | --- | ---: |
-| Common | 70 |
-| CAD | 82 |
-| CAM | 31 |
-| CAE | 35 |
-| CMM | 25 |
-| OLP | 27 |
-| **Total** | **270** |
+| Common | 72 |
+| CAD | 123 |
+| CAM | 44 |
+| CAE | 52 |
+| CMM | 34 |
+| OLP | 32 |
+| **Total** | **357** |
 
-Primary roles: 254 commands, 5 selectable tools, 8 objects and 3 status symbols. Every SVG is counted once.
+Primary roles: 341 commands, 5 selectable tools, 8 objects and 3 status symbols. Every SVG is counted once.
 
-118 entries support model-tree use, including reused command/tool symbols; these are not additional SVGs.
+141 entries support model-tree use, including reused command/tool symbols; these are not additional SVGs.
 <!-- coverage:end -->
 
 The manifest `role` field identifies the primary role: command, tool, object or status. `usages` describes supported contexts and can contain both `command` and `model-tree`; reused entries are still counted once. `nodeName`, `nodeNameJa` and `objectType` provide contextual noun labels. Part definitions and their placed instances deliberately use the same part icon.
@@ -104,6 +104,91 @@ Vendor and OSS documentation informs the functional taxonomy, not the artwork. N
 | freecad-holding-tags | [FreeCAD CAM holding tags](https://github.com/FreeCAD/FreeCAD-documentation/blob/main/wiki/CAM_DressupTag.md) | Holding-tag dressup object beneath an operation; archived official documentation, not a current-version UI claim |
 | mastercam-deburr | [Mastercam 2025 feature overview](https://www.mastercam.com/community/blog/10-mastercam-2025-features-you-need-to-know/) | Independent Deburr machining command, separate from modeled CAD chamfers |
 | ansys-analysis-tree | [Ansys Mechanical analysis environment object](https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/mech_obj/ds_Environment_o_r.html) | Analysis tree children including Analysis Settings |
+| blender-bridge | [Blender Bridge Edge Loops](https://docs.blender.org/manual/en/5.2/modeling/meshes/editing/edge/bridge_edge_loops.html) | Official manual indexed as 5.2; use for operation semantics only. |
+| blender-mesh-toolbar | [Blender mesh edit toolbar](https://docs.blender.org/manual/en/latest/modeling/meshes/tools/toolbar.html) | Official Blender manual; command semantics only, not a current-version assertion. |
+| blender-mesh-cleanup | [Blender mesh cleanup](https://docs.blender.org/manual/en/latest/modeling/meshes/editing/mesh/cleanup.html) | Official Blender manual; polygon cleanup and repair commands. |
+| salome-merge-nodes | [SALOME merging nodes](https://docs.salome-platform.org/latest/gui/SMESH/merging_nodes.html) | Merge coincident nodes by tolerance |
+| blender-dissolve | [Blender Deleting and Dissolving](https://docs.blender.org/manual/en/5.0/modeling/meshes/editing/mesh/delete.html) | Blender 5.0 manual; dissolve operation reference. |
+| blender-remesh | [Blender Remesh modifier](https://docs.blender.org/manual/id/4.5/modeling/modifiers/generate/remesh.html) | Blender 4.5 manual; remeshing modes are treated as one operation. |
+| blender-smooth-vertices | [Blender Smooth Vertices](https://docs.blender.org/manual/en/4.5/modeling/meshes/editing/vertex/smooth_vertices.html) | Blender 4.5 LTS manual; vertex-position smoothing. |
+| salome-smoothing | [SALOME smoothing](https://docs.salome-platform.org/latest/gui/SMESH/smoothing.html) | Improve mesh shape by repositioning nodes |
+| blender-shrinkwrap | [Blender Shrinkwrap modifier](https://docs.blender.org/manual/en/2.81/modeling/modifiers/deform/shrinkwrap.html) | Blender 2.81 historical manual; stable operation semantics, also corroborated by official ShrinkwrapModifier API. |
+| blender-uv-unwrap | [Blender UV operators](https://docs.blender.org/manual/en/5.4/modeling/meshes/editing/uv.html) | Official manual indexed as 5.4; reference for UV operation semantics, not a current-version assertion. |
+| rhino-blendsrf | [Rhino blendsrf](https://docs.mcneel.com/rhino/8/help/en-us/commands/blendsrf.htm) | Rhino 8 official command help; operation semantics. |
+| rhino-matchsrf | [Rhino matchsrf](https://docs.mcneel.com/rhino/8mac/help/en-us/commands/matchsrf.htm) | Rhino 8 official command help; operation semantics. |
+| rhino-networksrf | [Rhino networksrf](https://docs.mcneel.com/rhino/8mac/help/en-us/commands/networksrf.htm) | Rhino 8 official command help; operation semantics. |
+| rhino-rebuild | [Rhino rebuild](https://docs.mcneel.com/rhino/8/help/en-us/commands/rebuild.htm) | Rhino 8 official command help; operation semantics. |
+| rhino-extractisocurve | [Rhino extractisocurve](https://docs.mcneel.com/rhino/8mac/help/en-us/commands/extractisocurve.htm) | Rhino 8 official command help; operation semantics. |
+| rhino-cageedit | [Rhino cageedit](https://docs.mcneel.com/rhino/8mac/help/en-us/commands/cageedit.htm) | Rhino 8 official command help; operation semantics. |
+| rhino-flowalongsrf | [Rhino flowalongsrf](https://docs.mcneel.com/rhino/8/help/en-us/commands/flowalongsrf.htm) | Rhino 8 official command help; operation semantics. |
+| rhino-zebra | [Rhino zebra](https://docs.mcneel.com/rhino/8/help/en-us/commands/zebra.htm) | Rhino 8 official command help; operation semantics. |
+| rhino-draftangleanalysis | [Rhino draftangleanalysis](https://docs.mcneel.com/rhino/8/help/en-us/commands/draftangleanalysis.htm) | Rhino 8 official command help; operation semantics. |
+| cloudcompare-subsample | [CloudCompare Subsample point cloud](https://cloudcompare.org/doc/wiki/index.php/Edit%5CSubsample) | Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims. |
+| cloudcompare-outlier-removal | [CloudCompare Remove point-cloud outliers](https://cloudcompare.org/doc/wiki/index.php/SOR_filter) | Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims. |
+| cloudcompare-normals | [CloudCompare Compute point-cloud normals](https://cloudcompare.org/doc/wiki/index.php/Normals%5CCompute) | Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims. |
+| cloudcompare-components | [CloudCompare Extract connected components](https://cloudcompare.org/doc/wiki/index.php/Label_Connected_Components) | Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims. |
+| cloudcompare-primitive-detection | [CloudCompare Detect point-cloud primitives](https://cloudcompare.org/doc/wiki/index.php/PluginRansacSD) | Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims. |
+| cloudcompare-reconstruct | [CloudCompare Reconstruct surface from points](https://cloudcompare.org/doc/wiki/index.php/Poisson_Surface_Reconstruction_%28plugin%29) | Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims. |
+| cloudcompare-rasterize | [CloudCompare Rasterize point cloud](https://cloudcompare.org/doc/wiki/index.php/Rasterize) | Official CloudCompare wiki; standalone or named plugin command semantics. Historical screenshots/version notes are not current-version claims. |
+| solidworks-hem | [SOLIDWORKS Hems](https://help.solidworks.com/2024/english/SolidWorks/sldworks/c_Hems.htm?id=474d0dc2a50946878872d45b767b9d21) | SOLIDWORKS 2024 official help; dedicated Hem command. |
+| solidworks-jog | [SOLIDWORKS Jogs](https://help.solidworks.com/2024/English/SolidWorks/sldworks/c_Jogs.htm?id=fa64ae6f294049598ffaec44d7f221e4) | SOLIDWORKS 2024 official help; dedicated Jog command. |
+| solidworks-forming-tools | [SOLIDWORKS Using Forming Tools with Sheet Metal](https://help.solidworks.com/2024/English/solidworks/sldworks/c_Forming_Tools.htm) | SOLIDWORKS 2024 official help; applying library forming tools to a sheet-metal target. |
+| solidworks-corner-relief | [SOLIDWORKS Corner Relief PropertyManager](https://help.solidworks.com/2023/English/SolidWorks/sldworks/HIDD_SHEET_METAL_CORNER_RELIEF.htm) | SOLIDWORKS 2023 official help; reliefs at two- or three-bend corners, one semantic entry. |
+| solidworks-tab-slot | [SOLIDWORKS Creating a Tab and Slot](https://help.solidworks.com/2026/english/SolidWorks/sldworks/t_creating_a_tab_and_slot.htm?id=25.1.7.0) | SOLIDWORKS 2026 official help; tab/slot pairs on sheet-metal or eligible nonsheet parts. |
+| solidworks-convert-sheetmetal | [SOLIDWORKS Converting an Imported Part to a Sheet Metal Part](https://help.solidworks.com/2026/english/solidworks/sldworks/t_converting_imported_part_sheet_metal.htm) | SOLIDWORKS 2026 official help; constant-thickness imported sheet-metal-type parts. |
+| solidworks-weldments | [SOLIDWORKS Weldments](https://help.solidworks.com/2026/English/SolidWorks/Sldworks/c_Weldments_Overview.htm) | SOLIDWORKS 2026 official help; grouped sketch segments and library structural profiles. |
+| solidworks-weldment-trim | [SOLIDWORKS Weldments Trim and Extend](https://help.solidworks.com/2020/english/SolidWorks/Sldworks/c_Weldments_Trim_and_Extend.htm) | SOLIDWORKS 2020 official help; member end treatments and cut-length accuracy. |
+| solidworks-end-cap | [SOLIDWORKS Adding End Caps](https://help.solidworks.com/2026/english/SolidWorks/sldworks/t_adding_an_end_cap.htm?id=35.0.14.0) | SOLIDWORKS 2026 official help; End Cap command and thickness/offset controls. |
+| solidworks-gusset | [SOLIDWORKS Weldments Gussets](https://help.solidworks.com/2026/English/SolidWorks/sldworks/c_Weldments_Gussets.htm?id=58a3c7988bad44a4843f5bbe55cec5a4) | SOLIDWORKS 2026 official help; dedicated weldment Gusset command. |
+| solidworks-weld-bead | [SOLIDWORKS Weld Beads](https://help.solidworks.com/2026/english/SolidWorks/sldworks/c_Weld_Beads.htm?id=35.0.15) | SOLIDWORKS 2026 official help; lightweight graphical weld-bead feature, not newly created solid geometry. |
+| solidworks-parting-line | [SOLIDWORKS Parting Lines](https://help.solidworks.com/2026/english/SolidWorks/sldworks/c_parting_lines.htm?id=d1404aa33b544f98b65f89fcd8c80846) | SOLIDWORKS 2026 official help; core/cavity boundary and surface classification. |
+| solidworks-tooling-split | [SOLIDWORKS Tooling Split PropertyManager](https://help.solidworks.com/2025/english/SolidWorks/sldworks/HIDD_MOLD_CAVITY_CORE_SOLIDS.htm) | SOLIDWORKS 2025 official help; creation of core/cavity blocks from three surface-body roles. |
+| solidworks-auto-route | [SOLIDWORKS Creating Flexible Ribbon Cable Routes](https://help.solidworks.com/2026/english/SolidWorks/sldpiping/t_creating_flexible_ribbon_cable_routes.htm) | SOLIDWORKS 2026 official help; connector-to-connector Auto Route example for flexible ribbon cable. |
+| inkscape-node-editing | [Inkscape Advanced tutorial: editing paths](https://inkscape.org/es/doc/tutorials/advanced/tutorial-advanced.html?switchlang=es) | Official localized Inkscape tutorial with path-editing description; function reference, no current-version assertion. |
+| inkscape-stroke-to-path | [Inkscape 1.0 release notes: Stroke to Path](https://wiki.inkscape.org/wiki/Release_notes/1.0) | Official Inkscape 1.0 release notes; historical reference for stroke-outline conversion. |
+| inkscape-trace-bitmap | [Inkscape Tracing bitmaps tutorial](https://inkscape.org/en/doc/tutorials/tracing/tutorial-tracing.ru.html/) | Official Inkscape localized tutorial; bitmap-to-vector tracing command, not claims about fidelity. |
+| qcad-hatch | [QCAD Hatch from Selection](https://qcad.org/doc/qcad/latest/reference/en/scripts/Draw/Hatch/HatchFromSelection/doc/HatchFromSelection_en.html) | Official QCAD user reference; hatch creation from closed boundaries. |
+| qcad-create-block | [QCAD Create Block from Selection](https://qcad.org/en/manual/scripts/block/createblock/doc/createblock/) | Official QCAD user manual; block definitions and reusable references. |
+| qcad-explode | [QCAD Explode](https://www.qcad.org/doc/qcad/latest/reference/en/scripts/Modify/Explode/doc/Explode_en.html) | Official QCAD user reference; block references and compound drawing entities. |
+| inkscape-actions | [Inkscape action reference](https://wiki.inkscape.org/wiki/Action) | Official action table explicitly covering Inkscape 1.2; align and distribute command semantics. |
+| mastercam-wire | [Mastercam Wire](https://www.mastercam.com/solutions/products/wire/) | Wire EDM toolpath programming |
+| linuxcnc-tool-compensation | [LinuxCNC Tool Compensation](https://linuxcnc.org/docs/html/gcode/tool-compensation.html) | Tool radius compensation and tool-length touch-off |
+| powermill-stock-model | [PowerMill stock model](https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/How-to-create-a-stock-model-in-PowerMILL.html) | Update in-process material using machining operations |
+| solidcam-hole-recognition | [SolidCAM automatic feature recognition](https://solidcam.com/de/cam-loesungen/automatische-feature-erkennung/) | Recognize holes and derive machining operations |
+| mastercam-lathe | [Mastercam Lathe](https://www.mastercam.com/solutions/products/lathe-programming-software/) | Grooving and single-point thread turning |
+| powermill-finishing | [PowerMill finishing strategies](https://help.autodesk.com/cloudhelp/2022/ENU/PWRM-ReferenceHelp/files/GUID-B5C85060-9C1C-4EAE-960F-41F89B1E7C1D.htm) | Constant-Z and corner-pencil finishing |
+| mastercam-nesting | [Mastercam CNC Router nesting](https://www.mastercam.com/solutions/products/cnc-router-software/) | Geometry and toolpath nesting on sheet stock |
+| mastercam-port | [Mastercam Port Expert](https://www.mastercam.com/solutions/add-ons/port-export/) | Multiaxis internal port machining |
+| fusion-trim-toolpath | [Fusion trim a toolpath](https://help.autodesk.com/view/fusion360/ENU/?contextId=MFG-TRIM-TOOLPATH) | Limit an existing toolpath by polygon, plane or boundary |
+| powermill-reorder | [PowerMill reorder toolpath segments](https://help.autodesk.com/cloudhelp/2022/ENU/PWRM-ReferenceHelp/files/GUID-12327ECE-5C71-4175-B13C-F4E46261C4CB.htm) | Change segment sequence and directions with rebuilt links |
+| salome-sew | [SALOME sewing meshes](https://docs.salome-platform.org/latest/gui/SMESH/sewing_meshes.html) | Connect mesh borders or mesh sides |
+| salome-orient-faces | [SALOME orient faces](https://docs.salome-platform.org/latest/gui/SMESH/reorient_faces.html) | Make mesh face orientations consistent |
+| salome-quadratic | [SALOME convert to/from quadratic mesh](https://docs.salome-platform.org/latest/gui/SMESH/convert_to_from_quadratic_mesh.html) | Convert finite-element interpolation order |
+| salome-boundary-elements | [SALOME generate boundary elements](https://docs.salome-platform.org/latest/gui/SMESH/make_2dmesh_from_3d.html) | Create lower-dimensional boundary elements from higher-dimensional mesh |
+| altair-material-orientation | [HyperMesh Material Orientation](https://help.altair.com/2024/hwdesktop/hwx/topics/pre_processing/aerospace/model_orientation_r.htm) | Assign anisotropic material directions |
+| altair-composite-model | [HyperMesh Composite Analysis](https://help.altair.com/hwdesktop/hwx/topics/tutorials/hwx/composite_analysis_t.htm) | Define laminate plies, stacking and composite properties |
+| altair-rigid-link | [HyperMesh bracket and cradle preprocessing](https://2022.help.altair.com/2022/hwdesktop/hm/topics/tutorials/hm/hm_4340_pre_processing_for_bracket_and_cradle_analysis_c.htm) | Create rigid spider links and kinematic couplings |
+| altair-spring-element | [HyperMesh Springs Panel](https://2022.help.altair.com/2022/hwdesktop/hm/topics/panels/help057.htm) | Create spring elements between nodes |
+| ansys-bolt-pretension | [Ansys Mechanical Bolt Pretension](https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/wb_sim/ds_Pretension.html) | Define bolt preload boundary conditions |
+| ansys-load-mapping | [Ansys Mechanical Importing Loads](https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/wb_sim/ds_ext_file_import_loads.html) | Map external load fields onto the analysis model |
+| ansys-harmonic-response | [Ansys Harmonic Response](https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/wb2_help/wb2h_harmrespAN.html) | Create steady-state frequency-response analysis |
+| ansys-system-coupling | [Ansys System Coupling Region](https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/wb_sim/ds_system_coupling_region.html) | Define the interface used to exchange multiphysics data |
+| paraview-data-filters | [ParaView Filtering Data](https://docs.paraview.org/en/latest/UsersGuide/filteringData.html) | Extract isosurfaces, generate vector glyphs and compute derived data |
+| paraview-integrate | [ParaView IntegrateVariables](https://www.paraview.org/paraview-docs/v5.13.2/python/paraview.simple.IntegrateVariables.html) | Spatial integration of point and cell fields |
+| paraview-temporal-statistics | [ParaView TemporalStatistics](https://www.paraview.org/paraview-docs/v5.13.2/python/paraview.simple.TemporalStatistics.html) | Compute timestep statistics of result fields |
+| pcdmis-temperature | [PC-DMIS Temperature Compensation](https://docs.hexagonmi.com/pcdmis/2019.1/en/helpcenter/mergedProjects/core/06_pref_topics/Temperature_Compensation.htm) | Compensate measured part dimensions using temperature |
+| pcdmis-optimize-path | [PC-DMIS Optimizing the Path](https://docs.hexagonmi.com/pcdmis/2019.1/en/helpcenter/mergedProjects/core/inspection_plans/Optimizing_the_Path.htm) | Optimize tactile inspection sequence and probe-tip angles |
+| robodk-curve-follow | [RoboDK Curve Follow Project](https://robodk.com/doc/en/Robot-Machining-Curve-Follow-Project.html) | Generate robot paths from geometric curves and surface normals |
+| robodk-collision-planner | [RoboDK Collision-Free Motion Planner](https://robodk.com/doc/en/Collision-Avoidance-Collision-Free-Motion-Planner.html) | Generate collision-free paths through robot configuration space |
+| robodk-synchronize-axes | [RoboDK Synchronize Additional Axes](https://robodk.com/doc/en/General-Synchronize-Additional-Axes.html) | Synchronize external mechanisms with robot motion |
+| robodk-robot-calibration | [RoboDK Robot Calibration](https://robodk.com/doc/en/Robot-Calibration-LaserTracker.html) | Estimate robot kinematic error parameters from measurements |
+| robodk-configurations | [RoboDK Robot Configurations](https://robodk.com/doc/en/Interface-Robot-Configurations.html) | Choose a robot kinematic solution for a target pose |
+| powermill-raster-finishing | [PowerMill Raster Finishing](https://help.autodesk.com/cloudhelp/2022/ENU/PWRM-ReferenceHelp/files/GUID-72851E2B-E8E1-46D9-98F7-B9EB47CE2E4B.htm) | Parallel surface-finishing passes; historical PowerMill 2022 terminology |
+| powermill-swarf-finishing | [PowerMill Swarf Finishing](https://help.autodesk.com/cloudhelp/2022/ENU/PWRM-ReferenceHelp/files/GUID-B5C85060-9C1C-4EAE-960F-41F89B1E7C1D.htm) | Cutter-flank surface finishing; historical PowerMill 2022 terminology |
+| paraview-stream-tracer | [ParaView filtering data](https://docs.paraview.org/en/latest/UsersGuide/filteringData.html) | Stream Tracer integrates a vector field into streamlines |
+| salome-quality-controls | [SALOME mesh quality controls](https://docs.salome-platform.org/latest/gui/SMESH/index.html) | Mesh quality checks; different quality metrics reuse the quality-check symbol |
+| cloudcompare-icp | [CloudCompare ICP fine registration](https://cloudcompare.org/doc/wiki/index.php/ICP) | Iterative closest-point fine registration of measured geometry |
+| solidworks-shutoff | [SOLIDWORKS Shut-off Surfaces](https://help.solidworks.com/2025/english/solidworks/sldworks/c_shut_off_surfaces.htm) | SOLIDWORKS 2025 official help; through-hole shutoffs populate core and cavity surface bodies. |
 <!-- references:end -->
 
 ## Source-backed expansion
@@ -121,3 +206,7 @@ All artwork and code use the repository's [MIT license](../LICENSE). See [QA](QA
 断面形状・軌跡を掛け合わせた派生を削除し、一般操作と実際の専門機能ごとに整理したアイコン集です。件数を増やすための色替え・回転・形状差し替えは採用しません。保存／名前を付けて保存／すべて保存のように実際の動作が異なるものは別項目とし、警告などの状態シンボルはコマンドと区別しています。
 
 一次資料は機能分類の参考であり、他製品のアイコンは複製していません。各図柄はUI向け模式図です。正確な計算結果、安全なロボットプログラム、規格適合記号の代用にはできません。
+
+## Additional application families
+
+The [v2.2 application-family review](APPLICATION_EXPANSION.md) lists every new command, its purpose and primary evidence. It also records rejected duplicate candidates, alternate application vocabulary, shared CAD/CAE and CAD/CMM uses, and the distinction between command and persistent-node contexts.

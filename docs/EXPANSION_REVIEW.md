@@ -1,6 +1,6 @@
 # Source-reviewed expansion and model-tree use
 
-Date: 2026-10-17. Baseline: `1547089` (232 semantic entries). Current source build: 270 entries. The 38 additions below follow missing functionality and object types found in primary application documentation. **38 is a result, not a target.** No profile, trajectory, color or state Cartesian products have been reintroduced.
+Date: 2026-10-17. Baseline: `1547089` (232 semantic entries). Historical v2.1 build: 270 entries. The current application-family additions are documented in [the v2.2 review](APPLICATION_EXPANSION.md). The 38 additions below follow missing functionality and object types found in primary application documentation. **38 is a result, not a target.** No profile, trajectory, color or state Cartesian products have been reintroduced.
 
 ![Added independent commands and objects](../qa/additions.png)
 

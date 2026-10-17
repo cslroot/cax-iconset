@@ -58,3 +58,7 @@ REFERENCES.update({
  'mastercam-deburr':{'title':'Mastercam 2025 feature overview','url':'https://www.mastercam.com/community/blog/10-mastercam-2025-features-you-need-to-know/','scope':'Independent Deburr machining command, separate from modeled CAD chamfers'},
  'ansys-analysis-tree':{'title':'Ansys Mechanical analysis environment object','url':'https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/mech_obj/ds_Environment_o_r.html','scope':'Analysis tree children including Analysis Settings'},
 })
+
+# Individually researched application command families.
+from application import APPLICATION_REFERENCES
+REFERENCES.update(APPLICATION_REFERENCES)

@@ -33,21 +33,42 @@ def geometry_signature(root):
 
 class CatalogTests(unittest.TestCase):
     def test_counts_and_metadata(self):
-        self.assertEqual(M['count'], 4805)
-        self.assertEqual(M['counts'], {'core': 100, 'variant': 4705})
+        self.assertGreaterEqual(M['count'], 165)
+        self.assertLess(M['count'], 400, 'A large increase needs a fresh semantic scope review')
         self.assertEqual(M['count'], len(M['icons']))
+        self.assertEqual(M['counts'], dict(collections.Counter(i['role'] for i in M['icons'])))
         self.assertEqual(M['categories'], dict(collections.Counter(i['category'] for i in M['icons'])))
         self.assertEqual(len({i['id'] for i in M['icons']}), M['count'])
         self.assertEqual({str(p.relative_to(ROOT)) for p in (ROOT/'icons').glob('*.svg')}, {i['file'] for i in M['icons']})
+        self.assertEqual(set(M['categories']), {'Common','CAD','CAM','CAE','CMM','OLP'})
         for i in M['icons']:
-            for key in ['id', 'name', 'nameJa', 'family', 'body', 'tags', 'sources', 'description']:
+            for key in ['id', 'name', 'nameJa', 'family', 'body', 'tags', 'sources', 'description', 'descriptionJa', 'role']:
                 self.assertTrue(i[key], (i['id'], key))
             self.assertRegex(i['id'], r'^[a-z0-9]+(?:-[a-z0-9]+)*$')
             self.assertEqual(i['file'], 'icons/' + i['id'] + '.svg')
+            self.assertEqual(i['categories'], [i['category']])
+            self.assertNotIn('context', i)
+            self.assertNotEqual(i.get('kind'), 'variant')
+            self.assertIn(i['role'], {'command', 'tool', 'status'})
             self.assertTrue(set(i['sources']) <= set(M['sourceReferences']))
+            self.assertTrue(any(re.search('[a-zA-Z]', t) for t in i['tags']), i['id'])
+            self.assertTrue(any(re.search('[ぁ-んァ-ヶ一-龠]', t) for t in i['tags']), i['id'])
+            self.assertNotIn('Original core symbol', i['description'])
+        self.assertFalse((ROOT/'src/extended.py').exists())
+        self.assertFalse((ROOT/'src/profiles.py').exists())
         common = [i for i in M['icons'] if i['category'] == 'Common']
-        self.assertEqual(len(common), 56)
-        self.assertTrue(all(i['categories'] == ['Common', 'CAD', 'CMM'] for i in common))
+        self.assertGreaterEqual(len(common), 60)
+        required = 'new-file open-file recent-files close-file save save-as save-all import export print undo redo cut copy paste delete search filter settings help select show hide zoom-in zoom-out zoom-fit pan rotate-view'.split()
+        ids = {i['id'] for i in common}
+        for operation in required:
+            self.assertIn('common-' + operation, ids)
+
+    def test_no_profile_cartesian_product(self):
+        # Removing the old generator is an architectural guard; semantic review
+        # remains necessary because exact geometry checks cannot establish meaning.
+        self.assertFalse({'cad-extrusion-circle','cad-extrusion-semicircle','cad-section-circle','common-centroid-circle'} & {i['id'] for i in M['icons']})
+        descriptions = [i['description'].strip().lower() for i in M['icons']]
+        self.assertEqual(len(descriptions), len(set(descriptions)))
 
     def test_svg_safety_integrity_and_geometry_uniqueness(self):
         seen = {}

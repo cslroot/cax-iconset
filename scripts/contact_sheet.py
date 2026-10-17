@@ -1,12 +1,26 @@
 #!/usr/bin/env python3
-import json
+"""Contact sheets of every distinct semantic entry, with 48/24/16px previews."""
+import json, math
 from pathlib import Path
 from html import escape
 ROOT=Path(__file__).resolve().parents[1]
-data=json.loads((ROOT/'manifest.json').read_text())['icons']
-items=[i for i in data if i['kind']=='core'][:100]
-parts=['<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1280" viewBox="0 0 1400 1280"><rect width="1400" height="1280" fill="#f5f8f5"/><text x="35" y="43" font-family="sans-serif" font-size="24" fill="#253b53">CAX / First 100 core symbols</text><text x="35" y="68" font-family="sans-serif" font-size="12" fill="#6d8277">Original rounded engineering icons · 32px grid · navy / teal / pale teal</text>']
-for n,i in enumerate(items):
- x=28+(n%10)*136;y=90+(n//10)*116
- parts.append(f'<rect x="{x}" y="{y}" width="128" height="106" rx="8" fill="white" stroke="#e0e7df"/><svg x="{x+40}" y="{y+12}" width="48" height="48" viewBox="0 0 32 32" fill="none" stroke="#253b53" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">{i["body"]}</svg><text x="{x+64}" y="{y+78}" text-anchor="middle" font-family="sans-serif" font-size="8.5" fill="#253b53">{escape(i["name"])}</text><text x="{x+64}" y="{y+94}" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#709387">{i["category"]}</text>')
-parts.append('</svg>');(ROOT/'qa/core-100.svg').write_text(''.join(parts))
+manifest=json.loads((ROOT/'manifest.json').read_text())
+
+def sheet(items, name, title):
+ cols=8; width=1440; height=88+math.ceil(len(items)/cols)*126
+ parts=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}"><rect width="{width}" height="{height}" fill="#f5f8f5"/><text x="24" y="35" font-family="sans-serif" font-size="23" fill="#253b53">{escape(title)}</text><text x="24" y="60" font-family="sans-serif" font-size="13" fill="#45665f">{len(items)} semantic entries · original 32px grid · previews at 48 / 24 / 16 px</text>']
+ for n,i in enumerate(items):
+  x=20+(n%cols)*177;y=80+(n//cols)*126
+  parts.append(f'<rect x="{x}" y="{y}" width="169" height="118" rx="9" fill="white" stroke="#dce6df"/>')
+  for size,dx in [(48,16),(24,87),(16,132)]:
+   body=i['body']
+   prefix=f'sheet-{n}-{size}-'
+   import re
+   body=re.sub(r'id="([^"]+)"',lambda m:f'id="{prefix}{m[1]}"',body)
+   body=re.sub(r'url\(#([^)]+)\)',lambda m:f'url(#{prefix}{m[1]})',body)
+   parts.append(f'<svg x="{x+dx}" y="{y+15+(48-size)/2}" width="{size}" height="{size}" viewBox="0 0 32 32" fill="none" stroke="#253b53" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">{body}</svg>')
+  parts.append(f'<text x="{x+8}" y="{y+84}" font-family="sans-serif" font-size="10" fill="#253b53">{escape(i["name"])}</text><text x="{x+8}" y="{y+102}" font-family="sans-serif" font-size="7.5" fill="#45665f">{escape(i["id"])}</text>')
+ parts.append('</svg>');(ROOT/f'qa/{name}.svg').write_text(''.join(parts))
+for category in manifest['categories']:
+ sheet([i for i in manifest['icons'] if i['category']==category],category.lower(),'CAX / '+category)
+print('Built six semantic category contact sheets')

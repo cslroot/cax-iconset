@@ -1,46 +1,70 @@
 # CAX Iconset
 
-**4,805 original SVG icons for CAD, CAM, CAE, CMM and Robotics / OLP**, with a searchable static web catalog. A soft, rounded 32 px grid and a consistent navy / teal palette.
+Original rounded SVG symbols for everyday application commands and CAD, CAM, CAE, CMM and Robotics / OLP. Every entry has a semantic ID, English and Japanese names, bilingual search tags, and a one-sentence purpose in both languages.
 
-**100 core symbols + 4,705 geometry / process context variants.** This is not a claim of 4,805 independent software commands. No color-only or rotation-only copies are counted. Shared CAD/CMM centroid symbols count once. See [scope and primary references](docs/REFERENCE.md).
+**The collection is organized by meaning, not by a target icon count.** Shape/profile/trajectory combinations have been removed from the catalog, source generator and exported SVGs. The previous collection remains recoverable in Git history.
 
-![100 core engineering symbols](qa/core-100.png)
+![Common application commands](qa/common.png)
+
+## Coverage
+
+<!-- coverage:start -->
+| Category | Symbols |
+| --- | ---: |
+| Common | 69 |
+| CAD | 58 |
+| CAM | 26 |
+| CAE | 27 |
+| CMM | 25 |
+| OLP | 27 |
+| **Total** | **232** |
+
+Roles: 224 commands, 5 selectable tools and 3 status symbols. Every symbol is counted once.
+<!-- coverage:end -->
+
+- Common: new, open, recent files, close, save / save as / save all, import, export, print, undo / redo, clipboard, search / replace, filtering, selection, display, navigation and application controls
+- CAD: sketching, constraints, dimensions, solid features, assembly, sheet metal, surfaces and viewing
+- CAM: setup, tooling, machining operations, toolpath calculation, verification and NC output
+- CAE: studies, material, mesh, boundaries, loads, contact, solver and results
+- CMM: probes, calibration, alignment, measured/constructed features, tolerances and reporting
+- OLP: cell setup, targets, motion, IO, simulation, verification and robot programs
+
+Reusable drawing primitives keep the style coherent, but a different section shape, color, orientation or trajectory does not create another catalog entry. Related commands such as Save and Save as remain separate because they perform different actions. Status and tool symbols are identified by `role` rather than advertised as additional commands. See [design, scope and primary references](docs/REFERENCE.md).
 
 ## Browse locally
 
-No npm install, build framework, CDN, account or API key is needed. The generated catalog is included in the repository.
+The static catalog is included. No npm install, framework, CDN, account or API key is required.
 
 ```sh
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8000` in a modern browser. The app uses packaged `catalog.js`, so it does not fetch the JSON manifest at runtime. Opening `index.html` directly may also work, subject to browser local-file and clipboard policies. No public deployment is configured or claimed.
+Open `http://127.0.0.1:8000` in a modern browser. No public deployment is configured or claimed.
 
-- English / Japanese name and tag search, including multiple AND-matched terms
-- CAD, CAM, CAE, CMM, OLP and shared-category filters
-- Core / context-variant filter, 96-item pagination
-- 16 / 24 / 32 / 48 / 64 px previews, light / dark / checker backgrounds
-- Detail view, copy SVG, and individual SVG download
-- Keyboard focus, `/` search shortcut, native dialog, empty-state reset
+- English / Japanese name, tag and purpose search, with multiple AND-matched terms
+- Common and five engineering-category filters; 96-item pagination
+- 16 / 24 / 32 / 48 / 64 px previews; light / dark / checker backgrounds
+- Detail view with bilingual purpose, copy SVG and individual SVG download
+- Keyboard focus, `/` search shortcut, native dialog and empty-state reset
 - No analytics or runtime external requests
 
-The interface labels are English; the language selector switches icon names between English and Japanese. The JSON manifest includes both.
+Interface labels are English; the language selector switches icon names and purpose text between English and Japanese.
 
 ## Use an icon
 
-Use any file in `icons/`, for example:
-
 ```html
+<img src="icons/common-open-file.svg" width="32" height="32" alt="Open file">
+<img src="icons/common-save.svg" width="32" height="32" alt="Save">
 <img src="icons/cad-extrude.svg" width="32" height="32" alt="Extrude">
 ```
 
-SVGs use basic vector elements without fonts or external resources. Each standalone file has a title and a 32 × 32 viewBox. When inserting several exported files inline, namespace their internal IDs to avoid collisions. The catalog does this automatically for its own previews.
+SVGs use basic vector elements without fonts or external resources. Each file has a title and a 32 × 32 viewBox. Namespace internal IDs if embedding multiple files inline; the catalog handles its preview IDs automatically.
 
-`manifest.json` includes all icon metadata, SVG body markup, SHA-256 hashes, category counts, and taxonomy source references. `catalog.js` contains the same data for the static web app. These two files are generated; edit `src/` instead.
+`manifest.json` contains the metadata, original SVG body, SHA-256 hash, role, category and taxonomy references for each symbol. `catalog.js` contains the same data for the static app. Both are generated: edit `src/` and rebuild.
 
 ## Rebuild and verify
 
-Python 3.10+ is sufficient to generate the assets. Node.js is needed only for application tests. The optional whole-collection raster audit additionally needs Inkscape and Pillow already installed in your environment.
+Python 3.10+ builds the collection. Node.js runs application tests. The optional raster audit and sheet export use an already-installed Inkscape and Pillow.
 
 ```sh
 python3 scripts/build.py
@@ -49,44 +73,26 @@ node --check app.js
 node --check catalog.js
 node tests/test_app.js
 python3 scripts/raster_audit.py
-```
-
-To regenerate visual contact sheets:
-
-```sh
 python3 scripts/contact_sheet.py
-python3 scripts/variant_sheets.py
-inkscape qa/core-100.svg --export-type=png --export-filename=qa/core-100.png
+for category in common cad cam cae cmm olp; do
+  inkscape "qa/$category.svg" --export-type=png --export-filename="qa/$category.png"
+done
 ```
 
-The variant sheet SVGs can be exported in the same way. Full raster-atlas intermediates are intentionally gitignored.
+The XML/integrity suite checks every SVG, its safe elements, local references, hash, bilingual metadata and normalized geometry. The raster audit checks all entries for blank output, painting outside the viewBox and identical color-normalized renders. Script-level app tests cover filtering, bilingual search, pagination, detail interactions, clipboard fallback and download content.
 
-## Verification status
+**These checks are not a real-browser integration test.** Browser layout, native dialog focus/Escape, actual system clipboard and saved downloads remain unverified. See [QA coverage and manual checklist](docs/QA.md).
 
-On 2026-10-17:
+## Files and license
 
-- All 4,805 SVGs passed XML, metadata, hash, safe-element and reference validation
-- Zero normalized-geometry duplicates
-- All 4,805 rendered at 2×: zero blank, clipped/out-of-viewBox, or color-normalized identical raster results
-- Ten real-application interaction groups passed in a dependency-free script-level DOM harness
-- Representative sheets visually reviewed for core and contextual symbols
-- **Actual browser layout, native dialog behavior, system clipboard and download integration were not verified.** The DOM harness is not a browser test. See [QA coverage and manual checklist](docs/QA.md)
+- `icons/`: individual SVG files; only reviewed semantic entries
+- `src/core.py`, `src/common.py`, `src/engineering.py`: hand-authored drawings and meanings
+- `scripts/`, `tests/`: deterministic build and verification tools
+- `qa/`: category contact sheets and complete raster-audit summary
+- `docs/`: scope, taxonomy references and QA limits
 
-Some dense variants need 24–32 px or larger. These are schematic UI illustrations, not exact toolpaths, simulation results, certified GD&T symbols or safe robot programs. See [limitations](docs/REFERENCE.md#intended-use-and-limits).
-
-## Files
-
-- `icons/`: 4,805 individually usable SVGs
-- `src/`: original drawing recipes, profiles and source taxonomy
-- `scripts/`: deterministic generator and raster/contact-sheet tools
-- `tests/`: XML/integrity and application-interaction tests
-- `qa/`: visual contact sheets and raster-audit summary
-- `docs/`: methodology, primary references and test coverage
-
-## License
-
-[MIT](LICENSE). All icon geometry is original; vendor documentation informed the feature taxonomy, not the artwork.
+[MIT](LICENSE). All geometry is original. Vendor documentation informs feature taxonomy, not icon artwork. These UI symbols are schematic, not certified GD&T notation, simulation results or safe robot programs.
 
 ## 日本語
 
-CAD/CAM/CAE/CMM/ロボットOLP向けのSVGアイコン集と検索Webページです。4,805個は基本100個＋形状や工程の文脈派生4,705個。色・回転だけによる水増しは含みません。商用・OSS製品の一次資料を機能分類の参考にし、丸みのある統一スタイルで作成しました。全SVGの機械検査と描画検査は実施済みですが、Webページの実ブラウザ統合検証は未実施です。
+一般的なアプリ操作とCAD/CAM/CAE/CMM/ロボットOLP向けのSVGアイコン集です。新規・開く・保存・名前を付けて保存・印刷・検索などの共通操作を追加し、断面形状や軌跡の組合せによる派生を削除しました。件数合わせは行わず、実際の機能または用途を持つシンボルごとに整理しています。全件に意味を表すID、日英の名前・タグ・用途説明があります。旧版はGit履歴から復元できます。実ブラウザ統合検証は未実施です。

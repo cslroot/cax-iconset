@@ -97,7 +97,7 @@ add('CMM','measure-circle','Measure circle','円測定',c(16,16,10,fill=PALE)+p(
 add('CMM','measure-cylinder','Measure cylinder','円筒測定',fill('M7 8 C7 2 25 2 25 8 V24 C25 30 7 30 7 24Z')+p('M7 8 C7 14 25 14 25 8 M7 20 C7 26 25 26 25 20',stroke_dasharray='2 2')+nodes([(7,15),(16,12),(25,20)]),'measure,cylinder,円筒')
 add('CMM','measure-sphere','Measure sphere','球測定',c(16,16,11,fill=PALE)+p('M5 16 Q16 6 27 16 Q16 26 5 16 M16 5 Q7 16 16 27 Q25 16 16 5')+nodes([(16,5),(8,18),(24,18)]),'measure,sphere,球')
 add('CMM','line-scan','Line scan','線スキャン',p('M3 26 Q15 14 29 20')+accent('M4 20 Q16 8 28 14 M25 10 28 14 24 16')+nodes([(8,21),(15,18),(23,18)]),'scan,line,測定')
-add('CMM','patch-scan','Patch scan','面スキャン',fill('M3 21 12 5 29 12 20 28Z')+accent('M7 20 14 8 17 10 10 22 13 24 20 11 23 13 16 25'),'scan,surface,面')
+add('CMM','patch-scan','Patch scan','面スキャン',fill('M3 18 12 12 28 20 19 28Z')+accent('M7 18 19 24 23 22 11 16 M8 22 16 26')+r(20,3,6,5,1,fill=PALE)+p('M23 8 V15')+c(23,17,1.7,fill=TEAL)+accent('M5 9 H15 M12 6 15 9 12 12'),'scan,surface,面')
 add('CMM','point-cloud','Point cloud','点群',''.join(c(x,y,1.4,fill=TEAL,stroke='none') for x,y in [(5,12),(10,8),(15,5),(22,8),(27,12),(6,20),(12,16),(18,12),(23,18),(27,24),(18,27),(12,25),(17,20)]),'scan,cloud,点群')
 add('CMM','cad-deviation','CAD deviation','CAD偏差',p('M4 23 Q13 5 28 12')+accent('M4 27 Q14 12 28 15')+p('M13 12 V19 M10 15 13 12 16 15 M20 10 V15'),'compare,deviation,偏差')
 add('CMM','flatness','Flatness','平面度',r(3,8,26,17,2)+p('M8 20 13 13 H25 L20 20Z')+accent('M7 28 H25'),'gdt,flatness,幾何公差')
@@ -126,3 +126,117 @@ add('OLP','joint-limits','Joint limits','関節限界',c(16,21,5,fill=PALE)+p('M
 add('OLP','digital-output','Digital output','デジタル出力',r(3,8,10,17,2,fill=PALE)+p('M6 12 H10 M6 17 H10')+accent('M13 17 H29 M25 13 29 17 25 21'),'io,signal,出力')
 add('OLP','wait-signal','Wait for signal','信号待ち',c(12,17,8,fill=PALE)+p('M12 12 V17 L16 20')+accent('M20 8 H24 V13 H28 V5'),'io,wait,待機')
 add('OLP','cycle-time','Cycle time','サイクルタイム',c(16,18,10,fill=PALE)+p('M16 12 V18 L22 20 M12 3 H20 M16 3 V8')+accent('M25 6 28 9'),'time,cycle,時間')
+
+# Hand-authored command descriptions. These clarify independent actions; they
+# never synthesize extra icons by combining operations with geometry profiles.
+_CORE_DETAILS = {
+    'sketch-line': ('sketch', 'Draw a straight sketch segment between two endpoints.', '2つの端点を指定してスケッチに直線を描きます。'),
+    'sketch-arc': ('sketch', 'Draw a curved sketch segment with a defined circular radius.', '円の半径を持つ円弧をスケッチに描きます。'),
+    'sketch-spline': ('sketch', 'Create a smooth sketch curve through fit points or control points.', '通過点または制御点を使って滑らかなスケッチ曲線を作成します。'),
+    'constraint-tangent': ('sketch-constraint', 'Keep a curve tangent to a selected line or another curve.', '曲線と線分、または2本の曲線が接するよう拘束します。'),
+    'constraint-coincident': ('sketch-constraint', 'Constrain a sketch point to another point or to an entity.', 'スケッチの点を別の点または図形上に一致させます。'),
+    'constraint-parallel': ('sketch-constraint', 'Keep two selected sketch lines parallel.', '選択した2本のスケッチ線を平行に保ちます。'),
+    'extrude': ('solid-feature', 'Extend a planar profile in a straight direction to add solid volume.', '平面上の輪郭を直線方向に伸ばして立体を作成します。'),
+    'revolve': ('solid-feature', 'Rotate a profile around an axis to create a solid feature.', '輪郭を軸の周りに回転させて立体を作成します。'),
+    'sweep': ('solid-feature', 'Move a cross-section along a path to create a solid feature.', '断面を指定した経路に沿って移動させて立体を作成します。'),
+    'loft': ('solid-feature', 'Blend between multiple section profiles to create a solid feature.', '複数の断面をつないで立体を作成します。'),
+    'pocket': ('solid-feature', 'Remove material by extruding a closed sketch into a body.', '閉じたスケッチをボディ内部へ押し出して材料を除去します。'),
+    'fillet': ('solid-feature', 'Round selected model edges with a specified radius.', '選択したモデルのエッジに指定半径の丸みを付けます。'),
+    'chamfer': ('solid-feature', 'Bevel selected model edges using a distance or angle.', '選択したモデルのエッジを距離や角度で面取りします。'),
+    'shell': ('solid-feature', 'Hollow a solid body while retaining a specified wall thickness.', '指定した肉厚を残してソリッドボディを中空にします。'),
+    'boolean-union': ('solid-boolean', 'Combine overlapping solid bodies into a single solid.', '重なるソリッドボディを結合して1つの立体にします。'),
+    'boolean-subtract': ('solid-boolean', 'Remove the volume of a tool body from a target body.', '対象ボディから工具ボディと重なる体積を取り除きます。'),
+    'linear-pattern': ('feature-pattern', 'Repeat selected features at regular spacing along a direction.', '選択したフィーチャを指定方向へ一定間隔で繰り返します。'),
+    'circular-pattern': ('feature-pattern', 'Repeat selected features around a rotation axis.', '選択したフィーチャを回転軸の周りに繰り返します。'),
+    'revolute-joint': ('assembly', 'Connect components so that one rotational degree of freedom remains.', '部品間に1軸の回転だけを許すジョイントを設定します。'),
+    'sheet-metal-bend': ('sheet-metal', 'Bend a sheet-metal region along a specified bend line.', '指定した曲げ線に沿って板金を曲げます。'),
+    'stock-setup': ('manufacturing-setup', 'Define the raw stock envelope for a machining setup.', '加工セットアップで使用する素材の形状と寸法を設定します。'),
+    'work-coordinate-system': ('manufacturing-setup', 'Set the machining origin and work coordinate axes.', '加工の原点とワーク座標軸を設定します。'),
+    'fixture-clamp': ('manufacturing-setup', 'Define a clamp or fixture that holds the workpiece during machining.', '加工中にワークを保持するクランプや治具を設定します。'),
+    'end-mill': ('cutting-tool', 'Select or define a flat-end milling cutter for a machining operation.', '加工で使用するフラットエンドミルを選択または定義します。'),
+    'ball-end-mill': ('cutting-tool', 'Select or define a ball-end cutter for curved-surface machining.', '曲面加工で使用するボールエンドミルを選択または定義します。'),
+    'face-milling': ('milling-operation', 'Machine a planar top face with a face-milling toolpath.', '正面フライスの工具軌跡で上面を平らに加工します。'),
+    'contour-milling': ('milling-operation', 'Machine along a selected outer or inner contour.', '選択した外周または内周の輪郭に沿って加工します。'),
+    'pocket-milling': ('milling-operation', 'Clear material inside a closed pocket boundary.', '閉じたポケット境界の内側にある材料を除去します。'),
+    'adaptive-clearing': ('milling-operation', 'Rough a region with a toolpath that controls cutter engagement.', '工具の切込み負荷を制御する工具軌跡で領域を荒加工します。'),
+    'rest-machining': ('milling-operation', 'Machine material remaining from a previous larger-tool operation.', '前工程の大きな工具で削り残した材料を加工します。'),
+    'parallel-finishing': ('milling-operation', 'Finish a surface using parallel machining passes.', '平行な加工パスを使って曲面を仕上げます。'),
+    'swarf-milling': ('milling-operation', 'Machine a side surface with the flank of a tilted cutter.', '傾けた工具の側刃を使って側面を加工します。'),
+    'drilling': ('hole-operation', 'Create a hole using an axial drilling operation.', 'ドリルを軸方向へ送って穴を加工します。'),
+    'peck-drilling': ('hole-operation', 'Drill a deep hole in steps with intermittent chip-clearing retracts.', '切りくず排出のために工具を戻しながら段階的に深穴を加工します。'),
+    'tapping': ('hole-operation', 'Cut an internal thread using a tapping cycle.', 'タップサイクルを使って穴の内側にねじを加工します。'),
+    'external-turning': ('turning-operation', 'Turn the outside profile of a rotating workpiece.', '回転するワークの外径輪郭を旋削します。'),
+    'internal-boring': ('turning-operation', 'Enlarge or finish the inside diameter of an existing hole.', '既存の穴の内径を中ぐり工具で拡大または仕上げます。'),
+    'parting': ('turning-operation', 'Cut a finished part free from bar stock on a lathe.', '旋盤の棒材から完成した部品を突切り工具で切り離します。'),
+    'toolpath-simulation': ('manufacturing-verification', 'Preview cutter motion and material removal before machining.', '加工前に工具の移動と材料除去をシミュレーションします。'),
+    'post-process': ('nc-program', 'Convert calculated toolpaths into machine-specific NC instructions.', '計算した工具軌跡を工作機械用のNC命令に変換します。'),
+    'tetrahedral-mesh': ('analysis-mesh', 'Generate a volume mesh made of tetrahedral finite elements.', '四面体の有限要素で構成される体積メッシュを生成します。'),
+    'hexahedral-mesh': ('analysis-mesh', 'Generate a volume mesh made of hexahedral finite elements.', '六面体の有限要素で構成される体積メッシュを生成します。'),
+    'mesh-refinement': ('analysis-mesh', 'Reduce element size in selected regions to improve solution resolution.', '選択領域の要素を小さくして解析の解像度を高めます。'),
+    'mesh-quality': ('analysis-mesh', 'Check element distortion and other mesh quality measures.', '要素のゆがみなどの指標でメッシュ品質を検査します。'),
+    'material-assignment': ('analysis-setup', 'Assign physical material properties to selected bodies or elements.', '選択したボディや要素に材料の物性値を割り当てます。'),
+    'shell-element': ('analysis-mesh', 'Represent a thin-walled part with shell finite elements.', '薄肉部品をシェル有限要素で表現します。'),
+    'beam-element': ('analysis-mesh', 'Represent a slender structural member with beam finite elements.', '細長い構造部材を梁有限要素で表現します。'),
+    'fixed-support': ('analysis-boundary', 'Prevent motion at selected support faces, edges or nodes.', '選択した支持面、エッジ、節点の変位を固定します。'),
+    'displacement-boundary': ('analysis-boundary', 'Prescribe a displacement at selected model locations.', 'モデルの選択箇所に既知の変位を与えます。'),
+    'force-load': ('analysis-load', 'Apply a concentrated force with a specified direction and magnitude.', '指定した方向と大きさの集中荷重を適用します。'),
+    'pressure-load': ('analysis-load', 'Apply pressure over selected model surfaces.', '選択したモデル表面に圧力荷重を適用します。'),
+    'contact-pair': ('analysis-contact', 'Define how two interacting surfaces transmit contact forces.', '接触する2つの面の間で力を伝える条件を定義します。'),
+    'static-structural': ('analysis-study', 'Create a structural study for loads treated as time-independent.', '時間に依存しない荷重による構造応答を解析します。'),
+    'modal-analysis': ('analysis-study', 'Calculate the natural frequencies and mode shapes of a structure.', '構造物の固有振動数と振動モードを計算します。'),
+    'buckling-analysis': ('analysis-study', 'Evaluate structural instability and associated buckling modes.', '構造の不安定性と座屈モードを評価します。'),
+    'thermal-boundary': ('analysis-boundary', 'Specify thermal conditions such as temperature or heat transfer.', '温度や熱伝達などの熱境界条件を指定します。'),
+    'fluid-inlet': ('analysis-boundary', 'Set the fluid entry condition at an inlet boundary.', '流入口の境界に流入する流体の条件を設定します。'),
+    'turbulence-model': ('analysis-setup', 'Choose the turbulence treatment used by a fluid-flow analysis.', '流体解析で使用する乱流モデルを選択します。'),
+    'stress-contour': ('analysis-results', 'Display the distribution of a selected stress result on the model.', '選択した応力結果の分布をモデル上に表示します。'),
+    'convergence-monitor': ('analysis-solver', 'Track solver residuals or convergence measures during a solution.', '解析中の残差や収束指標の推移を確認します。'),
+    'tactile-probe': ('inspection-probe', 'Select a contact probe for discrete-point measurement.', '点に接触して測定するプローブを選択します。'),
+    'laser-scanner': ('inspection-probe', 'Select a laser sensor for non-contact surface measurement.', '非接触で表面を測定するレーザーセンサーを選択します。'),
+    'probe-qualification': ('inspection-probe', 'Qualify a probe tip against a reference artifact before measurement.', '測定前に基準器を使ってプローブ先端を校正します。'),
+    'stylus-change': ('inspection-probe', 'Switch to a different stylus or qualified probe-tip configuration.', '別のスタイラスまたは校正済み先端構成へ切り替えます。'),
+    'datum-plane': ('inspection-datum', 'Establish a plane as an inspection datum reference.', '測定した平面を検査のデータム基準に設定します。'),
+    'three-two-one-alignment': ('inspection-alignment', 'Align a part using primary, secondary and tertiary datum constraints.', '第一、第二、第三データムで部品の測定座標系を合わせます。'),
+    'best-fit-alignment': ('inspection-alignment', 'Fit measured data to nominal geometry by minimizing alignment error.', '測定データと設計形状の位置合わせ誤差を最小化します。'),
+    'measure-point': ('feature-measurement', 'Acquire the coordinates of a single inspection point.', '1つの検査点の座標を取得します。'),
+    'measure-circle': ('feature-measurement', 'Measure a circular feature to determine its center and diameter.', '円形状を測定して中心と直径を求めます。'),
+    'measure-cylinder': ('feature-measurement', 'Measure a cylindrical feature to determine its axis and diameter.', '円筒形状を測定して軸と直径を求めます。'),
+    'measure-sphere': ('feature-measurement', 'Measure a spherical feature to determine its center and diameter.', '球形状を測定して中心と直径を求めます。'),
+    'line-scan': ('inspection-scan', 'Collect measured points continuously along a scan path.', 'スキャン経路に沿って測定点を連続取得します。'),
+    'patch-scan': ('inspection-scan', 'Collect measured points across a selected surface patch.', '選択した面領域を走査して測定点を取得します。'),
+    'point-cloud': ('inspection-data', 'Import or inspect a cloud of measured three-dimensional points.', '測定した3次元点群を取り込んで確認します。'),
+    'cad-deviation': ('inspection-comparison', 'Compare measured data with CAD geometry and display deviations.', '測定データをCAD形状と比較して偏差を表示します。'),
+    'flatness': ('geometric-tolerance', 'Evaluate the flatness deviation of a measured surface.', '測定した面の平面度を評価します。'),
+    'position-tolerance': ('geometric-tolerance', 'Evaluate a feature location relative to its specified datum system.', '指定したデータム系に対する形体の位置度を評価します。'),
+    'runout': ('geometric-tolerance', 'Evaluate circular runout relative to a specified datum axis.', '指定したデータム軸に対する円周振れを評価します。'),
+    'inspection-plan': ('inspection-program', 'Define the measurement features and sequence for an inspection routine.', '検査ルーチンの測定項目と実行順序を定義します。'),
+    'inspection-report': ('inspection-report', 'Generate a report containing measured values and tolerance results.', '測定値と公差判定をまとめた検査レポートを作成します。'),
+    'robot-arm': ('robot-cell', 'Load or select the robot model used by an offline program.', 'オフラインプログラムで使用するロボットモデルを読み込みます。'),
+    'robot-cell': ('robot-cell', 'Arrange robots, fixtures and equipment in a virtual workcell.', '仮想セルにロボット、治具、設備を配置します。'),
+    'external-linear-axis': ('robot-cell', 'Configure a linear external axis linked to the robot system.', 'ロボットシステムに連動する外部直動軸を設定します。'),
+    'positioner': ('robot-cell', 'Configure a rotary positioner that orients the workpiece.', 'ワークの向きを変える回転ポジショナーを設定します。'),
+    'tool-center-point': ('robot-tool', 'Define the tool-tip position relative to the robot flange.', 'ロボットのフランジに対する工具先端位置を定義します。'),
+    'reference-frame': ('robot-frame', 'Set the work reference coordinate system used by robot targets.', 'ロボットの目標位置に使用するワーク参照座標系を設定します。'),
+    'tcp-calibration': ('robot-tool', 'Calibrate the tool-center-point offset from multiple robot poses.', '複数のロボット姿勢から工具中心点のオフセットを校正します。'),
+    'joint-target': ('robot-target', 'Teach a target as a set of robot joint positions.', '各関節の位置を指定してロボットの目標を教示します。'),
+    'cartesian-target': ('robot-target', 'Teach a target as a tool position and orientation in a coordinate frame.', '座標系内の工具位置と姿勢を指定して目標を教示します。'),
+    'joint-move': ('robot-motion', 'Insert a motion instruction interpolated in joint space.', '関節座標で補間する移動命令を挿入します。'),
+    'linear-move': ('robot-motion', 'Insert a motion instruction that follows a straight tool path.', '工具先端が直線をたどる移動命令を挿入します。'),
+    'circular-move': ('robot-motion', 'Insert a motion instruction through an intermediate circular-path target.', '中間点を経由して工具先端が円弧をたどる移動命令を挿入します。'),
+    'path-blend': ('robot-motion', 'Set corner rounding between consecutive robot motions.', '連続するロボット移動の接続部にコーナー丸めを設定します。'),
+    'reachability': ('robot-verification', 'Check whether the robot can reach the required target poses.', '必要な目標位置と姿勢にロボットが到達できるか確認します。'),
+    'singularity-check': ('robot-verification', 'Identify robot poses near kinematic singularities.', '運動学的な特異点に近いロボット姿勢を検出します。'),
+    'collision-check': ('robot-verification', 'Check robot, tool and cell geometry for collisions along a motion.', '移動中のロボット、工具、セル内設備の衝突を確認します。'),
+    'joint-limits': ('robot-verification', 'Inspect or set the permitted travel range of robot joints.', 'ロボット関節の許容可動範囲を確認または設定します。'),
+    'digital-output': ('robot-io', 'Insert an instruction that sets a digital output signal.', 'デジタル出力信号の状態を設定する命令を挿入します。'),
+    'wait-signal': ('robot-io', 'Pause program execution until an input signal reaches the required state.', '入力信号が指定状態になるまでプログラムの実行を待機します。'),
+    'cycle-time': ('robot-verification', 'Estimate the execution time of a simulated robot program.', 'シミュレーションしたロボットプログラムの実行時間を見積もります。'),
+}
+
+for _domain, _items in CORE.items():
+    for _item in _items:
+        _family, _description, _description_ja = _CORE_DETAILS[_item['id']]
+        _item.update(family=_family, description=_description, descriptionJa=_description_ja)
+        # Preserve established search terms while adding both language names.
+        _item['tags'] = list(dict.fromkeys(_item['tags'] + [_item['name'].lower(), _item['nameJa'], _domain.lower()]))
+assert sum(map(len, CORE.values())) == 100
+assert len(_CORE_DETAILS) == 100

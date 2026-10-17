@@ -1,65 +1,65 @@
 # QA report
 
-Date: 2026-10-17. Collection: 4,805 SVGs, 100 core / 4,705 context variants.
+Date: 2026-10-17. Scope: the semantic v2 catalog, with all profile/trajectory variants removed.
 
-## Executed checks
+<!-- results:start -->
+- Final collection: **232 SVGs** (Common 69, CAD 58, CAM 26, CAE 27, CMM 25, OLP 27)
+- XML, safety, metadata, hash, geometry and removed-generator checks: **4 test groups passed**
+- Normalized-geometry duplicates: **0**
+- All 232 SVGs rendered at 2×: **0 blank, 0 overflow, 0 identical normalized raster groups**
+- JavaScript syntax: **passed** for app.js and catalog.js
+- Script-level application interactions: **10 groups passed**
+- All six category contact sheets visually inspected; each entry shown at 48 / 24 / 16 px
+- Deterministic rebuild: **passed**, manifest and catalog bytes unchanged
+- Actual browser integration: **not run**
+<!-- results:end -->
 
-| Check | Result | Method |
-| --- | --- | --- |
-| Rebuild | Pass | `python3 scripts/build.py`; generated assets match source |
-| Catalog safety / integrity | Pass | Three `unittest` groups inspecting every SVG and metadata entry |
-| Normalized XML geometry uniqueness | 0 duplicate groups | Ignores label text, colors and local ID spelling; preserves geometry |
-| Blank raster detection | 0 | All 4,805 SVG bodies rendered at 2× with Inkscape |
-| Painting outside viewBox | 0 | Atlas places each icon without a per-icon viewport clip, then measures alpha bounds |
-| Identical raster detection | 0 groups | Color-normalized 2× images compared byte-for-byte |
-| JavaScript syntax | Pass | `node --check app.js` and `node --check catalog.js` |
-| Application behavior | 10 groups passed | Real scripts executed in Node's VM with a minimal DOM harness |
-| Contact sheets | Reviewed | Core 100 and representative CAD/CAM/CAE/CMM/OLP contexts at 48 / 24 px |
+## Executed methods
 
-The raster results are saved in [`qa/raster-audit.json`](../qa/raster-audit.json). `scripts/raster_audit.py` exits with a failure code if it finds blanks, overflow, or duplicate rasters. Raster intermediates are not committed.
+- Rebuild generated SVGs and metadata from hand-authored records
+- Parse every SVG as XML; validate allowed elements, local references, hashes, bilingual metadata and semantic IDs
+- Detect exact normalized-geometry duplicates, ignoring labels and colors
+- Render every icon at 2× using Inkscape and measure visible alpha bounds without a per-icon viewport clip
+- Compare color-normalized raster pixels for identical drawings
+- Run real `app.js` and `catalog.js` in a dependency-free Node DOM harness
+- Export and inspect Common, CAD, CAM, CAE, CMM and OLP contact sheets at 48 / 24 / 16 px
 
-## Application interaction coverage
+The machine-readable raster summary is [`qa/raster-audit.json`](../qa/raster-audit.json). Full raster intermediates are gitignored. Hash/XML/raster uniqueness cannot establish semantic uniqueness by themselves: the semantic review separately checks that every item describes a distinct command, tool or interface symbol.
 
-1. Initial total, bounded 96-item page and category controls
-2. English / Japanese / multi-term / Unicode-normalized search, empty state and clear
-3. Category and type intersections, including shared centroid counts
-4. All 51 pages, last-page bounds, previous navigation and query page reset
-5. Japanese labels, preview sizes, background controls
-6. Detail open, repeated open, close, backdrop targeting and restored focus
-7. Unique preview clip IDs and standalone copied SVG
-8. Clipboard rejection, failed fallback, throwing fallback and temporary-element cleanup
-9. Download filename and SVG blob content
-10. `/` shortcut guarding input fields and an open dialog
+## Application test coverage
 
-These checks found and fixed a thrown clipboard-fallback error, duplicate preview clip IDs, an inaccessible search name and a mismatched dark-detail background. Four previously overflowing keyhole drawings were corrected and the full raster audit was repeated.
+1. Dynamic total, bounded first page, six categories and removal of the old context filter
+2. English / Japanese / AND / Unicode-normalized searches, common file actions, empty state and clear
+3. Common/engineering category intersections and reset
+4. All pages, last-page bounds, previous navigation and query page reset
+5. Japanese labels, preview size and backgrounds
+6. Bilingual purpose, repeated detail open, close, backdrop targeting and focus restoration
+7. Copied SVG title, geometry and absence of preview-only IDs
+8. Clipboard rejection, failed/throwing fallback and temporary-element cleanup
+9. Download filename, SVG type and content
+10. `/` shortcut guarded while typing or viewing a dialog
 
 ## Not executed / limits
 
-- **No real browser UI run.** Browser execution was unavailable in the implementation environment. The separate browser could not access its localhost server or local files. No deployment was made to work around that limitation.
-- No claim of tested desktop/mobile layout, computed CSS, native Escape/focus trapping, browser history, real system clipboard, or actual saved downloads.
-- The DOM harness simulates the APIs used by the app; it cannot establish browser integration or visual correctness of the webpage.
-- Alpha bounds use a threshold of 10/255 at 2×. This catches visible clipping, not every theoretical subpixel paint extent.
-- Exact raster and XML uniqueness do not guarantee that all variants are perceptually easy to distinguish at 16 px.
-- Contact-sheet review is representative, not an expert semantic certification of each of the 4,805 icons.
-- No install/build dependency was added, and no external font or vendor artwork is required.
+- **No real browser UI run.** These app checks execute in a script-level DOM harness, not a browser layout engine.
+- Desktop/mobile layout, computed CSS, native dialog Escape/focus trapping, browser history, real system clipboard and saved downloads are not verified.
+- Alpha bounds use a threshold of 10/255 at 2×; this detects visible overflow rather than every theoretical subpixel extent.
+- Small previews help review legibility but do not guarantee every symbol is suitable for every 16 px toolbar. Check against the intended background and task.
+- The semantic catalog is intentionally selective; it does not cover every command in every engineering product.
+- No package install or runtime external artwork/font is required.
 
 ## Manual browser checklist
 
-Run the local server from the README, then check at desktop and narrow mobile widths:
+Serve the repository locally as described in the README, then inspect desktop and narrow-mobile widths:
 
-- Search by `extrude`, `押し出し` and a nonsense term; clear and reset
-- Combine each category with core / context filters; test the last page and Previous
-- Switch labels, all sizes and backgrounds; inspect overflow and color contrast
-- Open several details, close with ×, click the backdrop and press Escape; check keyboard focus
-- Copy SVG on a secure localhost origin; paste into a text editor and verify valid SVG
-- Download SVG; open the saved file and confirm the filename and appearance
-- Confirm no console errors or external requests
+- Search `open`, `保存`, `名前を付けて保存`, `extrude`, `押し出し` and a nonsense term
+- Use Common and all five engineering categories; navigate the last page and back
+- Switch languages, all sizes and backgrounds; inspect contrast and overflow
+- Open several details; close with ×, backdrop and Escape; check focus
+- Copy SVG on localhost and paste into a text editor
+- Download and open an SVG; check its filename and appearance
+- Confirm no console errors or external network requests
 
-## Visual samples
+## Visual sheets
 
-- [Core 100](../qa/core-100.png)
-- [CAD variants](../qa/variants-cad.png)
-- [CAM variants](../qa/variants-cam.png)
-- [CAE variants](../qa/variants-cae.png)
-- [CMM variants](../qa/variants-cmm.png)
-- [OLP variants](../qa/variants-olp.png)
+[Common](../qa/common.png) · [CAD](../qa/cad.png) · [CAM](../qa/cam.png) · [CAE](../qa/cae.png) · [CMM](../qa/cmm.png) · [OLP](../qa/olp.png)

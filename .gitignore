@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+qa/raster-atlas.svg
+qa/raster-atlas.png
+qa/*.log

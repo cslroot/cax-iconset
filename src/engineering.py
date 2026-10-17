@@ -175,7 +175,7 @@ add('CAM', 'tool-change', 'Tool change', '工具交換', 'nc-program',
 # CAE: study lifecycle and result interrogation.
 add('CAE', 'new-study', 'New simulation study', '新規解析スタディ', 'analysis-study',
     'Create an analysis study with its own setup, loads and result set.', '設定、荷重、結果を独立して管理する解析スタディを作成します。',
-    p('M5 4 H20 L26 10 V28 H5Z M20 4 V10 H26')+p('M8 22 13 13 18 22Z M8 22 13 18 18 22 M13 13 V18')+accent('M23 16 V25 M19 20 H28'),
+    p('M5 4 H20 L26 10 V28 H5Z M20 4 V10 H26')+p('M8 23 14 12 20 23Z M8 23 14 19 20 23 M14 12 V19')+accent('M23 13 V24 M22 17 H25 M22 21 H25'),
     'study,new,simulation,analysis,解析,新規スタディ')
 add('CAE', 'model-precheck', 'Model precheck', '解析モデル事前確認', 'analysis-solver',
     'Check study setup for missing inputs or inconsistent conditions before solving.', '計算前に解析設定の不足や条件の不整合を確認します。',

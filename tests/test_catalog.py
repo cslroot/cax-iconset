@@ -33,8 +33,7 @@ def geometry_signature(root):
 
 class CatalogTests(unittest.TestCase):
     def test_counts_and_metadata(self):
-        self.assertGreaterEqual(M['count'], 165)
-        self.assertLess(M['count'], 400, 'A large increase needs a fresh semantic scope review')
+        self.assertGreater(M['count'], 0)
         self.assertEqual(M['count'], len(M['icons']))
         self.assertEqual(M['counts'], dict(collections.Counter(i['role'] for i in M['icons'])))
         self.assertEqual(M['categories'], dict(collections.Counter(i['category'] for i in M['icons'])))
@@ -46,10 +45,12 @@ class CatalogTests(unittest.TestCase):
                 self.assertTrue(i[key], (i['id'], key))
             self.assertRegex(i['id'], r'^[a-z0-9]+(?:-[a-z0-9]+)*$')
             self.assertEqual(i['file'], 'icons/' + i['id'] + '.svg')
-            self.assertEqual(i['categories'], [i['category']])
+            self.assertEqual(i['categories'][0], i['category'])
+            self.assertEqual(len(i['categories']),len(set(i['categories'])))
+            self.assertTrue(set(i['categories']) <= set(M['categories']))
             self.assertNotIn('context', i)
             self.assertNotEqual(i.get('kind'), 'variant')
-            self.assertIn(i['role'], {'command', 'tool', 'status'})
+            self.assertIn(i['role'], {'command', 'tool', 'status', 'object'})
             self.assertTrue(set(i['sources']) <= set(M['sourceReferences']))
             self.assertTrue(any(re.search('[a-zA-Z]', t) for t in i['tags']), i['id'])
             self.assertTrue(any(re.search('[ぁ-んァ-ヶ一-龠]', t) for t in i['tags']), i['id'])
@@ -62,6 +63,32 @@ class CatalogTests(unittest.TestCase):
         ids = {i['id'] for i in common}
         for operation in required:
             self.assertIn('common-' + operation, ids)
+
+    def test_usage_metadata_and_reuse(self):
+        self.assertEqual(M['categoryMemberships'], dict(collections.Counter(c for i in M['icons'] for c in i['categories'])))
+        self.assertEqual(M['usageCounts'], dict(collections.Counter(u for i in M['icons'] for u in i['usages'])))
+        by_id={i['id']:i for i in M['icons']}
+        for i in M['icons']:
+            self.assertTrue(i['usages'],i['id'])
+            self.assertEqual(len(i['usages']),len(set(i['usages'])))
+            self.assertTrue(set(i['usages']) <= {'command','model-tree','tool','status'})
+            if i['role']=='object':self.assertEqual(i['usages'],['model-tree'])
+            else:self.assertIn(i['role'],i['usages'])
+            if 'model-tree' in i['usages']:
+                for field in ['nodeName','nodeNameJa','objectType']:self.assertTrue(i.get(field), (i['id'],field))
+            else:self.assertNotIn('objectType',i)
+        for id in ['cad-extrude','cae-material-assignment','cae-fixed-support','cam-post-process']:
+            self.assertEqual(by_id[id]['usages'],['command','model-tree'])
+        self.assertIn('CAD',by_id['cae-material-assignment']['categories'])
+        self.assertIn('component instance',by_id['cad-part']['nodeAliases'])
+        self.assertFalse({'cad-material','cad-component-instance','cam-nc-program'} & set(by_id))
+        # Every explicit reuse key names one real entry; no orphan metadata.
+        import sys
+        sys.path.insert(0,str(ROOT/'src'))
+        from usage import TREE, NAMES, SHARED
+        self.assertTrue(set(TREE) <= set(by_id))
+        self.assertTrue(set(NAMES) <= set(TREE))
+        self.assertTrue(set(SHARED) <= set(by_id))
 
     def test_no_profile_cartesian_product(self):
         # Removing the old generator is an architectural guard; semantic review

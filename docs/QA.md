@@ -1,16 +1,20 @@
 # QA report
 
-Date: 2026-10-17. Scope: the semantic v2 catalog, with all profile/trajectory variants removed.
+Date: 2026-10-17. Scope: the semantic v2.1 catalog and model-tree integration, with all profile/trajectory variants excluded.
 
 <!-- results:start -->
-- Final collection: **232 SVGs** (Common 69, CAD 58, CAM 26, CAE 27, CMM 25, OLP 27)
-- XML, safety, metadata, hash, geometry and removed-generator checks: **4 test groups passed**
+- Final collection: **270 SVGs** (primary categories: Common 70, CAD 82, CAM 31, CAE 35, CMM 25, OLP 27)
+- Added independent symbols: **38** (30 commands and 8 persistent objects)
+- Model-tree-compatible entries: **118**, reusing the same SVGs rather than emitting variants
+- XML, safety, metadata, hash, geometry, reuse and removed-generator checks: **5 test groups passed**
 - Normalized-geometry duplicates: **0**
-- All 232 SVGs rendered at 2×: **0 blank, 0 overflow, 0 identical normalized raster groups**
+- All 270 SVGs rendered at 2×: **0 blank, 0 overflow, 0 identical normalized raster groups**
 - JavaScript syntax: **passed** for app.js and catalog.js
-- Script-level application interactions: **10 groups passed**
-- All six category contact sheets visually inspected; each entry shown at 48 / 24 / 16 px
-- Deterministic rebuild: **passed**, manifest and catalog bytes unchanged
+- Script-level application interactions: **11 groups passed**
+- All six category sheets and the 38-addition sheet inspected at 48 / 24 / 16 px
+- Model-tree integration specimen: **58 rows at native 16 px**, inspected as three indented hierarchies
+- Independent CAD and CAM/CAE semantic and visual reviews: **no blocking issues**
+- Deterministic rebuild: **passed**, generated SVGs, metadata, sheets and coverage blocks unchanged
 - Actual browser integration: **not run**
 <!-- results:end -->
 
@@ -22,7 +26,9 @@ Date: 2026-10-17. Scope: the semantic v2 catalog, with all profile/trajectory va
 - Render every icon at 2× using Inkscape and measure visible alpha bounds without a per-icon viewport clip
 - Compare color-normalized raster pixels for identical drawings
 - Run real `app.js` and `catalog.js` in a dependency-free Node DOM harness
-- Export and inspect Common, CAD, CAM, CAE, CMM and OLP contact sheets at 48 / 24 / 16 px
+- Export and inspect Common, CAD, CAM, CAE, CMM and OLP contact sheets, plus the source-reviewed additions, at 48 / 24 / 16 px
+- Render the actual SVG geometry at native 16 px inside 58 indented CAD/CAM/CAE tree rows
+- Independently review additions for semantic distinction, individual primary references, and appropriate glyph reuse
 
 The machine-readable raster summary is [`qa/raster-audit.json`](../qa/raster-audit.json). Full raster intermediates are gitignored. Hash/XML/raster uniqueness cannot establish semantic uniqueness by themselves: the semantic review separately checks that every item describes a distinct command, tool or interface symbol.
 
@@ -38,6 +44,7 @@ The machine-readable raster summary is [`qa/raster-audit.json`](../qa/raster-aud
 8. Clipboard rejection, failed/throwing fallback and temporary-element cleanup
 9. Download filename, SVG type and content
 10. `/` shortcut guarded while typing or viewing a dialog
+11. Usage filters, model-tree noun labels, Japanese node labels, category/usage/search intersections, shared entries without duplicate cards, instance alias search and complete reset
 
 ## Not executed / limits
 
@@ -54,6 +61,8 @@ Serve the repository locally as described in the README, then inspect desktop an
 
 - Search `open`, `保存`, `名前を付けて保存`, `extrude`, `押し出し` and a nonsense term
 - Use Common and all five engineering categories; navigate the last page and back
+- Combine Model-tree nodes with CAD, search `材料`, and reset; verify one shared material entry
+- Switch command/tool/status usage filters and inspect the 16 px hierarchy specimen
 - Switch languages, all sizes and backgrounds; inspect contrast and overflow
 - Open several details; close with ×, backdrop and Escape; check focus
 - Copy SVG on localhost and paste into a text editor
@@ -62,4 +71,4 @@ Serve the repository locally as described in the README, then inspect desktop an
 
 ## Visual sheets
 
-[Common](../qa/common.png) · [CAD](../qa/cad.png) · [CAM](../qa/cam.png) · [CAE](../qa/cae.png) · [CMM](../qa/cmm.png) · [OLP](../qa/olp.png)
+[Common](../qa/common.png) · [CAD](../qa/cad.png) · [CAM](../qa/cam.png) · [CAE](../qa/cae.png) · [CMM](../qa/cmm.png) · [OLP](../qa/olp.png) · [38 additions](../qa/additions.png) · [Native 16 px model-tree hierarchy](../qa/model-tree.png)

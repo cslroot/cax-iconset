@@ -21,3 +21,40 @@ REFERENCES = {
  'robodk': {'title':'RoboDK robot programs', 'url':'https://robodk.com/doc/en/Robot-Programs.html', 'scope':'Robot programming, targets and motion instructions'},
  'moveit': {'title':'MoveIt concepts', 'url':'https://moveit.ai/documentation/concepts/', 'scope':'Motion planning, kinematics and collision checking'},
 }
+
+# Reviewed 2026-10-17: per-entry references for newly added commands/objects.
+# These documents establish semantics only; no vendor artwork is bundled.
+REFERENCES.update({
+ 'solidworks-features-2026':{'title':'SOLIDWORKS 2026 Features toolbar','url':'https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Features_Toolbar.htm?id=2.12.4.1.11','scope':'Hole, thread, draft and rib feature commands'},
+ 'onshape-split':{'title':'Onshape Split','url':'https://cad.onshape.com/help/Content/PartStudio/split.htm','scope':'Split parts using surfaces or planes'},
+ 'onshape-thicken':{'title':'Onshape Thicken','url':'https://cad.onshape.com/help/Content/PartStudio/thicken.htm','scope':'Add thickness to surfaces to create solids'},
+ 'onshape-offset-surface':{'title':'Onshape Offset surface','url':'https://cad.onshape.com/help/Content/PartStudio/offset_surface.htm','scope':'Create a normal offset surface'},
+ 'onshape-project':{'title':'Onshape Use projected geometry','url':'https://cad.onshape.com/help/Content/Sketch/use.htm','scope':'Reference projected external geometry in a sketch'},
+ 'fusion-sketch-constraints':{'title':'Fusion sketch constraints','url':'https://help.autodesk.com/cloudhelp/ENU/Fusion-Sketch/files/SKT-CONSTRAINTS.htm','scope':'Horizontal/vertical, concentric and midpoint constraints'},
+ 'onshape-mass-properties':{'title':'Onshape Mass properties','url':'https://cad.onshape.com/help/Content/View/mass_properties_tool.htm','scope':'Mass, center of mass and inertia'},
+ 'fusion-mesh-convert':{'title':'Fusion Convert Mesh','url':'https://help.autodesk.com/cloudhelp/ENU/Fusion-Mesh/files/MESH-CONVERT-TO-SOLID.htm','scope':'Mesh bodies and conversion to B-rep'},
+ 'onshape-feature-parts':{'title':'Onshape feature and parts lists','url':'https://cad.onshape.com/help/Content/PartStudio/features_and_parts_lists.htm','scope':'Part, sketch and feature list objects; feature nodes reuse their creating tool icons'},
+ 'onshape-instances':{'title':'Onshape assembly instances list','url':'https://cad.onshape.com/help/Content/Assembly/instances_list.htm','scope':'Assemblies, component instances and their containment'},
+ 'solidworks-multibody':{'title':'SOLIDWORKS multibody overview','url':'https://help.solidworks.com/2026/English/SolidWorks/Sldworks/c_Multibody_Overview.htm','scope':'One part can contain multiple solid and surface bodies'},
+ 'fusion-components':{'title':'Fusion components, occurrences and proxies','url':'https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/ComponentsProxies_UM.htm','scope':'Component definitions versus placed occurrences'},
+ 'fusion-manufacture-browser':{'title':'Fusion Manufacture browser','url':'https://help.autodesk.com/cloudhelp/ENU/Fusion-CAM/files/GUIDB87E0180-7CDD-41B0-866C-EEDACB946E09.htm','scope':'Setups, operation groups, folders and NC program tree organization'},
+ 'fusion-nc-program':{'title':'Fusion NC programs','url':'https://help.autodesk.com/cloudhelp/ENU/Fusion-CAM/files/MFG-NC-PROGRAM-OVERVIEW.htm','scope':'NC program nodes and post-processing output'},
+ 'fusion-thread-milling':{'title':'Fusion 2D Thread','url':'https://help.autodesk.com/cloudhelp/ENU/Fusion-CAM/files/2D-THREAD-STEPS.htm','scope':'Helical thread milling operation'},
+ 'fusion-holding-tabs':{'title':'Fusion 2D Contour reference','url':'https://help.autodesk.com/view/fusion360/ENU/?contextId=MFG-REF-2D-CONTOUR-CMD','scope':'Holding tabs left in contour cutting'},
+ 'fusion-engrave':{'title':'Fusion Engrave reference','url':'https://help.autodesk.com/view/fusion360/ENU/?contextId=MFG-REF-2D-ENGRAVE-CMD','scope':'V-tool engraving with sharp corners'},
+ 'fusion-cam-chamfer':{'title':'Fusion 2D Chamfer','url':'https://help.autodesk.com/view/fusion360/ENU/?contextId=2D-CHAMFER-STEPS','scope':'Machining edge chamfers with a cutter'},
+ 'ansys-gravity':{'title':'Ansys Mechanical Standard Earth Gravity','url':'https://ansyshelp.ansys.com/public/Views/Secured/corp/v261/en/wb_sim/ds_Gravity.html','scope':'Gravity as an acceleration/body load'},
+ 'ansys-moment':{'title':'Ansys Mechanical Moment','url':'https://ansyshelp.ansys.com/public/Views/Secured/corp/v261/en/wb_sim/ds_Moment.html','scope':'Moment loading of scoped model regions'},
+ 'ansys-symmetry':{'title':'Ansys Mechanical Symmetry Region','url':'https://ansyshelp.ansys.com/public/Views/Secured/corp/v251/en/mech_obj/ds_Symmetry_Region_o_r.html','scope':'Symmetry boundary object and constraints'},
+ 'gmsh-physical-groups':{'title':'Gmsh elementary entities and physical groups','url':'https://gmsh.info/doc/texinfo/gmsh.html#Elementary-entities-vs-physical-groups','scope':'Reusable semantic groups of geometry/mesh entities'},
+ 'ansys-inflation':{'title':'Ansys Meshing Inflation','url':'https://ansyshelp.ansys.com/public/views/secured/corp/v252/en/wb_msh/ds_Inflation.html','scope':'Graded wall-normal boundary-layer elements'},
+ 'openfoam-boundaries':{'title':'OpenFOAM boundary conditions','url':'https://doc.openfoam.com/2306/tools/processing/boundary-conditions/','scope':'Distinct inlet, outlet and wall condition families; version 2306 reference'},
+ 'openfoam-streamline':{'title':'OpenFOAM streamLine','url':'https://doc.openfoam.com/2306/tools/post-processing/function-objects/field/streamLine/','scope':'Vector-field streamline tracing; version 2306 reference'},
+})
+REFERENCES.update({
+ 'fusion-brep-face':{'title':'Fusion BRepFace API object','url':'https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/fusion_BRepFace.htm','scope':'One bounded face and its parent body/shell; topology-object use, not a claim about a default browser node'},
+ 'freecad-partdesign-commands':{'title':'FreeCAD PartDesign command registration','url':'https://github.com/FreeCAD/FreeCAD/blob/main/src/Mod/PartDesign/Gui/Workbench.cpp','scope':'Official source registration of Hole, Draft and other PartDesign commands'},
+ 'freecad-holding-tags':{'title':'FreeCAD CAM holding tags','url':'https://github.com/FreeCAD/FreeCAD-documentation/blob/main/wiki/CAM_DressupTag.md','scope':'Holding-tag dressup object beneath an operation; archived official documentation, not a current-version UI claim'},
+ 'mastercam-deburr':{'title':'Mastercam 2025 feature overview','url':'https://www.mastercam.com/community/blog/10-mastercam-2025-features-you-need-to-know/','scope':'Independent Deburr machining command, separate from modeled CAD chamfers'},
+ 'ansys-analysis-tree':{'title':'Ansys Mechanical analysis environment object','url':'https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/mech_obj/ds_Environment_o_r.html','scope':'Analysis tree children including Analysis Settings'},
+})

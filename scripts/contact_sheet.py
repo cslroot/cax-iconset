@@ -23,4 +23,10 @@ def sheet(items, name, title):
  parts.append('</svg>');(ROOT/f'qa/{name}.svg').write_text(''.join(parts))
 for category in manifest['categories']:
  sheet([i for i in manifest['icons'] if i['category']==category],category.lower(),'CAX / '+category)
-print('Built six semantic category contact sheets')
+# Keep the reviewed-additions sheet reproducible independently of Git HEAD.
+import sys
+sys.path.insert(0,str(ROOT/'src'))
+from extension import EXTENSION
+added={domain.lower()+'-'+i['id'] for domain,items in EXTENSION.items() for i in items}
+sheet([i for i in manifest['icons'] if i['id'] in added],'additions','CAX / source-reviewed additions')
+print('Built six category sheets and the reviewed-additions sheet')

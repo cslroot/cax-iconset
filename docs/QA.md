@@ -28,10 +28,16 @@ Date: 2026-10-18. Scope: bulk SVG/PNG ZIP download, infinite gallery loading, fi
 - Bulk lifecycle: all/filtered scope, all 419 icons beyond rendered cards, all seven PNG sizes, stable snapshots, cancellation, late completion, zero matches and atomic failures pass in both harness modes
 - Actual Chrome navigation: **passed** on the public catalog; 419 unique automatically loaded cards, filter reset, complete filtered detail navigation including 97 / 419 with only 96 cards loaded, theme/background synchronization, native Escape/focus restoration and boundary-focus handoff
 - Actual Chrome selected exports: exact SVG clipboard SHA-256, light/dark 64 × 64 RGBA PNG downloads, 3,511 transparent pixels and identical alpha with different theme colors; no site-origin console errors
-- Bulk ZIP live browser verification: **pending publication**; mobile/other-browser and assistive-technology coverage remain unverified
+- Bulk deployment: **b74db306f7faa85805ec58fa06ab53a5c0e85efa**, Pages build and deploy succeeded ([run](https://github.com/cslroot/cax-iconset/actions/runs/39110884595)); no hosting settings changed
+- Actual Chrome bulk SVG: both full 419-entry theme ZIPs have exact ordered internal filenames, valid CRCs and every SVG byte equal to its repository source
+- Actual Chrome bulk PNG: both full 419-entry 32 px theme ZIPs have valid nonblank RGBA images, transparent corners and identical light/dark alpha for all 419 pairs; palette RGB differs as expected
+- Actual Chrome filtered ZIPs: `common save` gives exactly three light SVGs or three dark 128 px PNGs with valid CRCs, dimensions and transparency
+- Actual Chrome interruption: Cancel and native Escape during all-icon 256 px PNG exports produce no download and restore controls/opener; zero-result filtered export disables while All 419 remains available; a double-click produced one observed download
+- Browser-save outer archive filenames are tested in the harness, not established by the browser download API's opaque paths; access to the browser's internal downloads page was blocked and no workaround was used
+- Mobile/other-browser, full browser-size-matrix and assistive-technology coverage remain unverified
 <!-- results:end -->
 
-The bulk ZIP update reruns the XML/integrity suite, JavaScript syntax checks and both modes of the DOM harness, plus independent ZIP parsing and unzip verification. Raster and static visual figures above are retained evidence from the preceding unchanged SVG/PNG work; they are not fresh browser verification.
+The bulk ZIP update reruns the XML/integrity suite, JavaScript syntax checks and both modes of the DOM harness, plus independent ZIP parsing and unzip verification. The published bulk UI was then tested in Chrome with actual ZIP downloads and their extracted contents. Raster and static visual figures above are retained evidence from the preceding unchanged SVG/PNG work; they are not fresh browser verification.
 
 ## Executed methods
 

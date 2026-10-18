@@ -42,4 +42,17 @@ NO_INTERSECTION_OBSERVER=1 node tests/test_app.js
 
 The application harness passes **38 interaction groups**, nine focused on bulk export. It tests all 419 SVG entries in each theme without scrolling, filtered/all scope, 186 model-tree entries beyond the initial batch, 419 mocked PNG entries per theme, all seven PNG sizes, stable snapshots, repeated clicks, cancellation at several phases, late callbacks, closing/reopening, failures without partial downloads, retries, focus and object-URL cleanup. It is not a browser renderer; mocked PNG bytes are not real raster evidence.
 
-Live bulk ZIP/browser verification is pending publication. Existing live navigation, selected SVG clipboard and 64 px PNG checks are documented separately in [QA](QA.md). Mobile, other browsers and assistive-technology behavior remain unverified.
+## Live Chrome verification
+
+The public catalog at commit `b74db306f7faa85805ec58fa06ab53a5c0e85efa` was tested after its [successful Pages deployment](https://github.com/cslroot/cax-iconset/actions/runs/39110884595), using the supported cloud Chrome browser and actual downloaded archives:
+
+- Full light and dark SVG ZIPs each contain 419 entries with exact ordered internal names, valid CRC and byte-for-byte equality against every repository SVG.
+- Full light and dark 32 px PNG ZIPs each contain 419 nonblank valid RGBA images, all exactly 32 × 32 with transparent corners. Alpha is identical across all 419 light/dark pairs; palette RGB differs.
+- The `common save` filter produces exactly three light SVG entries and exactly three dark 128 px PNG entries, with valid CRC, dimensions and transparency.
+- Cancel and native Escape during all-icon 256 px PNG jobs produce no download and restore controls/opener. A subsequent export works. A double-click on the full light PNG export produced one observed download; duplicate suppression is also tested in the harness.
+- With no matches, Current results cannot export and All 419 remains available.
+- The visible trigger and confirmation button both read **Download ZIP ↓**.
+
+The browser download API exposes opaque saved paths, so actual outer archive save names were not established through that API. The expected outer names are harness-verified. Access to the browser's internal downloads page was denied by protocol policy; no alternate route was used. Internal archive filenames and content were verified from the actual ZIP bytes.
+
+Existing live navigation, selected SVG clipboard and 64 px individual-PNG checks are documented separately in [QA](QA.md). Mobile, other browsers, the full seven-size browser matrix and assistive-technology behavior remain unverified.

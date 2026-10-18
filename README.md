@@ -41,7 +41,7 @@ The static catalog is included. No npm install, framework, CDN, account or API k
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8000` in a modern browser, or use the [public catalog](https://savethebunny.net/cax-iconset/). The existing GitHub Pages deployment publishes `main`; its build and deployment completed successfully for the [gallery-navigation update](https://github.com/cslroot/cax-iconset/actions/runs/39110070169).
+Open `http://127.0.0.1:8000` in a modern browser, or use the [public catalog](https://savethebunny.net/cax-iconset/). The existing GitHub Pages deployment publishes `main`; its build and deployment completed successfully for the [bulk-download update](https://github.com/cslroot/cax-iconset/actions/runs/39110884595).
 
 - English / Japanese name, tag and purpose search, with multiple AND-matched terms
 - Common and five engineering-category filters; append-only infinite scrolling in batches of 96, plus an accessible Load more button
@@ -136,7 +136,7 @@ The pdxadv review adds nine source-verified analysis/design commands while prese
 
 The standalone-theme audit embeds actual file bytes without host CSS in an atlas with 16 / 24 / 32 px output cells, plus dark variants on #192c3c, #23262b and #121212. It checks nonblank output, light/dark alpha preservation and meaningful contrast pixels in that atlas. Inkscape may resample embedded images from their intrinsic 32 px size; these are not direct native-size vector exports. The separate PNG audit directly exports original files at all seven requested sizes. Copy/download tests require exact byte equality with every selected file.
 
-**The DOM harness is not a browser layout engine.** Separate live Chrome checks passed for gallery/navigation, native Escape/focus restoration, exact SVG clipboard bytes, and selected light/dark 64 px PNG downloads. Bulk ZIP live checks are pending publication. Mobile, other browsers and assistive-technology behavior remain unverified. See [QA coverage and manual checklist](docs/QA.md).
+**The DOM harness is not a browser layout engine.** Separate live Chrome checks passed for gallery/navigation, native Escape/focus restoration, exact SVG clipboard bytes, and selected light/dark 64 px PNG downloads. Live ZIP checks passed for both complete 419-file SVG archives (byte-exact), both complete 32 px PNG archives (valid RGBA with matching alpha), filtered downloads, cancellation and native Escape. Mobile, other browsers and assistive-technology behavior remain unverified. See [QA coverage and manual checklist](docs/QA.md).
 
 ## Files and license
 
@@ -163,4 +163,4 @@ The standalone-theme audit embeds actual file bytes without host CSS in an atlas
 
 ロボティクスの46用途に加え、cax-studioと関連リポジトリの実装から不足していた7用途を追加しました。さらにpdxadvの実装を根拠に、そり感度・肉厚対策・局所肉厚変更・結果分布・比較・基準保持・解析レポートの9用途を追加しました。全419件、186件がモデルツリーに対応します。各IDにライト／ダークの独立SVGを用意しましたが、用途の件数は419件のままです。ダーク版はCSSなしで使えます。切り欠きなどの不透明な塗りは背景色#192c3cに固定して重なりを保つため、別の背景では色の差が見える場合があります。今回のテーマ追加では元の419件をバイト単位で維持しています。先のpdxadv用途追加では既存410件のSVGを変更していません。認識されたねじやメッシュ変換方式などは既存SVGを再利用し、件数を増やしていません。全403件の目視監査で見つかった形状の問題・改善点を11件修正し、ダーク背景で内部線が消える配色も改善しました。
 
-断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。追加一覧、11件の修正前後、light/dark/checker見本、70行の16pxロボット階層見本を同梱しています。アイコンとメタデータだけを作成し、実機接続・操作は行いません。詳細画面からライト／ダークの透過PNGも16・24・32・48・64・128・256pxで保存できます。プレビュー背景は含めず、重なりを隠す内部の不透明な塗りはそのまま保持します。一覧は96件ずつの無限スクロールに対応し、「Load more」でも追加できます。詳細は左右のボタン・矢印キーで絞り込み結果全体を前後移動できます。テーマ変更時は背景も連動し、その後はチェック柄などへ手動変更できます。検索横の「Download ZIP」で全419件または絞り込み結果全体を一括保存できます。SVG／透過PNG、ライト／ダーク、PNGサイズを選べ、進捗表示・キャンセルにも対応します。公開ページでは一覧・詳細移動、Escapeとフォーカス復帰、SVGコピー、選択した64px PNGをChromeで確認済みです。一括ZIPの公開後確認と、モバイル・他ブラウザの検証は別途必要です。
+断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。追加一覧、11件の修正前後、light/dark/checker見本、70行の16pxロボット階層見本を同梱しています。アイコンとメタデータだけを作成し、実機接続・操作は行いません。詳細画面からライト／ダークの透過PNGも16・24・32・48・64・128・256pxで保存できます。プレビュー背景は含めず、重なりを隠す内部の不透明な塗りはそのまま保持します。一覧は96件ずつの無限スクロールに対応し、「Load more」でも追加できます。詳細は左右のボタン・矢印キーで絞り込み結果全体を前後移動できます。テーマ変更時は背景も連動し、その後はチェック柄などへ手動変更できます。検索横の「Download ZIP」で全419件または絞り込み結果全体を一括保存できます。SVG／透過PNG、ライト／ダーク、PNGサイズを選べ、進捗表示・キャンセルにも対応します。公開ページでは一覧・詳細移動、Escapeとフォーカス復帰、SVGコピー、選択した64px PNGをChromeで確認済みです。一括ZIPも全419件の両テーマSVG・32px PNG、絞り込み結果、キャンセルを確認済みです。モバイル・他ブラウザの検証は別途必要です。

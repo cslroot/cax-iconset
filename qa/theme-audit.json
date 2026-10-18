@@ -1,0 +1,22 @@
+{
+  "method": "Static color-role contrast from production CSS; not browser computed-style or accessibility certification",
+  "examples": 22,
+  "sizes": [
+    48,
+    24,
+    16
+  ],
+  "darkPalette": {
+    "background": "#192c3c",
+    "ink": "#d1e5ed",
+    "body": "#294c59",
+    "accent": "#63cec4"
+  },
+  "contrast": {
+    "ink_on_body": 7.1,
+    "accent_on_body": 4.91,
+    "ink_on_background": 11.0,
+    "accent_on_background": 7.61
+  },
+  "opaqueCutoutPreserved": true
+}

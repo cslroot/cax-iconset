@@ -1,0 +1,273 @@
+[
+  {
+    "id": "cad-face-offset",
+    "domain": "CAD",
+    "name": "Offset solid face",
+    "nameJa": "ソリッド面オフセット",
+    "description": "Move selected solid faces along their normals while updating the surrounding body.",
+    "descriptionJa": "選択したソリッドの面を法線方向へ移動し、周囲のボディを更新します。",
+    "family": "direct-modeling",
+    "role": "command",
+    "tags": [
+      "cax-studio",
+      "cad",
+      "offset solid face",
+      "ソリッド面オフセット"
+    ],
+    "aliases": [
+      "face offset",
+      "push pull face",
+      "面の押し引き"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      },
+      {
+        "id": "cax-studio-kernel-tree",
+        "title": "CAX Studio kernel model-tree mapping (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/kernelTree.ts#L102-L105",
+        "scope": "Persistent face-offset, defeature and helix nodes"
+      },
+      {
+        "id": "cax-core-face-offset",
+        "title": "CAX Core face-offset feature (4b96fde)",
+        "url": "https://github.com/cslroot/cax-core/blob/4b96fdeeac2f8aa9fb57a618da1c78aad7627459/crates/cax-modeler/src/session/face_offset_feature.rs#L1-L18",
+        "scope": "Existing solid-face displacement; distinct from creating an independent offset surface"
+      }
+    ],
+    "reviewNote": "cad-surface-offset creates an independent surface. This changes faces of an existing solid.",
+    "modelTree": {
+      "name": "Face-offset feature",
+      "nameJa": "ソリッド面オフセットフィーチャ",
+      "objectType": "feature"
+    }
+  },
+  {
+    "id": "cad-helix",
+    "domain": "CAD",
+    "name": "Create helix",
+    "nameJa": "ヘリックス作成",
+    "description": "Create a three-dimensional helical curve from radius, pitch and turn parameters.",
+    "descriptionJa": "半径、ピッチ、巻き数を指定して3次元のらせん曲線を作成します。",
+    "family": "curve-creation",
+    "role": "command",
+    "tags": [
+      "cax-studio",
+      "cad",
+      "create helix",
+      "ヘリックス作成"
+    ],
+    "aliases": [
+      "helix curve",
+      "helical wire",
+      "螺旋",
+      "らせん曲線"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      },
+      {
+        "id": "cax-studio-kernel-tree",
+        "title": "CAX Studio kernel model-tree mapping (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/kernelTree.ts#L102-L105",
+        "scope": "Persistent face-offset, defeature and helix nodes"
+      }
+    ],
+    "reviewNote": "A geometric wire is independent of the existing cad-thread solid-feature command; no radius or pitch variants.",
+    "modelTree": {
+      "name": "Helix curve",
+      "nameJa": "ヘリックス曲線",
+      "objectType": "curve"
+    }
+  },
+  {
+    "id": "cad-defeature",
+    "domain": "CAD",
+    "name": "Remove and heal features",
+    "nameJa": "フィーチャ除去・修復",
+    "description": "Remove selected recognized features and heal the surrounding solid geometry.",
+    "descriptionJa": "選択した認識フィーチャを除去し、周囲のソリッド形状を修復します。",
+    "family": "direct-modeling",
+    "role": "command",
+    "tags": [
+      "cax-studio",
+      "cad",
+      "remove and heal features",
+      "フィーチャ除去・修復"
+    ],
+    "aliases": [
+      "defeature",
+      "remove feature",
+      "heal feature",
+      "形状簡略化"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      },
+      {
+        "id": "cax-studio-kernel-tree",
+        "title": "CAX Studio kernel model-tree mapping (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/kernelTree.ts#L102-L105",
+        "scope": "Persistent face-offset, defeature and helix nodes"
+      }
+    ],
+    "reviewNote": "common-delete deletes selected entities; defeaturing removes local geometry and heals the remaining body.",
+    "modelTree": {
+      "name": "Defeature feature",
+      "nameJa": "フィーチャ除去",
+      "objectType": "feature"
+    }
+  },
+  {
+    "id": "cad-suppress-feature",
+    "domain": "CAD",
+    "name": "Suppress feature",
+    "nameJa": "フィーチャ抑制",
+    "description": "Exclude a feature from model evaluation while retaining its definition for later restoration.",
+    "descriptionJa": "フィーチャの定義を保持したままモデル評価から除外し、後で抑制を解除できるようにします。",
+    "family": "feature-history",
+    "role": "command",
+    "tags": [
+      "cax-studio",
+      "cad",
+      "suppress feature",
+      "フィーチャ抑制"
+    ],
+    "aliases": [
+      "unsuppress feature",
+      "feature suppression",
+      "suppress toggle",
+      "抑制解除"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-suppression",
+        "title": "CAX Studio feature suppression control (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/ui/ModelTree.tsx#L64-L73",
+        "scope": "Toggle suppression while retaining the feature definition"
+      },
+      {
+        "id": "cax-studio-suppression-kernel",
+        "title": "CAX Studio suppression evaluation (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src-tauri/src/state/kernel/part_browser.rs#L495-L542",
+        "scope": "Suppression and restoration, including dependent-node checks while retaining names and definitions"
+      }
+    ],
+    "reviewNote": "One suppression command, including its reverse toggle. Not display hiding, playback pause, deletion, or per-object state variants."
+  },
+  {
+    "id": "cad-recognize-features",
+    "domain": "CAD",
+    "name": "Recognize features",
+    "nameJa": "フィーチャ認識",
+    "description": "Identify manufacturing and design features from B-rep or mesh geometry.",
+    "descriptionJa": "B-repやメッシュ形状から設計・製造フィーチャを認識します。",
+    "family": "feature-recognition",
+    "role": "command",
+    "tags": [
+      "cax-studio",
+      "cad",
+      "recognize features",
+      "フィーチャ認識"
+    ],
+    "aliases": [
+      "recognize",
+      "feature recognition",
+      "thread recognition",
+      "ねじ認識",
+      "形状認識"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      },
+      {
+        "id": "cax-feature-recognition",
+        "title": "CAX feature recognition (62319d8)",
+        "url": "https://github.com/cslroot/cax-feature-recognition/blob/62319d8a27c6950d9271a52ddab278dd18574bb7/README.md#L3-L39",
+        "scope": "B-rep and mesh recognition of holes, fillets, chamfers, bosses, ribs, pockets and other features"
+      }
+    ],
+    "reviewNote": "cam-recognize-holes scopes machining holes; this command classifies several independent feature kinds. Recognized results reuse their existing feature icons."
+  },
+  {
+    "id": "common-screenshot",
+    "domain": "Common",
+    "name": "Capture screenshot",
+    "nameJa": "スクリーンショット保存",
+    "description": "Capture an image file of the currently displayed viewport.",
+    "descriptionJa": "現在表示しているビューポートを画像として保存します。",
+    "family": "capture",
+    "role": "command",
+    "tags": [
+      "capture screenshot",
+      "スクリーンショット保存",
+      "cax-studio"
+    ],
+    "aliases": [
+      "screenshot",
+      "capture viewport",
+      "画面キャプチャ"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      }
+    ],
+    "reviewNote": "Captures the existing displayed view; does not run a photorealistic render or export model geometry."
+  },
+  {
+    "id": "cad-photoreal-render",
+    "domain": "CAD",
+    "name": "Photorealistic render",
+    "nameJa": "フォトリアル描画",
+    "description": "Generate a photorealistic image of the model using a path-traced rendering process.",
+    "descriptionJa": "パストレーシング処理によりモデルのフォトリアルな画像を生成します。",
+    "family": "rendering",
+    "role": "command",
+    "tags": [
+      "photorealistic render",
+      "フォトリアル描画",
+      "cax-studio"
+    ],
+    "aliases": [
+      "photo render",
+      "path tracing",
+      "CPU renderer",
+      "パストレーシング"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      },
+      {
+        "id": "cax-studio-photo-render",
+        "title": "CAX Studio photo renderer (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/ui/PhotoRenderDialog.tsx#L25-L29",
+        "scope": "CPU path-traced image generation, independent of viewport screenshot capture"
+      }
+    ],
+    "reviewNote": "A new image is computed by the renderer. It is independent of capturing the current viewport or changing display style."
+  }
+]

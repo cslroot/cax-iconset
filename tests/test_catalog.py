@@ -154,6 +154,56 @@ class CatalogTests(unittest.TestCase):
         for id in ['cad-sheet-metal-form-tool','cae-harmonic-response','cae-composite-layup','cae-rigid-connection']:
             self.assertEqual(by_id[id]['usages'],['command','model-tree'])
 
+    def test_reviewed_studio_commands_and_reuse(self):
+        import sys
+        sys.path.insert(0,str(ROOT/'src'))
+        from studio import GLYPHS, STUDIO, STUDIO_REUSE, STUDIO_TREE, STUDIO_NAMES
+        by_id={i['id']:i for i in M['icons']}
+        reviewed=json.loads((ROOT/'src/studio_commands.json').read_text())
+        reused=json.loads((ROOT/'src/studio_reuse.json').read_text())
+        self.assertEqual(set(GLYPHS),{i['id'] for i in reviewed})
+        self.assertEqual(len(GLYPHS),sum(len(v) for v in STUDIO.values()))
+        self.assertTrue(set(STUDIO_REUSE) <= set(by_id))
+        self.assertEqual(set(STUDIO_TREE),set(STUDIO_NAMES))
+        self.assertEqual(set(STUDIO_TREE),{'cad-face-offset','cad-helix','cad-defeature'})
+        for i in reviewed+reused:
+            out=by_id[i['id']]
+            self.assertTrue(i['reviewNote'],i['id'])
+            for ref in i['references']:
+                self.assertIn(ref['id'],out['sources'])
+                # Pin implementation evidence; a moving branch cannot silently
+                # broaden the claim about commands that existed at review time.
+                self.assertRegex(ref['url'],r'/blob/[0-9a-f]{40}/')
+            for field in ['aliases','nodeAliases']:
+                for alias in i.get(field,[]):self.assertIn(alias,out.get(field,[]))
+            if i['id'] in GLYPHS:
+                self.assertEqual(out['body'],GLYPHS[i['id']])
+                self.assertEqual(out['role'],'command')
+        for id in ['cad-suppress-feature','cad-recognize-features','common-screenshot','cad-photoreal-render']:
+            self.assertEqual(by_id[id]['usages'],['command'])
+        self.assertFalse({'cad-recognized-thread','cad-suppressed-part','cad-helix-small','cad-mesh2brep-via-voxel'} & set(by_id))
+
+    def test_reviewed_occlusion_and_projected_mesh(self):
+        by_id={i['id']:i for i in M['icons']}
+        reviews=json.loads((ROOT/'src/quality_review.json').read_text())
+        self.assertEqual(len(reviews),11)
+        self.assertEqual(len({i['id'] for i in reviews}),len(reviews))
+        for review in reviews:
+            self.assertIn(review['id'],by_id)
+            self.assertTrue(review['reason'])
+            self.assertNotEqual(review['beforeBody'],by_id[review['id']]['body'])
+            ET.fromstring('<svg>'+review['beforeBody']+'</svg>')
+        cutter=ET.fromstring((ROOT/by_id['cam-swarf-milling']['file']).read_text())
+        flutes=[e for e in cutter.iter(NS+'rect') if e.get('x')=='12' and e.get('y')=='10']
+        self.assertEqual(len(flutes),1)
+        self.assertEqual(flutes[0].get('fill'),'white')
+        # Grid endpoints meet the projected cube edges rather than running
+        # through the top face or pointing into an unrelated face plane.
+        mesh=by_id['cae-hexahedral-mesh']['body']
+        self.assertIn('M10.5 7.5 19.5 12.5 M19.5 7.5 10.5 12.5',mesh)
+        self.assertIn('M6 17.5 15 22.5 24 17.5',mesh)
+        self.assertNotIn('M11 8 V27',mesh)
+
     def test_bundle_and_document_links(self):
         bundle = (ROOT/'catalog.js').read_text()
         self.assertEqual(json.loads(bundle.removeprefix('window.CAX_CATALOG=').strip().removesuffix(';')), M)
@@ -166,6 +216,37 @@ class CatalogTests(unittest.TestCase):
         self.assertIn('Content-Security-Policy', html)
         self.assertIn('aria-label="Search icons', html)
         self.assertIn('aria-labelledby="detail-name"', html)
+
+    def test_reviewed_robotics_commands_and_reuse(self):
+        import sys
+        sys.path.insert(0,str(ROOT/'src'))
+        from robotics import GLYPHS, ROBOTICS, ROBOTICS_REUSE, ROBOTICS_TREE, ROBOTICS_NAMES
+        by_id={i['id']:i for i in M['icons']}
+        reviewed=json.loads((ROOT/'src/robotics_commands.json').read_text())
+        reused=json.loads((ROOT/'src/robotics_reuse.json').read_text())
+        self.assertEqual(set(GLYPHS),{i['id'] for i in reviewed})
+        self.assertEqual(len(GLYPHS),sum(len(v) for v in ROBOTICS.values()))
+        self.assertTrue(set(ROBOTICS_REUSE) <= set(by_id))
+        self.assertFalse(set(ROBOTICS_REUSE) & set(GLYPHS))
+        self.assertEqual(set(ROBOTICS_TREE),set(ROBOTICS_NAMES))
+        for i in reviewed+reused:
+            self.assertTrue(i['reviewNote'],i['id'])
+            self.assertTrue(i['references'],i['id'])
+            out=by_id[i['id']]
+            for ref in i['references']:
+                self.assertIn(ref['id'],out['sources'])
+                self.assertTrue(ref['url'].startswith('https://'))
+            for alias in i.get('aliases',[]):self.assertIn(alias,out['aliases'])
+            for category in i.get('sharedCategories',[]):self.assertIn(category,out['categories'])
+            if i.get('modelTree'):
+                self.assertIn('model-tree',out['usages'])
+                self.assertEqual(out['nodeName'],i['modelTree']['name'])
+                self.assertEqual(out['nodeNameJa'],i['modelTree']['nameJa'])
+            if i['id'] in GLYPHS:
+                self.assertEqual(out['body'],GLYPHS[i['id']])
+                self.assertEqual(out['role'],i.get('role','command'))
+        # Robot morphology and UI state remain contextual data, not new glyphs.
+        self.assertFalse({'olp-hidden-robot','olp-selected-robot','olp-error-robot','olp-scara-arm','olp-six-axis-arm','olp-robot-revolute-joint'} & set(by_id))
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

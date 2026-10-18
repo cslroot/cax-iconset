@@ -1,6 +1,6 @@
 # Additional application command families
 
-Date: 2026-10-17. Baseline: `50ef1ff` (270 entries). This review adds **87 independently selected commands**, giving **357 unique SVGs**. The count follows the selected functions; it is not a target.
+Date: 2026-10-17. Baseline: `50ef1ff` (270 entries). This historical v2.2 review added **87 independently selected commands**, giving **357 unique SVGs** at that checkpoint. The count follows the selected functions; it is not a target. Later robotics work is documented separately in [ROBOTICS_EXPANSION.md](ROBOTICS_EXPANSION.md).
 
 ![Additional application commands](../qa/application-additions.png)
 
@@ -23,7 +23,7 @@ All artwork is independently drawn on the existing 32 px grid. Documentation est
 
 ## Persistent model-tree use
 
-23 of the new commands also have reviewed persistent-node uses. Together with existing entries, **141** symbols support model trees. Node names are nouns such as Formed feature, Composite layup and Harmonic-response study. Editing commands do not automatically become persistent nodes.
+23 of the new commands also have reviewed persistent-node uses. At the v2.2 checkpoint, **141** symbols supported model trees. Node names are nouns such as Formed feature, Composite layup and Harmonic-response study. Editing commands do not automatically become persistent nodes.
 
 ![Additional native-size model trees](../qa/application-model-tree.png)
 
@@ -144,11 +144,11 @@ The descriptions below state each actual operation. The source JSON also preserv
 
 | Semantic ID | English / Japanese | Purpose | Primary reference |
 | --- | --- | --- | --- |
-| `olp-curve-follow` | Create curve-follow path / 曲線追従軌道作成 | Generate robot targets and motions from geometric curves and normals. | [RoboDK Curve Follow Project](https://robodk.com/doc/en/Robot-Machining-Curve-Follow-Project.html) |
-| `olp-plan-collision-free` | Plan collision-free path / 衝突回避軌道計画 | Find a robot motion path around modeled obstacles. | [RoboDK Collision-Free Motion Planner](https://robodk.com/doc/en/Collision-Avoidance-Collision-Free-Motion-Planner.html) |
+| `olp-curve-follow` | Create curve-follow path / 曲線追従軌道作成 | Generate robot targets and motions from geometric curves and normals. | [RoboDK Curve Follow Project](https://robodk.com/doc/en/Robot-Machining-Curve-Follow-Project.html); [FANUC: ROBOGUIDE](https://www.fanucamerica.com/products/software/robot/roboguide); [ABB: RobotStudio Tutorials](https://new.abb.com/products/robotics/software-and-digital/robotstudio/tutorials) |
+| `olp-plan-collision-free` | Plan collision-free path / 衝突回避軌道計画 | Find a robot motion path around modeled obstacles. | [RoboDK Collision-Free Motion Planner](https://robodk.com/doc/en/Collision-Avoidance-Collision-Free-Motion-Planner.html); [MoveIt Move Group C++ Interface](https://moveit.picknik.ai/main/doc/examples/move_group_interface/move_group_interface_tutorial.html) |
 | `olp-synchronize-axes` | Synchronize external axes / 外部軸同期設定 | Combine a robot and supported external axes into coordinated motion. | [RoboDK Synchronize Additional Axes](https://robodk.com/doc/en/General-Synchronize-Additional-Axes.html) |
 | `olp-robot-calibration` | Calibrate robot kinematics / ロボット機構校正 | Estimate robot kinematic error parameters using measured poses. | [RoboDK Robot Calibration](https://robodk.com/doc/en/Robot-Calibration-LaserTracker.html) |
-| `olp-change-configuration` | Change robot configuration / ロボット構え変更 | Choose a kinematic configuration that reaches the target pose. | [RoboDK Robot Configurations](https://robodk.com/doc/en/Interface-Robot-Configurations.html) |
+| `olp-change-configuration` | Change robot configuration / ロボット構え変更 | Choose a kinematic configuration that reaches the target pose. | [RoboDK Robot Configurations](https://robodk.com/doc/en/Interface-Robot-Configurations.html); [Pick and Place with MoveIt Task Constructor](https://moveit.picknik.ai/main/doc/tutorials/pick_and_place_with_moveit_task_constructor/pick_and_place_with_moveit_task_constructor.html) |
 
 ## Existing symbols with expanded vocabulary
 

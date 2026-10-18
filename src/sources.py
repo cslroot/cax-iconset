@@ -62,3 +62,7 @@ REFERENCES.update({
 # Individually researched application command families.
 from application import APPLICATION_REFERENCES
 REFERENCES.update(APPLICATION_REFERENCES)
+from robotics import ROBOTICS_REFERENCES
+REFERENCES.update(ROBOTICS_REFERENCES)
+from studio import STUDIO_REFERENCES
+REFERENCES.update(STUDIO_REFERENCES)

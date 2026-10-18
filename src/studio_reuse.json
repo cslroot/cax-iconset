@@ -1,0 +1,166 @@
+[
+  {
+    "id": "cad-thread",
+    "aliases": [
+      "recognized thread",
+      "detected thread",
+      "認識ねじ"
+    ],
+    "nodeAliases": [
+      "recognized thread",
+      "detected thread",
+      "認識ねじ"
+    ],
+    "references": [
+      {
+        "id": "cax-recognized-thread",
+        "title": "CAX thread recognizer (62319d8)",
+        "url": "https://github.com/cslroot/cax-feature-recognition/blob/62319d8a27c6950d9271a52ddab278dd18574bb7/src/recognizers/thread.rs",
+        "scope": "B-rep-only ThreadRecognizer produces a Thread feature result; mesh thread recognition is not claimed"
+      }
+    ],
+    "reviewNote": "Recognition is an action; the identified thread is still a thread feature and uses cad-thread."
+  },
+  {
+    "id": "cad-fillet",
+    "aliases": [
+      "sketch fillet",
+      "face reblend",
+      "reblend radius",
+      "スケッチ角丸め",
+      "再ブレンド"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      }
+    ],
+    "reviewNote": "Round corners or edges with the existing fillet meaning; do not create input-context variants.",
+    "description": "Round selected solid edges or sketch corners, including reblending an existing fillet.",
+    "descriptionJa": "選択したソリッドの稜線やスケッチの角を丸め、既存フィレットの半径も再編集します。"
+  },
+  {
+    "id": "cad-chamfer",
+    "aliases": [
+      "sketch chamfer",
+      "スケッチ面取り"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      }
+    ],
+    "reviewNote": "Sketch and solid edge beveling share the chamfer symbol.",
+    "description": "Bevel selected solid edges or sketch corners with a straight chamfer.",
+    "descriptionJa": "選択したソリッドの稜線やスケッチの角を直線的に面取りします。"
+  },
+  {
+    "id": "cad-draft",
+    "aliases": [
+      "face draft",
+      "面勾配"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      }
+    ],
+    "reviewNote": "Draft applied to selected faces reuses the existing draft feature."
+  },
+  {
+    "id": "cad-linear-pattern",
+    "aliases": [
+      "translated feature copies",
+      "face copy feature",
+      "フィーチャ並進複製"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      }
+    ],
+    "reviewNote": "Translate repeated feature geometry using the existing linear-pattern meaning."
+  },
+  {
+    "id": "cad-mirror",
+    "aliases": [
+      "mirror feature copies",
+      "フィーチャ鏡映複製"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      }
+    ],
+    "reviewNote": "Mirrored copies reuse the existing mirror operation."
+  },
+  {
+    "id": "cad-assembly-place",
+    "aliases": [
+      "insert component",
+      "部品挿入"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      }
+    ],
+    "reviewNote": "Insertion of a component is assembly placement, not a new object class."
+  },
+  {
+    "id": "cad-bill-of-materials",
+    "aliases": [
+      "assembly BOM",
+      "アセンブリ部品表"
+    ],
+    "references": [
+      {
+        "id": "cax-studio-commands",
+        "title": "CAX Studio command registry (afe7a7a)",
+        "url": "https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts",
+        "scope": "Implemented feature, recognition and application commands at the reviewed commit"
+      }
+    ],
+    "reviewNote": "Assembly BOM uses the existing bill-of-materials command."
+  },
+  {
+    "id": "cad-mesh-to-brep",
+    "aliases": [
+      "faceted conversion",
+      "analytic surface fitting",
+      "quad conversion",
+      "subd conversion",
+      "hybrid mesh conversion",
+      "ファセット変換",
+      "解析曲面フィット",
+      "細分割変換"
+    ],
+    "references": [
+      {
+        "id": "cax-mesh2brep-methods",
+        "title": "CAX mesh-to-B-rep methods (8dfe1d5)",
+        "url": "https://github.com/cslroot/cax-mesh2brep/blob/8dfe1d5036c4a803d4e0e3ec550a28520d40dd54/README.md#L8-L17",
+        "scope": "Faceted, analytic, quad, subdivision and hybrid conversion methods"
+      }
+    ],
+    "reviewNote": "The five conversion methods are modes of one mesh-to-B-rep operation, not separate icon meanings."
+  }
+]

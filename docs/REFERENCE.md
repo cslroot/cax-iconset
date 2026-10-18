@@ -9,17 +9,17 @@ The earlier operation × profile/trajectory generator has been removed, along wi
 <!-- coverage:start -->
 | Primary category | Symbols |
 | --- | ---: |
-| Common | 72 |
-| CAD | 123 |
+| Common | 73 |
+| CAD | 135 |
 | CAM | 44 |
 | CAE | 52 |
 | CMM | 34 |
-| OLP | 32 |
-| **Total** | **357** |
+| OLP | 72 |
+| **Total** | **410** |
 
-Primary roles: 341 commands, 5 selectable tools, 8 objects and 3 status symbols. Every SVG is counted once.
+Primary roles: 389 commands, 9 selectable tools, 9 objects and 3 status symbols. Every SVG is counted once.
 
-141 entries support model-tree use, including reused command/tool symbols; these are not additional SVGs.
+186 entries support model-tree use, including reused command/tool symbols; these are not additional SVGs.
 <!-- coverage:end -->
 
 The manifest `role` field identifies the primary role: command, tool, object or status. `usages` describes supported contexts and can contain both `command` and `model-tree`; reused entries are still counted once. `nodeName`, `nodeNameJa` and `objectType` provide contextual noun labels. Part definitions and their placed instances deliberately use the same part icon.
@@ -189,6 +189,66 @@ Vendor and OSS documentation informs the functional taxonomy, not the artwork. N
 | salome-quality-controls | [SALOME mesh quality controls](https://docs.salome-platform.org/latest/gui/SMESH/index.html) | Mesh quality checks; different quality metrics reuse the quality-check symbol |
 | cloudcompare-icp | [CloudCompare ICP fine registration](https://cloudcompare.org/doc/wiki/index.php/ICP) | Iterative closest-point fine registration of measured geometry |
 | solidworks-shutoff | [SOLIDWORKS Shut-off Surfaces](https://help.solidworks.com/2025/english/solidworks/sldworks/c_shut_off_surfaces.htm) | SOLIDWORKS 2025 official help; through-hole shutoffs populate core and cavity surface bodies. |
+| moveit-setup-assistant | [MoveIt Setup Assistant](https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html) | Planning groups, end effectors, named poses and controllers |
+| moveit-urdf-srdf | [MoveIt URDF and SRDF](https://moveit.picknik.ai/main/doc/examples/urdf_srdf/urdf_srdf_tutorial.html) | Robot model, virtual/passive joints, groups, poses and self-collision pairs |
+| robodk-general | [RoboDK: General Tips](https://robodk.com/doc/en/General.html) | Reference-frame calibration and mechanism/gripper modeling |
+| moveit-planning-scene | [MoveIt Planning Scene](https://moveit.picknik.ai/main/doc/examples/planning_scene/planning_scene_tutorial.html) | Collision checking, allowed collision matrix and kinematic constraints |
+| moveit-group-interface | [MoveIt Move Group C++ Interface](https://moveit.picknik.ai/main/doc/examples/move_group_interface/move_group_interface_tutorial.html) | Joint/pose goals, path constraints, planning and attached objects |
+| moveit-task-constructor | [Pick and Place with MoveIt Task Constructor](https://moveit.picknik.ai/main/doc/tutorials/pick_and_place_with_moveit_task_constructor/pick_and_place_with_moveit_task_constructor.html) | Grasp pose generation, IK filtering and attach/detach stages |
+| moveit-time-parameterization | [MoveIt Time Parameterization](https://moveit.picknik.ai/main/doc/examples/time_parameterization/time_parameterization_tutorial.html) | Trajectory timestamps, velocity/acceleration constraints and jerk-limited smoothing |
+| ros2-tf-tree | [ROS 2 tf2 view_frames](https://github.com/ros2/geometry2/blob/rolling/tf2_tools/tf2_tools/view_frames.py) | Frame graph inspection with parent-child transforms and publication timing |
+| ros2-robot-state | [ROS Robot State Publisher](https://github.com/ros/robot_state_publisher/blob/rolling/README.md) | URDF kinematic tree and TF transforms from joint states |
+| moveit-perception | [MoveIt Perception Pipeline](https://moveit.picknik.ai/main/doc/examples/perception_pipeline/perception_pipeline_tutorial.html) | Occupancy maps updated from point clouds and depth images |
+| sdf-model-kinematics | [SDFormat model kinematics](https://sdformat.org/tutorials/specification/spec_model_kinematics/) | Rigid links, model containers and joint degrees of freedom |
+| moveit-planar-joint | [MoveIt planar joint model](https://github.com/moveit/moveit2/blob/main/moveit_core/robot_model/src/planar_joint_model.cpp) | Planar joint x/y/theta coordinates |
+| moveit-floating-joint | [MoveIt floating joint model](https://moveit.picknik.ai/main/api/html/floating__joint__model_8cpp_source.html) | Free spatial joint with translation and quaternion orientation |
+| sdf-joints | [SDFormat 1.12 joint specification](https://sdformat.org/spec/1.12/joint/) | Joint types, axis properties, dynamics, limits and mimic coupling |
+| gazebo-sensor-models | [Gazebo Sensors](https://gazebosim.org/libs/sensors/) | Camera, lidar, IMU and force-torque sensor model classes |
+| sdf-sensors | [SDFormat 1.12 sensor specification](https://sdformat.org/spec/1.12/sensor/) | Sensor configuration objects, camera projection and physical measurements |
+| gazebo-sensors-tutorial | [Gazebo sensor tutorial](https://gazebosim.org/docs/harmonic/sensors/) | Persistent IMU, contact and lidar sensor definitions in robot models |
+| ur-jog | [UR PolyScope: Move Tab](https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/move_g5/move_tab_en.htm) | Jog, Freedrive, joint/TCP movement |
+| abb-robotstudio | [ABB: RobotStudio Suite](https://www.abb.com/global/en/areas/robotics/products/software/robotstudio-suite?TID=828) | Virtual controller, swept volume and cable simulation |
+| robodk-programs | [RoboDK: Robot Programs](https://robodk.com/doc/en/Robot-Programs.html) | Program tree; motion, frame, I/O and simulation-event instructions |
+| ur-if | [UR PolyScope: If](https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/AdvProgNodes/commandtab_ifcondition_en.htm) | Conditional program branch |
+| ur-loop | [UR PolyScope: Loop](https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/AdvProgNodes/commandtab_loop_en.htm) | Repeated program block |
+| ur-assignment | [UR PolyScope: Assignment](https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/AdvProgNodes/commandtab_assignment_en.htm) | Assign expressions to variables |
+| ur-wait | [UR: Wait for input, time or condition](https://www.universal-robots.com/articles/ur/programming/wait-for-input-time-or-wait-command/) | Timed program delay and condition wait |
+| ur-thread | [UR PolyScope: Thread](https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/AdvProgNodes/commandtab_thread_en.htm) | Concurrent program branch |
+| ur-event | [UR PolyScope: Event](https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/AdvProgNodes/commandtab_event_en.htm) | Input-triggered handler |
+| ur-script | [UR PolyScope: Script](https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/AdvProgNodes/commandtab_script_en.htm) | Inline or file-based script instruction |
+| ur-popup | [UR PolyScope: Popup](https://www.universal-robots.com/manuals/EN/HTML/SW5_26/Content/prod-usr-man/software/PolyScope/content/BasicProgNodes/commandtab_popup_en.htm) | Operator-facing program messages |
+| ur-pallet | [UR PolyScope: Palletizing](https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/Template/new_pallet_en.htm) | Layer and pattern based pallet handling |
+| fanuc-roboguide | [FANUC: ROBOGUIDE](https://www.fanucamerica.com/products/software/robot/roboguide) | Cell modeling, CAD-to-path and application simulation |
+| ur-conveyor | [UR PolyScope: Conveyor Tracking](https://www.universal-robots.com/manuals/EN/HTML/SW5_26/Content/prod-usr-man/software/PolyScope/content/Template/commandtab_conveyor_tracking_en.htm) | Motion relative to moving conveyor |
+| ur-force | [UR PolyScope: Force](https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/Template/commandtab_force_en.htm) | Force/torque-controlled motion |
+| ur-remote-tcp | [UR PolyScope: Remote TCP and Toolpath](https://www.universal-robots.com/manuals/EN/HTML/SW5_26/Content/prod-usr-man/software/PolyScope/content/robot_control/urcaps_en.htm) | Stationary tool and robot-carried part |
+| robodk-point-follow | [RoboDK: Point Follow Project](https://robodk.com/doc/en/Robot-Machining-Point-Follow-Project.html) | Create discrete process paths from points and normals |
+| robodk-safety-zones | [RoboDK: Safety Zones](https://robodk.com/doc/en/Addin-Safety-Zones.html) | Modeled workspace boundaries; not certification |
+| kuka-sim | [KUKA.Sim: Features Overview](https://www.kuka.com/en-gb/products/robotics-systems/software/simulation-planning-optimization/kuka_sim/kuka_sim_updates) | I/O editor, virtual commissioning, RoboTeam and welding weave |
+| abb-station-logic | [ABB RobotStudio Operating Manual](https://search.abb.com/library/Download.aspx?Action=Launch&DocumentID=3HAC032104-001&DocumentPartId=&LanguageCode=en) | 17.1 Station Logic (pp. 375–381, Rev. BC): source and target signal connections |
+| abb-io-connection | [ABB RobotStudio API: IOConnection](https://developercenter.robotstudio.com/api/robotstudio/api/ABB.Robotics.RobotStudio.Stations.IOConnection.html) | I/O source and target connection object |
+| abb-signals | [ABB: RobotStudio optimization functions](https://new.abb.com/news/detail/96221/10-ways-that-abbs-robotstudior-software-can-help-you-optimize-your-robots-performance) | Record and analyze time-aligned motion/I/O signals |
+| robodk-io-monitor | [RoboDK: IO Monitor](https://robodk.com/doc/en/IO-Monitor.html) | Inspect station signals |
+| robodk-tips | [RoboDK: Tips and Tricks](https://robodk.com/doc/en/Tips-and-Tricks.html) | Robot trace, program validation, surface target teaching |
+| abb-tutorials | [ABB: RobotStudio Tutorials](https://new.abb.com/products/robotics/software-and-digital/robotstudio/tutorials) | Swept volume, cable simulation, AutoPath and other documented workflows |
+| ur-single-step | [UR PolyScope: Single Step](https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/program_node_sections_g5/single_step_en.htm) | Execute one program node |
+| ur-breakpoint | [UR PolyScope: Using Breakpoints](https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/program_node_sections_g5/breakpoint_en.htm) | Pause at a selected program location |
+| abb-sync-task | [ABB RAPID: WaitSyncTask](https://library.e.abb.com/public/b227fcd260204c4dbeb8a58f8002fe64/Rapid_instructions.pdf) | Program-task synchronization barrier |
+| ur-tool-contact | [UR ROS 2 Driver: Tool Contact example](https://docs.universal-robots.com/Universal_Robots_ROS2_Documentation/doc/ur_client_library/doc/examples/tool_contact_example.html) | Interrupt motion on detected tool contact |
+| gazebo-build-model | [Gazebo building your own robot](https://gazebosim.org/docs/harmonic/building_robot/) | Links, inertial properties, visual and collision geometry, frames and joints |
+| gazebo-gui | [Gazebo GUI and entity tree](https://gazebosim.org/docs/harmonic/gui/) | Entity tree links/visuals/collisions/joints, inspector, playback and reset |
+| sdf-contact-properties | [SDFormat 1.12 collision surface properties](https://sdformat.org/spec/1.12/collision/) | Friction, restitution and contact stiffness/damping |
+| sdf-physics-settings | [SDFormat 1.12 physics settings](https://sdformat.org/spec/1.12/physics/) | Dynamics engine, timestep, solver iteration and accuracy controls |
+| ur-node-types | [PolyScope X: NodeType API](https://docs.universal-robots.com/PolyScopeX_SDK_Documentation/build/SDK-v0.14/_static/htmlpages/typescript-api-reference/enums/contribution_api.NodeType.html) | Program tree node names including PAYLOAD and SET_TCP |
+| cax-studio-commands | [CAX Studio command registry (afe7a7a)](https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/commands.ts) | Implemented feature, recognition and application commands at the reviewed commit |
+| cax-studio-kernel-tree | [CAX Studio kernel model-tree mapping (afe7a7a)](https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/kernelTree.ts#L102-L105) | Persistent face-offset, defeature and helix nodes |
+| cax-core-face-offset | [CAX Core face-offset feature (4b96fde)](https://github.com/cslroot/cax-core/blob/4b96fdeeac2f8aa9fb57a618da1c78aad7627459/crates/cax-modeler/src/session/face_offset_feature.rs#L1-L18) | Existing solid-face displacement; distinct from creating an independent offset surface |
+| cax-studio-suppression | [CAX Studio feature suppression control (afe7a7a)](https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/ui/ModelTree.tsx#L64-L73) | Toggle suppression while retaining the feature definition |
+| cax-studio-suppression-kernel | [CAX Studio suppression evaluation (afe7a7a)](https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src-tauri/src/state/kernel/part_browser.rs#L495-L542) | Suppression and restoration, including dependent-node checks while retaining names and definitions |
+| cax-feature-recognition | [CAX feature recognition (62319d8)](https://github.com/cslroot/cax-feature-recognition/blob/62319d8a27c6950d9271a52ddab278dd18574bb7/README.md#L3-L39) | B-rep and mesh recognition of holes, fillets, chamfers, bosses, ribs, pockets and other features |
+| cax-studio-photo-render | [CAX Studio photo renderer (afe7a7a)](https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/ui/PhotoRenderDialog.tsx#L25-L29) | CPU path-traced image generation, independent of viewport screenshot capture |
+| cax-recognized-thread | [CAX thread recognizer (62319d8)](https://github.com/cslroot/cax-feature-recognition/blob/62319d8a27c6950d9271a52ddab278dd18574bb7/src/recognizers/thread.rs) | B-rep-only ThreadRecognizer produces a Thread feature result; mesh thread recognition is not claimed |
+| cax-mesh2brep-methods | [CAX mesh-to-B-rep methods (8dfe1d5)](https://github.com/cslroot/cax-mesh2brep/blob/8dfe1d5036c4a803d4e0e3ec550a28520d40dd54/README.md#L8-L17) | Faceted, analytic, quad, subdivision and hybrid conversion methods |
 <!-- references:end -->
 
 ## Source-backed expansion
@@ -210,3 +270,7 @@ All artwork and code use the repository's [MIT license](../LICENSE). See [QA](QA
 ## Additional application families
 
 The [v2.2 application-family review](APPLICATION_EXPANSION.md) lists every new command, its purpose and primary evidence. It also records rejected duplicate candidates, alternate application vocabulary, shared CAD/CAE and CAD/CMM uses, and the distinction between command and persistent-node contexts.
+
+## Robotics extension
+
+The [v2.3 robotics review](ROBOTICS_EXPANSION.md) records independent control-flow, planning, perception, process and kinematic functions. It also records source-backed reuse of physical components, joints, geometry, frames and general application commands without duplicate SVGs.

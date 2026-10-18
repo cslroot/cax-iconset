@@ -5,6 +5,8 @@ contain model-tree alongside command/tool. Tree labels name the resulting object
 """
 # Additional families have explicitly reviewed node metadata in their records.
 from application import APPLICATION_TREE, APPLICATION_NAMES
+from robotics import ROBOTICS_TREE, ROBOTICS_NAMES
+from studio import STUDIO_TREE, STUDIO_NAMES
 # Explicitly reviewed reuse, grouped only to keep metadata maintainable.
 TREE = {}
 def reuse(domain, ids, kind):
@@ -89,6 +91,10 @@ SHARED = {
 }
 TREE.update(APPLICATION_TREE)
 NAMES.update(APPLICATION_NAMES)
+TREE.update(ROBOTICS_TREE)
+NAMES.update(ROBOTICS_NAMES)
+TREE.update(STUDIO_TREE)
+NAMES.update(STUDIO_NAMES)
 
 def apply_usage(item):
     role = item['role']
@@ -107,5 +113,5 @@ def apply_usage(item):
     if item['id']=='cam-post-process':
         item['sources']=list(dict.fromkeys(item['sources']+['fusion-nc-program']))
     if item['id']=='cad-part':
-        item['nodeAliases']=['component instance','occurrence','部品インスタンス','配置部品']
+        item['nodeAliases']=list(dict.fromkeys(item.get('nodeAliases',[])+['component instance','occurrence','部品インスタンス','配置部品']))
     item['categories'] = list(dict.fromkeys(item['categories']+SHARED.get(item['id'],[])+item.pop('sharedCategories',[])))

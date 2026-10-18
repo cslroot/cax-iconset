@@ -1,0 +1,895 @@
+[
+  {
+    "id": "cad-part",
+    "references": [
+      {
+        "id": "sdf-model-kinematics",
+        "title": "SDFormat model kinematics",
+        "url": "https://sdformat.org/tutorials/specification/spec_model_kinematics/",
+        "scope": "Rigid links, model containers and joint degrees of freedom"
+      },
+      {
+        "id": "gazebo-build-model",
+        "title": "Gazebo building your own robot",
+        "url": "https://gazebosim.org/docs/harmonic/building_robot/",
+        "scope": "Links, inertial properties, visual and collision geometry, frames and joints"
+      },
+      {
+        "id": "gazebo-gui",
+        "title": "Gazebo GUI and entity tree",
+        "url": "https://gazebosim.org/docs/harmonic/gui/",
+        "scope": "Entity tree links/visuals/collisions/joints, inspector, playback and reset"
+      }
+    ],
+    "reviewNote": "Use the existing physical component symbol for robot links. Do not use common-link, whose meaning is an association.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "nodeAliases": [
+      "robot link",
+      "rigid link",
+      "URDF link",
+      "SDF link",
+      "ロボットリンク",
+      "剛体リンク"
+    ],
+    "description": "Represent a part or rigid component, including a placed instance or robot link using the same symbol.",
+    "descriptionJa": "部品や剛体構成要素を表します。配置インスタンスやロボットリンクにも同じ記号を使います。"
+  },
+  {
+    "id": "cad-assembly",
+    "references": [
+      {
+        "id": "sdf-model-kinematics",
+        "title": "SDFormat model kinematics",
+        "url": "https://sdformat.org/tutorials/specification/spec_model_kinematics/",
+        "scope": "Rigid links, model containers and joint degrees of freedom"
+      },
+      {
+        "id": "gazebo-gui",
+        "title": "Gazebo GUI and entity tree",
+        "url": "https://gazebosim.org/docs/harmonic/gui/",
+        "scope": "Entity tree links/visuals/collisions/joints, inspector, playback and reset"
+      },
+      {
+        "id": "robodk-general",
+        "title": "RoboDK: General Tips",
+        "url": "https://robodk.com/doc/en/General.html",
+        "scope": "Reference-frame calibration and mechanism/gripper modeling"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "nodeAliases": [
+      "SDF model",
+      "robot mechanism",
+      "機構モデル"
+    ],
+    "aliases": [
+      "robot mechanism",
+      "device mechanism",
+      "kinematic assembly",
+      "機構"
+    ]
+  },
+  {
+    "id": "cad-solid-body",
+    "references": [
+      {
+        "id": "gazebo-build-model",
+        "title": "Gazebo building your own robot",
+        "url": "https://gazebosim.org/docs/harmonic/building_robot/",
+        "scope": "Links, inertial properties, visual and collision geometry, frames and joints"
+      },
+      {
+        "id": "gazebo-gui",
+        "title": "Gazebo GUI and entity tree",
+        "url": "https://gazebosim.org/docs/harmonic/gui/",
+        "scope": "Entity tree links/visuals/collisions/joints, inspector, playback and reset"
+      }
+    ],
+    "reviewNote": "Use for solid geometry leaves only; collision/visual purpose is metadata, not distinct icon state.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "nodeAliases": [
+      "primitive collision geometry",
+      "solid visual geometry",
+      "衝突プリミティブ",
+      "表示形状"
+    ]
+  },
+  {
+    "id": "cad-mesh-body",
+    "references": [
+      {
+        "id": "gazebo-build-model",
+        "title": "Gazebo building your own robot",
+        "url": "https://gazebosim.org/docs/harmonic/building_robot/",
+        "scope": "Links, inertial properties, visual and collision geometry, frames and joints"
+      },
+      {
+        "id": "gazebo-gui",
+        "title": "Gazebo GUI and entity tree",
+        "url": "https://gazebosim.org/docs/harmonic/gui/",
+        "scope": "Entity tree links/visuals/collisions/joints, inspector, playback and reset"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "nodeAliases": [
+      "collision mesh",
+      "visual mesh",
+      "衝突メッシュ",
+      "表示メッシュ"
+    ]
+  },
+  {
+    "id": "cad-fixed-joint",
+    "references": [
+      {
+        "id": "moveit-urdf-srdf",
+        "title": "MoveIt URDF and SRDF",
+        "url": "https://moveit.picknik.ai/main/doc/examples/urdf_srdf/urdf_srdf_tutorial.html",
+        "scope": "Robot model, virtual/passive joints, groups, poses and self-collision pairs"
+      },
+      {
+        "id": "sdf-model-kinematics",
+        "title": "SDFormat model kinematics",
+        "url": "https://sdformat.org/tutorials/specification/spec_model_kinematics/",
+        "scope": "Rigid links, model containers and joint degrees of freedom"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "nodeAliases": [
+      "fixed virtual joint",
+      "fixed root joint",
+      "固定仮想関節"
+    ]
+  },
+  {
+    "id": "cad-revolute-joint",
+    "references": [
+      {
+        "id": "sdf-model-kinematics",
+        "title": "SDFormat model kinematics",
+        "url": "https://sdformat.org/tutorials/specification/spec_model_kinematics/",
+        "scope": "Rigid links, model containers and joint degrees of freedom"
+      }
+    ],
+    "reviewNote": "Bounded/unbounded motion is a property, so continuous and revolute share one glyph. Passive/actuated state also does not create variants.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "nodeAliases": [
+      "continuous joint",
+      "revolute joint",
+      "連続回転関節"
+    ]
+  },
+  {
+    "id": "cad-prismatic-joint",
+    "references": [
+      {
+        "id": "sdf-model-kinematics",
+        "title": "SDFormat model kinematics",
+        "url": "https://sdformat.org/tutorials/specification/spec_model_kinematics/",
+        "scope": "Rigid links, model containers and joint degrees of freedom"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "nodeAliases": [
+      "slider joint",
+      "直動関節"
+    ]
+  },
+  {
+    "id": "cad-mass-properties",
+    "references": [
+      {
+        "id": "gazebo-build-model",
+        "title": "Gazebo building your own robot",
+        "url": "https://gazebosim.org/docs/harmonic/building_robot/",
+        "scope": "Links, inertial properties, visual and collision geometry, frames and joints"
+      }
+    ],
+    "reviewNote": "Broaden usage from calculation to inspect/set mass/center-of-mass/inertia; same physical concept. Do not create a separate inertial-node glyph.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "aliases": [
+      "link inertia",
+      "inertial properties",
+      "重心",
+      "リンク慣性"
+    ],
+    "modelTree": {
+      "name": "Mass and inertia",
+      "nameJa": "質量・慣性",
+      "objectType": "inertial-properties"
+    }
+  },
+  {
+    "id": "olp-robot-arm",
+    "references": [
+      {
+        "id": "moveit-urdf-srdf",
+        "title": "MoveIt URDF and SRDF",
+        "url": "https://moveit.picknik.ai/main/doc/examples/urdf_srdf/urdf_srdf_tutorial.html",
+        "scope": "Robot model, virtual/passive joints, groups, poses and self-collision pairs"
+      }
+    ],
+    "reviewNote": "Reuse for all morphologies; do not proliferate industrial/collaborative/humanoid state or morphology variants.",
+    "nodeAliases": [
+      "robot model",
+      "URDF robot",
+      "SRDF robot",
+      "ロボットモデル"
+    ]
+  },
+  {
+    "id": "olp-robot-cell",
+    "references": [
+      {
+        "id": "moveit-planning-scene",
+        "title": "MoveIt Planning Scene",
+        "url": "https://moveit.picknik.ai/main/doc/examples/planning_scene/planning_scene_tutorial.html",
+        "scope": "Collision checking, allowed collision matrix and kinematic constraints"
+      },
+      {
+        "id": "gazebo-build-model",
+        "title": "Gazebo building your own robot",
+        "url": "https://gazebosim.org/docs/harmonic/building_robot/",
+        "scope": "Links, inertial properties, visual and collision geometry, frames and joints"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "nodeAliases": [
+      "planning scene",
+      "simulation world",
+      "collision world",
+      "計画シーン",
+      "シミュレーションワールド"
+    ]
+  },
+  {
+    "id": "olp-reference-frame",
+    "references": [
+      {
+        "id": "gazebo-build-model",
+        "title": "Gazebo building your own robot",
+        "url": "https://gazebosim.org/docs/harmonic/building_robot/",
+        "scope": "Links, inertial properties, visual and collision geometry, frames and joints"
+      },
+      {
+        "id": "ros2-robot-state",
+        "title": "ROS Robot State Publisher",
+        "url": "https://github.com/ros/robot_state_publisher/blob/rolling/README.md",
+        "scope": "URDF kinematic tree and TF transforms from joint states"
+      },
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "nodeAliases": [
+      "TF frame",
+      "SDF frame",
+      "world frame",
+      "base frame",
+      "座標フレーム"
+    ],
+    "aliases": [
+      "workobject",
+      "wobjdata",
+      "UFRAME",
+      "$BASE",
+      "work frame",
+      "set reference frame",
+      "ワーク座標系",
+      "ベース座標系"
+    ]
+  },
+  {
+    "id": "olp-joint-target",
+    "references": [
+      {
+        "id": "moveit-setup-assistant",
+        "title": "MoveIt Setup Assistant",
+        "url": "https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html",
+        "scope": "Planning groups, end effectors, named poses and controllers"
+      },
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "nodeAliases": [
+      "named pose",
+      "group state",
+      "home pose",
+      "SRDF group_state",
+      "名前付き姿勢",
+      "待機姿勢"
+    ],
+    "aliases": [
+      "jointtarget",
+      "joint waypoint",
+      "axis target",
+      "関節教示点"
+    ]
+  },
+  {
+    "id": "olp-cartesian-target",
+    "references": [
+      {
+        "id": "moveit-group-interface",
+        "title": "MoveIt Move Group C++ Interface",
+        "url": "https://moveit.picknik.ai/main/doc/examples/move_group_interface/move_group_interface_tutorial.html",
+        "scope": "Joint/pose goals, path constraints, planning and attached objects"
+      },
+      {
+        "id": "robodk-tips",
+        "title": "RoboDK: Tips and Tricks",
+        "url": "https://robodk.com/doc/en/Tips-and-Tricks.html",
+        "scope": "Robot trace, program validation, surface target teaching"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "nodeAliases": [
+      "pose goal",
+      "end-effector goal",
+      "goal pose",
+      "目標姿勢"
+    ],
+    "aliases": [
+      "waypoint",
+      "robtarget",
+      "Cartesian waypoint",
+      "teach target",
+      "taught position",
+      "教示点"
+    ]
+  },
+  {
+    "id": "olp-collision-check",
+    "references": [
+      {
+        "id": "moveit-planning-scene",
+        "title": "MoveIt Planning Scene",
+        "url": "https://moveit.picknik.ai/main/doc/examples/planning_scene/planning_scene_tutorial.html",
+        "scope": "Collision checking, allowed collision matrix and kinematic constraints"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "aliases": [
+      "self-collision checking",
+      "environment collision",
+      "自己衝突判定"
+    ]
+  },
+  {
+    "id": "olp-joint-limits",
+    "references": [
+      {
+        "id": "sdf-joints",
+        "title": "SDFormat 1.12 joint specification",
+        "url": "https://sdformat.org/spec/1.12/joint/",
+        "scope": "Joint types, axis properties, dynamics, limits and mimic coupling"
+      },
+      {
+        "id": "moveit-time-parameterization",
+        "title": "MoveIt Time Parameterization",
+        "url": "https://moveit.picknik.ai/main/doc/examples/time_parameterization/time_parameterization_tutorial.html",
+        "scope": "Trajectory timestamps, velocity/acceleration constraints and jerk-limited smoothing"
+      }
+    ],
+    "reviewNote": "Broaden description beyond travel range to dynamic bounds; don't add property-per-icon variants.",
+    "aliases": [
+      "joint velocity limit",
+      "joint acceleration limit",
+      "effort limit",
+      "関節速度制限",
+      "関節加速度制限"
+    ],
+    "description": "Inspect or set robot joint travel, velocity, acceleration and effort limits.",
+    "descriptionJa": "ロボット関節の可動範囲、速度、加速度、駆動力の制限を確認または設定します。"
+  },
+  {
+    "id": "olp-change-configuration",
+    "references": [
+      {
+        "id": "moveit-task-constructor",
+        "title": "Pick and Place with MoveIt Task Constructor",
+        "url": "https://moveit.picknik.ai/main/doc/tutorials/pick_and_place_with_moveit_task_constructor/pick_and_place_with_moveit_task_constructor.html",
+        "scope": "Grasp pose generation, IK filtering and attach/detach stages"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "aliases": [
+      "IK solution",
+      "inverse kinematics solution",
+      "逆運動学解"
+    ]
+  },
+  {
+    "id": "olp-plan-collision-free",
+    "references": [
+      {
+        "id": "moveit-group-interface",
+        "title": "MoveIt Move Group C++ Interface",
+        "url": "https://moveit.picknik.ai/main/doc/examples/move_group_interface/move_group_interface_tutorial.html",
+        "scope": "Joint/pose goals, path constraints, planning and attached objects"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "aliases": [
+      "motion planner",
+      "OMPL",
+      "motion planning",
+      "動作計画"
+    ]
+  },
+  {
+    "id": "cmm-laser-scanner",
+    "references": [
+      {
+        "id": "gazebo-sensor-models",
+        "title": "Gazebo Sensors",
+        "url": "https://gazebosim.org/libs/sensors/",
+        "scope": "Camera, lidar, IMU and force-torque sensor model classes"
+      },
+      {
+        "id": "gazebo-sensors-tutorial",
+        "title": "Gazebo sensor tutorial",
+        "url": "https://gazebosim.org/docs/harmonic/sensors/",
+        "scope": "Persistent IMU, contact and lidar sensor definitions in robot models"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "nodeAliases": [
+      "lidar",
+      "GPU lidar",
+      "LiDAR",
+      "レーザー測距センサー"
+    ],
+    "modelTree": {
+      "name": "Laser scanner",
+      "nameJa": "レーザースキャナー",
+      "objectType": "sensor"
+    },
+    "description": "Select a laser range sensor for non-contact geometry measurement.",
+    "descriptionJa": "非接触で形状を測定するレーザー測距センサーを選択します。"
+  },
+  {
+    "id": "cmm-point-cloud",
+    "references": [
+      {
+        "id": "moveit-perception",
+        "title": "MoveIt Perception Pipeline",
+        "url": "https://moveit.picknik.ai/main/doc/examples/perception_pipeline/perception_pipeline_tutorial.html",
+        "scope": "Occupancy maps updated from point clouds and depth images"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "aliases": [
+      "PointCloud2",
+      "depth point cloud",
+      "深度点群"
+    ]
+  },
+  {
+    "id": "common-import",
+    "references": [
+      {
+        "id": "moveit-setup-assistant",
+        "title": "MoveIt Setup Assistant",
+        "url": "https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html",
+        "scope": "Planning groups, end effectors, named poses and controllers"
+      },
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "aliases": [
+      "import URDF",
+      "import robot description",
+      "import robot CAD",
+      "load fixture",
+      "load cell geometry"
+    ]
+  },
+  {
+    "id": "common-export",
+    "references": [
+      {
+        "id": "moveit-setup-assistant",
+        "title": "MoveIt Setup Assistant",
+        "url": "https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html",
+        "scope": "Planning groups, end effectors, named poses and controllers"
+      }
+    ],
+    "reviewNote": "Do not use olp-generate-program for SRDF: controller motion code and model configuration are different artifacts.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "aliases": [
+      "generate SRDF",
+      "export robot configuration"
+    ]
+  },
+  {
+    "id": "cae-contact-pair",
+    "references": [
+      {
+        "id": "sdf-contact-properties",
+        "title": "SDFormat 1.12 collision surface properties",
+        "url": "https://sdformat.org/spec/1.12/collision/",
+        "scope": "Friction, restitution and contact stiffness/damping"
+      }
+    ],
+    "reviewNote": "Physical contact behavior is shared. Do not alias this to the allowed collision matrix.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "aliases": [
+      "simulation contact",
+      "contact material",
+      "接触物性"
+    ]
+  },
+  {
+    "id": "common-run",
+    "references": [
+      {
+        "id": "gazebo-gui",
+        "title": "Gazebo GUI and entity tree",
+        "url": "https://gazebosim.org/docs/harmonic/gui/",
+        "scope": "Entity tree links/visuals/collisions/joints, inspector, playback and reset"
+      },
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      }
+    ],
+    "reviewNote": "Play/pause/stop/reset remain common actions rather than robot-specific copies.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "aliases": [
+      "play simulation",
+      "シミュレーション開始",
+      "run on robot",
+      "start controller program"
+    ]
+  },
+  {
+    "id": "cae-solver-settings",
+    "references": [
+      {
+        "id": "sdf-physics-settings",
+        "title": "SDFormat 1.12 physics settings",
+        "url": "https://sdformat.org/spec/1.12/physics/",
+        "scope": "Dynamics engine, timestep, solver iteration and accuracy controls"
+      }
+    ],
+    "reviewNote": "Same numerical-control concept; no new physics-settings glyph needed.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "aliases": [
+      "physics timestep",
+      "dynamics solver settings",
+      "物理エンジン設定",
+      "シミュレーション刻み"
+    ]
+  },
+  {
+    "id": "common-pause",
+    "references": [
+      {
+        "id": "gazebo-gui",
+        "title": "Gazebo GUI and entity tree",
+        "url": "https://gazebosim.org/docs/harmonic/gui/",
+        "scope": "Entity tree links/visuals/collisions/joints, inspector, playback and reset"
+      },
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      }
+    ],
+    "reviewNote": "Reuse the existing semantic symbol in a documented robotics context; no new geometry.",
+    "sharedCategories": [
+      "OLP"
+    ],
+    "aliases": [
+      "pause simulation",
+      "シミュレーション一時停止",
+      "pause controller"
+    ]
+  },
+  {
+    "id": "olp-tool-center-point",
+    "references": [
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      }
+    ],
+    "reviewNote": "TCP点定義。工具全体のgripperとは分離。",
+    "aliases": [
+      "TCP",
+      "tool data",
+      "tooldata",
+      "tool point",
+      "工具先端点"
+    ]
+  },
+  {
+    "id": "olp-tool-frame",
+    "references": [
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      },
+      {
+        "id": "ur-node-types",
+        "title": "PolyScope X: NodeType API",
+        "url": "https://docs.universal-robots.com/PolyScopeX_SDK_Documentation/build/SDK-v0.14/_static/htmlpages/typescript-api-reference/enums/contribution_api.NodeType.html",
+        "scope": "Program tree node names including PAYLOAD and SET_TCP"
+      }
+    ],
+    "reviewNote": "Reuse an existing operation in robotics; no robot-state variants.",
+    "aliases": [
+      "set TCP",
+      "set tool",
+      "UTOOL",
+      "$TOOL",
+      "active tool",
+      "ツール選択"
+    ],
+    "modelTree": {
+      "name": "Tool frame instruction",
+      "nameJa": "工具座標系命令",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-set-speed",
+    "references": [
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      }
+    ],
+    "reviewNote": "Reuse an existing operation in robotics; no robot-state variants.",
+    "aliases": [
+      "speed data",
+      "velocity",
+      "acceleration",
+      "speed override",
+      "速度設定"
+    ],
+    "modelTree": {
+      "name": "Motion speed",
+      "nameJa": "動作速度",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-path-blend",
+    "references": [
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      }
+    ],
+    "reviewNote": "Reuse an existing operation in robotics; no robot-state variants.",
+    "aliases": [
+      "rounding",
+      "CNT",
+      "FINE",
+      "ZoneData",
+      "blend radius",
+      "cornering",
+      "コーナ丸め"
+    ],
+    "modelTree": {
+      "name": "Path blend",
+      "nameJa": "経路ブレンド",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-payload",
+    "references": [
+      {
+        "id": "ur-node-types",
+        "title": "PolyScope X: NodeType API",
+        "url": "https://docs.universal-robots.com/PolyScopeX_SDK_Documentation/build/SDK-v0.14/_static/htmlpages/typescript-api-reference/enums/contribution_api.NodeType.html",
+        "scope": "Program tree node names including PAYLOAD and SET_TCP"
+      }
+    ],
+    "reviewNote": "Reuse an existing operation in robotics; no robot-state variants.",
+    "aliases": [
+      "set payload",
+      "carried load",
+      "load data",
+      "重心",
+      "可搬負荷"
+    ],
+    "modelTree": {
+      "name": "Payload",
+      "nameJa": "可搬負荷",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-generate-program",
+    "references": [
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      }
+    ],
+    "reviewNote": "既存生成コマンドSVGを出力/プログラムノードの意味に再利用。command descriptionは生成操作のまま保持。",
+    "aliases": [
+      "robot program",
+      "controller program",
+      "post process",
+      "RAPID program",
+      "TP program",
+      "KRL program",
+      "UR program"
+    ],
+    "modelTree": {
+      "name": "Robot program",
+      "nameJa": "ロボットプログラム",
+      "objectType": "robot-program"
+    }
+  },
+  {
+    "id": "olp-transfer-program",
+    "references": [
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      }
+    ],
+    "reviewNote": "プロトコル/メーカー/転送方向の言い換えで新SVGなし。実行開始とは分ける。",
+    "aliases": [
+      "send program",
+      "download to robot",
+      "upload to controller",
+      "program deployment",
+      "プログラム転送"
+    ]
+  },
+  {
+    "id": "olp-curve-follow",
+    "references": [
+      {
+        "id": "fanuc-roboguide",
+        "title": "FANUC: ROBOGUIDE",
+        "url": "https://www.fanucamerica.com/products/software/robot/roboguide",
+        "scope": "Cell modeling, CAD-to-path and application simulation"
+      },
+      {
+        "id": "abb-tutorials",
+        "title": "ABB: RobotStudio Tutorials",
+        "url": "https://new.abb.com/products/robotics/software-and-digital/robotstudio/tutorials",
+        "scope": "Swept volume, cable simulation, AutoPath and other documented workflows"
+      }
+    ],
+    "reviewNote": "メーカー名・塗装/研削/接着の用途別で同じ連続曲線生成SVGを増やさない。",
+    "aliases": [
+      "CAD to path",
+      "AutoPath",
+      "curve follow project",
+      "toolpath follow",
+      "CAD形状から経路"
+    ]
+  },
+  {
+    "id": "olp-reachability",
+    "references": [
+      {
+        "id": "robodk-tips",
+        "title": "RoboDK: Tips and Tricks",
+        "url": "https://robodk.com/doc/en/Tips-and-Tricks.html",
+        "scope": "Robot trace, program validation, surface target teaching"
+      }
+    ],
+    "reviewNote": "可達性を調べる目的で共通化。動作包絡/安全境界とは意味が異なる。",
+    "aliases": [
+      "reach envelope",
+      "robot workspace",
+      "reach check",
+      "到達範囲"
+    ]
+  },
+  {
+    "id": "cad-assembly-place",
+    "references": [
+      {
+        "id": "robodk-general",
+        "title": "RoboDK: General Tips",
+        "url": "https://robodk.com/doc/en/General.html",
+        "scope": "Reference-frame calibration and mechanism/gripper modeling"
+      }
+    ],
+    "reviewNote": "セル内配置はcomponent placementと同義。",
+    "aliases": [
+      "place fixture",
+      "place cell equipment",
+      "load robot tool geometry"
+    ],
+    "sharedCategories": [
+      "OLP"
+    ]
+  },
+  {
+    "id": "common-stop",
+    "references": [
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      }
+    ],
+    "reviewNote": "緊急停止と同一視はしない。E-stop safety certificationの意味は付けない。",
+    "aliases": [
+      "stop simulation",
+      "halt program"
+    ],
+    "sharedCategories": [
+      "OLP"
+    ]
+  }
+]

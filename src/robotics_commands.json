@@ -1,0 +1,1773 @@
+[
+  {
+    "id": "olp-planning-group",
+    "name": "Define planning group",
+    "nameJa": "計画グループ定義",
+    "description": "Choose the links, joints or subgroups that a motion planner may move together.",
+    "descriptionJa": "動作計画でまとめて動かすリンク、関節、サブグループを定義します。",
+    "family": "robot-model",
+    "role": "command",
+    "aliases": [
+      "joint group",
+      "kinematic chain",
+      "Move Group",
+      "関節グループ",
+      "運動学チェーン"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "define planning group",
+      "計画グループ定義",
+      "robotics",
+      "ロボット"
+    ],
+    "modelTree": {
+      "name": "Planning group",
+      "nameJa": "計画グループ",
+      "objectType": "planning-group"
+    },
+    "references": [
+      {
+        "id": "moveit-setup-assistant",
+        "title": "MoveIt Setup Assistant",
+        "url": "https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html",
+        "scope": "Planning groups, end effectors, named poses and controllers"
+      },
+      {
+        "id": "moveit-urdf-srdf",
+        "title": "MoveIt URDF and SRDF",
+        "url": "https://moveit.picknik.ai/main/doc/examples/urdf_srdf/urdf_srdf_tutorial.html",
+        "scope": "Robot model, virtual/passive joints, groups, poses and self-collision pairs"
+      }
+    ],
+    "reviewNote": "common-group is editing/selection grouping; this group defines planning DOFs and solver scope."
+  },
+  {
+    "id": "olp-end-effector",
+    "name": "End effector",
+    "nameJa": "エンドエフェクタ",
+    "description": "Assign the robot tool or gripper group and its attachment link.",
+    "descriptionJa": "ロボット先端のツールやグリッパのグループと接続リンクを定義します。",
+    "family": "robot-model",
+    "role": "tool",
+    "aliases": [
+      "gripper",
+      "robot hand",
+      "EOAT",
+      "ハンド",
+      "先端工具",
+      "parallel gripper",
+      "vacuum gripper",
+      "吸着ハンド"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "define end effector",
+      "エンドエフェクタ定義",
+      "robotics",
+      "ロボット"
+    ],
+    "modelTree": {
+      "name": "End effector",
+      "nameJa": "エンドエフェクタ",
+      "objectType": "end-effector"
+    },
+    "references": [
+      {
+        "id": "moveit-setup-assistant",
+        "title": "MoveIt Setup Assistant",
+        "url": "https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html",
+        "scope": "Planning groups, end effectors, named poses and controllers"
+      },
+      {
+        "id": "moveit-urdf-srdf",
+        "title": "MoveIt URDF and SRDF",
+        "url": "https://moveit.picknik.ai/main/doc/examples/urdf_srdf/urdf_srdf_tutorial.html",
+        "scope": "Robot model, virtual/passive joints, groups, poses and self-collision pairs"
+      },
+      {
+        "id": "robodk-general",
+        "title": "RoboDK: General Tips",
+        "url": "https://robodk.com/doc/en/General.html",
+        "scope": "Reference-frame calibration and mechanism/gripper modeling"
+      }
+    ],
+    "reviewNote": "TCP/tool frame is a coordinate definition; the end effector is a physical link group and attachment interface."
+  },
+  {
+    "id": "olp-collision-matrix",
+    "name": "Configure collision pairs",
+    "nameJa": "衝突判定ペア設定",
+    "description": "Choose which pairs of robot links and scene objects participate in collision checking.",
+    "descriptionJa": "ロボットリンクや周辺物体の組合せごとに衝突判定の対象を設定します。",
+    "family": "robot-collision",
+    "role": "command",
+    "aliases": [
+      "Allowed Collision Matrix",
+      "ACM",
+      "self-collision matrix",
+      "collision map",
+      "衝突許可行列",
+      "自己衝突行列"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "configure collision pairs",
+      "衝突判定ペア設定",
+      "robotics",
+      "ロボット"
+    ],
+    "modelTree": {
+      "name": "Collision pair matrix",
+      "nameJa": "衝突判定ペア行列",
+      "objectType": "collision-pair-matrix"
+    },
+    "references": [
+      {
+        "id": "moveit-planning-scene",
+        "title": "MoveIt Planning Scene",
+        "url": "https://moveit.picknik.ai/main/doc/examples/planning_scene/planning_scene_tutorial.html",
+        "scope": "Collision checking, allowed collision matrix and kinematic constraints"
+      },
+      {
+        "id": "moveit-urdf-srdf",
+        "title": "MoveIt URDF and SRDF",
+        "url": "https://moveit.picknik.ai/main/doc/examples/urdf_srdf/urdf_srdf_tutorial.html",
+        "scope": "Robot model, virtual/passive joints, groups, poses and self-collision pairs"
+      }
+    ],
+    "reviewNote": "olp-collision-check performs the test; this edits pair participation. CAE contact pair defines contact forces, not exclusion rules."
+  },
+  {
+    "id": "olp-motion-constraints",
+    "name": "Set motion constraints",
+    "nameJa": "動作経路拘束設定",
+    "description": "Restrict allowed link positions, orientations or joint values throughout a planned motion.",
+    "descriptionJa": "計画経路全体で許されるリンク位置、姿勢、関節値を制約します。",
+    "family": "robot-planning",
+    "role": "command",
+    "aliases": [
+      "path constraints",
+      "orientation constraint",
+      "position constraint",
+      "kinematic constraints",
+      "姿勢拘束",
+      "位置拘束"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "set motion constraints",
+      "動作経路拘束設定",
+      "robotics",
+      "ロボット"
+    ],
+    "modelTree": {
+      "name": "Motion constraint",
+      "nameJa": "動作経路拘束",
+      "objectType": "motion-constraint"
+    },
+    "references": [
+      {
+        "id": "moveit-group-interface",
+        "title": "MoveIt Move Group C++ Interface",
+        "url": "https://moveit.picknik.ai/main/doc/examples/move_group_interface/move_group_interface_tutorial.html",
+        "scope": "Joint/pose goals, path constraints, planning and attached objects"
+      },
+      {
+        "id": "moveit-planning-scene",
+        "title": "MoveIt Planning Scene",
+        "url": "https://moveit.picknik.ai/main/doc/examples/planning_scene/planning_scene_tutorial.html",
+        "scope": "Collision checking, allowed collision matrix and kinematic constraints"
+      }
+    ],
+    "reviewNote": "A Cartesian target constrains a goal; a joint limit is a mechanism bound. This is a task-specific constraint maintained along the path, unlike CAD sketch constraints."
+  },
+  {
+    "id": "olp-grasp-planning",
+    "name": "Generate grasp poses",
+    "nameJa": "把持姿勢生成",
+    "description": "Generate candidate grasps around an object and filter them for robot reachability and task feasibility.",
+    "descriptionJa": "物体の周囲に把持姿勢候補を生成し、到達性や作業条件で絞り込みます。",
+    "family": "robot-planning",
+    "role": "command",
+    "aliases": [
+      "grasp planning",
+      "pick and place planning",
+      "把持計画",
+      "ピックアンドプレース"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "generate grasp poses",
+      "把持姿勢生成",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "moveit-task-constructor",
+        "title": "Pick and Place with MoveIt Task Constructor",
+        "url": "https://moveit.picknik.ai/main/doc/tutorials/pick_and_place_with_moveit_task_constructor/pick_and_place_with_moveit_task_constructor.html",
+        "scope": "Grasp pose generation, IK filtering and attach/detach stages"
+      }
+    ],
+    "reviewNote": "Different from defining a gripper, testing one target, or attaching an object; produces alternative grasp candidates."
+  },
+  {
+    "id": "olp-trajectory-retiming",
+    "name": "Time-parameterize trajectory",
+    "nameJa": "軌道時間パラメータ付与",
+    "description": "Compute waypoint times and motion profiles subject to velocity, acceleration and optional jerk limits.",
+    "descriptionJa": "速度・加速度、必要に応じてジャークの制限に従い、経由点の時刻と運動プロファイルを計算します。",
+    "family": "robot-planning",
+    "role": "command",
+    "aliases": [
+      "retime trajectory",
+      "time parameterization",
+      "TOTG",
+      "jerk-limited smoothing",
+      "軌道リタイミング",
+      "軌道平滑化"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "time-parameterize trajectory",
+      "軌道時間パラメータ付与",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "moveit-time-parameterization",
+        "title": "MoveIt Time Parameterization",
+        "url": "https://moveit.picknik.ai/main/doc/examples/time_parameterization/time_parameterization_tutorial.html",
+        "scope": "Trajectory timestamps, velocity/acceleration constraints and jerk-limited smoothing"
+      }
+    ],
+    "reviewNote": "olp-set-speed sets a speed instruction; olp-cycle-time estimates duration; olp-path-blend rounds corners. This calculates timestamps and derivatives over an existing path."
+  },
+  {
+    "id": "olp-transform-tree",
+    "name": "Inspect transform tree",
+    "nameJa": "座標変換ツリー確認",
+    "description": "Inspect parent-child coordinate transforms and the connectivity of the robot frame hierarchy.",
+    "descriptionJa": "ロボット座標系の親子変換とフレーム階層の接続関係を確認します。",
+    "family": "robot-frames",
+    "role": "command",
+    "aliases": [
+      "TF tree",
+      "tf2",
+      "frame graph",
+      "座標系ツリー",
+      "フレームグラフ"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "inspect transform tree",
+      "座標変換ツリー確認",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ros2-tf-tree",
+        "title": "ROS 2 tf2 view_frames",
+        "url": "https://github.com/ros2/geometry2/blob/rolling/tf2_tools/tf2_tools/view_frames.py",
+        "scope": "Frame graph inspection with parent-child transforms and publication timing"
+      },
+      {
+        "id": "ros2-robot-state",
+        "title": "ROS Robot State Publisher",
+        "url": "https://github.com/ros/robot_state_publisher/blob/rolling/README.md",
+        "scope": "URDF kinematic tree and TF transforms from joint states"
+      }
+    ],
+    "reviewNote": "olp-reference-frame represents one frame; this inspects the connected frame graph and its transform relations."
+  },
+  {
+    "id": "olp-occupancy-map",
+    "name": "Update occupancy map",
+    "nameJa": "占有マップ更新",
+    "description": "Fuse depth or point-cloud observations into occupied and free space for robot planning.",
+    "descriptionJa": "深度画像や点群の観測を統合し、ロボット計画用の占有・自由空間を更新します。",
+    "family": "robot-perception",
+    "role": "command",
+    "aliases": [
+      "Octomap",
+      "voxel map",
+      "Occupancy Map Updater",
+      "ボクセルマップ"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "update occupancy map",
+      "占有マップ更新",
+      "robotics",
+      "ロボット"
+    ],
+    "modelTree": {
+      "name": "Occupancy map",
+      "nameJa": "占有マップ",
+      "objectType": "occupancy-map"
+    },
+    "references": [
+      {
+        "id": "moveit-perception",
+        "title": "MoveIt Perception Pipeline",
+        "url": "https://moveit.picknik.ai/main/doc/examples/perception_pipeline/perception_pipeline_tutorial.html",
+        "scope": "Occupancy maps updated from point clouds and depth images"
+      }
+    ],
+    "reviewNote": "cmm-point-cloud is raw samples and cmm-cloud-rasterize is a height/scalar grid. Occupancy encodes collision-relevant free/occupied volume."
+  },
+  {
+    "id": "cad-ball-joint",
+    "name": "Ball joint",
+    "nameJa": "球ジョイント",
+    "description": "Connect two bodies while allowing rotation about three axes and preventing relative translation.",
+    "descriptionJa": "2つの剛体を接続し、相対並進を拘束して3軸回転を許します。",
+    "family": "assembly",
+    "role": "command",
+    "aliases": [
+      "spherical joint",
+      "ball and socket",
+      "球面ジョイント"
+    ],
+    "domain": "CAD",
+    "tags": [
+      "ball joint",
+      "球ジョイント",
+      "robotics",
+      "ロボット"
+    ],
+    "sharedCategories": [
+      "OLP"
+    ],
+    "modelTree": {
+      "name": "Ball joint",
+      "nameJa": "球ジョイント",
+      "objectType": "joint"
+    },
+    "references": [
+      {
+        "id": "sdf-model-kinematics",
+        "title": "SDFormat model kinematics",
+        "url": "https://sdformat.org/tutorials/specification/spec_model_kinematics/",
+        "scope": "Rigid links, model containers and joint degrees of freedom"
+      }
+    ],
+    "reviewNote": "The existing revolute joint has one rotational DOF, not three."
+  },
+  {
+    "id": "cad-planar-joint",
+    "name": "Planar joint",
+    "nameJa": "平面ジョイント",
+    "description": "Allow two translations in a plane and rotation about its normal.",
+    "descriptionJa": "平面内の2方向の並進と、平面法線まわりの回転を許します。",
+    "family": "assembly",
+    "role": "command",
+    "aliases": [
+      "planar virtual joint",
+      "mobile base joint",
+      "平面仮想関節"
+    ],
+    "domain": "CAD",
+    "tags": [
+      "planar joint",
+      "平面ジョイント",
+      "robotics",
+      "ロボット"
+    ],
+    "sharedCategories": [
+      "OLP"
+    ],
+    "modelTree": {
+      "name": "Planar joint",
+      "nameJa": "平面ジョイント",
+      "objectType": "joint"
+    },
+    "references": [
+      {
+        "id": "moveit-planar-joint",
+        "title": "MoveIt planar joint model",
+        "url": "https://github.com/moveit/moveit2/blob/main/moveit_core/robot_model/src/planar_joint_model.cpp",
+        "scope": "Planar joint x/y/theta coordinates"
+      },
+      {
+        "id": "moveit-urdf-srdf",
+        "title": "MoveIt URDF and SRDF",
+        "url": "https://moveit.picknik.ai/main/doc/examples/urdf_srdf/urdf_srdf_tutorial.html",
+        "scope": "Robot model, virtual/passive joints, groups, poses and self-collision pairs"
+      }
+    ],
+    "reviewNote": "Not the existing one-axis prismatic joint; describes x/y/yaw mobility, including a mobile robot root."
+  },
+  {
+    "id": "cad-floating-joint",
+    "name": "Floating joint",
+    "nameJa": "浮動ジョイント",
+    "description": "Represent a free spatial connection with three translational and three rotational degrees of freedom.",
+    "descriptionJa": "3方向の並進と3軸回転を持つ、空間内の自由な接続を表します。",
+    "family": "assembly",
+    "role": "command",
+    "aliases": [
+      "free joint",
+      "floating virtual joint",
+      "6-DOF joint",
+      "自由関節"
+    ],
+    "domain": "CAD",
+    "tags": [
+      "floating joint",
+      "浮動ジョイント",
+      "robotics",
+      "ロボット"
+    ],
+    "sharedCategories": [
+      "OLP"
+    ],
+    "modelTree": {
+      "name": "Floating joint",
+      "nameJa": "浮動ジョイント",
+      "objectType": "joint"
+    },
+    "references": [
+      {
+        "id": "moveit-floating-joint",
+        "title": "MoveIt floating joint model",
+        "url": "https://moveit.picknik.ai/main/api/html/floating__joint__model_8cpp_source.html",
+        "scope": "Free spatial joint with translation and quaternion orientation"
+      }
+    ],
+    "reviewNote": "Different kinematic relation from planar/ball; common-unlock is an edit permission and not a 6-DOF model joint. Quaternion representation has 7 variables but 6 physical DOFs."
+  },
+  {
+    "id": "cad-screw-joint",
+    "name": "Screw joint",
+    "nameJa": "ねじジョイント",
+    "description": "Couple axial translation and rotation using a specified screw pitch.",
+    "descriptionJa": "ねじピッチに従って軸方向の並進と回転を連動させます。",
+    "family": "assembly",
+    "role": "command",
+    "aliases": [
+      "helical joint",
+      "螺旋ジョイント"
+    ],
+    "domain": "CAD",
+    "tags": [
+      "screw joint",
+      "ねじジョイント",
+      "robotics",
+      "ロボット"
+    ],
+    "sharedCategories": [
+      "OLP"
+    ],
+    "modelTree": {
+      "name": "Screw joint",
+      "nameJa": "ねじジョイント",
+      "objectType": "joint"
+    },
+    "references": [
+      {
+        "id": "sdf-joints",
+        "title": "SDFormat 1.12 joint specification",
+        "url": "https://sdformat.org/spec/1.12/joint/",
+        "scope": "Joint types, axis properties, dynamics, limits and mimic coupling"
+      }
+    ],
+    "reviewNote": "cad-thread creates geometry; this defines a coupled one-DOF mechanism."
+  },
+  {
+    "id": "cad-universal-joint",
+    "name": "Universal joint",
+    "nameJa": "ユニバーサルジョイント",
+    "description": "Connect bodies with two rotational degrees of freedom about intersecting axes.",
+    "descriptionJa": "交差する2軸まわりの回転を許して剛体同士を接続します。",
+    "family": "assembly",
+    "role": "command",
+    "aliases": [
+      "Cardan joint",
+      "Hooke joint",
+      "自在継手"
+    ],
+    "domain": "CAD",
+    "tags": [
+      "universal joint",
+      "ユニバーサルジョイント",
+      "robotics",
+      "ロボット"
+    ],
+    "sharedCategories": [
+      "OLP"
+    ],
+    "modelTree": {
+      "name": "Universal joint",
+      "nameJa": "ユニバーサルジョイント",
+      "objectType": "joint"
+    },
+    "references": [
+      {
+        "id": "sdf-model-kinematics",
+        "title": "SDFormat model kinematics",
+        "url": "https://sdformat.org/tutorials/specification/spec_model_kinematics/",
+        "scope": "Rigid links, model containers and joint degrees of freedom"
+      },
+      {
+        "id": "sdf-joints",
+        "title": "SDFormat 1.12 joint specification",
+        "url": "https://sdformat.org/spec/1.12/joint/",
+        "scope": "Joint types, axis properties, dynamics, limits and mimic coupling"
+      }
+    ],
+    "reviewNote": "Two rotational DOFs, distinct from a three-rotation ball and one-rotation revolute joint."
+  },
+  {
+    "id": "cad-joint-coupling",
+    "name": "Couple joint motion",
+    "nameJa": "関節運動連動",
+    "description": "Define a ratio and offset relationship between leader and follower joint positions.",
+    "descriptionJa": "主関節と従関節の位置の間に、倍率とオフセットによる連動関係を設定します。",
+    "family": "assembly",
+    "role": "command",
+    "aliases": [
+      "mimic joint",
+      "gear coupling",
+      "dependent joint",
+      "ミミック関節",
+      "従属関節"
+    ],
+    "domain": "CAD",
+    "tags": [
+      "couple joint motion",
+      "関節運動連動",
+      "robotics",
+      "ロボット"
+    ],
+    "sharedCategories": [
+      "OLP"
+    ],
+    "modelTree": {
+      "name": "Joint coupling",
+      "nameJa": "関節連動",
+      "objectType": "joint-coupling"
+    },
+    "references": [
+      {
+        "id": "sdf-joints",
+        "title": "SDFormat 1.12 joint specification",
+        "url": "https://sdformat.org/spec/1.12/joint/",
+        "scope": "Joint types, axis properties, dynamics, limits and mimic coupling"
+      }
+    ],
+    "reviewNote": "olp-synchronize-axes coordinates independent mechanisms in a trajectory; mimic imposes an algebraic joint dependency in the model."
+  },
+  {
+    "id": "olp-camera-sensor",
+    "name": "Camera sensor",
+    "nameJa": "カメラセンサー",
+    "description": "Configure an image or depth sensor and its optical viewing volume.",
+    "descriptionJa": "画像・深度センサーと、その光学的な視野を設定します。",
+    "family": "robot-perception",
+    "role": "tool",
+    "aliases": [
+      "RGB-D camera",
+      "depth camera",
+      "vision sensor",
+      "画像センサー",
+      "深度カメラ"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "camera sensor",
+      "カメラセンサー",
+      "robotics",
+      "ロボット"
+    ],
+    "modelTree": {
+      "name": "Camera sensor",
+      "nameJa": "カメラセンサー",
+      "objectType": "sensor"
+    },
+    "references": [
+      {
+        "id": "gazebo-sensor-models",
+        "title": "Gazebo Sensors",
+        "url": "https://gazebosim.org/libs/sensors/",
+        "scope": "Camera, lidar, IMU and force-torque sensor model classes"
+      },
+      {
+        "id": "sdf-sensors",
+        "title": "SDFormat 1.12 sensor specification",
+        "url": "https://sdformat.org/spec/1.12/sensor/",
+        "scope": "Sensor configuration objects, camera projection and physical measurements"
+      }
+    ],
+    "reviewNote": "Not a viewport camera or laser scanner: a mounted imaging sensor with image/depth output. RGB/depth/thermal variations share this glyph."
+  },
+  {
+    "id": "olp-imu-sensor",
+    "name": "Inertial sensor",
+    "nameJa": "慣性センサー",
+    "description": "Configure a sensor that measures linear acceleration and angular velocity.",
+    "descriptionJa": "並進加速度と角速度を測定するセンサーを設定します。",
+    "family": "robot-perception",
+    "role": "tool",
+    "aliases": [
+      "IMU",
+      "inertial measurement unit",
+      "accelerometer",
+      "gyroscope",
+      "加速度センサー",
+      "ジャイロ"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "inertial sensor",
+      "慣性センサー",
+      "robotics",
+      "ロボット"
+    ],
+    "modelTree": {
+      "name": "Inertial sensor",
+      "nameJa": "慣性センサー",
+      "objectType": "sensor"
+    },
+    "references": [
+      {
+        "id": "gazebo-sensors-tutorial",
+        "title": "Gazebo sensor tutorial",
+        "url": "https://gazebosim.org/docs/harmonic/sensors/",
+        "scope": "Persistent IMU, contact and lidar sensor definitions in robot models"
+      },
+      {
+        "id": "gazebo-sensor-models",
+        "title": "Gazebo Sensors",
+        "url": "https://gazebosim.org/libs/sensors/",
+        "scope": "Camera, lidar, IMU and force-torque sensor model classes"
+      }
+    ],
+    "reviewNote": "No existing sensor measures local acceleration/angular motion; a reference frame or mass property has no sensing meaning."
+  },
+  {
+    "id": "olp-force-torque-sensor",
+    "name": "Force-torque sensor",
+    "nameJa": "力覚センサー",
+    "description": "Configure sensing of forces and torques transmitted through a joint or tool interface.",
+    "descriptionJa": "関節や工具接続部に伝わる力とトルクを測定するセンサーを設定します。",
+    "family": "robot-perception",
+    "role": "tool",
+    "aliases": [
+      "wrench sensor",
+      "six-axis force sensor",
+      "load cell",
+      "6軸力覚センサー"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "force-torque sensor",
+      "力覚センサー",
+      "robotics",
+      "ロボット"
+    ],
+    "modelTree": {
+      "name": "Force-torque sensor",
+      "nameJa": "力覚センサー",
+      "objectType": "sensor"
+    },
+    "references": [
+      {
+        "id": "gazebo-sensor-models",
+        "title": "Gazebo Sensors",
+        "url": "https://gazebosim.org/libs/sensors/",
+        "scope": "Camera, lidar, IMU and force-torque sensor model classes"
+      },
+      {
+        "id": "sdf-sensors",
+        "title": "SDFormat 1.12 sensor specification",
+        "url": "https://sdformat.org/spec/1.12/sensor/",
+        "scope": "Sensor configuration objects, camera projection and physical measurements"
+      }
+    ],
+    "reviewNote": "CAE force/moment icons apply loads; this measures an interface wrench. It is not a tactile coordinate-measurement stylus."
+  },
+  {
+    "id": "olp-reference-calibration",
+    "name": "Calibrate reference frame",
+    "nameJa": "参照座標系を校正",
+    "description": "Fit a work frame from measured reference points.",
+    "descriptionJa": "実測した基準点からワーク座標系を同定します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "frame calibration",
+      "base calibration",
+      "workobject calibration",
+      "ユーザ座標校正"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "calibrate reference frame",
+      "参照座標系を校正",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "robodk-general",
+        "title": "RoboDK: General Tips",
+        "url": "https://robodk.com/doc/en/General.html",
+        "scope": "Reference-frame calibration and mechanism/gripper modeling"
+      }
+    ],
+    "reviewNote": "olp-reference-frameは定義/選択、tcp-calibrationは工具先端、robot-calibrationは機構誤差。座標系同定は別の測定コマンド。"
+  },
+  {
+    "id": "olp-manual-jog",
+    "name": "Jog robot",
+    "nameJa": "ロボットをジョグ",
+    "description": "Interactively move robot joints or the TCP.",
+    "descriptionJa": "関節またはTCPを対話的に動かして姿勢を調整します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "manual jog",
+      "joint jog",
+      "Cartesian jog",
+      "手動送り"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "jog robot",
+      "ロボットをジョグ",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-jog",
+        "title": "UR PolyScope: Move Tab",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/move_g5/move_tab_en.htm",
+        "scope": "Jog, Freedrive, joint/TCP movement"
+      }
+    ],
+    "reviewNote": "joint-move/linear-moveは挿入済み運動命令。ジョグは教示時の直接操作。関節/直交/軸ごとには増やさない。"
+  },
+  {
+    "id": "olp-hand-guiding",
+    "name": "Hand-guided teaching",
+    "nameJa": "手動ガイド教示",
+    "description": "Position a robot through hand-guided teaching.",
+    "descriptionJa": "手で誘導する教示操作を表します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "freedrive",
+      "lead-through",
+      "direct teaching",
+      "ダイレクトティーチ"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "hand-guided teaching",
+      "手動ガイド教示",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-jog",
+        "title": "UR PolyScope: Move Tab",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/move_g5/move_tab_en.htm",
+        "scope": "Jog, Freedrive, joint/TCP movement"
+      }
+    ],
+    "reviewNote": "manual-jogとは入力方式と教示機能が異なる。有効/無効状態は別SVGにしない。実機操作を実施する意味ではない。"
+  },
+  {
+    "id": "olp-robot-controller",
+    "name": "Robot controller",
+    "nameJa": "ロボットコントローラ",
+    "description": "Represent the controller configuration used to run a robot model or program.",
+    "descriptionJa": "ロボットモデルやプログラムの実行に使うコントローラ設定を表します。",
+    "family": "robotics",
+    "role": "object",
+    "aliases": [
+      "virtual controller",
+      "motion controller",
+      "controller",
+      "仮想コントローラ",
+      "trajectory controller",
+      "gripper controller",
+      "軌道コントローラ"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "robot controller",
+      "ロボットコントローラ",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "abb-robotstudio",
+        "title": "ABB: RobotStudio Suite",
+        "url": "https://www.abb.com/global/en/areas/robotics/products/software/robotstudio-suite?TID=828",
+        "scope": "Virtual controller, swept volume and cable simulation"
+      },
+      {
+        "id": "moveit-setup-assistant",
+        "title": "MoveIt Setup Assistant",
+        "url": "https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html",
+        "scope": "Planning groups, end effectors, named poses and controllers"
+      }
+    ],
+    "reviewNote": "robot-armは機構、simulate-programは実行。制御装置/制御器ノードを追加。物理/仮想/ROS版別SVGなし。",
+    "modelTree": {
+      "name": "Robot controller",
+      "nameJa": "ロボットコントローラ",
+      "objectType": "robot-controller"
+    }
+  },
+  {
+    "id": "olp-attach-object",
+    "name": "Attach carried object",
+    "nameJa": "把持物を取り付け",
+    "description": "Attach a simulated object to a moving tool or robot link.",
+    "descriptionJa": "シミュレーション内の物体を工具やリンクに追従させます。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "attach object",
+      "pick simulation",
+      "attached collision object",
+      "把持物付加"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "attach carried object",
+      "把持物を取り付け",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      },
+      {
+        "id": "moveit-task-constructor",
+        "title": "Pick and Place with MoveIt Task Constructor",
+        "url": "https://moveit.picknik.ai/main/doc/tutorials/pick_and_place_with_moveit_task_constructor/pick_and_place_with_moveit_task_constructor.html",
+        "scope": "Grasp pose generation, IK filtering and attach/detach stages"
+      }
+    ],
+    "reviewNote": "common-linkは一般参照。こちらは把持物の親/運動追従変更。digital-outputで実機グリッパーを動かす操作とも異なる。",
+    "modelTree": {
+      "name": "Attachment event",
+      "nameJa": "把持物取付イベント",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-detach-object",
+    "name": "Detach carried object",
+    "nameJa": "把持物を解放",
+    "description": "Detach a carried object from its tool or robot link into the scene.",
+    "descriptionJa": "把持物を工具やリンクから切り離し、シーンに戻します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "detach object",
+      "place simulation",
+      "release object",
+      "把持解除"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "detach carried object",
+      "把持物を解放",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      },
+      {
+        "id": "moveit-task-constructor",
+        "title": "Pick and Place with MoveIt Task Constructor",
+        "url": "https://moveit.picknik.ai/main/doc/tutorials/pick_and_place_with_moveit_task_constructor/pick_and_place_with_moveit_task_constructor.html",
+        "scope": "Grasp pose generation, IK filtering and attach/detach stages"
+      }
+    ],
+    "reviewNote": "attachの逆操作で独立した実在命令。開いた/閉じたグリッパー状態の装飾ではない。",
+    "modelTree": {
+      "name": "Release event",
+      "nameJa": "把持物解放イベント",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-program-if",
+    "name": "Conditional branch",
+    "nameJa": "条件分岐",
+    "description": "Select a program branch from a Boolean expression.",
+    "descriptionJa": "条件式の結果に応じて実行する命令列を切り替えます。",
+    "family": "robot-program",
+    "role": "command",
+    "aliases": [
+      "if",
+      "else",
+      "elseif",
+      "branch",
+      "条件判断"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "conditional branch",
+      "条件分岐",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-if",
+        "title": "UR PolyScope: If",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/AdvProgNodes/commandtab_ifcondition_en.htm",
+        "scope": "Conditional program branch"
+      }
+    ],
+    "reviewNote": "既存に制御フロー分岐なし。if/else/elseifを別SVGに増やさない。",
+    "modelTree": {
+      "name": "Conditional branch",
+      "nameJa": "条件分岐",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-program-loop",
+    "name": "Program loop",
+    "nameJa": "プログラム反復",
+    "description": "Repeat a program block by count or condition.",
+    "descriptionJa": "回数または条件を指定して命令列を繰り返します。",
+    "family": "robot-program",
+    "role": "command",
+    "aliases": [
+      "loop",
+      "for",
+      "while",
+      "repeat",
+      "繰り返し"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "program loop",
+      "プログラム反復",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-loop",
+        "title": "UR PolyScope: Loop",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/AdvProgNodes/commandtab_loop_en.htm",
+        "scope": "Repeated program block"
+      }
+    ],
+    "reviewNote": "common-refreshは再読込。loopは実行制御ブロック。for/while/repeatはalias。",
+    "modelTree": {
+      "name": "Program loop",
+      "nameJa": "プログラム反復",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-variable-assignment",
+    "name": "Assign variable",
+    "nameJa": "変数代入",
+    "description": "Store a value or expression result in a program variable.",
+    "descriptionJa": "値や式の計算結果をプログラム変数に代入します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "assignment",
+      "expression",
+      "variable",
+      "代入"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "assign variable",
+      "変数代入",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-assignment",
+        "title": "UR PolyScope: Assignment",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/AdvProgNodes/commandtab_assignment_en.htm",
+        "scope": "Assign expressions to variables"
+      }
+    ],
+    "reviewNote": "common-propertiesは属性編集、digital-outputは信号書込み。変数代入は独立ノード。",
+    "modelTree": {
+      "name": "Variable assignment",
+      "nameJa": "変数代入",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-program-wait",
+    "name": "Timed wait",
+    "nameJa": "時間待機",
+    "description": "Delay program execution for a specified duration.",
+    "descriptionJa": "指定時間だけプログラムの実行を待機します。",
+    "family": "robot-program",
+    "role": "command",
+    "aliases": [
+      "delay",
+      "sleep",
+      "dwell",
+      "wait time",
+      "時間遅延"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "timed wait",
+      "時間待機",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-wait",
+        "title": "UR: Wait for input, time or condition",
+        "url": "https://www.universal-robots.com/articles/ur/programming/wait-for-input-time-or-wait-command/",
+        "scope": "Timed program delay and condition wait"
+      },
+      {
+        "id": "robodk-programs",
+        "title": "RoboDK: Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "scope": "Program tree; motion, frame, I/O and simulation-event instructions"
+      }
+    ],
+    "reviewNote": "wait-signalは外部条件、common-pauseはUIの一時停止。時間値を持つプログラム命令。",
+    "modelTree": {
+      "name": "Timed wait",
+      "nameJa": "時間待機",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-program-thread",
+    "name": "Parallel task",
+    "nameJa": "並列タスク",
+    "description": "Run an independent program branch concurrently.",
+    "descriptionJa": "主プログラムと並行して独立した処理を実行します。",
+    "family": "robot-program",
+    "role": "command",
+    "aliases": [
+      "thread",
+      "parallel process",
+      "background task",
+      "並行処理"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "parallel task",
+      "並列タスク",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-thread",
+        "title": "UR PolyScope: Thread",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/AdvProgNodes/commandtab_thread_en.htm",
+        "scope": "Concurrent program branch"
+      }
+    ],
+    "reviewNote": "call-programは通常逐次呼出。並列実行は同期/開始の意味が異なる。",
+    "modelTree": {
+      "name": "Concurrent task",
+      "nameJa": "並列タスク",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-program-event",
+    "name": "Event handler",
+    "nameJa": "イベント処理",
+    "description": "Run a handler when an input condition triggers.",
+    "descriptionJa": "入力条件の成立を監視し、対応する処理を起動します。",
+    "family": "robot-program",
+    "role": "command",
+    "aliases": [
+      "event",
+      "input trigger",
+      "event handler",
+      "入力イベント"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "event handler",
+      "イベント処理",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-event",
+        "title": "UR PolyScope: Event",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/AdvProgNodes/commandtab_event_en.htm",
+        "scope": "Input-triggered handler"
+      }
+    ],
+    "reviewNote": "wait-signalはその場で待つ。eventは別処理を入力変化で起動。状態アイコンではない。",
+    "modelTree": {
+      "name": "Event handler",
+      "nameJa": "イベント処理",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-script-instruction",
+    "name": "Script instruction",
+    "nameJa": "スクリプト命令",
+    "description": "Insert custom controller script code.",
+    "descriptionJa": "任意のコントローラスクリプトを命令列に挿入します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "script",
+      "inline code",
+      "URScript",
+      "RAPID code",
+      "KRL code"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "script instruction",
+      "スクリプト命令",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-script",
+        "title": "UR PolyScope: Script",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/AdvProgNodes/commandtab_script_en.htm",
+        "scope": "Inline or file-based script instruction"
+      }
+    ],
+    "reviewNote": "call-programは既存ルーチン参照。scriptは直接コードを含む。言語ごとのSVGなし。",
+    "modelTree": {
+      "name": "Script instruction",
+      "nameJa": "スクリプト命令",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-operator-message",
+    "name": "Operator message",
+    "nameJa": "オペレータメッセージ",
+    "description": "Display an operator message from a running program.",
+    "descriptionJa": "プログラムから操作員へメッセージを表示します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "popup",
+      "show message",
+      "operator prompt",
+      "表示メッセージ"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "operator message",
+      "オペレータメッセージ",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-popup",
+        "title": "UR PolyScope: Popup",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_26/Content/prod-usr-man/software/PolyScope/content/BasicProgNodes/commandtab_popup_en.htm",
+        "scope": "Operator-facing program messages"
+      }
+    ],
+    "reviewNote": "common-infoは情報状態。実行順に挿入するメッセージ命令は別。warning/errorの種類はaliasのみ。",
+    "modelTree": {
+      "name": "Operator message",
+      "nameJa": "作業者メッセージ",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-palletizing",
+    "name": "Palletizing sequence",
+    "nameJa": "パレタイズ",
+    "description": "Generate repeated handling actions over pallet patterns and layers.",
+    "descriptionJa": "パレットの配列と積層に沿った繰り返し搬送を設定します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "palletize",
+      "depalletize",
+      "pick and place pattern",
+      "パレタイズ",
+      "デパレタイズ"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "palletizing sequence",
+      "パレタイズ",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-pallet",
+        "title": "UR PolyScope: Palletizing",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/Template/new_pallet_en.htm",
+        "scope": "Layer and pattern based pallet handling"
+      },
+      {
+        "id": "fanuc-roboguide",
+        "title": "FANUC: ROBOGUIDE",
+        "url": "https://www.fanucamerica.com/products/software/robot/roboguide",
+        "scope": "Cell modeling, CAD-to-path and application simulation"
+      }
+    ],
+    "reviewNote": "一般patternは配置形状。こちらは取り出し/移載順と動作の生成。depalletizingは同一設定のalias。",
+    "modelTree": {
+      "name": "Palletizing sequence",
+      "nameJa": "パレタイズ",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-conveyor-tracking",
+    "name": "Conveyor tracking",
+    "nameJa": "コンベヤ追従",
+    "description": "Make robot motion relative to a moving conveyor.",
+    "descriptionJa": "移動するコンベヤを基準にロボット動作を追従させます。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "conveyor tracking",
+      "line tracking",
+      "moving workpiece",
+      "搬送追従"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "conveyor tracking",
+      "コンベヤ追従",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-conveyor",
+        "title": "UR PolyScope: Conveyor Tracking",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_26/Content/prod-usr-man/software/PolyScope/content/Template/commandtab_conveyor_tracking_en.htm",
+        "scope": "Motion relative to moving conveyor"
+      }
+    ],
+    "reviewNote": "synchronize-axesはロボットと外部軸の機構統合。エンコーダ追従は別機能。",
+    "modelTree": {
+      "name": "Conveyor tracking",
+      "nameJa": "コンベヤ追従",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-force-control",
+    "name": "Force-controlled motion",
+    "nameJa": "力制御",
+    "description": "Control robot motion using selected forces or torques.",
+    "descriptionJa": "指定した力やトルクに基づくロボット動作を設定します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "force mode",
+      "compliance",
+      "force control",
+      "コンプライアンス"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "force-controlled motion",
+      "力制御",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-force",
+        "title": "UR PolyScope: Force",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/Template/commandtab_force_en.htm",
+        "scope": "Force/torque-controlled motion"
+      }
+    ],
+    "reviewNote": "CAE荷重は解析入力、payloadは質量、力センサは検出器。閉ループ動作指令は独立。",
+    "modelTree": {
+      "name": "Force-control block",
+      "nameJa": "力制御ブロック",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-remote-tcp",
+    "name": "Remote tool center point",
+    "nameJa": "固定工具TCP",
+    "description": "Define motion with a stationary tool and a robot-carried part.",
+    "descriptionJa": "固定された工具先端に対してロボット把持ワークを動かす設定を扱います。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "RTCP",
+      "remote TCP",
+      "fixed tool",
+      "robot holds object",
+      "固定工具"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "remote tool center point",
+      "固定工具TCP",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-remote-tcp",
+        "title": "UR PolyScope: Remote TCP and Toolpath",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_26/Content/prod-usr-man/software/PolyScope/content/robot_control/urcaps_en.htm",
+        "scope": "Stationary tool and robot-carried part"
+      }
+    ],
+    "reviewNote": "tool-center-pointはフランジ側TCP。こちらは固定工具/移動ワークという運動関係が異なる。",
+    "modelTree": {
+      "name": "Remote TCP motion",
+      "nameJa": "リモートTCP動作",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-point-follow",
+    "name": "Create point-follow path",
+    "nameJa": "点列処理パス作成",
+    "description": "Generate process moves from discrete points and normals.",
+    "descriptionJa": "離散点と法線から各点で処理するロボット経路を生成します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "point follow",
+      "spot welding path",
+      "drilling point path",
+      "点追従"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "create point-follow path",
+      "点列処理パス作成",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "robodk-point-follow",
+        "title": "RoboDK: Point Follow Project",
+        "url": "https://robodk.com/doc/en/Robot-Machining-Point-Follow-Project.html",
+        "scope": "Create discrete process paths from points and normals"
+      }
+    ],
+    "reviewNote": "curve-followは連続曲線追従。point-followは点ごとに接近/処理/離脱する工程。",
+    "modelTree": {
+      "name": "Point-follow project",
+      "nameJa": "点列処理プロジェクト",
+      "objectType": "robot-process-project"
+    }
+  },
+  {
+    "id": "olp-safety-zone",
+    "name": "Workspace boundary",
+    "nameJa": "作業領域境界",
+    "description": "Define a modeled workspace boundary for offline checking, without certifying robot safety.",
+    "descriptionJa": "オフライン検証用の作業領域境界をモデル化します。実機の安全認証を意味しません。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "safety zone",
+      "workspace boundary",
+      "keep-out zone",
+      "SafeMove zone",
+      "SafeOperation",
+      "安全平面"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "workspace safety boundary",
+      "安全領域境界",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "robodk-safety-zones",
+        "title": "RoboDK: Safety Zones",
+        "url": "https://robodk.com/doc/en/Addin-Safety-Zones.html",
+        "scope": "Modeled workspace boundaries; not certification"
+      },
+      {
+        "id": "kuka-sim",
+        "title": "KUKA.Sim: Features Overview",
+        "url": "https://www.kuka.com/en-gb/products/robotics-systems/software/simulation-planning-optimization/kuka_sim/kuka_sim_updates",
+        "scope": "I/O editor, virtual commissioning, RoboTeam and welding weave"
+      }
+    ],
+    "reviewNote": "collision-checkは幾何干渉の検査。境界の設定は別。box/plane/enabled/disabledの増殖なし。安全認証や実機安全保証を意味しない。",
+    "modelTree": {
+      "name": "Workspace boundary",
+      "nameJa": "作業領域境界",
+      "objectType": "workspace-boundary"
+    }
+  },
+  {
+    "id": "olp-io-mapping",
+    "name": "Map I/O signals",
+    "nameJa": "I/O信号を接続",
+    "description": "Connect source and destination signals in cell logic.",
+    "descriptionJa": "セル内の信号送信元と受信先を対応付けます。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "signal mapping",
+      "station logic",
+      "I/O connection",
+      "信号接続"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "map i/o signals",
+      "I/O信号を接続",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "abb-station-logic",
+        "title": "ABB RobotStudio Operating Manual",
+        "url": "https://search.abb.com/library/Download.aspx?Action=Launch&DocumentID=3HAC032104-001&DocumentPartId=&LanguageCode=en",
+        "scope": "17.1 Station Logic (pp. 375–381, Rev. BC): source and target signal connections"
+      },
+      {
+        "id": "kuka-sim",
+        "title": "KUKA.Sim: Features Overview",
+        "url": "https://www.kuka.com/en-gb/products/robotics-systems/software/simulation-planning-optimization/kuka_sim/kuka_sim_updates",
+        "scope": "I/O editor, virtual commissioning, RoboTeam and welding weave"
+      },
+      {
+        "id": "abb-io-connection",
+        "title": "ABB RobotStudio API: IOConnection",
+        "url": "https://developercenter.robotstudio.com/api/robotstudio/api/ABB.Robotics.RobotStudio.Stations.IOConnection.html",
+        "scope": "I/O source and target connection object"
+      }
+    ],
+    "reviewNote": "digital-outputは命令実行時の値設定。こちらは装置間の信号配線・マッピング定義。",
+    "modelTree": {
+      "name": "I/O mapping",
+      "nameJa": "I/O接続",
+      "objectType": "signal-connection"
+    }
+  },
+  {
+    "id": "olp-signal-analyzer",
+    "name": "Analyze robot signals",
+    "nameJa": "ロボット信号解析",
+    "description": "Inspect current I/O values or record time-aligned motion and signal traces.",
+    "descriptionJa": "現在のI/O値を確認し、運動量や信号の時系列を記録して調べます。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "signal analyzer",
+      "I/O monitor",
+      "timing chart",
+      "watch signals",
+      "信号モニタ"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "analyze robot signals",
+      "ロボット信号解析",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "abb-signals",
+        "title": "ABB: RobotStudio optimization functions",
+        "url": "https://new.abb.com/news/detail/96221/10-ways-that-abbs-robotstudior-software-can-help-you-optimize-your-robots-performance",
+        "scope": "Record and analyze time-aligned motion/I/O signals"
+      },
+      {
+        "id": "robodk-io-monitor",
+        "title": "RoboDK: IO Monitor",
+        "url": "https://robodk.com/doc/en/IO-Monitor.html",
+        "scope": "Inspect station signals"
+      }
+    ],
+    "reviewNote": "cycle-timeは一つの所要時間。analyzerは波形/時間相関。現在値のIO monitorも同じ分析画面用途へまとめる。",
+    "modelTree": {
+      "name": "Signal trace",
+      "nameJa": "信号トレース",
+      "objectType": "signal-trace"
+    }
+  },
+  {
+    "id": "olp-tcp-trace",
+    "name": "Display TCP trace",
+    "nameJa": "TCP軌跡表示",
+    "description": "Display the traced tool-center path during simulation.",
+    "descriptionJa": "シミュレーションで工具中心が通った軌跡を表示します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "robot trace",
+      "TCP trail",
+      "path trace",
+      "軌跡トレース"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "display tcp trace",
+      "TCP軌跡表示",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "robodk-tips",
+        "title": "RoboDK: Tips and Tricks",
+        "url": "https://robodk.com/doc/en/Tips-and-Tricks.html",
+        "scope": "Robot trace, program validation, surface target teaching"
+      }
+    ],
+    "reviewNote": "curve-followは経路生成。traceは観測/可視化。path設定やtool trace on/offで増やさない。"
+  },
+  {
+    "id": "olp-swept-volume",
+    "name": "Robot swept volume",
+    "nameJa": "ロボット動作包絡",
+    "description": "Create an approximate occupied volume over robot motion.",
+    "descriptionJa": "ロボットと工具が動作中に占有する概略包絡体積を求めます。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "swept volume",
+      "motion envelope",
+      "occupied volume",
+      "掃引体積"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "robot swept volume",
+      "ロボット動作包絡",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "abb-tutorials",
+        "title": "ABB: RobotStudio Tutorials",
+        "url": "https://new.abb.com/products/robotics/software-and-digital/robotstudio/tutorials",
+        "scope": "Swept volume, cable simulation, AutoPath and other documented workflows"
+      }
+    ],
+    "reviewNote": "reachabilityは届く範囲、collision-checkは干渉判定、CAD sweepは断面から形状作成。記録動作全体の占有領域は別。",
+    "modelTree": {
+      "name": "Robot swept volume",
+      "nameJa": "ロボット動作包絡",
+      "objectType": "motion-envelope"
+    }
+  },
+  {
+    "id": "olp-program-step",
+    "name": "Single-step program",
+    "nameJa": "プログラムを一段実行",
+    "description": "Execute one program node for inspection.",
+    "descriptionJa": "検証のためにプログラムを一つのノードずつ実行します。",
+    "family": "robot-program",
+    "role": "command",
+    "aliases": [
+      "single step",
+      "step execution",
+      "debug step",
+      "ステップ実行"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "single-step program",
+      "プログラムを一段実行",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-single-step",
+        "title": "UR PolyScope: Single Step",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/program_node_sections_g5/single_step_en.htm",
+        "scope": "Execute one program node"
+      }
+    ],
+    "reviewNote": "common-runは連続開始、pauseは停止。single-stepは一命令を進める独立デバッグ機能。"
+  },
+  {
+    "id": "olp-program-breakpoint",
+    "name": "Set breakpoint",
+    "nameJa": "ブレークポイント設定",
+    "description": "Mark a program location for a debugging pause.",
+    "descriptionJa": "デバッグ時に一時停止するプログラム位置を指定します。",
+    "family": "robot-program",
+    "role": "command",
+    "aliases": [
+      "breakpoint",
+      "debug stop",
+      "停止点"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "set breakpoint",
+      "ブレークポイント設定",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-breakpoint",
+        "title": "UR PolyScope: Using Breakpoints",
+        "url": "https://www.universal-robots.com/manuals/EN/HTML/SW5_23/Content/prod-usr-man/software/PolyScope/content/program_node_sections_g5/breakpoint_en.htm",
+        "scope": "Pause at a selected program location"
+      }
+    ],
+    "reviewNote": "common-pauseは今すぐ一時停止。breakpointは任意命令位置に停止条件を設定する。"
+  },
+  {
+    "id": "olp-task-synchronization",
+    "name": "Synchronize program tasks",
+    "nameJa": "プログラムタスク同期",
+    "description": "Wait until cooperating tasks reach a shared synchronization point.",
+    "descriptionJa": "協調する複数タスクが同じ同期点へ到達するまで待ち合わせます。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "WaitSyncTask",
+      "task barrier",
+      "multitask synchronization",
+      "タスク待合せ"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "synchronize program tasks",
+      "プログラムタスク同期",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "abb-sync-task",
+        "title": "ABB RAPID: WaitSyncTask",
+        "url": "https://library.e.abb.com/public/b227fcd260204c4dbeb8a58f8002fe64/Rapid_instructions.pdf",
+        "scope": "Program-task synchronization barrier"
+      }
+    ],
+    "reviewNote": "synchronize-axesは同一機構として軸を協調。こちらは並列プログラムのバリア同期。wait-signalは外部入力待ち。",
+    "modelTree": {
+      "name": "Task synchronization",
+      "nameJa": "タスク同期",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-tool-contact",
+    "name": "Move until tool contact",
+    "nameJa": "接触まで移動",
+    "description": "End a search motion when tool contact is detected.",
+    "descriptionJa": "工具の接触を検出して探索移動を終了します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "until contact",
+      "touch search",
+      "contact seek",
+      "接触探索"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "move until tool contact",
+      "接触まで移動",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "ur-tool-contact",
+        "title": "UR ROS 2 Driver: Tool Contact example",
+        "url": "https://docs.universal-robots.com/Universal_Robots_ROS2_Documentation/doc/ur_client_library/doc/examples/tool_contact_example.html",
+        "scope": "Interrupt motion on detected tool contact"
+      }
+    ],
+    "reviewNote": "force-controlは力を維持する動作。contact searchは接触という終端条件で移動を終える。",
+    "modelTree": {
+      "name": "Contact-search motion",
+      "nameJa": "接触探索動作",
+      "objectType": "program-instruction"
+    }
+  },
+  {
+    "id": "olp-weld-weave",
+    "name": "Weld weaving",
+    "nameJa": "溶接ウィービング",
+    "description": "Add an oscillating weave to a welding path.",
+    "descriptionJa": "溶接経路に横振りのウィービング動作を設定します。",
+    "family": "robotics",
+    "role": "command",
+    "aliases": [
+      "weaving",
+      "weld weave",
+      "oscillation pattern",
+      "ウィービング"
+    ],
+    "domain": "OLP",
+    "tags": [
+      "weld weaving",
+      "溶接ウィービング",
+      "robotics",
+      "ロボット"
+    ],
+    "references": [
+      {
+        "id": "kuka-sim",
+        "title": "KUKA.Sim: Features Overview",
+        "url": "https://www.kuka.com/en-gb/products/robotics-systems/software/simulation-planning-optimization/kuka_sim/kuka_sim_updates",
+        "scope": "I/O editor, virtual commissioning, RoboTeam and welding weave"
+      }
+    ],
+    "reviewNote": "curve-followは中心経路生成。独立の繰返し横振り工程設定。特定メーカーの溶接アイコン形状は使わない。",
+    "modelTree": {
+      "name": "Weld weave",
+      "nameJa": "溶接ウィーブ",
+      "objectType": "program-instruction"
+    }
+  }
+]

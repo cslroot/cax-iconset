@@ -32,4 +32,8 @@ sheet([i for i in manifest['icons'] if i['id'] in added],'additions','CAX / sour
 from application import APPLICATION
 current={domain.lower()+'-'+i['id'] for domain,items in APPLICATION.items() for i in items}
 sheet([i for i in manifest['icons'] if i['id'] in current],'application-additions','CAX / application command families')
-print('Built six category sheets and both reviewed-additions sheets')
+from robotics import GLYPHS as ROBOTICS_GLYPHS
+sheet([i for i in manifest['icons'] if i['id'] in ROBOTICS_GLYPHS],'robotics-additions','CAX / robotics, programming and simulation')
+from studio import GLYPHS as STUDIO_GLYPHS
+sheet([i for i in manifest['icons'] if i['id'] in STUDIO_GLYPHS],'studio-additions','CAX / source-verified Studio commands')
+print('Built six category sheets and four reviewed-additions sheets')

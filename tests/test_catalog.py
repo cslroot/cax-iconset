@@ -124,6 +124,54 @@ class CatalogTests(unittest.TestCase):
                 self.assertNotIn(signature, seen, (item['id'], seen.get(signature)))
                 seen[signature] = item['id']
 
+    def test_standalone_theme_variants_and_original_byte_preservation(self):
+        import sys
+        sys.path.insert(0,str(ROOT/'src'))
+        from themes import THEMES, PAINT_ROLES, themed_body
+        self.assertEqual(M['themes'],THEMES)
+        self.assertEqual(M['defaultTheme'],'light')
+        baseline=json.loads((ROOT/'src/theme_baseline_hashes.json').read_text())
+        self.assertEqual(baseline['commit'],'08d22603e7b21b47da35f67025ba36a6572c3c95')
+        self.assertEqual(len(baseline['icons']),419)
+        self.assertEqual({i['id'] for i in M['icons']},set(baseline['icons']))
+        self.assertEqual({p.stem for p in (ROOT/'icons-dark').glob('*.svg')},set(baseline['icons']))
+        cutouts=0
+        for item in M['icons']:
+            with self.subTest(icon=item['id']):
+                self.assertEqual(item['sha256'],baseline['icons'][item['id']])
+                self.assertEqual(set(item['variants']),{'light','dark'})
+                self.assertEqual(item['variants']['light'],{'file':item['file'],'sha256':item['sha256']})
+                variant=item['variants']['dark']
+                self.assertEqual(variant['file'],'icons-dark/'+item['id']+'.svg')
+                data=(ROOT/variant['file']).read_bytes()
+                self.assertEqual(hashlib.sha256(data).hexdigest(),variant['sha256'])
+                self.assertEqual(variant['body'],themed_body(item['body'],'dark'))
+                self.assertEqual(themed_body(item['body'],'light'),item['body'])
+                self.assertNotRegex(data.decode(),r'(?i)<!doctype|<!entity|javascript:|data:|https?://(?!www.w3.org/2000/svg)|currentColor|<style|<script')
+                light=ET.fromstring((ROOT/item['file']).read_bytes());dark=ET.fromstring(data)
+                self.assertEqual(geometry_signature(light),geometry_signature(dark))
+                self.assertEqual(dark.find(NS+'title').text,item['name'])
+                ids=[e.get('id') for e in dark.iter() if e.get('id')]
+                self.assertEqual(len(ids),len(set(ids)))
+                for before,after in zip(light.iter(),dark.iter(),strict=True):
+                    self.assertEqual(before.tag,after.tag)
+                    self.assertEqual(set(before.attrib),set(after.attrib))
+                    self.assertIn(after.tag.removeprefix(NS),ALLOWED)
+                    for key,value in after.attrib.items():
+                        self.assertFalse(key.lower().startswith('on'))
+                        self.assertNotIn('href',key.lower())
+                        for ref in re.findall(r'url\(#([^)]*)\)',value):self.assertIn(ref,ids)
+                        self.assertNotRegex(value,r'(?i)\b(?:nan|infinity)\b')
+                        original=before.get(key)
+                        if key in {'fill','stroke'} and original!='none':
+                            self.assertEqual(value,THEMES['dark']['palette'][PAINT_ROLES[(key,original)]])
+                        else:self.assertEqual(value,original)
+                    if before.get('fill')=='white':
+                        cutouts+=1;self.assertEqual(after.get('fill'),'#192c3c')
+                self.assertEqual(dark.get('stroke'),THEMES['dark']['palette']['ink'])
+        self.assertEqual(cutouts,184)
+        with self.assertRaises(ValueError):themed_body('<path fill="#123456"/>','dark')
+
     def test_reviewed_application_commands_and_alias_reuse(self):
         import sys
         sys.path.insert(0,str(ROOT/'src'))

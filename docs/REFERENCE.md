@@ -17,9 +17,9 @@ The earlier operation × profile/trajectory generator has been removed, along wi
 | OLP | 72 |
 | **Total** | **419** |
 
-Primary roles: 398 commands, 9 selectable tools, 9 objects and 3 status symbols. Every SVG is counted once.
+Primary roles: 398 commands, 9 selectable tools, 9 objects and 3 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
 
-186 entries support model-tree use, including reused command/tool symbols; these are not additional SVGs.
+186 entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.
 <!-- coverage:end -->
 
 The manifest `role` field identifies the primary role: command, tool, object or status. `usages` describes supported contexts and can contain both `command` and `model-tree`; reused entries are still counted once. `nodeName`, `nodeNameJa` and `objectType` provide contextual noun labels. Part definitions and their placed instances deliberately use the same part icon.

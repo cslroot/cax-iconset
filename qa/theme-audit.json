@@ -1,5 +1,5 @@
 {
-  "method": "Static color-role contrast from production CSS; not browser computed-style or accessibility certification",
+  "method": "Static color-role contrast from source palette; not browser computed-style or accessibility certification",
   "examples": 22,
   "sizes": [
     48,

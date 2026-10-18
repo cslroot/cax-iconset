@@ -3,3 +3,5 @@ __pycache__/
 qa/raster-atlas.svg
 qa/raster-atlas.png
 qa/*.log
+
+qa/dark-render/

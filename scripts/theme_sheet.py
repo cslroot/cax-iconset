@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static SVG theme QA using the production CSS palette, not a browser test."""
+"""Static SVG theme QA using the standalone SVG palette, not a browser test."""
 import json, re, argparse
 from pathlib import Path
 from html import escape
@@ -7,11 +7,12 @@ parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--pdxadv',action='store_true',help='Render the nine pdxadv workflow additions')
 args=parser.parse_args()
 ROOT=Path(__file__).resolve().parents[1]
-css=(ROOT/'styles.css').read_text()
-adapter=css.split('/* Preview-only dark palette.',1)[1]
-palette={(kind,old):new for kind,old,new in re.findall(r'svg \[(fill|stroke)="([^"]+)"\] \{(?:fill|stroke):([^}]+)\}',adapter)}
-ink=re.search(r'\.detail-preview\.dark-bg>svg \{stroke:([^}]+)\}',adapter)[1]
-bg=re.search(r'\.detail-preview\.dark-bg\{background:([^}]+)\}',css)[1]
+import sys
+sys.path.insert(0,str(ROOT/'src'))
+from themes import THEMES, PAINT_ROLES, themed_body
+palette={(kind,old):THEMES['dark']['palette'][role] for (kind,old),role in PAINT_ROLES.items()}
+ink=THEMES['dark']['palette']['ink']
+bg=THEMES['dark']['surface']
 items={i['id']:i for i in json.loads((ROOT/'manifest.json').read_text())['icons']}
 reviewed=json.loads((ROOT/'src/quality_review.json').read_text())
 new=json.loads((ROOT/'src/studio_commands.json').read_text())
@@ -21,7 +22,7 @@ if args.pdxadv:
 name='pdxadv-themes' if args.pdxadv else 'theme-preview'
 title='CAX / pdxadv workflow: light, dark and checker' if args.pdxadv else 'CAX / light, dark and checker palette'
 width=1200; height=100+len(ids)*102
-parts=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}"><defs><pattern id="checker" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="white"/><path d="M0 0H7V7H0Z M7 7H14V14H7Z" fill="#eff3ef"/></pattern></defs><rect width="100%" height="100%" fill="#f5f8f5"/><g font-family="sans-serif"><text x="22" y="34" font-size="23" fill="#253b53">{title}</text><text x="22" y="60" font-size="13" fill="#45665f">48 / 24 / 16 px · production CSS color mapping · static SVG rendering, not browser verification</text>']
+parts=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}"><defs><pattern id="checker" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="white"/><path d="M0 0H7V7H0Z M7 7H14V14H7Z" fill="#eff3ef"/></pattern></defs><rect width="100%" height="100%" fill="#f5f8f5"/><g font-family="sans-serif"><text x="22" y="34" font-size="23" fill="#253b53">{title}</text><text x="22" y="60" font-size="13" fill="#45665f">48 / 24 / 16 px · standalone SVG palette · static SVG rendering, not browser verification</text>']
 for n,id in enumerate(ids):
     item=items[id];y=80+n*102
     parts.append(f'<text x="22" y="{y+20}" font-size="12" fill="#253b53">{escape(id)}</text>')
@@ -44,7 +45,7 @@ def contrast(a,b):
     a,b=sorted([luminance(a),luminance(b)])
     return round((b+.05)/(a+.05),2)
 body=palette[('fill','#d7efed')]; accent=palette[('stroke','#178b88')]
-report={'method':'Static color-role contrast from production CSS; not browser computed-style or accessibility certification','examples':len(ids),'sizes':[48,24,16],'darkPalette':{'background':bg,'ink':ink,'body':body,'accent':accent},'contrast':{'ink_on_body':contrast(ink,body),'accent_on_body':contrast(accent,body),'ink_on_background':contrast(ink,bg),'accent_on_background':contrast(accent,bg)},'opaqueCutoutPreserved':palette.get(('fill','white'))==bg}
+report={'method':'Static color-role contrast from source palette; not browser computed-style or accessibility certification','examples':len(ids),'sizes':[48,24,16],'darkPalette':{'background':bg,'ink':ink,'body':body,'accent':accent},'contrast':{'ink_on_body':contrast(ink,body),'accent_on_body':contrast(accent,body),'ink_on_background':contrast(ink,bg),'accent_on_background':contrast(accent,bg)},'opaqueCutoutPreserved':palette.get(('fill','white'))==bg}
 assert min(report['contrast'].values())>=3
 (ROOT/f'qa/{"pdxadv-theme-audit" if args.pdxadv else "theme-audit"}.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))

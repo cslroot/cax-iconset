@@ -1,0 +1,41 @@
+{
+  "method": "Actual standalone SVG bytes embedded as independent images and rendered by Inkscape; no host CSS, not a browser test",
+  "semanticCount": 419,
+  "filesPerTheme": 419,
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "sizes": [
+    16,
+    24,
+    32
+  ],
+  "darkSurfaces": [
+    "#192c3c",
+    "#23262b",
+    "#121212"
+  ],
+  "renders": 2514,
+  "darkSurfaceChecks": 3771,
+  "blank": [],
+  "alphaMismatch": [],
+  "fewerThanEight3to1Pixels": [],
+  "opaqueCutoutColor": "#192c3c",
+  "opaqueCutoutIcons": 64,
+  "contrast": {
+    "ink_on_#192c3c": 11.0,
+    "ink_on_#23262b": 11.67,
+    "ink_on_#121212": 14.4,
+    "accent_on_#192c3c": 7.61,
+    "accent_on_#23262b": 8.06,
+    "accent_on_#121212": 9.95,
+    "warning_on_#192c3c": 8.27,
+    "warning_on_#23262b": 8.77,
+    "warning_on_#121212": 10.82,
+    "ink_on_body": 7.1,
+    "accent_on_body": 4.91,
+    "warning_on_warningBody": 5.54
+  },
+  "inputHash": "fad6985d3ddc449262334ae4dce8df961419fb4ce2a5ebf04480d21a09dc85bb"
+}

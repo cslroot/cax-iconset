@@ -1,6 +1,6 @@
 # pdxadv analysis and design workflow
 
-Date: 2026-10-18. Version: 2.5.0. Baseline: `490d20684866e39c7075485bf2dc95abb95dd341` (410 symbols).
+Date: 2026-10-18. Historical version: 2.5.0. Baseline: `490d20684866e39c7075485bf2dc95abb95dd341` (410 symbols).
 
 This pass adds **9 independent meanings** selected from implemented pdxadv workflows: six analysis/design meanings and three supporting result actions. The catalog contains **419 unique SVGs**, including **186** model-tree-compatible entries. All **410 existing SVG files remain byte-for-byte unchanged**. The count follows useful functions; no numerical target or state/format product is used.
 
@@ -41,7 +41,7 @@ All nine entries are display/design/report commands. The local wall patch has a 
 
 ![Light, dark and checker previews](../qa/pdxadv-themes.png)
 
-All geometry is original and uses the established 32 px grid, rounded joins and caps, pale body fill and teal accent. The additions sheet and three-background sheet show actual 48 / 24 / 16 px renders. The theme sheet extracts color roles from production CSS and is a **static SVG render, not a browser screenshot**.
+All geometry is original and uses the established 32 px grid, rounded joins and caps, pale body fill and teal accent. The additions sheet and three-background sheet show actual 48 / 24 / 16 px renders. The theme sheet uses the shared color-role palette and is a **static SVG render, not a browser screenshot**. Current standalone light/dark files are documented in [DARK_THEME.md](DARK_THEME.md).
 
 The regression suite verifies all nine source records, pinned reference commits, bilingual search, single-family alias reuse, command-only usage, the in-memory baseline wording, and the SHA-256 hashes of every baseline SVG. XML/security/metadata/geometry tests and the full-catalog raster audit cover all 419 symbols. No blank, overflow or identical normalized raster group was found. The rebuild is deterministic.
 

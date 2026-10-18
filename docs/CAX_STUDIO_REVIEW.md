@@ -66,13 +66,13 @@ All 403 baseline entries were inspected at native 16 / 24 / 32 px and diagnostic
 
 ## Preview theme correction
 
-The former dark preview replaced ink with light blue while leaving body surfaces pale, erasing clock hands, mesh edges, sensor centers and other internal details. A preview-only CSS adapter now maps each color role independently. Pale body fill becomes `#294c59`, ink `#d1e5ed`, and teal accent `#63cec4` on `#192c3c`. Opaque white node masks remain opaque using the dark background color; `fill="none"` and `stroke="none"` remain untouched. The soft glow was removed to avoid 16 px blur. Light/checker previews and copied/downloaded source SVG palettes remain unchanged.
+The former dark preview replaced ink with light blue while leaving body surfaces pale, erasing clock hands, mesh edges, sensor centers and other internal details. At that checkpoint, a preview-only CSS adapter mapped each color role independently. Pale body fill becomes `#294c59`, ink `#d1e5ed`, and teal accent `#63cec4` on `#192c3c`. Opaque white node masks remain opaque using the dark background color; `fill="none"` and `stroke="none"` remain untouched. The soft glow was removed to avoid 16 px blur. Light/checker previews and copied/downloaded source SVG palettes were unchanged at that checkpoint. Current standalone light/dark exports are documented in [DARK_THEME.md](DARK_THEME.md).
 
 The palette's calculated contrasts are **7.1:1** for ink on body and **4.91:1** for accent on body. These are color-role calculations, not a browser-computed-style audit or accessibility certification.
 
 ![Light, dark and checker previews](../qa/theme-preview.png)
 
-The 22-example sheet includes every new and revised drawing plus representative dark-palette failures. Its colors are extracted from the production CSS and rendered as SVG, so it is reproducible without representing it as a browser screenshot.
+The 22-example sheet includes every new and revised drawing plus representative dark-palette failures. The palette is now centralized in `src/themes.py`; the regenerated sheet preserves the reviewed colors and is a static SVG render, not a browser screenshot.
 
 ## Verification and limits
 

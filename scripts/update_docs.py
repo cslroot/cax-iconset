@@ -5,8 +5,8 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 m=json.loads((ROOT/'manifest.json').read_text())
 coverage='\n| Primary category | Symbols |\n| --- | ---: |\n'+''.join(f'| {c} | {n} |\n' for c,n in m['categories'].items())+f'| **Total** | **{m["count"]}** |\n\n'
-coverage+=f'Primary roles: {m["counts"]["command"]} commands, {m["counts"]["tool"]} selectable tools, {m["counts"]["object"]} objects and {m["counts"]["status"]} status symbols. Every SVG is counted once.\n\n'
-coverage+=f'{m["usageCounts"]["model-tree"]} entries support model-tree use, including reused command/tool symbols; these are not additional SVGs.\n'
+coverage+=f'Primary roles: {m["counts"]["command"]} commands, {m["counts"]["tool"]} selectable tools, {m["counts"]["object"]} objects and {m["counts"]["status"]} status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.\n\n'
+coverage+=f'{m["usageCounts"]["model-tree"]} entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.\n'
 for file in ['README.md','docs/REFERENCE.md']:
  p=ROOT/file;s=p.read_text();s=re.sub(r'(?<=<!-- coverage:start -->).*?(?=<!-- coverage:end -->)',coverage,s,flags=re.S)
  if file=='docs/REFERENCE.md':
@@ -196,13 +196,13 @@ for i in quality:parts.append(f'| `{i["id"]}` | {i["reason"]} |\n')
 parts.append(f'''
 ## Preview theme correction
 
-The former dark preview replaced ink with light blue while leaving body surfaces pale, erasing clock hands, mesh edges, sensor centers and other internal details. A preview-only CSS adapter now maps each color role independently. Pale body fill becomes `{theme['darkPalette']['body']}`, ink `{theme['darkPalette']['ink']}`, and teal accent `{theme['darkPalette']['accent']}` on `{theme['darkPalette']['background']}`. Opaque white node masks remain opaque using the dark background color; `fill="none"` and `stroke="none"` remain untouched. The soft glow was removed to avoid 16 px blur. Light/checker previews and copied/downloaded source SVG palettes remain unchanged.
+The former dark preview replaced ink with light blue while leaving body surfaces pale, erasing clock hands, mesh edges, sensor centers and other internal details. At that checkpoint, a preview-only CSS adapter mapped each color role independently. Pale body fill becomes `{theme['darkPalette']['body']}`, ink `{theme['darkPalette']['ink']}`, and teal accent `{theme['darkPalette']['accent']}` on `{theme['darkPalette']['background']}`. Opaque white node masks remain opaque using the dark background color; `fill="none"` and `stroke="none"` remain untouched. The soft glow was removed to avoid 16 px blur. Light/checker previews and copied/downloaded source SVG palettes were unchanged at that checkpoint. Current standalone light/dark exports are documented in [DARK_THEME.md](DARK_THEME.md).
 
 The palette's calculated contrasts are **{theme['contrast']['ink_on_body']}:1** for ink on body and **{theme['contrast']['accent_on_body']}:1** for accent on body. These are color-role calculations, not a browser-computed-style audit or accessibility certification.
 
 ![Light, dark and checker previews](../qa/theme-preview.png)
 
-The 22-example sheet includes every new and revised drawing plus representative dark-palette failures. Its colors are extracted from the production CSS and rendered as SVG, so it is reproducible without representing it as a browser screenshot.
+The 22-example sheet includes every new and revised drawing plus representative dark-palette failures. The palette is now centralized in `src/themes.py`; the regenerated sheet preserves the reviewed colors and is a static SVG render, not a browser screenshot.
 
 ## Verification and limits
 
@@ -221,7 +221,7 @@ pdxadv=json.loads((ROOT/'src/pdxadv_commands.json').read_text())
 pdxadv_reuse=json.loads((ROOT/'src/pdxadv_reuse.json').read_text())
 parts=[f'''# pdxadv analysis and design workflow
 
-Date: 2026-10-18. Version: {m['version']}. Baseline: `490d20684866e39c7075485bf2dc95abb95dd341` (410 symbols).
+Date: 2026-10-18. Historical version: 2.5.0. Baseline: `490d20684866e39c7075485bf2dc95abb95dd341` (410 symbols).
 
 This pass adds **{len(pdxadv)} independent meanings** selected from implemented pdxadv workflows: six analysis/design meanings and three supporting result actions. The catalog contains **{m['count']} unique SVGs**, including **{m['usageCounts']['model-tree']}** model-tree-compatible entries. All **410 existing SVG files remain byte-for-byte unchanged**. The count follows useful functions; no numerical target or state/format product is used.
 
@@ -257,7 +257,7 @@ parts.append('''
 
 ![Light, dark and checker previews](../qa/pdxadv-themes.png)
 
-All geometry is original and uses the established 32 px grid, rounded joins and caps, pale body fill and teal accent. The additions sheet and three-background sheet show actual 48 / 24 / 16 px renders. The theme sheet extracts color roles from production CSS and is a **static SVG render, not a browser screenshot**.
+All geometry is original and uses the established 32 px grid, rounded joins and caps, pale body fill and teal accent. The additions sheet and three-background sheet show actual 48 / 24 / 16 px renders. The theme sheet uses the shared color-role palette and is a **static SVG render, not a browser screenshot**. Current standalone light/dark files are documented in [DARK_THEME.md](DARK_THEME.md).
 
 The regression suite verifies all nine source records, pinned reference commits, bilingual search, single-family alias reuse, command-only usage, the in-memory baseline wording, and the SHA-256 hashes of every baseline SVG. XML/security/metadata/geometry tests and the full-catalog raster audit cover all 419 symbols. No blank, overflow or identical normalized raster group was found. The rebuild is deterministic.
 

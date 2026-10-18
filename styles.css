@@ -11,16 +11,7 @@
 .usage-description {font-size:12px;line-height:1.6;color:#61766d;overflow-wrap:anywhere}
 @media(max-width:700px){.toolbar{align-items:flex-start;gap:14px;flex-direction:column}.view-controls{justify-content:flex-start;gap:12px}}
 
-/* Preview-only dark palette. Keep opaque cutouts, transparent fills, and the
-   distinction between ink, selected geometry, body surfaces, and warnings.
-   Download/copy uses the unchanged standalone SVG palette. */
-.icon-grid.dark-bg .icon-card>svg,
-.detail-preview.dark-bg>svg {stroke:#d1e5ed}
-:is(.icon-grid.dark-bg,.detail-preview.dark-bg) svg [stroke="#253b53"] {stroke:#d1e5ed}
-:is(.icon-grid.dark-bg,.detail-preview.dark-bg) svg [stroke="#178b88"] {stroke:#63cec4}
-:is(.icon-grid.dark-bg,.detail-preview.dark-bg) svg [stroke="#c88626"] {stroke:#efbd63}
-:is(.icon-grid.dark-bg,.detail-preview.dark-bg) svg [fill="#253b53"] {fill:#d1e5ed}
-:is(.icon-grid.dark-bg,.detail-preview.dark-bg) svg [fill="#d7efed"] {fill:#294c59}
-:is(.icon-grid.dark-bg,.detail-preview.dark-bg) svg [fill="#178b88"] {fill:#63cec4}
-:is(.icon-grid.dark-bg,.detail-preview.dark-bg) svg [fill="#fff3da"] {fill:#51432c}
-:is(.icon-grid.dark-bg,.detail-preview.dark-bg) svg [fill="white"] {fill:#192c3c}
+/* SVG colors are generated per variant, never overridden by preview backgrounds. */
+.theme-control {display:flex;align-items:center;gap:7px;white-space:nowrap}
+.detail-theme-note {font-size:10px!important;line-height:1.5!important}
+#detail-file {margin-top:8px}

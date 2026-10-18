@@ -10,6 +10,14 @@ const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 const ids = new Map();
 let document;
 const downloads = [];
+// These stand-ins check the real app's async Canvas pipeline and selected SVG
+// bytes, not raster pixels. scripts/png_export_audit.py checks actual PNG alpha
+// independently with Inkscape; browser Canvas/download integration is unverified.
+const png={mode:'ok',images:[],canvases:[],pendingImages:[],pendingEncodes:[]};
+class Image {
+ constructor(){png.images.push(this);}
+ set src(value){this.sourceURL=value;const complete=()=>{if(png.mode==='image-error')this.onerror?.();else this.onload?.();};if(png.mode==='image-hang')return;if(png.mode==='hold-image')png.pendingImages.push(complete);else queueMicrotask(complete);}
+}
 class Element {
  constructor(tag='div') {this.tagName=tag.toUpperCase();this.children=[];this.dataset={};this.attributes={};this.listeners={};this.className='';this.textContent='';this.innerHTML='';this.hidden=false;this.disabled=false;this.open=false;this.value='';this.parent=null;this.isConnected=true;this.style={setProperty:(k,v)=>this.style[k]=v};this.classList={add:c=>this.classList.toggle(c,true),remove:c=>this.classList.toggle(c,false),toggle:(c,on)=>{const classes=new Set(this.className.split(/\s+/).filter(Boolean));if(on)classes.add(c);else classes.delete(c);this.className=[...classes].join(' ');}};}
  setAttribute(k,v){this.attributes[k]=String(v);}
@@ -24,18 +32,26 @@ class Element {
  showModal(){assert.equal(this.open,false);this.open=true;}
  close(){this.open=false;for(const fn of this.listeners.close||[])fn({target:this});}
  getBoundingClientRect(){return {left:10,top:10,right:600,bottom:500};}
- click(){if(this.tagName==='A'){downloads.push({href:this.href,name:this.download});return;}if(!this.disabled)return this.dispatch('click');}
+ click(){if(this.tagName==='A'){if(png.mode==='anchor-error')throw Error('Download blocked');downloads.push({href:this.href,name:this.download});return;}if(!this.disabled)return this.dispatch('click');}
+}
+class Canvas extends Element {
+ constructor(){super('canvas');png.canvases.push(this);}
+ getContext(kind,options){assert.equal(kind,'2d');assert.equal(options.alpha,true);if(png.mode==='canvas-null')return null;return {drawImage:(image,x,y,width,height)=>{if(png.mode==='draw-error')throw Error('Draw failed');assert.equal(x,0);assert.equal(y,0);assert.equal(width,this.width);assert.equal(height,this.height);this.draw={image,width,height};},fillRect:()=>{throw Error('Canvas background must not be painted');}};}
+ toBlob(callback,type){assert.equal(type,'image/png');assert.ok(this.draw);if(png.mode==='encode-error')throw Error('Encode failed');if(png.mode==='encode-hang')return;const complete=()=>callback(png.mode==='null-blob'?null:new Blob(png.mode==='empty-blob'?[]:['mock PNG pixels'],{type:png.mode==='wrong-mime'?'image/jpeg':'image/png'}));if(png.mode==='hold-encode')png.pendingEncodes.push(complete);else queueMicrotask(complete);}
 }
 for(const match of html.matchAll(/<([a-z][a-z0-9]*)\b[^>]*\bid="([^"]+)"[^>]*>/g)){const e=new Element(match[1]);e.id=match[2];e.hidden=/\bhidden\b/.test(match[0]);e.className=/class="([^"]+)"/.exec(match[0])?.[1]||'';ids.set(e.id,e);}
 const all=new Element('button');all.dataset.category='all';all.className='category active';
 const backgrounds=['light','dark','grid'].map(background=>{const e=new Element('button');e.dataset.background=background;return e;});
-document={body:new Element('body'),documentElement:new Element('html'),activeElement:new Element('body'),listeners:{},getElementById:id=>{assert.ok(ids.has(id),'Missing DOM ID '+id);return ids.get(id);},createElement:tag=>new Element(tag),querySelectorAll:selector=>{if(selector==='.category')return [all,...ids.get('categories').children];if(selector==='[data-background]')return backgrounds;throw Error('Unhandled selector '+selector);},addEventListener(type,fn){(this.listeners[type]??=[]).push(fn);},execCommand:()=>true};
+document={body:new Element('body'),documentElement:new Element('html'),activeElement:new Element('body'),listeners:{},getElementById:id=>{assert.ok(ids.has(id),'Missing DOM ID '+id);return ids.get(id);},createElement:tag=>tag==='canvas'?new Canvas():new Element(tag),querySelectorAll:selector=>{if(selector==='.category')return [all,...ids.get('categories').children];if(selector==='[data-background]')return backgrounds;throw Error('Unhandled selector '+selector);},addEventListener(type,fn){(this.listeners[type]??=[]).push(fn);},execCommand:()=>true};
 const clipboard=[];
 const blobs=[];
 const timers=[];
+const liveURLs=new Map();
+const revokedURLs=[];
+function runTimers(delay){for(const timer of timers){if(timer.active&&timer.delay===delay){timer.active=false;timer.fn();}}}
 const navigator={clipboard:{writeText:async text=>clipboard.push(text)}};
 const window={isSecureContext:true};
-const context=vm.createContext({document,window,navigator,Blob,URL:{createObjectURL:blob=>{blobs.push(blob);return 'blob:test-'+blobs.length;},revokeObjectURL:()=>{}},setTimeout:fn=>{timers.push(fn);return timers.length;},console});
+const context=vm.createContext({document,window,navigator,Blob,Image,URL:{createObjectURL:blob=>{if(png.mode==='source-url-error'&&blob.type==='image/svg+xml'||png.mode==='png-url-error'&&blob.type==='image/png')throw Error('Object URL unavailable');blobs.push(blob);const url='blob:test-'+blobs.length;liveURLs.set(url,blob);return url;},revokeObjectURL:url=>{assert.ok(liveURLs.has(url),'Object URL must be revoked exactly once: '+url);liveURLs.delete(url);revokedURLs.push(url);}},setTimeout:(fn,delay)=>{timers.push({fn,delay,active:true});return timers.length;},clearTimeout:id=>{if(timers[id-1])timers[id-1].active=false;},console});
 vm.runInContext(fs.readFileSync(path.join(ROOT,'catalog.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(path.join(ROOT,'app.js'),'utf8'),context);
 const $=id=>document.getElementById(id);
@@ -102,6 +118,107 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
    await $('close').click();
   }
   await change('theme','light');await $('reset').click();assert.equal(count(),419);
+ });
+ await test('PNG controls offer seven exact sizes with an independent 32 px default',async()=>{
+  const select=/<select id="png-size"[^>]*>([\s\S]*?)<\/select>/.exec(html)[1];
+  assert.deepEqual([...select.matchAll(/value="(\d+)"/g)].map(m=>Number(m[1])),[16,24,32,48,64,128,256]);
+  assert.match(select,/<option value="32" selected>/);
+  assert.match(html,/aria-describedby="png-note"/);
+  assert.match(html,/opaque cutouts are preserved/);
+  assert.match(html,/<p id="detail-status"[^>]*role="status"[^>]*aria-live="polite"/);
+  await change('size','64');await change('png-size','32');
+  assert.equal(document.documentElement.style['--icon-size'],'64px');
+  runTimers(1000);assert.equal(liveURLs.size,0);
+ });
+ await test('all 838 selected SVG variants feed transparent PNG exports at all seven sizes',async()=>{
+  const before=downloads.length;
+  for(const item of manifest.icons){
+   await input(item.id);await cards().find(c=>c.dataset.id===item.id).click();
+   for(const theme of ['light','dark']){
+    await change('detail-theme',theme);
+    const exact=fs.readFileSync(path.join(ROOT,item.variants[theme].file),'utf8');
+    for(const size of [16,24,32,48,64,128,256]){
+     await change('png-size',String(size));const index=blobs.length;
+     await $('download-png').click();
+     assert.equal(downloads.at(-1).name,`${item.id}.${theme}.${size}.png`);
+     assert.equal(blobs[index].type,'image/svg+xml');
+     assert.equal(await blobs[index].text(),exact.replace('width="32" height="32"',`width="${size}" height="${size}"`));
+     assert.equal(blobs[index+1].type,'image/png');assert.ok(blobs[index+1].size);
+     assert.equal(png.canvases.at(-1).draw.width,size);assert.equal(png.canvases.at(-1).draw.height,size);
+     assert.equal(png.canvases.at(-1).width,0);assert.equal(png.canvases.at(-1).height,0);
+     assert.equal(png.images.at(-1).onload,null);assert.equal(png.images.at(-1).onerror,null);
+     assert.equal($('download-png').disabled,false);assert.equal($('download-png').attributes['aria-busy'],'false');
+     assert.equal(timers.filter(t=>t.active&&t.delay===15000).length,0);
+     runTimers(1000);assert.equal(liveURLs.size,0);
+    }
+   }
+   await $('close').click();
+  }
+  assert.equal(downloads.length-before,5866);
+  await change('theme','light');await $('reset').click();assert.equal(count(),419);
+ });
+ await test('PNG exports never include light, dark or checker preview backgrounds',async()=>{
+  await input('common-info');await cards()[0].click();await change('png-size','64');
+  for(const theme of ['light','dark']){
+   await change('detail-theme',theme);const sources=[];
+   for(const background of backgrounds){await background.click();const index=blobs.length;await $('download-png').click();sources.push(await blobs[index].text());runTimers(1000);}
+   assert.equal(sources[0],sources[1]);assert.equal(sources[1],sources[2]);
+   assert.doesNotMatch(sources[0],/preview-\d+-|checker|background/);
+  }
+  await $('close').click();
+ });
+ await test('PNG request snapshots survive repeated clicks, theme/size changes and reopening details',async()=>{
+  await input('common-open-file');await cards()[0].click();await change('detail-theme','dark');await change('png-size','128');
+  png.mode='hold-image';const index=blobs.length,before=downloads.length,imageCount=png.images.length;
+  const pending=$('download-png').click();assert.equal($('download-png').disabled,true);assert.equal($('download-png').attributes['aria-busy'],'true');
+  await $('download-png').dispatch('click');assert.equal(png.images.length,imageCount+1);
+  await change('detail-theme','light');await change('png-size','16');await $('close').click();
+  await input('cad-extrude');await cards()[0].click();await $('download-png').dispatch('click');
+  png.mode='ok';png.pendingImages.shift()();await pending;
+  assert.equal(downloads.length,before+1);assert.equal(downloads.at(-1).name,'common-open-file.dark.128.png');
+  const item=manifest.icons.find(i=>i.id==='common-open-file');
+  assert.equal(await blobs[index].text(),fs.readFileSync(path.join(ROOT,item.variants.dark.file),'utf8').replace('width="32" height="32"','width="128" height="128"'));
+  runTimers(1000);assert.equal(liveURLs.size,0);assert.equal($('download-png').disabled,false);
+  png.mode='hold-encode';const second=$('download-png').click();await Promise.resolve();
+  assert.equal(png.pendingEncodes.length,1);await change('detail-theme','dark');await change('png-size','256');
+  png.mode='ok';png.pendingEncodes.shift()();await second;
+  assert.equal(downloads.at(-1).name,'cad-extrude.light.16.png');runTimers(1000);assert.equal(liveURLs.size,0);
+  await $('download-png').click();assert.equal(downloads.at(-1).name,'cad-extrude.dark.256.png');runTimers(1000);
+  await $('close').click();
+ });
+ await test('PNG errors produce no download and release URLs, Canvas memory and busy state',async()=>{
+  await input('common-save');await cards()[0].click();await change('png-size','32');
+  for(const mode of ['canvas-null','image-error','draw-error','encode-error','null-blob','empty-blob','wrong-mime','source-url-error','png-url-error','anchor-error','image-hang','encode-hang']){
+   png.mode=mode;const before=downloads.length;const pending=$('download-png').click();
+   if(mode.endsWith('-hang')){await Promise.resolve();runTimers(15000);}
+   await pending;assert.equal(downloads.length,before,mode);assert.match($('toast').textContent,/PNG export failed/,mode);
+   assert.equal($('download-png').disabled,false);assert.equal($('download-png').attributes['aria-busy'],'false');
+   assert.equal($('download-png').textContent,'Download PNG ↓');
+   assert.match($('detail-status').textContent,/PNG export failed/,mode);
+   assert.equal(png.canvases.at(-1).width,0);assert.equal(png.canvases.at(-1).height,0);
+   assert.equal(document.body.children.filter(e=>e.tagName==='A').length,0);
+   runTimers(1000);assert.equal(liveURLs.size,0,mode);assert.equal(timers.filter(t=>t.active&&t.delay===15000).length,0);
+  }
+  png.mode='ok';await $('download-png').click();assert.match($('toast').textContent,/transparent PNG download started/);runTimers(1000);
+  await $('close').click();
+ });
+ await test('late PNG decode or encode after timeout cannot download or disturb a retry',async()=>{
+  await input('common-info');await cards()[0].click();await change('png-size','48');
+  for(const mode of ['hold-image','hold-encode']){
+   png.mode=mode;const before=downloads.length;const pending=$('download-png').click();await Promise.resolve();
+   runTimers(15000);await pending;assert.equal(downloads.length,before);assert.equal(liveURLs.size,0);
+   png.mode='ok';await $('download-png').click();assert.equal(downloads.length,before+1);
+   if(mode==='hold-image')png.pendingImages.shift()();else png.pendingEncodes.shift()();
+   await Promise.resolve();assert.equal(downloads.length,before+1);assert.equal($('download-png').disabled,false);
+   runTimers(1000);assert.equal(liveURLs.size,0);
+  }
+  await $('close').click();
+ });
+ await test('PNG invalid sizes are rejected before allocating or downloading',async()=>{
+  await input('common-info');await cards()[0].click();const before=downloads.length,imageCount=png.images.length;
+  for(const size of ['','0','-1','33','4096','bad']){await change('png-size',size);await $('download-png').click();assert.match($('toast').textContent,/Choose a PNG size/);}
+  assert.equal(downloads.length,before);assert.equal(png.images.length,imageCount);assert.equal(liveURLs.size,0);
+  await change('png-size','32');await $('close').click();await $('reset').click();
  });
  await test('slash shortcut respects input and open dialog',async()=>{document.activeElement=document.body;let e={key:'/',preventDefault(){this.prevented=true;}};document.listeners.keydown[0](e);assert.equal(e.prevented,true);assert.equal(document.activeElement,$('search'));e={key:'/',preventDefault(){this.prevented=true;}};document.listeners.keydown[0](e);assert.equal(e.prevented,undefined);await cards()[0].click();document.activeElement=document.body;e={key:'/',preventDefault(){this.prevented=true;}};document.listeners.keydown[0](e);assert.equal(e.prevented,undefined);await $('close').click();});
  console.log(`\n${tests.length} application interaction groups passed (script-level DOM harness, not a browser).`);

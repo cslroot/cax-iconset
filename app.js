@@ -9,6 +9,7 @@ const categories = {
 };
 const state = {category:'all',usage:'all',query:'',page:1,language:'en',background:'light',theme:'light',selected:null};
 const PAGE_SIZE = 96;
+const PNG_SIZES = [16,24,32,48,64,128,256];
 let lastFocus;
 let previewSerial = 0;
 function svg(item, exported=false, theme=state.theme) {
@@ -69,6 +70,7 @@ function render() {
 }
 function openDetail(item) {
  lastFocus=document.activeElement;state.selected=item;
+ if(!$('download-png').disabled)$('detail-status').textContent='';
  detailPreview();
  $('detail-name').textContent=name(item);$('detail-ja').textContent=state.usage==='model-tree' ? (state.language==='en'?item.nodeNameJa:item.nodeName) : (state.language==='en'?item.nameJa:item.name);
  $('detail-id').textContent=item.id;$('detail-category').textContent=`${item.category} / ${item.role.toUpperCase()}`;
@@ -78,8 +80,46 @@ function openDetail(item) {
  if(!$('detail').open) $('detail').showModal();
 }
 function closeDetail(){if($('detail').open)$('detail').close();}
-function toast(text){$('toast').textContent=text;$('toast').classList.add('visible');setTimeout(()=>$('toast').classList.remove('visible'),2500);}
+function toast(text){$('detail-status').textContent=$('detail').open?text:'';$('toast').textContent=text;$('toast').classList.add('visible');setTimeout(()=>$('toast').classList.remove('visible'),2500);}
 function fallbackCopy(text){const area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';$('detail').append(area);area.focus();area.select();try{return document.execCommand('copy');}catch{return false;}finally{area.remove();$('copy').focus();}}
+function downloadBlob(blob,filename) {
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+ try{a.href=url;a.download=filename;document.body.append(a);a.click();}
+ finally{a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+}
+function pngBlob(source,size) {
+ return new Promise((resolve,reject)=>{
+  let image,canvas,url,timer,finished=false;
+  const finish=(error,blob)=>{
+   if(finished)return;finished=true;clearTimeout(timer);
+   if(image){image.onload=null;image.onerror=null;}
+   if(url)URL.revokeObjectURL(url);
+   if(canvas)canvas.width=canvas.height=0;
+   if(error)reject(error);else resolve(blob);
+  };
+  try{
+   canvas=document.createElement('canvas');canvas.width=canvas.height=size;
+   // A fresh alpha-enabled canvas stays transparent. Preview surfaces are CSS only.
+   const context=canvas.getContext('2d',{alpha:true});
+   if(!context)throw Error('Canvas unavailable');
+   image=new Image();
+   image.onload=()=>{try{
+    context.drawImage(image,0,0,size,size);
+    canvas.toBlob(blob=>{
+     if(!blob||!blob.size||blob.type!=='image/png')finish(Error('PNG encoding failed'));
+     else finish(null,blob);
+    },'image/png');
+   }catch(error){finish(error);}};
+   image.onerror=()=>finish(Error('SVG decoding failed'));
+   // Set the SVG's intrinsic raster size without altering its viewBox or geometry.
+   const sizedSource=source.replace('width="32" height="32"',`width="${size}" height="${size}"`);
+   url=URL.createObjectURL(new Blob([sizedSource],{type:'image/svg+xml'}));
+   timer=setTimeout(()=>finish(Error('PNG export timed out')),15000);
+   image.src=url;
+  }catch(error){finish(error);}
+ });
+}
 icons.forEach(item=>{item.searchText=[item.id,item.name,item.nameJa,...item.categories,item.role,...item.usages,item.family,item.description,item.descriptionJa,item.nodeName||'',item.nodeNameJa||'',...(item.aliases||[]),...(item.nodeAliases||[]),...item.tags].join(' ').normalize('NFKC').toLocaleLowerCase();});
 $('all-count').textContent=icons.length.toLocaleString();$('hero-count').textContent=icons.length.toLocaleString();
 $('collection-scope').textContent=`${catalog.categories.Common} common application symbols + ${icons.length-catalog.categories.Common} engineering symbols. One icon per meaning, with light/dark files; command and tree uses share the same entry.`;
@@ -104,7 +144,22 @@ $('close').addEventListener('click',closeDetail);
 $('detail').addEventListener('click',event=>{if(event.target===$('detail')){const r=$('detail').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeDetail();}});
 $('detail').addEventListener('close',()=>{if(lastFocus?.isConnected)lastFocus.focus();});
 $('copy').addEventListener('click',async()=>{const text=svg(state.selected,true);try{if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(text);else if(!fallbackCopy(text))throw Error('Clipboard blocked');toast('SVG copied');}catch{if(fallbackCopy(text))toast('SVG copied');else toast('Clipboard unavailable. Use Download SVG.');}});
-$('download').addEventListener('click',()=>{const item=state.selected;const blob=new Blob([svg(item,true)],{type:'image/svg+xml'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=item.id+(state.theme==='dark'?'.dark':'')+'.svg';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('SVG download started');});
+$('download').addEventListener('click',()=>{const item=state.selected;downloadBlob(new Blob([svg(item,true)],{type:'image/svg+xml'}),item.id+(state.theme==='dark'?'.dark':'')+'.svg');toast('SVG download started');});
+$('download-png').addEventListener('click',async()=>{
+ const button=$('download-png');
+ if(button.disabled||!state.selected)return;
+ // Snapshot the request: later theme, size or detail changes cannot mix exports.
+ const item=state.selected,theme=state.theme,size=Number($('png-size').value);
+ if(!PNG_SIZES.includes(size)){toast('Choose a PNG size from 16 to 256 px.');return;}
+ button.disabled=true;button.textContent='Preparing PNG…';button.setAttribute('aria-busy','true');
+ $('detail-status').textContent=`Preparing ${item.id}.${theme}.${size}.png…`;
+ try{
+  const blob=await pngBlob(svg(item,true,theme),size);
+  downloadBlob(blob,`${item.id}.${theme}.${size}.png`);
+  toast(`${size} × ${size} transparent PNG download started`);
+ }catch{toast('PNG export failed. Try again or download SVG.');}
+ finally{button.disabled=false;button.textContent='Download PNG ↓';button.setAttribute('aria-busy','false');}
+});
 document.addEventListener('keydown',event=>{if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)&&!$('detail').open){event.preventDefault();$('search').focus();}});
 render();
 })();

@@ -15,3 +15,12 @@
 .theme-control {display:flex;align-items:center;gap:7px;white-space:nowrap}
 .detail-theme-note {font-size:10px!important;line-height:1.5!important}
 #detail-file {margin-top:8px}
+
+.png-export {display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.png-export label {display:flex;align-items:center;gap:7px;font-size:10px;color:#6d8277}
+.png-export button {font-size:10px;padding:9px}
+.detail-actions {flex-wrap:wrap}
+
+.detail-status {overflow-wrap:anywhere;font-size:10px!important}
+.detail-status:empty {margin:0}
+#toast {max-width:calc(100% - 32px);width:max-content;text-align:center}

@@ -51,6 +51,7 @@ Open `http://127.0.0.1:8000` in a modern browser. No public deployment is config
 - 16 / 24 / 32 / 48 / 64 px previews; light / dark / checker backgrounds
 - Explicit light / dark SVG theme choice, independent of the background; preview, copy and download use the selected file variant
 - Detail view with bilingual purpose, selected variant path, copy SVG and individual SVG download
+- Transparent PNG download in 16 / 24 / 32 / 48 / 64 / 128 / 256 px; selected light/dark colors, independent of preview background
 - Keyboard focus, `/` search shortcut, native dialog and empty-state reset
 - No analytics or runtime external requests
 
@@ -76,11 +77,21 @@ All **419 semantic icons** now have two file variants: original light files in `
 
 Choose **SVG → Dark** in the catalog or detail view before copying/downloading; the background swatches only change the preview surface. Downloads are named `<id>.dark.svg` for clarity, while repository paths are `icons-dark/<id>.svg`.
 
-The dark palette targets **#192c3c**. Its opaque cutouts also use that color to hide covered edges; 64 icons contain these fills. They remain opaque and may look like inset patches on other surfaces, including CAX Studio's #23262b. The files do not automatically adapt to arbitrary backgrounds. See [integration and palette guidance](docs/DARK_THEME.md) and the [raw-file comparison at native 16 / 24 / 32 px](qa/dark-svg-comparison.png).
+The dark palette targets **#192c3c**. Its opaque cutouts also use that color to hide covered edges; 64 icons contain these fills. They remain opaque and may look like inset patches on other surfaces, including CAX Studio's #23262b. The files do not automatically adapt to arbitrary backgrounds. See [integration and palette guidance](docs/DARK_THEME.md) and the [embedded-SVG comparison at 16 / 24 / 32 px output sizes](qa/dark-svg-comparison.png).
+
+## Transparent PNG download
+
+Open an icon's detail view, choose **Icon theme → Light / Dark**, select **PNG size**, then click **Download PNG**. Available square sizes are **16, 24, 32, 48, 64, 128 and 256 px**; the default is **32 px**. PNG size is independent of the gallery's preview size. Files are named `<id>.<light|dark>.<size>.png`, for example `cad-extrude.dark.64.png`.
+
+The browser rasterizes the selected standalone SVG on a fresh alpha-enabled Canvas. The canvas around the drawing is transparent; the light, dark and checkerboard preview surfaces are never painted into the PNG. Existing solid fills, including the opaque cutouts in 64 icons, are preserved: white in light files and #192c3c in dark files. These interior shapes do not become transparent, because they hide covered geometry. PNG does not automatically adapt those colors to another background.
+
+Conversion happens locally in the browser without an external service or network request. While one PNG is being prepared, its button is disabled. The requested icon/theme/size are captured when clicked; changing the detail controls afterward does not change that export. A failed or timed-out conversion produces an error message instead of an empty download. The original SVG copy/download options remain available.
+
+See [PNG implementation and verification](docs/PNG_EXPORT.md). The tests include a mocked Canvas pipeline and separate real Inkscape PNG alpha measurements; actual browser Canvas encoding and saved downloads are still unverified.
 
 ## Rebuild and verify
 
-Python 3.10+ builds the collection. Node.js runs application tests. The optional raster audit and sheet export use an already-installed Inkscape and Pillow.
+Python 3.10+ builds the collection. Node.js runs application tests. The optional raster audits and sheet exports use already-installed Inkscape and Pillow; the PNG audit also uses NumPy.
 
 ```sh
 python3 scripts/build.py
@@ -90,6 +101,7 @@ node --check catalog.js
 node tests/test_app.js
 python3 scripts/raster_audit.py
 python3 scripts/dark_theme_audit.py
+python3 scripts/png_export_audit.py
 python3 scripts/contact_sheet.py
 python3 scripts/model_tree_sheet.py
 python3 scripts/application_tree_sheet.py
@@ -110,7 +122,7 @@ The XML/integrity suite checks both theme variants of every icon, its safe eleme
 
 The pdxadv review adds nine source-verified analysis/design commands while preserving all 410 existing SVGs. See the [nine additions on light / dark / checker backgrounds](qa/pdxadv-themes.png). The previous CAX Studio review checked all 403 baseline symbols visually, seven new commands, 11 focused geometry corrections, and a preview-only dark palette. See [before / after geometry](qa/quality-before-after.png) and [light / dark / checker examples](qa/theme-preview.png). The dark palette preserves separate body, ink, accent, warning and opaque-cutout roles; that historical preview-only behavior is superseded by the explicit standalone theme selection above.
 
-The standalone-theme audit renders actual file bytes with no host CSS: all 838 files at native 16 / 24 / 32 px, plus dark variants on #192c3c, #23262b and #121212. It checks nonblank output, light/dark alpha preservation and meaningful contrast pixels. Copy/download tests require exact byte equality with every selected file.
+The standalone-theme audit embeds actual file bytes without host CSS in an atlas with 16 / 24 / 32 px output cells, plus dark variants on #192c3c, #23262b and #121212. It checks nonblank output, light/dark alpha preservation and meaningful contrast pixels in that atlas. Inkscape may resample embedded images from their intrinsic 32 px size; these are not direct native-size vector exports. The separate PNG audit directly exports original files at all seven requested sizes. Copy/download tests require exact byte equality with every selected file.
 
 **These checks are not a real-browser integration test.** Browser layout, native dialog focus/Escape, actual system clipboard and saved downloads remain unverified. See [QA coverage and manual checklist](docs/QA.md).
 
@@ -139,4 +151,4 @@ The standalone-theme audit renders actual file bytes with no host CSS: all 838 f
 
 ロボティクスの46用途に加え、cax-studioと関連リポジトリの実装から不足していた7用途を追加しました。さらにpdxadvの実装を根拠に、そり感度・肉厚対策・局所肉厚変更・結果分布・比較・基準保持・解析レポートの9用途を追加しました。全419件、186件がモデルツリーに対応します。各IDにライト／ダークの独立SVGを用意しましたが、用途の件数は419件のままです。ダーク版はCSSなしで使えます。切り欠きなどの不透明な塗りは背景色#192c3cに固定して重なりを保つため、別の背景では色の差が見える場合があります。今回のテーマ追加では元の419件をバイト単位で維持しています。先のpdxadv用途追加では既存410件のSVGを変更していません。認識されたねじやメッシュ変換方式などは既存SVGを再利用し、件数を増やしていません。全403件の目視監査で見つかった形状の問題・改善点を11件修正し、ダーク背景で内部線が消える配色も改善しました。
 
-断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。追加一覧、11件の修正前後、light/dark/checker見本、70行の16pxロボット階層見本を同梱しています。アイコンとメタデータだけを作成し、実機接続・操作は行いません。実ブラウザ統合検証は未実施です。
+断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。追加一覧、11件の修正前後、light/dark/checker見本、70行の16pxロボット階層見本を同梱しています。アイコンとメタデータだけを作成し、実機接続・操作は行いません。詳細画面からライト／ダークの透過PNGも16・24・32・48・64・128・256pxで保存できます。プレビュー背景は含めず、重なりを隠す内部の不透明な塗りはそのまま保持します。実ブラウザ統合検証は未実施です。

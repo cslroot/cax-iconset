@@ -1,6 +1,6 @@
 # QA report
 
-Date: 2026-10-18. Scope: infinite gallery loading, filtered dialog navigation, synchronized preview backgrounds, standalone light/dark SVGs and transparent PNG export for all 419 semantic IDs. The [pdxadv review](PDXADV_REVIEW.md) and [historical geometry/theme review](CAX_STUDIO_REVIEW.md) retain the earlier source coverage. Profile/trajectory/state variants remain excluded; light/dark palettes do not inflate meaning counts.
+Date: 2026-10-18. Scope: bulk SVG/PNG ZIP download, infinite gallery loading, filtered dialog navigation, synchronized preview backgrounds, standalone light/dark SVGs and transparent PNG export for all 419 semantic IDs. The [pdxadv review](PDXADV_REVIEW.md) and [historical geometry/theme review](CAX_STUDIO_REVIEW.md) retain the earlier source coverage. Profile/trajectory/state variants remain excluded; light/dark palettes do not inflate meaning counts.
 
 <!-- results:start -->
 - Semantic catalog: **419 icons** (Common 73, CAD 135, CAM 44, CAE 61, CMM 34, OLP 72)
@@ -13,8 +13,8 @@ Date: 2026-10-18. Scope: infinite gallery loading, filtered dialog navigation, s
 - Embedded standalone-SVG atlas without CSS at 16 / 24 / 32 px output sizes: **2,514 renders**, zero blanks and zero light/dark alpha mismatches
 - Dark icons tested on #192c3c, #23262b and #121212: **3,771 surface checks**, each has at least eight output pixels of 3:1 contrast
 - Dark ink/body contrast: **7.10:1**; accent/body: **4.91:1**; accent against tested backgrounds: **7.61:1 or higher**
-- JavaScript syntax: **passed** for app.js and catalog.js
-- Script-level app interactions: **29 groups passed**, including exact copy/download bytes for all **838** SVG files, **5,866** selected theme/size PNG source pipelines, automatic theme/background synchronization, manual surface overrides, infinite-scroll observer/fallback behavior, full-filtered-list detail navigation, asynchronous retries and cleanup
+- JavaScript syntax: **passed** for app.js, catalog.js and zip.js
+- Script-level app interactions: **38 groups passed**, including exact copy/download bytes for all **838** SVG files, **5,866** selected theme/size PNG source pipelines, automatic theme/background synchronization, manual surface overrides, infinite-scroll observer/fallback behavior, full-filtered-list detail navigation, asynchronous retries and cleanup
 - PNG sizes: **16 / 24 / 32 / 48 / 64 / 128 / 256 px**, default 32; preview backgrounds excluded and opaque cutouts preserved
 - Direct Inkscape PNG raster evidence: **5,866 RGBA exports**, zero dimension/blank/transparency/alpha mismatches; **28** independent single-file CLI matches
 - Cutout raster evidence: **896** probe cases with matching alpha and **97,910** exact opaque-color pixels; four fully overpainted source variants are explicitly verified by geometry/order and opaque center samples
@@ -23,10 +23,15 @@ Date: 2026-10-18. Scope: infinite gallery loading, filtered dialog navigation, s
 - Independent visual review: **419 dark files in 16 / 24 / 32 px atlas cells**, checked on #192c3c, #23262b and neutral #202020; no new geometry or occlusion blockers found
 - Six complete raw-file dark sheets and a selected before/after comparison on three dark surfaces
 - Navigation update: **all 838 SVG files and both catalog outputs unchanged** against `b9411874bbb7e69366b968d83ab7fa7f5dc0ea13`; both observer-enabled and observer-unavailable harness runs pass
-- Actual browser integration: **not run**; the earlier supported cloud-browser local-file rejection remains unresolved
+- GitHub Pages: existing `main` publication completed successfully for `ab38066362f6b6455b4b2d830798a266ac206da2` ([run](https://github.com/cslroot/cax-iconset/actions/runs/39110070169), [catalog](https://savethebunny.net/cax-iconset/)); no hosting settings were changed
+- ZIP structure: independent reader verifies all headers, offsets, UTF-8 names, CRC-32 and exact bytes for **838 SVG entries**; both Python `zipfile` and `unzip -t` accept the archives
+- Bulk lifecycle: all/filtered scope, all 419 icons beyond rendered cards, all seven PNG sizes, stable snapshots, cancellation, late completion, zero matches and atomic failures pass in both harness modes
+- Actual Chrome navigation: **passed** on the public catalog; 419 unique automatically loaded cards, filter reset, complete filtered detail navigation including 97 / 419 with only 96 cards loaded, theme/background synchronization, native Escape/focus restoration and boundary-focus handoff
+- Actual Chrome selected exports: exact SVG clipboard SHA-256, light/dark 64 × 64 RGBA PNG downloads, 3,511 transparent pixels and identical alpha with different theme colors; no site-origin console errors
+- Bulk ZIP live browser verification: **pending publication**; mobile/other-browser and assistive-technology coverage remain unverified
 <!-- results:end -->
 
-The gallery/navigation update reruns the XML/integrity suite, JavaScript syntax checks and both modes of the DOM harness. Raster and static visual figures above are retained evidence from the preceding unchanged SVG/PNG work; they are not fresh browser verification.
+The bulk ZIP update reruns the XML/integrity suite, JavaScript syntax checks and both modes of the DOM harness, plus independent ZIP parsing and unzip verification. Raster and static visual figures above are retained evidence from the preceding unchanged SVG/PNG work; they are not fresh browser verification.
 
 ## Executed methods
 
@@ -79,14 +84,23 @@ The transparent PNG audit is [`qa/png-export-audit.json`](../qa/png-export-audit
 27. Previous/next buttons traverse the complete ordered filtered list beyond rendered cards, disable at either boundary, update bilingual labels and restore the original opener
 28. Arrow keys preserve active controls and ignore input/textarea/select/contentEditable targets, modifiers, composition and previously handled events; Escape remains owned by the native dialog
 29. Copy/download use the newly selected icon, and navigating while a PNG is pending preserves its captured icon/theme/size
+30. Bulk controls inherit the active theme, describe all/current result counts and disable empty filtered export while keeping All available
+31. All 419 exact SVG files in each theme are archived even with only 96 gallery cards rendered
+32. Bulk filtering respects category, usage and query, including a 186-entry model-tree result beyond the first batch
+33. Bulk PNG: 419 files per theme, all seven sizes on selected icons, correct filenames/source/dimensions and transparent-canvas pipeline
+34. Repeated-click lock and a stable complete snapshot survive filter/theme/format/size changes
+35. Cancellation before work, during decode/encode and immediately before download never produces partial ZIPs; late callbacks cannot affect retry
+36. Close, Escape and backdrop cancellation, shortcut guard, observer pause/resume and opener-focus restoration
+37. Partial conversion failure, every PNG failure class, ZIP assembly/URL/anchor failures and timeouts download nothing; retry works
+38. Invalid scope, format, theme or PNG size allocates nothing and cannot download
 
 ## Not executed / limits
 
-- **No real browser UI run.** These app checks execute in a script-level DOM harness, not a browser layout engine. The supported cloud browser rejected local `file:` access. An external Playwright route was not used to bypass browser policy.
+- **Live browser coverage is targeted.** The public GitHub Pages catalog was tested with the supported cloud Chrome browser. Earlier local `file:` access was blocked; no alternate route was used to bypass that restriction. Script-level mocks remain separate from the live checks listed above.
 - The older dark-theme audit embeds SVG images with intrinsic 32 px dimensions into 16 / 24 / 32 px atlas cells. Inkscape may resample them rather than render vectors directly at each output size. Its alpha/nonblank/contrast figures describe those atlas pixels, not direct native-size vector exports. The new PNG audit uses direct exports instead.
 - Static theme sheets and direct-file Inkscape renders do not verify browser layout or computed styles. Color and output-pixel contrast checks are not accessibility certification.
 - Dark cutouts are fixed #192c3c; they preserve hidden edges but can appear as inset patches on different backgrounds. They do not adapt automatically. See [integration constraints](DARK_THEME.md).
-- Desktop/mobile layout, computed CSS, native dialog Escape/focus trapping, live-region announcements, browser history, real system clipboard, browser SVG-to-Canvas PNG encoding and saved downloads are not verified. Mock PNG blobs are not raster evidence; the independent Inkscape/Pillow pixel audit does not replace these browser checks.
+- Narrow-mobile layout, other browsers, complete focus-trap/assistive-technology/live-region behavior, browser history and every icon/size in actual Canvas remain unverified. Selected live clipboard and PNG checks do not imply full-matrix browser coverage. Mock PNG blobs are not raster evidence.
 - Alpha bounds use a threshold of 10/255 at 2×; this detects visible overflow rather than every theoretical subpixel extent.
 - Small previews help review legibility but do not guarantee every symbol is suitable for every 16 px toolbar. Check against the intended background and task.
 - The semantic catalog is intentionally selective; it does not cover every command in every engineering product.
@@ -114,6 +128,9 @@ Serve the repository locally as described in the README, then inspect desktop an
 - Export both PNG themes at every listed size, reopen the saved files and inspect dimensions and transparent alpha
 - Verify PNG ignores all preview backgrounds while retaining white/#192c3c opaque cutouts
 - Move to another icon, change theme/size or close/reopen during PNG preparation; confirm captured request, repeated-click lock, status announcements and retry
+- Export all 419 icons and filtered results as light/dark SVG ZIPs; extract and compare exact bytes, names and count, including beyond the loaded gallery batch
+- Export PNG ZIPs at small and large sizes; inspect alpha/dimensions, progress and cancellation by button, Escape and ×; retry and confirm no partial download on failure
+- With zero matches, confirm Current results is disabled while All icons remains available
 - Confirm no console errors or external network requests
 
 ## Visual sheets

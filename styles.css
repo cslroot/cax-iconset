@@ -34,3 +34,19 @@
 .detail-navigation button {font-size:11px;padding:9px 10px}
 .detail-position {font-size:11px;line-height:1.5;color:#45665f;overflow-wrap:anywhere;margin:12px 0 5px}
 .detail-key-hint {font-size:10px;color:#6d8277;margin:0}
+
+/* Bulk export remains a single accessible dialog and a single file download. */
+#bulk-download {white-space:nowrap;flex-shrink:0}
+.bulk-dialog[open] {display:block;width:min(520px,calc(100% - 32px));padding:30px}
+.bulk-dialog h2 {font-size:24px;margin:12px 0}
+.bulk-dialog p {font-size:12px;line-height:1.7;color:#61766d}
+.bulk-options {display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+.bulk-options label {display:flex;flex-direction:column;gap:8px;font-size:11px;color:#45665f;min-width:0}
+.bulk-options select {width:100%;font-size:11px;padding:10px;min-width:0}
+.bulk-dialog .bulk-hint {font-size:10px;color:#6d8277}
+.bulk-dialog .bulk-summary {font-size:12px;font-weight:650;color:#315f54}
+#bulk-progress {width:100%;height:10px;accent-color:#178b88}
+.bulk-status {min-height:21px;overflow-wrap:anywhere}
+.bulk-actions {display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.bulk-options select:disabled {opacity:.65}
+@media(max-width:480px){.search-row{flex-wrap:wrap}.search{flex-basis:70%}#bulk-download{margin-left:auto}.bulk-dialog[open]{padding:28px 22px}.bulk-options{grid-template-columns:1fr}.bulk-dialog h2{font-size:21px}}

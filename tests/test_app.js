@@ -63,8 +63,10 @@ class IntersectionObserver {
 }
 const window={isSecureContext:true};
 if(!process.env.NO_INTERSECTION_OBSERVER)window.IntersectionObserver=IntersectionObserver;
-const context=vm.createContext({document,window,navigator,Blob,Image,URL:{createObjectURL:blob=>{if(png.mode==='source-url-error'&&blob.type==='image/svg+xml'||png.mode==='png-url-error'&&blob.type==='image/png')throw Error('Object URL unavailable');blobs.push(blob);const url='blob:test-'+blobs.length;liveURLs.set(url,blob);return url;},revokeObjectURL:url=>{assert.ok(liveURLs.has(url),'Object URL must be revoked exactly once: '+url);liveURLs.delete(url);revokedURLs.push(url);}},setTimeout:(fn,delay)=>{timers.push({fn,delay,active:true});return timers.length;},clearTimeout:id=>{if(timers[id-1])timers[id-1].active=false;},console});
+const context=vm.createContext({document,window,navigator,Blob,Image,TextEncoder,Uint8Array,AbortController,URL:{createObjectURL:blob=>{if(png.mode==='source-url-error'&&blob.type==='image/svg+xml'||png.mode==='png-url-error'&&blob.type==='image/png'||png.mode==='zip-url-error'&&blob.type==='application/zip')throw Error('Object URL unavailable');blobs.push(blob);const url='blob:test-'+blobs.length;liveURLs.set(url,blob);return url;},revokeObjectURL:url=>{assert.ok(liveURLs.has(url),'Object URL must be revoked exactly once: '+url);liveURLs.delete(url);revokedURLs.push(url);}},setTimeout:(fn,delay)=>{if(delay===0)return setTimeout(fn,0);timers.push({fn,delay,active:true});return timers.length;},clearTimeout:id=>{if(typeof id==='object'){clearTimeout(id);return;}if(timers[id-1])timers[id-1].active=false;},console});
 vm.runInContext(fs.readFileSync(path.join(ROOT,'catalog.js'),'utf8'),context);
+vm.runInContext(fs.readFileSync(path.join(ROOT,'zip.js'),'utf8'),context);
+for(const [id,value] of Object.entries({'bulk-scope':'filtered','bulk-format':'svg','bulk-theme':'light','bulk-size':'32'}))ids.get(id).value=value;
 vm.runInContext(fs.readFileSync(path.join(ROOT,'app.js'),'utf8'),context);
 const $=id=>document.getElementById(id);
 const count=()=>Number($('result-count').textContent.replace(/\D/g,''));
@@ -295,5 +297,135 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
   await change('png-size','32');await $('close').click();await $('reset').click();
  });
  await test('slash shortcut respects input and open dialog',async()=>{document.activeElement=document.body;let e={key:'/',preventDefault(){this.prevented=true;}};document.listeners.keydown[0](e);assert.equal(e.prevented,true);assert.equal(document.activeElement,$('search'));e={key:'/',preventDefault(){this.prevented=true;}};document.listeners.keydown[0](e);assert.equal(e.prevented,undefined);await cards()[0].click();document.activeElement=document.body;e={key:'/',preventDefault(){this.prevented=true;}};document.listeners.keydown[0](e);assert.equal(e.prevented,undefined);await $('close').click();});
+ await test('bulk controls inherit theme, describe complete results and reject empty filters',async()=>{
+  await $('reset').click();await change('theme','dark');$('bulk-download').focus();await $('bulk-download').click();
+  assert.equal($('bulk').open,true);assert.equal($('bulk-theme').value,'dark');assert.equal($('bulk-scope').value,'filtered');
+  assert.match($('bulk-summary').textContent,/419 icons · Dark SVG · one ZIP/);assert.equal($('bulk-size-label').hidden,true);
+  assert.match($('bulk-scope-all').textContent,/419/);assert.match($('bulk-scope-filtered').textContent,/419/);
+  const select=/<select id="bulk-size"[^>]*>([\s\S]*?)<\/select>/.exec(html)[1];
+  assert.deepEqual([...select.matchAll(/value="(\d+)"/g)].map(m=>Number(m[1])),[16,24,32,48,64,128,256]);assert.match(select,/<option value="32" selected>/);
+  await $('bulk-download').dispatch('click');assert.equal($('bulk').open,true);
+  await $('bulk-close').click();assert.equal(document.activeElement,$('bulk-download'));
+  await input('no-such-icon-xyz');assert.equal($('bulk-download').disabled,false);await $('bulk-download').click();assert.equal($('bulk').open,true);assert.equal($('bulk-start').disabled,true);await $('bulk-close').click();
+  await $('reset').click();await $('bulk-download').click();await input('no-such-icon-xyz');
+  assert.equal($('bulk-start').disabled,true);const before=downloads.length;await $('bulk-start').dispatch('click');assert.equal(downloads.length,before);assert.match($('bulk-status').textContent,/No matching icons/);
+  await change('bulk-scope','all');assert.equal($('bulk-start').disabled,false);await $('bulk-close').click();await $('reset').click();
+ });
+ await test('bulk SVG ZIP contains every exact file in both themes without loading more cards',async()=>{
+  const {readZip}=require('./zip_helpers.js');
+  await change('theme','light');await $('reset').click();assert.equal(cards().length,96);
+  for(const theme of ['light','dark']){
+   await $('bulk-download').click();await change('bulk-format','svg');await change('bulk-theme',theme);await change('bulk-scope','all');
+   const before=downloads.length;await $('bulk-start').click();assert.equal(downloads.length,before+1);assert.equal(cards().length,96);
+   assert.equal(downloads.at(-1).name,`cax-icons-all-419.${theme}.svg.zip`);assert.equal(blobs.at(-1).type,'application/zip');
+   const entries=await readZip(blobs.at(-1));assert.equal(entries.size,419);
+   for(const item of manifest.icons)assert.deepEqual(entries.get(item.id+(theme==='dark'?'.dark':'')+'.svg'),fs.readFileSync(path.join(ROOT,item.variants[theme].file)));
+   assert.match($('bulk-status').textContent,/ZIP download started: 419/);assert.equal($('bulk-start').disabled,false);assert.equal($('bulk-start').attributes['aria-busy'],'false');
+   await $('bulk-close').click();runTimers(1000);assert.equal(liveURLs.size,0);
+  }
+ });
+ await test('bulk filtered selection respects category, usage and query while all scope ignores them',async()=>{
+  const {readZip}=require('./zip_helpers.js');
+  await input('common save');await $('bulk-download').click();await change('bulk-theme','light');
+  await $('bulk-start').click();let entries=await readZip(blobs.at(-1));assert.deepEqual([...entries.keys()],['common-save.svg','common-save-as.svg','common-save-all.svg']);
+  assert.equal(downloads.at(-1).name,'cax-icons-filtered-3.light.svg.zip');
+  await change('bulk-scope','all');await $('bulk-start').click();assert.equal((await readZip(blobs.at(-1))).size,419);await $('bulk-close').click();
+  await $('reset').click();await change('usage','model-tree');await document.querySelectorAll('.category').find(e=>e.dataset.category==='CAD').click();await input('cae-material-assignment');
+  await $('bulk-download').click();await $('bulk-start').click();entries=await readZip(blobs.at(-1));assert.deepEqual([...entries.keys()],['cae-material-assignment.svg']);
+  await $('bulk-close').click();await $('reset').click();await change('usage','model-tree');assert.equal(cards().length,96);
+  await $('bulk-download').click();await $('bulk-start').click();entries=await readZip(blobs.at(-1));assert.equal(entries.size,186);assert.equal(cards().length,96);
+  await $('bulk-close').click();await $('reset').click();runTimers(1000);assert.equal(liveURLs.size,0);
+ });
+ await test('bulk PNG ZIP captures all 419 images per theme and all seven supported sizes',async()=>{
+  const {readZip}=require('./zip_helpers.js');
+  for(const theme of ['light','dark']){
+   await $('bulk-download').click();await change('bulk-format','png');await change('bulk-theme',theme);await change('bulk-size','32');await change('bulk-scope','all');
+   assert.equal($('bulk-size-label').hidden,false);assert.equal($('bulk-size').disabled,false);
+   const before=downloads.length,imageStart=png.images.length;await $('bulk-start').click();assert.equal(downloads.length,before+1);assert.equal(png.images.length-imageStart,419);
+   const entries=await readZip(blobs.at(-1));assert.equal(entries.size,419);
+   for(const item of manifest.icons)assert.equal(entries.get(`${item.id}.${theme}.32.png`).toString(),'mock PNG pixels');
+   assert.equal(downloads.at(-1).name,`cax-icons-all-419.${theme}.32.png.zip`);await $('bulk-close').click();runTimers(1000);assert.equal(liveURLs.size,0);
+  }
+  await input('common-info');await $('bulk-download').click();
+  for(const theme of ['light','dark'])for(const size of [16,24,32,48,64,128,256]){
+   await change('bulk-theme',theme);await change('bulk-size',String(size));await backgrounds[size%3].click();const start=blobs.length;
+   await $('bulk-start').click();const entries=await readZip(blobs.at(-1));assert.deepEqual([...entries.keys()],[`common-info.${theme}.${size}.png`]);
+   const item=manifest.icons.find(i=>i.id==='common-info');const exact=fs.readFileSync(path.join(ROOT,item.variants[theme].file),'utf8');
+   assert.equal(await blobs[start].text(),exact.replace('width="32" height="32"',`width="${size}" height="${size}"`));
+   assert.equal(png.canvases.at(-1).draw.width,size);assert.equal(png.canvases.at(-1).width,0);assert.equal(png.images.at(-1).onload,null);
+   runTimers(1000);assert.equal(liveURLs.size,0);
+  }
+  await $('bulk-close').click();await $('reset').click();
+ });
+ await test('bulk snapshot and repeated-click guard survive changes to filters, theme, format and size',async()=>{
+  const {readZip}=require('./zip_helpers.js');
+  const waitFor=async predicate=>{for(let i=0;i<1000&&!predicate();i++)await new Promise(resolve=>setTimeout(resolve,1));assert.ok(predicate());};
+  await input('common save');await $('bulk-download').click();await change('bulk-theme','dark');await change('bulk-size','128');
+  png.mode='hold-image';const before=downloads.length,imageCount=png.images.length,blobStart=blobs.length;const pending=$('bulk-start').click();
+  assert.equal($('bulk-start').disabled,true);assert.equal($('bulk-start').attributes['aria-busy'],'true');assert.equal(document.activeElement,$('bulk-cancel'));
+  await waitFor(()=>png.pendingImages.length>0);await $('bulk-start').dispatch('click');assert.equal(png.images.length,imageCount+1);
+  for(const id of ['bulk-scope','bulk-theme','bulk-format','bulk-size'])assert.equal($(id).disabled,true);
+  await input('cad-extrude');await change('theme','light');await change('bulk-size','16');await change('bulk-theme','light');await change('bulk-format','svg');await change('bulk-scope','all');
+  png.mode='ok';png.pendingImages.shift()();await pending;
+  assert.equal(downloads.length,before+1);assert.equal(downloads.at(-1).name,'cax-icons-filtered-3.dark.128.png.zip');
+  const entries=await readZip(blobs.at(-1));assert.deepEqual([...entries.keys()],['common-save.dark.128.png','common-save-as.dark.128.png','common-save-all.dark.128.png']);
+  const sourceBlobs=blobs.slice(blobStart).filter(blob=>blob.type==='image/svg+xml');assert.equal(sourceBlobs.length,3);
+  for(const [i,id] of ['common-save','common-save-as','common-save-all'].entries())assert.equal(await sourceBlobs[i].text(),fs.readFileSync(path.join(ROOT,'icons-dark',id+'.svg'),'utf8').replace('width="32" height="32"','width="128" height="128"'));
+  assert.equal($('bulk-start').disabled,false);assert.equal($('bulk-cancel').hidden,true);await $('bulk-close').click();await $('reset').click();runTimers(1000);assert.equal(liveURLs.size,0);
+ });
+ await test('bulk cancellation before work, during decode/encode and before final download is atomic',async()=>{
+  const waitFor=async predicate=>{for(let i=0;i<1000&&!predicate();i++)await new Promise(resolve=>setTimeout(resolve,1));assert.ok(predicate());};
+  await input('common save');await $('bulk-download').click();await change('bulk-format','svg');const before=downloads.length;
+  let pending=$('bulk-start').click();await $('bulk-cancel').click();await pending;assert.equal(downloads.length,before);assert.match($('bulk-status').textContent,/cancelled/);
+  await change('bulk-format','png');await change('bulk-size','32');
+  for(const mode of ['hold-image','hold-encode']){
+   png.mode=mode;pending=$('bulk-start').click();await waitFor(()=>mode==='hold-image'?png.pendingImages.length>0:png.pendingEncodes.length>0);
+   await $('bulk-cancel').click();await pending;assert.equal(downloads.length,before);assert.equal(liveURLs.size,0);assert.equal($('bulk-start').disabled,false);
+   assert.equal(png.canvases.at(-1).width,0);assert.equal(png.images.at(-1).onload,null);assert.equal(timers.filter(t=>t.active&&t.delay===15000).length,0);
+   png.mode='ok';const retry=$('bulk-start').click();if(mode==='hold-image')png.pendingImages.shift()();else png.pendingEncodes.shift()();
+   await $('bulk-cancel').click();await retry;assert.equal(downloads.length,before);
+  }
+  png.mode='ok';pending=$('bulk-start').click();await waitFor(()=>$('bulk-progress').value===3);await $('bulk-cancel').click();await pending;assert.equal(downloads.length,before);
+  await $('bulk-close').click();await $('reset').click();
+ });
+ await test('bulk Escape, close and backdrop cancel pending work, guard shortcuts and restore focus',async()=>{
+  const waitFor=async predicate=>{for(let i=0;i<1000&&!predicate();i++)await new Promise(resolve=>setTimeout(resolve,1));assert.ok(predicate());};
+  await input('common-info');
+  for(const close of ['escape','button','backdrop']){
+   $('bulk-download').focus();await $('bulk-download').click();const before=downloads.length;
+   const event={key:'/',target:$('bulk-start'),preventDefault(){this.prevented=true;}};document.listeners.keydown[0](event);assert.equal(event.prevented,undefined);
+   png.mode='hold-image';const pending=$('bulk-start').click();await waitFor(()=>png.pendingImages.length>0);
+   if(close==='escape'){await $('bulk').dispatch('cancel');$('bulk').close();}
+   else if(close==='button')await $('bulk-close').click();
+   else{await $('bulk').dispatch('click',{clientX:100,clientY:100});assert.equal($('bulk').open,true);await $('bulk').dispatch('click',{clientX:0,clientY:0});}
+   await pending;png.mode='ok';png.pendingImages.shift()();await Promise.resolve();
+   assert.equal($('bulk').open,false);assert.equal(document.activeElement,$('bulk-download'));assert.equal(downloads.length,before);assert.equal(liveURLs.size,0);
+   await $('bulk-download').click();await $('bulk-start').click();assert.equal(downloads.length,before+1);await $('bulk-close').click();runTimers(1000);
+  }
+  await $('reset').click();
+  if(window.IntersectionObserver){const old=observers.at(-1);await $('bulk-download').click();assert.equal(old.disconnected,true);old.emit();assert.equal(cards().length,96);await $('bulk-close').click();assert.notEqual(observers.at(-1),old);}
+ });
+ await test('bulk conversion and ZIP failures never download partial files and allow retry',async()=>{
+  const waitFor=async predicate=>{for(let i=0;i<1000&&!predicate();i++)await new Promise(resolve=>setTimeout(resolve,1));assert.ok(predicate());};
+  await input('common save');await $('bulk-download').click();await change('bulk-format','png');
+  const before=downloads.length;png.mode='hold-image';let pending=$('bulk-start').click();await waitFor(()=>png.pendingImages.length>0);png.pendingImages.shift()();await waitFor(()=>png.pendingImages.length>0);png.mode='image-error';png.pendingImages.shift()();await pending;
+  assert.equal(downloads.length,before);assert.match($('bulk-status').textContent,/failed at common-save-as/);assert.equal(liveURLs.size,0);
+  for(const mode of ['canvas-null','draw-error','encode-error','null-blob','empty-blob','wrong-mime','source-url-error','zip-url-error','anchor-error','image-hang','encode-hang']){
+   png.mode=mode;pending=$('bulk-start').click();
+   if(mode.endsWith('-hang')){await waitFor(()=>timers.some(t=>t.active&&t.delay===15000));if(mode==='encode-hang')await waitFor(()=>png.canvases.at(-1).draw);runTimers(15000);}
+   await pending;assert.equal(downloads.length,before,mode);assert.match($('bulk-status').textContent,/No partial ZIP downloaded/,mode);assert.equal($('bulk-start').disabled,false);assert.equal($('bulk-start').attributes['aria-busy'],'false');
+   runTimers(1000);assert.equal(liveURLs.size,0,mode);assert.equal(timers.filter(t=>t.active&&t.delay===15000).length,0);
+  }
+  png.mode='ok';const original=window.CAX_ZIP.Zip.prototype.add;let added=0;window.CAX_ZIP.Zip.prototype.add=function(...args){if(++added===2)throw Error('ZIP failure');return original.apply(this,args);};
+  await $('bulk-start').click();window.CAX_ZIP.Zip.prototype.add=original;assert.equal(downloads.length,before);assert.match($('bulk-status').textContent,/No partial ZIP/);
+  await $('bulk-start').click();assert.equal(downloads.length,before+1);await $('bulk-close').click();runTimers(1000);assert.equal(liveURLs.size,0);await $('reset').click();
+ });
+ await test('bulk invalid options allocate nothing and cannot download',async()=>{
+  await $('bulk-download').click();await change('bulk-format','png');const before=downloads.length,imageCount=png.images.length;
+  for(const [id,value] of [['bulk-size','4096'],['bulk-theme','bad'],['bulk-format','bad'],['bulk-scope','bad']]){
+   const original=$(id).value;await change(id,value);await $('bulk-start').click();assert.match($('bulk-status').textContent,/Choose a scope/);await change(id,original);
+  }
+  assert.equal(downloads.length,before);assert.equal(png.images.length,imageCount);assert.equal(liveURLs.size,0);await $('bulk-close').click();
+ });
  console.log(`\n${tests.length} application interaction groups passed (script-level DOM harness, not a browser).`);
 })().catch(error=>{console.error(error);process.exitCode=1;});

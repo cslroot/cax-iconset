@@ -14,6 +14,8 @@ let lastFocus;
 let previewSerial = 0;
 let matches = [];
 let resultObserver;
+let bulkJob = null;
+let bulkFocus;
 function svg(item, exported=false, theme=state.theme) {
  const safeTitle = item.name.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#x27;');
  const variant = item.variants[theme];
@@ -62,7 +64,7 @@ function updateCard(button,item) {
 function stopObserving() {resultObserver?.disconnect();resultObserver=null;}
 function observeMore() {
  stopObserving();
- if(state.loaded>=matches.length||$('detail').open||!window.IntersectionObserver)return;
+ if(state.loaded>=matches.length||$('detail').open||$('bulk').open||!window.IntersectionObserver)return;
  const observer=new window.IntersectionObserver(entries=>{
   // A disconnected observer may still have a queued callback after a filter reset.
   if(resultObserver!==observer)return;
@@ -91,6 +93,8 @@ function render(reset=true) {
  $('result-count').textContent=`${matches.length.toLocaleString()} icons`;
  $('empty').hidden=!!matches.length;
  $('clear').hidden=!state.query;
+ $('bulk-download').disabled=!icons.length;
+ if($('bulk').open&&!bulkJob)updateBulkOptions();
  document.querySelectorAll('.category').forEach(b=>{const active=b.dataset.category===state.category;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
  if($('detail').open){if(matches.includes(state.selected))renderDetail();else closeDetail();}
 }
@@ -135,17 +139,22 @@ function downloadBlob(blob,filename) {
  try{a.href=url;a.download=filename;document.body.append(a);a.click();}
  finally{a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 }
-function pngBlob(source,size) {
+function abortError(){const error=Error('Export cancelled');error.name='AbortError';return error;}
+function pngBlob(source,size,signal) {
  return new Promise((resolve,reject)=>{
   let image,canvas,url,timer,finished=false;
+  const onAbort=()=>finish(abortError());
   const finish=(error,blob)=>{
    if(finished)return;finished=true;clearTimeout(timer);
+   signal?.removeEventListener('abort',onAbort);
    if(image){image.onload=null;image.onerror=null;}
    if(url)URL.revokeObjectURL(url);
    if(canvas)canvas.width=canvas.height=0;
    if(error)reject(error);else resolve(blob);
   };
   try{
+   if(signal?.aborted){finish(abortError());return;}
+   signal?.addEventListener('abort',onAbort,{once:true});
    canvas=document.createElement('canvas');canvas.width=canvas.height=size;
    // A fresh alpha-enabled canvas stays transparent. Preview surfaces are CSS only.
    const context=canvas.getContext('2d',{alpha:true});
@@ -167,6 +176,75 @@ function pngBlob(source,size) {
   }catch(error){finish(error);}
  });
 }
+function updateBulkOptions(){
+ $('bulk-scope-filtered').textContent=`Current results · ${matches.length.toLocaleString()} icons`;
+ $('bulk-scope-all').textContent=`All ${icons.length.toLocaleString()} icons`;
+ const selected=$('bulk-scope').value==='all'?icons:matches;
+ const isPNG=$('bulk-format').value==='png';
+ $('bulk-size-label').hidden=!isPNG;
+ $('bulk-size').disabled=!isPNG||!!bulkJob;
+ $('bulk-summary').textContent=`${selected.length.toLocaleString()} icons · ${$('bulk-theme').value==='dark'?'Dark':'Light'} ${isPNG?`PNG · ${$('bulk-size').value} × ${$('bulk-size').value} px`:'SVG'} · one ZIP`;
+ $('bulk-start').disabled=!!bulkJob||!selected.length;
+}
+function openBulk(){
+ if($('bulk').open||$('detail').open||!icons.length)return;
+ bulkFocus=document.activeElement;
+ $('bulk-scope').value='filtered';$('bulk-theme').value=state.theme;
+ $('bulk-status').textContent='';$('bulk-progress').hidden=true;
+ updateBulkOptions();stopObserving();$('bulk').showModal();
+}
+function cancelBulk(){bulkJob?.controller.abort();}
+function closeBulk(){cancelBulk();if($('bulk').open)$('bulk').close();}
+function setBulkBusy(busy){
+ for(const id of ['bulk-scope','bulk-format','bulk-theme','bulk-size'])$(id).disabled=busy;
+ $('bulk-start').disabled=busy;$('bulk-start').textContent=busy?'Preparing ZIP…':'Download ZIP ↓';
+ $('bulk-start').setAttribute('aria-busy',String(busy));
+ $('bulk-cancel').hidden=!busy;
+ // Do not leave focus on a newly disabled start button.
+ if(busy)$('bulk-cancel').focus();
+ else{updateBulkOptions();if($('bulk').open)$('bulk-start').focus();}
+}
+async function downloadBulk(){
+ if(bulkJob||!$('bulk').open)return;
+ const scope=$('bulk-scope').value,format=$('bulk-format').value,theme=$('bulk-theme').value,size=Number($('bulk-size').value);
+ if(!['all','filtered'].includes(scope)||!['svg','png'].includes(format)||!Object.hasOwn(catalog.themes,theme)||format==='png'&&!PNG_SIZES.includes(size)){
+  $('bulk-status').textContent='Choose a scope, format, theme and supported PNG size.';return;
+ }
+ // The full match list is independent of how many cards have been rendered.
+ const selected=(scope==='all'?icons:matches).slice();
+ if(!selected.length){$('bulk-status').textContent='No matching icons to export.';updateBulkOptions();return;}
+ const job={controller:new AbortController()};bulkJob=job;
+ const {signal}=job.controller;
+ const checkCancelled=()=>{if(signal.aborted)throw abortError();};
+ const yieldToBrowser=()=>new Promise(resolve=>setTimeout(resolve,0));
+ let current='';
+ setBulkBusy(true);$('bulk-progress').hidden=false;$('bulk-progress').max=selected.length;$('bulk-progress').value=0;
+ $('bulk-status').textContent=`Preparing 0 of ${selected.length} icons…`;
+ try{
+  const zip=new window.CAX_ZIP.Zip(),encoder=new TextEncoder();
+  await yieldToBrowser();checkCancelled();
+  for(let index=0;index<selected.length;index++){
+   checkCancelled();const item=selected[index];current=item.id;
+   const source=svg(item,true,theme);
+   const bytes=format==='svg'?encoder.encode(source):new Uint8Array(await (await pngBlob(source,size,signal)).arrayBuffer());
+   checkCancelled();
+   const filename=format==='svg'?`${item.id}${theme==='dark'?'.dark':''}.svg`:`${item.id}.${theme}.${size}.png`;
+   zip.add(filename,bytes);
+   $('bulk-progress').value=index+1;
+   if((index+1)%10===0||index+1===selected.length)$('bulk-status').textContent=`Preparing ${index+1} of ${selected.length} icons…`;
+   // Yield even for fast SVG exports, so Escape and Cancel remain responsive.
+   if(format==='png'||(index+1)%16===0){await yieldToBrowser();checkCancelled();}
+  }
+  $('bulk-status').textContent='Finishing ZIP…';await yieldToBrowser();checkCancelled();
+  const blob=zip.finish();checkCancelled();
+  downloadBlob(blob,`cax-icons-${scope}-${selected.length}.${theme}${format==='png'?'.'+size:''}.${format}.zip`);
+  $('bulk-status').textContent=`ZIP download started: ${selected.length} ${theme} ${format.toUpperCase()} files.`;
+ }catch(error){
+  $('bulk-status').textContent=error.name==='AbortError'?'Export cancelled. No ZIP downloaded.':`Export failed${current?' at '+current:''}. No partial ZIP downloaded. Please try again.`;
+ }finally{
+  if(bulkJob===job){bulkJob=null;setBulkBusy(false);$('bulk-progress').hidden=true;}
+ }
+}
 icons.forEach(item=>{item.searchText=[item.id,item.name,item.nameJa,...item.categories,item.role,...item.usages,item.family,item.description,item.descriptionJa,item.nodeName||'',item.nodeNameJa||'',...(item.aliases||[]),...(item.nodeAliases||[]),...item.tags].join(' ').normalize('NFKC').toLocaleLowerCase();});
 $('all-count').textContent=icons.length.toLocaleString();$('hero-count').textContent=icons.length.toLocaleString();
 $('collection-scope').textContent=`${catalog.categories.Common} common application symbols + ${icons.length-catalog.categories.Common} engineering symbols. One icon per meaning, with light/dark files; command and tree uses share the same entry.`;
@@ -186,6 +264,14 @@ $('detail-theme').addEventListener('change',e=>setTheme(e.target.value));
 $('size').addEventListener('change',e=>document.documentElement.style.setProperty('--icon-size',e.target.value+'px'));
 document.querySelectorAll('[data-background]').forEach(button=>button.addEventListener('click',()=>setBackground(button.dataset.background)));
 $('load-more').addEventListener('click',()=>loadMore(document.activeElement===$('load-more')));
+$('bulk-download').addEventListener('click',openBulk);
+for(const id of ['bulk-scope','bulk-format','bulk-theme','bulk-size'])$(id).addEventListener('change',()=>{if(!bulkJob)updateBulkOptions();});
+$('bulk-start').addEventListener('click',downloadBulk);
+$('bulk-cancel').addEventListener('click',cancelBulk);
+$('bulk-close').addEventListener('click',closeBulk);
+$('bulk').addEventListener('cancel',cancelBulk);
+$('bulk').addEventListener('close',()=>{cancelBulk();(bulkFocus?.isConnected?bulkFocus:$('search')).focus();observeMore();});
+$('bulk').addEventListener('click',event=>{if(event.target===$('bulk')){const r=$('bulk').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeBulk();}});
 for(const [id,step] of [['detail-previous',-1],['detail-next',1]])$(id).addEventListener('click',()=>moveDetail(step));
 $('reset').addEventListener('click',()=>{state.category='all';state.usage='all';state.query='';$('search').value='';$('usage').value='all';render();});
 $('close').addEventListener('click',closeDetail);
@@ -214,7 +300,7 @@ document.addEventListener('keydown',event=>{
  if(['INPUT','TEXTAREA','SELECT'].includes(target?.tagName)||target?.isContentEditable)return;
  if($('detail').open){
   if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();moveDetail(event.key==='ArrowLeft'?-1:1);}
- }else if(event.key==='/'){event.preventDefault();$('search').focus();}
+ }else if(!$('bulk').open&&event.key==='/'){event.preventDefault();$('search').focus();}
 });
 setBackground(state.background);
 render();

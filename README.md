@@ -41,7 +41,7 @@ The static catalog is included. No npm install, framework, CDN, account or API k
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8000` in a modern browser. No public deployment is configured or claimed.
+Open `http://127.0.0.1:8000` in a modern browser, or use the [public catalog](https://savethebunny.net/cax-iconset/). The existing GitHub Pages deployment publishes `main`; its build and deployment completed successfully for the [gallery-navigation update](https://github.com/cslroot/cax-iconset/actions/runs/39110070169).
 
 - English / Japanese name, tag and purpose search, with multiple AND-matched terms
 - Common and five engineering-category filters; append-only infinite scrolling in batches of 96, plus an accessible Load more button
@@ -52,6 +52,7 @@ Open `http://127.0.0.1:8000` in a modern browser. No public deployment is config
 - Explicit light / dark SVG theme choice that also sets the matching preview background; background swatches can then be changed manually, and preview/copy/download use the selected file variant
 - Detail view with previous/next buttons and ← / → navigation through the complete filtered list, bilingual purpose, selected variant path, copy SVG and individual SVG download
 - Transparent PNG download in 16 / 24 / 32 / 48 / 64 / 128 / 256 px; selected light/dark colors, independent of preview background
+- Bulk ZIP download for all 419 icons or the complete current filter results, with SVG/PNG, light/dark, PNG-size options, progress and cancellation
 - Keyboard focus, `/` search shortcut, native dialog with Escape dismissal, clear first/last boundaries and empty-state reset
 - No analytics or runtime external requests
 
@@ -87,7 +88,15 @@ The browser rasterizes the selected standalone SVG on a fresh alpha-enabled Canv
 
 Conversion happens locally in the browser without an external service or network request. While one PNG is being prepared, its button is disabled. The requested icon/theme/size are captured when clicked; changing the detail controls afterward does not change that export. A failed or timed-out conversion produces an error message instead of an empty download. The original SVG copy/download options remain available.
 
-See [PNG implementation and verification](docs/PNG_EXPORT.md). The tests include a mocked Canvas pipeline and separate real Inkscape PNG alpha measurements; actual browser Canvas encoding and saved downloads are still unverified.
+See [PNG implementation and verification](docs/PNG_EXPORT.md). The tests include a mocked Canvas pipeline and separate real Inkscape PNG alpha measurements; live Chrome checks also verified selected light/dark 64 px PNG downloads and byte-exact SVG clipboard content. Full cross-browser and every-size browser coverage is not claimed.
+
+## Bulk ZIP download
+
+Click **Download ZIP** beside the search field. Choose **Current results** to include all matching icons, even those not yet scrolled into view, or **All 419 icons** to ignore the current filters. Select **SVG** or **PNG**, **Light / Dark**, and a PNG size if needed. The theme initially follows the gallery. A zero-result filtered selection cannot be exported; **All icons** remains available.
+
+One ZIP contains one file per selected icon. SVGs are byte-exact standalone files, named `<id>.svg` or `<id>.dark.svg`. PNGs use `<id>.<light|dark>.<size>.png`, with transparent surroundings and preserved opaque cutouts. Archive names include scope, count, theme, format and PNG size, for example `cax-icons-filtered-3.dark.64.png.zip`.
+
+Conversion and ZIP assembly happen locally, without a CDN, upload or external service. The request captures its complete icon list and options; later changes cannot mix exports. Progress is shown during sequential PNG conversion. **Cancel export**, ×, Escape or closing the dialog stops the operation without downloading a partial ZIP. A failed icon also stops the entire archive and allows retry. ZIP entries are stored without compression for a small dependency-free implementation. See [bulk implementation and QA](docs/BULK_DOWNLOAD.md).
 
 ## Rebuild and verify
 
@@ -98,6 +107,8 @@ python3 scripts/build.py
 python3 tests/test_catalog.py
 node --check app.js
 node --check catalog.js
+node --check zip.js
+node tests/test_zip.js
 node tests/test_app.js
 NO_INTERSECTION_OBSERVER=1 node tests/test_app.js
 python3 scripts/raster_audit.py
@@ -125,7 +136,7 @@ The pdxadv review adds nine source-verified analysis/design commands while prese
 
 The standalone-theme audit embeds actual file bytes without host CSS in an atlas with 16 / 24 / 32 px output cells, plus dark variants on #192c3c, #23262b and #121212. It checks nonblank output, light/dark alpha preservation and meaningful contrast pixels in that atlas. Inkscape may resample embedded images from their intrinsic 32 px size; these are not direct native-size vector exports. The separate PNG audit directly exports original files at all seven requested sizes. Copy/download tests require exact byte equality with every selected file.
 
-**These checks are not a real-browser integration test.** Browser layout, native dialog focus/Escape, actual system clipboard and saved downloads remain unverified. See [QA coverage and manual checklist](docs/QA.md).
+**The DOM harness is not a browser layout engine.** Separate live Chrome checks passed for gallery/navigation, native Escape/focus restoration, exact SVG clipboard bytes, and selected light/dark 64 px PNG downloads. Bulk ZIP live checks are pending publication. Mobile, other browsers and assistive-technology behavior remain unverified. See [QA coverage and manual checklist](docs/QA.md).
 
 ## Files and license
 
@@ -152,4 +163,4 @@ The standalone-theme audit embeds actual file bytes without host CSS in an atlas
 
 ロボティクスの46用途に加え、cax-studioと関連リポジトリの実装から不足していた7用途を追加しました。さらにpdxadvの実装を根拠に、そり感度・肉厚対策・局所肉厚変更・結果分布・比較・基準保持・解析レポートの9用途を追加しました。全419件、186件がモデルツリーに対応します。各IDにライト／ダークの独立SVGを用意しましたが、用途の件数は419件のままです。ダーク版はCSSなしで使えます。切り欠きなどの不透明な塗りは背景色#192c3cに固定して重なりを保つため、別の背景では色の差が見える場合があります。今回のテーマ追加では元の419件をバイト単位で維持しています。先のpdxadv用途追加では既存410件のSVGを変更していません。認識されたねじやメッシュ変換方式などは既存SVGを再利用し、件数を増やしていません。全403件の目視監査で見つかった形状の問題・改善点を11件修正し、ダーク背景で内部線が消える配色も改善しました。
 
-断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。追加一覧、11件の修正前後、light/dark/checker見本、70行の16pxロボット階層見本を同梱しています。アイコンとメタデータだけを作成し、実機接続・操作は行いません。詳細画面からライト／ダークの透過PNGも16・24・32・48・64・128・256pxで保存できます。プレビュー背景は含めず、重なりを隠す内部の不透明な塗りはそのまま保持します。一覧は96件ずつの無限スクロールに対応し、「Load more」でも追加できます。詳細は左右のボタン・矢印キーで絞り込み結果全体を前後移動できます。テーマ変更時は背景も連動し、その後はチェック柄などへ手動変更できます。実ブラウザ統合検証は未実施です。
+断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。追加一覧、11件の修正前後、light/dark/checker見本、70行の16pxロボット階層見本を同梱しています。アイコンとメタデータだけを作成し、実機接続・操作は行いません。詳細画面からライト／ダークの透過PNGも16・24・32・48・64・128・256pxで保存できます。プレビュー背景は含めず、重なりを隠す内部の不透明な塗りはそのまま保持します。一覧は96件ずつの無限スクロールに対応し、「Load more」でも追加できます。詳細は左右のボタン・矢印キーで絞り込み結果全体を前後移動できます。テーマ変更時は背景も連動し、その後はチェック柄などへ手動変更できます。検索横の「Download ZIP」で全419件または絞り込み結果全体を一括保存できます。SVG／透過PNG、ライト／ダーク、PNGサイズを選べ、進捗表示・キャンセルにも対応します。公開ページでは一覧・詳細移動、Escapeとフォーカス復帰、SVGコピー、選択した64px PNGをChromeで確認済みです。一括ZIPの公開後確認と、モバイル・他ブラウザの検証は別途必要です。

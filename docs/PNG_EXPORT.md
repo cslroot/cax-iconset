@@ -50,7 +50,9 @@ At 256 px, 124 of 128 cutout-bearing files have pure-color pixel witnesses. The 
 
 See [`qa/png-export-audit.json`](../qa/png-export-audit.json) for measured coverage and results. This verifies source raster transparency and preserved authored fills independently of the browser mocks.
 
-**Not verified:** real-browser SVG decoding into Canvas, actual `toBlob` output, native file-save behavior, responsive layout and assistive-technology behavior. The previous supported cloud-browser local-file access restriction remains unresolved; no alternative browser-automation route was used to bypass it. Inkscape images are not browser screenshots or proof that browser integration passed.
+**Targeted live browser check:** the public catalog was tested in supported cloud Chrome, including selected light/dark 64 × 64 RGBA PNG downloads, 3,511 transparent pixels, equal alpha and different theme RGB. Exact SVG clipboard bytes and native Escape/focus restoration also passed. Full icon/size browser coverage, mobile/other-browser layout and assistive-technology behavior are not verified. The earlier local-file restriction was respected; the now-public Pages URL enabled supported testing. Inkscape images remain separate evidence. See [current QA](QA.md).
+
+For multiple icons, use the [bulk ZIP dialog](BULK_DOWNLOAD.md), which uses this same transparent PNG pipeline with sequential conversion and cancellation.
 
 ## Manual browser checklist
 

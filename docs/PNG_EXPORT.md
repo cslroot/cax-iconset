@@ -25,7 +25,7 @@ All authored filled geometry remains filled. In particular, **184 cutout shapes 
 
 `app.js` uses the existing selected standalone SVG serializer. For PNG only, its root width and height are set to the requested raster dimensions; the 32 × 32 viewBox, source geometry, colors, title and internal references stay intact. A local SVG Blob URL feeds an Image, which is drawn on a new Canvas of exactly the selected width and height. `toBlob(..., 'image/png')` produces the download; there are no conversion services, fetches or uploads.
 
-The request snapshots its icon, theme and size before awaiting decoding or encoding. While it runs, the PNG button is disabled and marked `aria-busy`; repeated invocations are ignored. Other controls can still be used. Closing/reopening details or changing theme/size does not mix old and new values. Completion or failure is announced through the active dialog's live status region, or the page status when the dialog is closed.
+The request snapshots its icon, theme and size before awaiting decoding or encoding. While it runs, the PNG button is disabled and marked `aria-busy`; repeated invocations are ignored. Other controls can still be used. Moving to the previous/next icon, closing/reopening details or changing theme/size does not mix old and new values. Completion or failure is announced through the active dialog's live status region, or the page status when the dialog is closed.
 
 Unsupported Canvas, decode/draw/encode failures, null/empty/wrong-type blobs and a 15-second decode/encode timeout produce an error rather than an empty PNG. The button becomes available again for retry. SVG image URLs are revoked after completion/failure, PNG download URLs after the download starts, image callbacks and timers are cleared, temporary anchors are removed, and canvas dimensions are reset to release the bitmap. Existing SVG downloads retain their filenames and byte-exact contents.
 
@@ -42,7 +42,7 @@ node tests/test_app.js
 python3 scripts/png_export_audit.py
 ```
 
-The dependency-free Node harness executes the real application code with mocked browser image/Canvas objects. It checks every **838 selected SVG variants × 7 sizes = 5,866 export pipelines**, including exact SVG source and requested dimensions, unchanged SVG copy/download bytes, independent background and preview-size choices, repeated-click locking, late control changes, close/reopen, failures, invalid sizes and URL/timer/bitmap cleanup. Mock PNG blobs are deliberately not presented as raster evidence.
+The dependency-free Node harness executes the real application code with mocked browser image/Canvas objects. It checks every **838 selected SVG variants × 7 sizes = 5,866 export pipelines**, including exact SVG source and requested dimensions, unchanged SVG copy/download bytes, independent background and preview-size choices, repeated-click locking, late control changes, previous/next navigation, close/reopen, failures, invalid sizes and URL/timer/bitmap cleanup. Mock PNG blobs are deliberately not presented as raster evidence.
 
 The separate Inkscape/Pillow/NumPy audit directly exports unchanged standalone SVG files at the same requested sizes, without host CSS or embedded-image atlas resampling. Results: **5,866 RGBA PNGs**, exact dimensions, zero blanks, transparent margins, zero light/dark alpha mismatches, and **28** pixel-exact comparisons with independent single-file CLI exports. All **896** cutout probe renders preserve alpha, with **97,910** exposed pixels retaining the exact opaque palette colors.
 

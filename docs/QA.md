@@ -1,6 +1,6 @@
 # QA report
 
-Date: 2026-10-18. Scope: standalone light/dark SVGs and transparent PNG export for all 419 semantic IDs. The [pdxadv review](PDXADV_REVIEW.md) and [historical geometry/theme review](CAX_STUDIO_REVIEW.md) retain the earlier source coverage. Profile/trajectory/state variants remain excluded; light/dark palettes do not inflate meaning counts.
+Date: 2026-10-18. Scope: infinite gallery loading, filtered dialog navigation, synchronized preview backgrounds, standalone light/dark SVGs and transparent PNG export for all 419 semantic IDs. The [pdxadv review](PDXADV_REVIEW.md) and [historical geometry/theme review](CAX_STUDIO_REVIEW.md) retain the earlier source coverage. Profile/trajectory/state variants remain excluded; light/dark palettes do not inflate meaning counts.
 
 <!-- results:start -->
 - Semantic catalog: **419 icons** (Common 73, CAD 135, CAM 44, CAE 61, CMM 34, OLP 72)
@@ -14,7 +14,7 @@ Date: 2026-10-18. Scope: standalone light/dark SVGs and transparent PNG export f
 - Dark icons tested on #192c3c, #23262b and #121212: **3,771 surface checks**, each has at least eight output pixels of 3:1 contrast
 - Dark ink/body contrast: **7.10:1**; accent/body: **4.91:1**; accent against tested backgrounds: **7.61:1 or higher**
 - JavaScript syntax: **passed** for app.js and catalog.js
-- Script-level app interactions: **25 groups passed**, including exact copy/download bytes for all **838** SVG files, **5,866** selected theme/size PNG source pipelines, independent backgrounds, asynchronous retries and cleanup
+- Script-level app interactions: **29 groups passed**, including exact copy/download bytes for all **838** SVG files, **5,866** selected theme/size PNG source pipelines, automatic theme/background synchronization, manual surface overrides, infinite-scroll observer/fallback behavior, full-filtered-list detail navigation, asynchronous retries and cleanup
 - PNG sizes: **16 / 24 / 32 / 48 / 64 / 128 / 256 px**, default 32; preview backgrounds excluded and opaque cutouts preserved
 - Direct Inkscape PNG raster evidence: **5,866 RGBA exports**, zero dimension/blank/transparency/alpha mismatches; **28** independent single-file CLI matches
 - Cutout raster evidence: **896** probe cases with matching alpha and **97,910** exact opaque-color pixels; four fully overpainted source variants are explicitly verified by geometry/order and opaque center samples
@@ -22,8 +22,11 @@ Date: 2026-10-18. Scope: standalone light/dark SVGs and transparent PNG export f
 - Rebuild: **840 generated SVG/catalog outputs identical** in an independent isolated rebuild
 - Independent visual review: **419 dark files in 16 / 24 / 32 px atlas cells**, checked on #192c3c, #23262b and neutral #202020; no new geometry or occlusion blockers found
 - Six complete raw-file dark sheets and a selected before/after comparison on three dark surfaces
+- Navigation update: **all 838 SVG files and both catalog outputs unchanged** against `b9411874bbb7e69366b968d83ab7fa7f5dc0ea13`; both observer-enabled and observer-unavailable harness runs pass
 - Actual browser integration: **not run**; the earlier supported cloud-browser local-file rejection remains unresolved
 <!-- results:end -->
+
+The gallery/navigation update reruns the XML/integrity suite, JavaScript syntax checks and both modes of the DOM harness. Raster and static visual figures above are retained evidence from the preceding unchanged SVG/PNG work; they are not fresh browser verification.
 
 ## Executed methods
 
@@ -46,10 +49,10 @@ The transparent PNG audit is [`qa/png-export-audit.json`](../qa/png-export-audit
 
 ## Application test coverage
 
-1. Dynamic total, bounded first page, six categories and removal of the old context filter
+1. Dynamic total, bounded first batch, six categories and removal of the old context filter
 2. English / Japanese / AND / Unicode-normalized searches, common file actions, empty state and clear
 3. Common/engineering category intersections and reset
-4. All pages, last-page bounds, previous navigation and query page reset
+4. Append-only 96-item batches, full ordered catalog without duplicates, complete/empty status, manual-load focus and query/category/usage resets
 5. Japanese labels, preview size and backgrounds
 6. Bilingual purpose, repeated detail open, close, backdrop targeting and focus restoration
 7. Copied SVG title, geometry and absence of preview-only IDs
@@ -60,11 +63,11 @@ The transparent PNG audit is [`qa/png-export-audit.json`](../qa/png-export-audit
 12. Application aliases (raster finishing, ICP, shut-off patch, mesh nodes), shared CAD/CAE search and advanced model-tree names
 13. Robotics aliases, shared OLP joints/robot links, command-only calibration, and bilingual conditional-branch/planning-group nodes
 14. CAX additions, recognized-thread reuse, source-verified command roles and persistent node names
-15. Explicit SVG-theme selection, repeated independent background changes, synchronized global/detail selectors and selected repository paths
+15. SVG-theme selection synchronizes global/detail selectors and preview backgrounds; subsequent swatch choices remain independent; selected repository paths stay correct
 16. pdxadv sensitivity-family aliases, wall-design commands, result quantities, in-memory baseline wording, report format reuse and deformation aliases
 
 17. Exact byte equality for all 838 light/dark copies and downloads, theme-specific filenames and stable semantic count
-18. Focus restoration to the replacement opener card after repeated detail-theme changes
+18. Theme/language changes preserve every loaded card and restore focus to the original opener
 19. Seven explicit PNG sizes, default 32, independent gallery preview size, cutout note and in-dialog live status
 20. All 5,866 light/dark PNG source pipelines: exact selected SVG bytes with sized root, requested dimensions, nonempty PNG MIME, timer/URL/callback/canvas cleanup
 21. PNG source unaffected by light/dark/checker preview backgrounds
@@ -72,6 +75,10 @@ The transparent PNG audit is [`qa/png-export-audit.json`](../qa/png-export-audit
 23. No download on Canvas/decode/draw/encode/Blob/URL/anchor errors or timeouts; busy-state restoration and working retry
 24. Late decode/encode completion after a timeout cannot download or disturb a new request
 25. Invalid PNG sizes rejected before creating an image or downloading
+26. Mocked IntersectionObserver appends at the sentinel, disconnects on completion, ignores queued stale callbacks after filters and pauses behind an open dialog; the entire suite also passes with the API unavailable
+27. Previous/next buttons traverse the complete ordered filtered list beyond rendered cards, disable at either boundary, update bilingual labels and restore the original opener
+28. Arrow keys preserve active controls and ignore input/textarea/select/contentEditable targets, modifiers, composition and previously handled events; Escape remains owned by the native dialog
+29. Copy/download use the newly selected icon, and navigating while a PNG is pending preserves its captured icon/theme/size
 
 ## Not executed / limits
 
@@ -94,18 +101,19 @@ Serve the repository locally as described in the README, then inspect desktop an
 - Search `normalized sensitivity`, `肉厚対策`, `局所肉厚変更`, `有効線収縮率`, `ヒケ傾向指標`, `pin baseline` and `PPTX analysis report`
 - Search `face offset`, `helix`, `defeature`, `unsuppress feature`, `recognized thread`, `screenshot` and `photo render`
 - Search `gripper`, `IMU`, `cad-part robot link`, `planning group`, `条件分岐` and `workspace boundary`; inspect command/tool/model-tree roles
-- Use Common and all five engineering categories; navigate the last page and back
+- Use Common and all five engineering categories; scroll through all batches, check for duplicate/missing cards and confirm the end state; repeat with the Load more button and IntersectionObserver unavailable
 - Combine Model-tree nodes with CAD, search `材料`, and reset; verify one shared material entry
 - Switch command/tool/status usage filters and inspect the 16 px hierarchy specimen
 - Switch languages, all sizes, both SVG themes and all backgrounds; inspect contrast and overflow
-- Keep the original SVG selected on a dark surface, then explicitly choose Dark and verify preview/export colors agree
-- Change the theme inside details, close and confirm keyboard focus returns to the same icon card
+- Choose Dark in both selectors and confirm gallery/detail backgrounds switch together; choose Light and then manually select checkerboard, verifying the SVG colors stay selected
+- Load several batches, change theme/language, and confirm the existing cards stay loaded; change the theme inside details, close and confirm keyboard focus returns to the same icon card
+- Open the 96th icon and use Next to reach the 97th without loading another gallery batch; navigate filtered results to both boundaries; repeat with ← / → and check controls/modified keys are unaffected
 - Open several details; close with ×, backdrop and Escape; check focus
 - Copy SVG on localhost and paste into a text editor
 - Download and open both variants; check `.svg` / `.dark.svg` filenames, exact content, appearance and fixed-cutout behavior
 - Export both PNG themes at every listed size, reopen the saved files and inspect dimensions and transparent alpha
 - Verify PNG ignores all preview backgrounds while retaining white/#192c3c opaque cutouts
-- Change theme/size or close/reopen during PNG preparation; confirm captured request, repeated-click lock, status announcements and retry
+- Move to another icon, change theme/size or close/reopen during PNG preparation; confirm captured request, repeated-click lock, status announcements and retry
 - Confirm no console errors or external network requests
 
 ## Visual sheets

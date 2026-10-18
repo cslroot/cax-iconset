@@ -20,6 +20,10 @@ class Image {
 }
 class Element {
  constructor(tag='div') {this.tagName=tag.toUpperCase();this.children=[];this.dataset={};this.attributes={};this.listeners={};this.className='';this.textContent='';this.innerHTML='';this.hidden=false;this.disabled=false;this.open=false;this.value='';this.parent=null;this.isConnected=true;this.style={setProperty:(k,v)=>this.style[k]=v};this.classList={add:c=>this.classList.toggle(c,true),remove:c=>this.classList.toggle(c,false),toggle:(c,on)=>{const classes=new Set(this.className.split(/\s+/).filter(Boolean));if(on)classes.add(c);else classes.delete(c);this.className=[...classes].join(' ');}};}
+ set innerHTML(value){this.replaceChildren();this._innerHTML=value;}
+ get innerHTML(){return this._innerHTML;}
+ set disabled(value){this._disabled=Boolean(value);if(value&&document?.activeElement===this)document.activeElement=document.body;}
+ get disabled(){return this._disabled;}
  setAttribute(k,v){this.attributes[k]=String(v);}
  append(...nodes){for(const n of nodes){n.parent=this;n.isConnected=true;this.children.push(n);}}
  replaceChildren(...nodes){for(const n of this.children){n.isConnected=false;n.parent=null;}this.children=[];this.append(...nodes);}
@@ -50,7 +54,15 @@ const liveURLs=new Map();
 const revokedURLs=[];
 function runTimers(delay){for(const timer of timers){if(timer.active&&timer.delay===delay){timer.active=false;timer.fn();}}}
 const navigator={clipboard:{writeText:async text=>clipboard.push(text)}};
+const observers=[];
+class IntersectionObserver {
+ constructor(callback,options){this.callback=callback;this.options=options;this.disconnected=false;observers.push(this);}
+ observe(target){this.target=target;}
+ disconnect(){this.disconnected=true;}
+ emit(intersecting=true){this.callback([{target:this.target,isIntersecting:intersecting}]);}
+}
 const window={isSecureContext:true};
+if(!process.env.NO_INTERSECTION_OBSERVER)window.IntersectionObserver=IntersectionObserver;
 const context=vm.createContext({document,window,navigator,Blob,Image,URL:{createObjectURL:blob=>{if(png.mode==='source-url-error'&&blob.type==='image/svg+xml'||png.mode==='png-url-error'&&blob.type==='image/png')throw Error('Object URL unavailable');blobs.push(blob);const url='blob:test-'+blobs.length;liveURLs.set(url,blob);return url;},revokeObjectURL:url=>{assert.ok(liveURLs.has(url),'Object URL must be revoked exactly once: '+url);liveURLs.delete(url);revokedURLs.push(url);}},setTimeout:(fn,delay)=>{timers.push({fn,delay,active:true});return timers.length;},clearTimeout:id=>{if(timers[id-1])timers[id-1].active=false;},console});
 vm.runInContext(fs.readFileSync(path.join(ROOT,'catalog.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(path.join(ROOT,'app.js'),'utf8'),context);
@@ -64,43 +76,105 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
 (async()=>{
  const manifest=window.CAX_CATALOG;
  const total=manifest.count;
- const pageCount=Math.ceil(total/96);
- await test('initial count, bounded first page and category controls',async()=>{assert.equal(count(),total);assert.equal(cards().length,96);assert.equal($('page-label').textContent,`1 / ${pageCount}`);assert.equal($('previous').disabled,true);assert.equal(document.querySelectorAll('.category').length,7);assert.match($('collection-scope').textContent,/common application symbols/);assert.ok(!html.includes('Context variants'));assert.ok(!ids.has('kind'));});
- await test('English, Japanese, AND and Unicode-normalized searches',async()=>{await input('common save');assert.deepEqual(cards().map(c=>c.dataset.id),['common-save','common-save-as','common-save-all']);await input('名前を付けて保存');assert.equal(cards()[0].dataset.id,'common-save-as');await input('ファイル 開く');assert.ok(cards().some(c=>c.dataset.id==='common-open-file'));await input('ＣＡＤ');const normalized=count();await input('CAD');assert.equal(count(),normalized);assert.ok(count()>=20);await input('no-such-icon-xyz');assert.equal(count(),0);assert.equal($('empty').hidden,false);assert.equal($('next').disabled,true);await $('clear').click();assert.equal(count(),total);assert.equal($('empty').hidden,true);assert.equal(document.activeElement,$('search'));});
+ const batchCount=Math.ceil(total/96);
+ await test('initial count, bounded first batch and category controls',async()=>{assert.equal(count(),total);assert.equal(cards().length,96);assert.equal($('load-status').textContent,`96 of ${total} icons shown`);assert.equal($('load-more').disabled,false);assert.equal(document.querySelectorAll('.category').length,7);assert.match($('collection-scope').textContent,/common application symbols/);assert.ok(!html.includes('Context variants'));assert.ok(!ids.has('kind'));});
+ await test('English, Japanese, AND and Unicode-normalized searches',async()=>{await input('common save');assert.deepEqual(cards().map(c=>c.dataset.id),['common-save','common-save-as','common-save-all']);await input('名前を付けて保存');assert.equal(cards()[0].dataset.id,'common-save-as');await input('ファイル 開く');assert.ok(cards().some(c=>c.dataset.id==='common-open-file'));await input('ＣＡＤ');const normalized=count();await input('CAD');assert.equal(count(),normalized);assert.ok(count()>=20);await input('no-such-icon-xyz');assert.equal(count(),0);assert.equal($('empty').hidden,false);assert.equal($('load-more').disabled,true);await $('clear').click();assert.equal(count(),total);assert.equal($('empty').hidden,true);assert.equal(document.activeElement,$('search'));});
  await test('separate common and engineering categories and query intersections',async()=>{for(const category of ['Common','CAD','CAM','CAE','CMM','OLP']){await document.querySelectorAll('.category').find(e=>e.dataset.category===category).click();assert.equal(count(),manifest.categoryMemberships[category]);}await document.querySelectorAll('.category').find(e=>e.dataset.category==='Common').click();await input('save');assert.equal(count(),3);await document.querySelectorAll('.category').find(e=>e.dataset.category==='CAD').click();assert.equal(count(),0);await $('reset').click();assert.equal(count(),total);});
- await test('usage filter, node labels, category intersections and reuse without duplicate cards',async()=>{await change('usage','model-tree');assert.equal(count(),manifest.usageCounts['model-tree']);assert.equal($('page-label').textContent,'1 / '+Math.ceil(count()/96));await input('cae-material-assignment');assert.equal(count(),1);assert.equal(cards()[0].children.at(-1).textContent,'Material');await cards()[0].click();assert.equal($('detail-name').textContent,'Material');assert.match($('detail-usage').textContent,/command \/ model-tree/);await $('close').click();await change('language','ja');assert.equal(cards()[0].children.at(-1).textContent,'材料');await document.querySelectorAll('.category').find(e=>e.dataset.category==='CAD').click();assert.equal(count(),1);await change('usage','status');assert.equal(count(),0);await $('reset').click();assert.equal($('usage').value,'all');assert.equal(count(),total);await change('language','en');await change('usage','tool');assert.equal(count(),manifest.usageCounts.tool);await change('usage','status');assert.equal(count(),manifest.usageCounts.status);await change('usage','command');assert.equal(count(),manifest.usageCounts.command);await change('usage','model-tree');await input('cad-part component instance');assert.equal(count(),1);assert.equal(cards()[0].dataset.id,'cad-part');await $('reset').click();});
+ await test('usage filter, node labels, category intersections and reuse without duplicate cards',async()=>{await change('usage','model-tree');assert.equal(count(),manifest.usageCounts['model-tree']);assert.equal(cards().length,Math.min(96,count()));await input('cae-material-assignment');assert.equal(count(),1);assert.equal(cards()[0].children.at(-1).textContent,'Material');await cards()[0].click();assert.equal($('detail-name').textContent,'Material');assert.match($('detail-usage').textContent,/command \/ model-tree/);await $('close').click();await change('language','ja');assert.equal(cards()[0].children.at(-1).textContent,'材料');await document.querySelectorAll('.category').find(e=>e.dataset.category==='CAD').click();assert.equal(count(),1);await change('usage','status');assert.equal(count(),0);await $('reset').click();assert.equal($('usage').value,'all');assert.equal(count(),total);await change('language','en');await change('usage','tool');assert.equal(count(),manifest.usageCounts.tool);await change('usage','status');assert.equal(count(),manifest.usageCounts.status);await change('usage','command');assert.equal(count(),manifest.usageCounts.command);await change('usage','model-tree');await input('cad-part component instance');assert.equal(count(),1);assert.equal(cards()[0].dataset.id,'cad-part');await $('reset').click();});
  await test('application-family aliases, shared categories and advanced tree names',async()=>{await input('raster finishing');assert.deepEqual(cards().map(c=>c.dataset.id),['cam-parallel-finishing']);await input('ICP');assert.deepEqual(cards().map(c=>c.dataset.id),['cmm-best-fit-alignment']);await input('shut-off patch');assert.deepEqual(cards().map(c=>c.dataset.id),['cad-surface-patch']);await input('merge coincident nodes');assert.deepEqual(cards().map(c=>c.dataset.id),['cad-mesh-merge-vertices']);await document.querySelectorAll('.category').find(e=>e.dataset.category==='CAE').click();assert.equal(count(),1);await input('重複 節点');assert.equal(count(),1);await $('reset').click();await input('cad-sheet-metal-form-tool');await change('usage','model-tree');assert.equal(cards()[0].children.at(-1).textContent,'Formed feature');await change('language','ja');assert.equal(cards()[0].children.at(-1).textContent,'成形フィーチャ');await change('language','en');await $('reset').click();});
  await test('robotics commands, reused joints and bilingual persistent-node names',async()=>{await document.querySelectorAll('.category').find(e=>e.dataset.category==='OLP').click();await input('olp-program-if');assert.equal(count(),1);await change('usage','model-tree');assert.equal(cards()[0].children.at(-1).textContent,'Conditional branch');await change('language','ja');assert.equal(cards()[0].children.at(-1).textContent,'条件分岐');await change('language','en');await input('planning group');assert.ok(cards().some(c=>c.dataset.id==='olp-planning-group'));await input('cad-revolute-joint');assert.equal(count(),1);await input('cad-part robot link');assert.deepEqual(cards().map(c=>c.dataset.id),['cad-part']);await input('olp-reference-calibration');assert.equal(count(),0);await change('usage','command');assert.equal(count(),1);await $('reset').click();});
  await test('CAX source-verified commands, recognized result reuse and persistent feature names',async()=>{await input('cad-face-offset');assert.equal(count(),1);await change('usage','model-tree');assert.equal(cards()[0].children.at(-1).textContent,'Face-offset feature');await change('language','ja');assert.equal(cards()[0].children.at(-1).textContent,'ソリッド面オフセットフィーチャ');await change('language','en');await input('cad-helix');assert.equal(count(),1);await input('cad-defeature');assert.equal(count(),1);await input('cad-recognize-features');assert.equal(count(),0);await change('usage','command');assert.equal(count(),1);await input('unsuppress feature');assert.deepEqual(cards().map(c=>c.dataset.id),['cad-suppress-feature']);await input('recognized thread');assert.deepEqual(cards().map(c=>c.dataset.id),['cad-thread']);await input('common-screenshot');assert.equal(count(),1);await input('cad-photoreal-render');assert.equal(count(),1);await $('reset').click();});
  await test('pdxadv result families, bounded design actions and reuse without variants',async()=>{await document.querySelectorAll('.category').find(e=>e.dataset.category==='CAE').click();for(const [query,id] of [['normalized sensitivity','cae-sensitivity-result'],['sensitivity density','cae-sensitivity-result'],['肉厚対策','cae-thickness-optimization'],['局所肉厚変更','cae-local-wall-offset'],['肉厚分布','cae-thickness-result'],['有効線収縮率','cae-shrinkage-result'],['ヒケ傾向指標','cae-sink-tendency'],['side-by-side results','cae-compare-results'],['pin baseline','cae-set-baseline'],['PPTX analysis report','cae-analysis-report'],['warpage cae-deformation-result','cae-deformation-result']]){await input(query);assert.deepEqual(cards().map(c=>c.dataset.id),[id]);}await input('cae-set-baseline');await cards()[0].click();assert.match($('detail-description').textContent,/in memory/);await $('close').click();await change('usage','model-tree');assert.equal(count(),0);await change('usage','command');assert.equal(count(),1);await change('language','ja');assert.equal(cards()[0].children.at(-1).textContent,'比較基準に保持');await change('language','en');await $('reset').click();});
- await test('explicit SVG themes are independent of preview backgrounds',async()=>{
+ await test('SVG themes synchronize preview surfaces and keep manual backgrounds available',async()=>{
   const css=fs.readFileSync(path.join(ROOT,'styles.css'),'utf8');
   assert.ok(!css.includes('svg [fill='));assert.ok(!css.includes('svg [stroke='));assert.ok(!css.includes('drop-shadow'));
   await input('common-info');
   for(const theme of ['dark','light','dark']){
-   await change('theme',theme);assert.equal(count(),1);
+   await change('theme',theme);assert.equal(count(),1);assert.equal($('results').className,'icon-grid '+theme+'-bg');assert.equal(backgrounds.find(b=>b.dataset.background===theme).attributes['aria-pressed'],'true');
    for(const i of [0,1,2,1,0]){await backgrounds[i].click();assert.equal($('results').className,'icon-grid '+['light','dark','grid'][i]+'-bg');assert.ok(cards()[0].innerHTML.includes(`stroke="${manifest.themes[theme].palette.ink}"`));}
    await cards()[0].click();assert.equal($('detail-theme').value,theme);assert.ok($('detail-file').textContent.startsWith(theme==='dark'?'icons-dark/':'icons/'));
    assert.ok($('detail-preview').innerHTML.includes(`stroke="${manifest.themes[theme].palette.ink}"`));
    await backgrounds[1].click();assert.equal($('detail-preview').className,'detail-preview dark-bg');
-   await change('detail-theme',theme==='dark'?'light':'dark');assert.equal($('theme').value,theme==='dark'?'light':'dark');
+   const other=theme==='dark'?'light':'dark';await change('detail-theme',other);assert.equal($('theme').value,other);assert.equal($('results').className,'icon-grid '+other+'-bg');assert.equal($('detail-preview').className,'detail-preview '+other+'-bg');assert.equal(backgrounds.find(b=>b.dataset.background===other).attributes['aria-pressed'],'true');await backgrounds[2].click();assert.equal($('detail-preview').className,'detail-preview grid-bg');assert.equal($('theme').value,other);
    await $('close').click();
   }
   await change('theme','light');await $('reset').click();assert.equal(count(),419);
  });
- await test('detail theme changes preserve opener focus after replacing preview cards',async()=>{
-  await input('common-info');const before=cards()[0];before.focus();await before.click();
+ await test('theme and language updates preserve loaded cards and the original opener',async()=>{
+  await $('reset').click();await $('load-more').click();const before=cards()[130];before.focus();await before.click();
   await change('detail-theme','dark');await change('detail-theme','light');
-  assert.equal(before.isConnected,false);const after=cards()[0];assert.equal(after.dataset.id,'common-info');
+  await change('language','ja');assert.equal(cards().length,192);assert.equal(before.isConnected,true);const after=cards()[130];assert.equal(after,before);assert.equal(after.children.length,2);assert.equal($('detail-name').textContent,manifest.icons[130].nameJa);await change('language','en');
   await $('close').click();assert.equal(document.activeElement,after);assert.equal(after.isConnected,true);
   await $('reset').click();
  });
- await test('pagination bounds, back navigation and filter page reset',async()=>{for(let i=1;i<pageCount;i++)await $('next').click();assert.equal($('page-label').textContent,`${pageCount} / ${pageCount}`);assert.equal(cards().length,total-96*(pageCount-1));assert.equal($('next').disabled,true);await $('next').click();assert.equal(cards().length,total-96*(pageCount-1));await $('previous').click();assert.equal(cards().length,96);await input('cad-extrude');assert.equal($('page-label').textContent,'1 / 1');await $('reset').click();});
+ await test('append-only loading, complete state, keyboard fallback and filter reset',async()=>{
+  const first=cards()[0];first.focus();
+  for(let i=1;i<batchCount;i++)await $('load-more').click();
+  assert.equal(cards().length,total);assert.equal(cards()[0],first);assert.equal(document.activeElement,first);
+  assert.equal(new Set(cards().map(c=>c.dataset.id)).size,total);
+  assert.equal($('load-status').textContent,`All ${total} icons shown`);assert.equal($('load-more').hidden,true);
+  await $('load-more').dispatch('click');assert.equal(cards().length,total);
+  await input('cad-extrude');assert.equal(cards().length,1);assert.equal($('load-status').textContent,'All 1 icons shown');
+  await $('reset').click();assert.equal(cards().length,96);assert.equal($('load-more').hidden,false);
+  $('load-more').focus();await $('load-more').click();assert.equal(cards().length,192);assert.equal(document.activeElement,cards()[96]);
+  await change('usage','model-tree');assert.equal(cards().length,96);
+  await document.querySelectorAll('.category').find(e=>e.dataset.category==='Common').click();assert.ok(cards().length<96);
+  await $('reset').click();
+ });
+ await test('observer batches ignore stale callbacks and pause behind details',async()=>{
+  if(!window.IntersectionObserver){assert.equal(observers.length,0);await $('load-more').click();assert.equal(cards().length,192);await $('reset').click();return;}
+  const first=observers.at(-1);assert.equal(first.target,$('load-sentinel'));assert.equal(first.options.rootMargin,'0px 0px 240px 0px');
+  first.emit(false);assert.equal(cards().length,96);first.emit();assert.equal(cards().length,192);assert.equal(first.disconnected,true);
+  first.emit();assert.equal(cards().length,192);
+  const old=observers.at(-1);await input('common save');old.emit();assert.equal(cards().length,3);assert.equal(old.disconnected,true);
+  await $('reset').click();const beforeOpen=observers.at(-1);await cards()[0].click();assert.equal(beforeOpen.disconnected,true);beforeOpen.emit();assert.equal(cards().length,96);
+  await $('close').click();assert.notEqual(observers.at(-1),beforeOpen);
+  for(let i=1;i<batchCount;i++)observers.at(-1).emit();
+  assert.equal(cards().length,total);assert.equal(new Set(cards().map(c=>c.dataset.id)).size,total);assert.equal(observers.at(-1).disconnected,true);
+  await input('no-such-icon-xyz');assert.equal($('load-sentinel').hidden,true);await $('reset').click();
+ });
+ await test('dialog buttons navigate the whole filtered list beyond loaded cards with bounded edges',async()=>{
+  const opener=cards()[95];opener.focus();await opener.click();$('detail-next').focus();await $('detail-next').click();
+  assert.equal($('detail-id').textContent,manifest.icons[96].id);assert.equal(cards().length,96);assert.equal(document.activeElement,$('detail-next'));
+  for(let i=97;i<total;i++)await $('detail-next').click();
+  assert.equal($('detail-id').textContent,manifest.icons.at(-1).id);assert.equal($('detail-next').disabled,true);assert.equal(document.activeElement,$('detail-previous'));
+  await $('detail-next').dispatch('click');assert.equal($('detail-id').textContent,manifest.icons.at(-1).id);
+  await $('close').click();assert.equal(document.activeElement,opener);
+  await input('common save');await cards()[0].click();assert.equal($('detail-previous').disabled,true);await $('detail-previous').dispatch('click');assert.equal($('detail-id').textContent,'common-save');
+  await $('detail-next').click();assert.equal($('detail-id').textContent,'common-save-as');await $('detail-next').click();assert.equal($('detail-id').textContent,'common-save-all');assert.equal($('detail-next').disabled,true);
+  await $('close').click();await change('usage','model-tree');await input('cae-material-assignment');await change('language','ja');await cards()[0].click();
+  assert.equal($('detail-position').textContent,'1 / 1 · 材料');assert.equal($('detail-previous').disabled,true);assert.equal($('detail-next').disabled,true);await $('close').click();await change('language','en');await $('reset').click();
+ });
+ await test('dialog arrow keys respect controls, modifiers, composition, Escape and focus',async()=>{
+  const key=(value,extra={})=>{const event={key:value,target:document.activeElement,preventDefault(){this.prevented=true;},...extra};document.listeners.keydown[0](event);return event;};
+  const opener=cards()[0];opener.focus();assert.equal(key('ArrowRight').prevented,undefined);await opener.click();$('copy').focus();
+  assert.equal(key('ArrowRight').prevented,true);assert.equal($('detail-id').textContent,manifest.icons[1].id);assert.equal(document.activeElement,$('copy'));
+  key('ArrowLeft');assert.equal($('detail-id').textContent,manifest.icons[0].id);key('ArrowLeft');assert.equal($('detail-id').textContent,manifest.icons[0].id);
+  for(const tag of ['input','textarea','select']){new Element(tag).focus();assert.equal(key('ArrowRight').prevented,undefined);}
+  const editable=new Element();editable.isContentEditable=true;editable.focus();assert.equal(key('ArrowRight').prevented,undefined);$('copy').focus();
+  for(const prop of ['altKey','ctrlKey','metaKey','shiftKey','isComposing','defaultPrevented'])assert.equal(key('ArrowRight',{[prop]:true}).prevented,undefined);
+  assert.equal($('detail-id').textContent,manifest.icons[0].id);
+  assert.equal(key('Escape').prevented,undefined); // Native dialog owns cancel/Escape and focus trapping.
+  $('detail').close();assert.equal(document.activeElement,opener);await $('reset').click();
+ });
  await test('Japanese labels, preview size and background controls',async()=>{await change('language','ja');assert.equal(cards()[0].children.at(-1).textContent,manifest.icons[0].nameJa);await change('size','64');assert.equal(document.documentElement.style['--icon-size'],'64px');await backgrounds[1].click();assert.equal($('results').className,'icon-grid dark-bg');assert.equal(backgrounds[1].attributes['aria-pressed'],'true');await change('language','en');});
  await test('detail, bilingual purpose, repeated open, close, outside click and focus restore',async()=>{let card=cards()[0];card.focus();await card.click();assert.equal($('detail').open,true);assert.equal($('detail-name').textContent,manifest.icons[0].name);assert.equal($('detail-description').textContent,manifest.icons[0].description);assert.equal($('detail-preview').className,'detail-preview dark-bg');await card.click();assert.equal($('detail').open,true);await $('close').click();assert.equal($('detail').open,false);assert.equal(document.activeElement,card);await change('language','ja');card=cards()[0];await card.click();assert.equal($('detail-description').textContent,manifest.icons[0].descriptionJa);await $('detail').dispatch('click',{clientX:100,clientY:100});assert.equal($('detail').open,true);await $('detail').dispatch('click',{clientX:0,clientY:0});assert.equal($('detail').open,false);await change('language','en');});
  await test('copied SVG is standalone and matches the requested function',async()=>{await input('common-open-file');const card=cards()[0];assert.ok(card);await card.click();await $('copy').click();const item=manifest.icons.find(i=>i.id==='common-open-file');assert.ok(clipboard.at(-1).includes(`<title id="title">${item.name}</title>`));assert.doesNotMatch(clipboard.at(-1),/preview-\d+-/);assert.ok(clipboard.at(-1).includes(item.body));});
  await test('clipboard rejection, fallback failure and fallback exception',async()=>{navigator.clipboard.writeText=async()=>{throw Error('Denied');};await $('copy').click();assert.equal($('toast').textContent,'SVG copied');document.execCommand=()=>false;await $('copy').click();assert.match($('toast').textContent,/Clipboard unavailable/);document.execCommand=()=>{throw Error('Unsupported');};await $('copy').click();assert.match($('toast').textContent,/Clipboard unavailable/);assert.equal($('detail').children.filter(e=>e.tagName==='TEXTAREA').length,0);});
  await test('SVG download filename and blob contents',async()=>{await $('download').click();assert.equal(downloads.at(-1).name,'common-open-file.svg');assert.equal(blobs.at(-1).type,'image/svg+xml');assert.match(await blobs.at(-1).text(),/<svg xmlns=/);assert.ok((await blobs.at(-1).text()).includes(manifest.icons.find(i=>i.id==='common-open-file').body));await $('close').click();});
+ await test('navigated selection drives SVG exports and preserves an in-flight PNG snapshot',async()=>{
+  navigator.clipboard.writeText=async text=>clipboard.push(text);
+  await input('common save');await cards()[0].click();await $('detail-next').click();await change('detail-theme','dark');
+  const item=manifest.icons.find(i=>i.id==='common-save-as');const exact=fs.readFileSync(path.join(ROOT,item.variants.dark.file),'utf8');
+  await $('copy').click();assert.equal(clipboard.at(-1),exact);await $('download').click();assert.equal(downloads.at(-1).name,'common-save-as.dark.svg');assert.equal(await blobs.at(-1).text(),exact);runTimers(1000);
+  await change('png-size','64');png.mode='hold-image';const index=blobs.length;const pending=$('download-png').click();
+  await $('detail-next').click();assert.equal($('detail-id').textContent,'common-save-all');await change('detail-theme','light');await change('png-size','16');
+  png.mode='ok';png.pendingImages.shift()();await pending;
+  assert.equal(downloads.at(-1).name,'common-save-as.dark.64.png');assert.equal(await blobs[index].text(),exact.replace('width="32" height="32"','width="64" height="64"'));
+  assert.equal($('detail-id').textContent,'common-save-all');assert.equal($('download-png').disabled,false);runTimers(1000);
+  await $('download-png').click();assert.equal(downloads.at(-1).name,'common-save-all.light.16.png');runTimers(1000);assert.equal(liveURLs.size,0);
+  await $('close').click();await $('reset').click();
+ });
  await test('both themes copy and download every exact standalone file without count inflation',async()=>{
   navigator.clipboard.writeText=async text=>clipboard.push(text);
   await $('reset').click();assert.equal(count(),419);

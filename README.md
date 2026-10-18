@@ -44,15 +44,15 @@ python3 -m http.server 8000 --bind 127.0.0.1
 Open `http://127.0.0.1:8000` in a modern browser. No public deployment is configured or claimed.
 
 - English / Japanese name, tag and purpose search, with multiple AND-matched terms
-- Common and five engineering-category filters; 96-item pagination
+- Common and five engineering-category filters; append-only infinite scrolling in batches of 96, plus an accessible Load more button
 - Independent usage filter: commands, model-tree nodes, tools and status
 - Contextual node names; existing feature, material, mesh, condition and result SVGs are reused
 - [Robotics model trees at native 16 px](qa/robotics-model-tree.png), [general model-tree integration](qa/model-tree.png) and [fabrication/mesh/analysis trees](qa/application-model-tree.png)
 - 16 / 24 / 32 / 48 / 64 px previews; light / dark / checker backgrounds
-- Explicit light / dark SVG theme choice, independent of the background; preview, copy and download use the selected file variant
-- Detail view with bilingual purpose, selected variant path, copy SVG and individual SVG download
+- Explicit light / dark SVG theme choice that also sets the matching preview background; background swatches can then be changed manually, and preview/copy/download use the selected file variant
+- Detail view with previous/next buttons and ← / → navigation through the complete filtered list, bilingual purpose, selected variant path, copy SVG and individual SVG download
 - Transparent PNG download in 16 / 24 / 32 / 48 / 64 / 128 / 256 px; selected light/dark colors, independent of preview background
-- Keyboard focus, `/` search shortcut, native dialog and empty-state reset
+- Keyboard focus, `/` search shortcut, native dialog with Escape dismissal, clear first/last boundaries and empty-state reset
 - No analytics or runtime external requests
 
 Interface labels are English; the language selector switches icon names and purpose text between English and Japanese.
@@ -75,7 +75,7 @@ SVGs use basic vector elements without fonts or external resources. Each file ha
 
 All **419 semantic icons** now have two file variants: original light files in `icons/` and dark files in `icons-dark/`, with the same IDs. The 419 originals are byte-for-byte preserved. Dark files contain their own colors and work as `<img>`, external SVGs or inline SVGs without the catalog's CSS. Theme variants do not increase search/category/usage counts.
 
-Choose **SVG → Dark** in the catalog or detail view before copying/downloading; the background swatches only change the preview surface. Downloads are named `<id>.dark.svg` for clarity, while repository paths are `icons-dark/<id>.svg`.
+Choose **SVG → Dark** in the catalog or detail view before copying/downloading. Choosing a theme also switches the gallery and detail preview to its matching background; you can then select light, dark or checkerboard manually without changing the SVG colors. Downloads are named `<id>.dark.svg` for clarity, while repository paths are `icons-dark/<id>.svg`.
 
 The dark palette targets **#192c3c**. Its opaque cutouts also use that color to hide covered edges; 64 icons contain these fills. They remain opaque and may look like inset patches on other surfaces, including CAX Studio's #23262b. The files do not automatically adapt to arbitrary backgrounds. See [integration and palette guidance](docs/DARK_THEME.md) and the [embedded-SVG comparison at 16 / 24 / 32 px output sizes](qa/dark-svg-comparison.png).
 
@@ -99,6 +99,7 @@ python3 tests/test_catalog.py
 node --check app.js
 node --check catalog.js
 node tests/test_app.js
+NO_INTERSECTION_OBSERVER=1 node tests/test_app.js
 python3 scripts/raster_audit.py
 python3 scripts/dark_theme_audit.py
 python3 scripts/png_export_audit.py
@@ -118,7 +119,7 @@ inkscape qa/application-model-tree.svg --export-type=png --export-filename=qa/ap
 inkscape qa/robotics-model-tree.svg --export-type=png --export-filename=qa/robotics-model-tree.png
 ```
 
-The XML/integrity suite checks both theme variants of every icon, its safe elements, local references, hash, bilingual metadata and normalized geometry. The raster audit checks all entries for blank output, painting outside the viewBox and identical color-normalized renders. Script-level app tests cover filtering, bilingual search, pagination, detail interactions, clipboard fallback and download content.
+The XML/integrity suite checks both theme variants of every icon, its safe elements, local references, hash, bilingual metadata and normalized geometry. The raster audit checks all entries for blank output, painting outside the viewBox and identical color-normalized renders. Script-level app tests cover filtering, bilingual search, infinite loading, filtered detail navigation, clipboard fallback and download content.
 
 The pdxadv review adds nine source-verified analysis/design commands while preserving all 410 existing SVGs. See the [nine additions on light / dark / checker backgrounds](qa/pdxadv-themes.png). The previous CAX Studio review checked all 403 baseline symbols visually, seven new commands, 11 focused geometry corrections, and a preview-only dark palette. See [before / after geometry](qa/quality-before-after.png) and [light / dark / checker examples](qa/theme-preview.png). The dark palette preserves separate body, ink, accent, warning and opaque-cutout roles; that historical preview-only behavior is superseded by the explicit standalone theme selection above.
 
@@ -151,4 +152,4 @@ The standalone-theme audit embeds actual file bytes without host CSS in an atlas
 
 ロボティクスの46用途に加え、cax-studioと関連リポジトリの実装から不足していた7用途を追加しました。さらにpdxadvの実装を根拠に、そり感度・肉厚対策・局所肉厚変更・結果分布・比較・基準保持・解析レポートの9用途を追加しました。全419件、186件がモデルツリーに対応します。各IDにライト／ダークの独立SVGを用意しましたが、用途の件数は419件のままです。ダーク版はCSSなしで使えます。切り欠きなどの不透明な塗りは背景色#192c3cに固定して重なりを保つため、別の背景では色の差が見える場合があります。今回のテーマ追加では元の419件をバイト単位で維持しています。先のpdxadv用途追加では既存410件のSVGを変更していません。認識されたねじやメッシュ変換方式などは既存SVGを再利用し、件数を増やしていません。全403件の目視監査で見つかった形状の問題・改善点を11件修正し、ダーク背景で内部線が消える配色も改善しました。
 
-断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。追加一覧、11件の修正前後、light/dark/checker見本、70行の16pxロボット階層見本を同梱しています。アイコンとメタデータだけを作成し、実機接続・操作は行いません。詳細画面からライト／ダークの透過PNGも16・24・32・48・64・128・256pxで保存できます。プレビュー背景は含めず、重なりを隠す内部の不透明な塗りはそのまま保持します。実ブラウザ統合検証は未実施です。
+断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。追加一覧、11件の修正前後、light/dark/checker見本、70行の16pxロボット階層見本を同梱しています。アイコンとメタデータだけを作成し、実機接続・操作は行いません。詳細画面からライト／ダークの透過PNGも16・24・32・48・64・128・256pxで保存できます。プレビュー背景は含めず、重なりを隠す内部の不透明な塗りはそのまま保持します。一覧は96件ずつの無限スクロールに対応し、「Load more」でも追加できます。詳細は左右のボタン・矢印キーで絞り込み結果全体を前後移動できます。テーマ変更時は背景も連動し、その後はチェック柄などへ手動変更できます。実ブラウザ統合検証は未実施です。

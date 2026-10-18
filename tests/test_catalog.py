@@ -183,6 +183,41 @@ class CatalogTests(unittest.TestCase):
             self.assertEqual(by_id[id]['usages'],['command'])
         self.assertFalse({'cad-recognized-thread','cad-suppressed-part','cad-helix-small','cad-mesh2brep-via-voxel'} & set(by_id))
 
+    def test_reviewed_pdxadv_meanings_and_preserved_baseline(self):
+        import sys
+        sys.path.insert(0,str(ROOT/'src'))
+        from pdxadv import GLYPHS, PDXADV, PDXADV_REUSE
+        by_id={i['id']:i for i in M['icons']}
+        reviewed=json.loads((ROOT/'src/pdxadv_commands.json').read_text())
+        reused=json.loads((ROOT/'src/pdxadv_reuse.json').read_text())
+        self.assertEqual(set(GLYPHS),{i['id'] for i in reviewed})
+        self.assertEqual(len(GLYPHS),sum(len(v) for v in PDXADV.values()))
+        self.assertEqual(len(GLYPHS),9)
+        self.assertEqual(set(PDXADV_REUSE),{'cae-deformation-result'})
+        self.assertFalse(set(PDXADV_REUSE)&set(GLYPHS))
+        for i in reviewed+reused:
+            out=by_id[i['id']]
+            self.assertTrue(i['reviewNote'])
+            for ref in i['references']:
+                self.assertIn(ref['id'],out['sources'])
+                self.assertIn('/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/',ref['url'])
+            for alias in i.get('aliases',[]):self.assertIn(alias,out.get('aliases',[]))
+            if i['id'] in GLYPHS:
+                self.assertEqual(out['body'],GLYPHS[i['id']])
+                self.assertEqual(out['usages'],['command'])
+                self.assertEqual(out['category'],'CAE')
+        self.assertIn('isotropic linear shrinkage',by_id['cae-sensitivity-result']['description'])
+        self.assertIn('remeshing and reanalysis',by_id['cae-thickness-optimization']['description'])
+        self.assertIn('fixed back plane',by_id['cae-local-wall-offset']['description'])
+        self.assertIn('uncalibrated',by_id['cae-sink-tendency']['description'])
+        self.assertIn('in memory',by_id['cae-set-baseline']['description'])
+        self.assertFalse({'cae-warpage-result','cae-raw-sensitivity','cae-normalized-sensitivity','cae-sensitivity-density','cae-html-report','cae-pptx-report'}&set(by_id))
+        baseline=json.loads((ROOT/'src/pdxadv_baseline_hashes.json').read_text())
+        self.assertEqual(baseline['commit'],'490d20684866e39c7075485bf2dc95abb95dd341')
+        self.assertEqual(len(baseline['icons']),410)
+        self.assertEqual(set(by_id)-set(baseline['icons']),set(GLYPHS))
+        for id,sha in baseline['icons'].items():self.assertEqual(by_id[id]['sha256'],sha,id)
+
     def test_reviewed_occlusion_and_projected_mesh(self):
         by_id={i['id']:i for i in M['icons']}
         reviews=json.loads((ROOT/'src/quality_review.json').read_text())

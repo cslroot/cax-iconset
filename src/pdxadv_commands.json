@@ -1,0 +1,316 @@
+[
+  {
+    "id": "cae-sensitivity-result",
+    "domain": "CAE",
+    "name": "Display warpage sensitivity",
+    "nameJa": "そり感度表示",
+    "description": "Display the derivative of the warpage objective with respect to element isotropic linear shrinkage, including raw, normalized and density views.",
+    "descriptionJa": "要素の等方線収縮に対するそり評価値の微分を、未正規化・正規化・体積密度の表示で確認します。",
+    "family": "sensitivity-results",
+    "role": "command",
+    "tags": [
+      "sensitivity",
+      "derivative",
+      "shrinkage",
+      "そり",
+      "感度",
+      "解析結果"
+    ],
+    "aliases": [
+      "raw sensitivity",
+      "normalized sensitivity",
+      "sensitivity density",
+      "sensitivity contribution",
+      "そり感度密度",
+      "正規化そり感度"
+    ],
+    "references": [
+      {
+        "id": "pdxadv-result-fields",
+        "title": "pdxadv result-field definitions (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/viewport.js#L3-L37",
+        "scope": "Displacement, residual warpage, shrinkage sensitivity, local thickness, effective linear shrinkage and uncalibrated sink tendency"
+      }
+    ],
+    "reviewNote": "One sensitivity family. The derivative is with respect to isotropic linear shrinkage, not thickness; thickness changes require reanalysis. Normalized/density/contribution views do not create extra SVGs."
+  },
+  {
+    "id": "cae-thickness-optimization",
+    "domain": "CAE",
+    "name": "Optimize wall thickness",
+    "nameJa": "肉厚対策・最適化",
+    "description": "Explore bounded wall-thickness candidates by coordinate search with remeshing and reanalysis, subject to volume limits and locked parameters.",
+    "descriptionJa": "肉厚上下限・体積上限・固定パラメータを守り、候補ごとに再メッシュ・再解析する座標探索で肉厚対策を検討します。",
+    "family": "design-optimization",
+    "role": "command",
+    "tags": [
+      "optimization",
+      "wall thickness",
+      "coordinate search",
+      "再解析",
+      "肉厚対策"
+    ],
+    "aliases": [
+      "thickness optimization",
+      "thickness countermeasure",
+      "bounded coordinate search",
+      "肉厚最適化",
+      "肉厚対策"
+    ],
+    "references": [
+      {
+        "id": "pdxadv-thickness-advisor",
+        "title": "pdxadv bounded coordinate-search advisor (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/src/workflow.rs#L401-L556",
+        "scope": "Bounded wall-thickness candidates with complete regeneration, remeshing and reanalysis, volume limits and locked parameters"
+      }
+    ],
+    "reviewNote": "Not topology optimization, a direct shape update from sensitivity, or a guarantee of a global optimum. A loop around wall candidates expresses repeated evaluation."
+  },
+  {
+    "id": "cae-local-wall-offset",
+    "domain": "CAE",
+    "name": "Define local wall-offset region",
+    "nameJa": "局所肉厚変更領域",
+    "description": "Define a radius-bounded local analysis-mesh offset with an explicit fixed back plane while retaining the imported source geometry.",
+    "descriptionJa": "読込み元形状を保持し、影響半径と固定裏面を指定した解析メッシュの局所肉厚変更領域を定義します。",
+    "family": "local-wall-design",
+    "role": "command",
+    "tags": [
+      "wall patch",
+      "local offset",
+      "fixed back plane",
+      "影響半径",
+      "固定裏面",
+      "局所肉厚"
+    ],
+    "aliases": [
+      "local wall offset",
+      "wall patch region",
+      "bounded local deformation",
+      "局所肉厚変更"
+    ],
+    "references": [
+      {
+        "id": "pdxadv-local-wall-offset",
+        "title": "pdxadv local wall modifier (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/src/design.rs#L1-L85",
+        "scope": "Radius-bounded smooth mesh deformation with a fixed back plane; source CAD is retained and no edited B-rep is produced"
+      },
+      {
+        "id": "pdxadv-comparison-actions",
+        "title": "pdxadv baseline, comparison and report actions (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/app.js#L440-L472",
+        "scope": "Retain a copied current result in memory, compare paired results and generate reports"
+      }
+    ],
+    "reviewNote": "A region has anchor, normal, radius, depth, offset and lock parameters. This is neither B-rep face offset nor generic mesh smoothing. The UI has a patch list; no actual hierarchical model-tree use is claimed."
+  },
+  {
+    "id": "cae-thickness-result",
+    "domain": "CAE",
+    "name": "Display local wall thickness",
+    "nameJa": "局所肉厚分布",
+    "description": "Display specified wall thickness for parametric geometry or estimated local thickness from opposing rays with voxel fallback for imported geometry.",
+    "descriptionJa": "パラメータ形状の指定肉厚、または読込み形状の対向面レイ推定と未解決箇所のボクセル補完による局所肉厚を表示します。",
+    "family": "thickness-results",
+    "role": "command",
+    "tags": [
+      "thickness field",
+      "local wall thickness",
+      "result distribution",
+      "肉厚",
+      "解析結果"
+    ],
+    "aliases": [
+      "wall thickness distribution",
+      "thickness map",
+      "局所肉厚",
+      "肉厚分布"
+    ],
+    "references": [
+      {
+        "id": "pdxadv-result-fields",
+        "title": "pdxadv result-field definitions (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/viewport.js#L3-L37",
+        "scope": "Displacement, residual warpage, shrinkage sensitivity, local thickness, effective linear shrinkage and uncalibrated sink tendency"
+      }
+    ],
+    "reviewNote": "A distributed scalar result, not creating thickness with CAD Thicken and not a generic point-to-point distance tool."
+  },
+  {
+    "id": "cae-shrinkage-result",
+    "domain": "CAE",
+    "name": "Display effective linear shrinkage",
+    "nameJa": "有効線収縮率",
+    "description": "Display the effective isotropic linear-shrinkage equivalent computed by the material law.",
+    "descriptionJa": "材料構成則から求めた等方線収縮相当値を表示します。",
+    "family": "shrinkage-results",
+    "role": "command",
+    "tags": [
+      "linear shrinkage",
+      "material law",
+      "isotropic",
+      "線収縮率",
+      "等方収縮"
+    ],
+    "aliases": [
+      "effective linear shrinkage",
+      "shrinkage field",
+      "有効線収縮率",
+      "線収縮分布"
+    ],
+    "references": [
+      {
+        "id": "pdxadv-result-fields",
+        "title": "pdxadv result-field definitions (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/viewport.js#L3-L37",
+        "scope": "Displacement, residual warpage, shrinkage sensitivity, local thickness, effective linear shrinkage and uncalibrated sink tendency"
+      }
+    ],
+    "reviewNote": "Linear shrinkage is not volumetric shrinkage. This is a computed result field, not a geometry-scaling action."
+  },
+  {
+    "id": "cae-sink-tendency",
+    "domain": "CAE",
+    "name": "Display sink tendency",
+    "nameJa": "ヒケ傾向",
+    "description": "Display an uncalibrated sink-tendency index from linear shrinkage and relative local wall thickness, without claiming measured sink depth.",
+    "descriptionJa": "線収縮率と相対的な局所肉厚から未校正のヒケ傾向指標を表示し、ヒケ深さや実測値としては扱いません。",
+    "family": "sink-results",
+    "role": "command",
+    "tags": [
+      "sink tendency",
+      "uncalibrated index",
+      "ヒケ",
+      "傾向",
+      "参考指標"
+    ],
+    "aliases": [
+      "sink index",
+      "sink tendency map",
+      "ヒケ傾向指標"
+    ],
+    "references": [
+      {
+        "id": "pdxadv-result-fields",
+        "title": "pdxadv result-field definitions (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/viewport.js#L3-L37",
+        "scope": "Displacement, residual warpage, shrinkage sensitivity, local thickness, effective linear shrinkage and uncalibrated sink tendency"
+      }
+    ],
+    "reviewNote": "The reference index is 100 × linear shrinkage × (local thickness / median thickness)^2. No calibrated defect depth, measured dent or confirmed failure is claimed."
+  },
+  {
+    "id": "cae-compare-results",
+    "domain": "CAE",
+    "name": "Compare analysis results",
+    "nameJa": "解析結果比較",
+    "description": "Compare before and after analysis results side by side with synchronized cameras and a shared display range.",
+    "descriptionJa": "解析前後の結果を並べ、カメラと表示範囲を揃えて比較します。",
+    "family": "result-comparison",
+    "role": "command",
+    "tags": [
+      "compare",
+      "before after",
+      "shared range",
+      "結果比較",
+      "解析前後"
+    ],
+    "aliases": [
+      "before after analysis",
+      "side-by-side results",
+      "解析結果比較"
+    ],
+    "references": [
+      {
+        "id": "pdxadv-comparison-actions",
+        "title": "pdxadv baseline, comparison and report actions (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/app.js#L440-L472",
+        "scope": "Retain a copied current result in memory, compare paired results and generate reports"
+      },
+      {
+        "id": "pdxadv-result-fields",
+        "title": "pdxadv result-field definitions (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/viewport.js#L3-L37",
+        "scope": "Displacement, residual warpage, shrinkage sensitivity, local thickness, effective linear shrinkage and uncalibrated sink tendency"
+      },
+      {
+        "id": "pdxadv-comparison-display",
+        "title": "pdxadv synchronized result comparison (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/app.js#L240-L258",
+        "scope": "Before/after display uses common field ranges and synchronized view settings"
+      }
+    ],
+    "reviewNote": "Compare two analysis runs, not measured-to-CAD deviation. Normalized sensitivity is independently normalized within each run, using the shared −1 to 1 display range."
+  },
+  {
+    "id": "cae-set-baseline",
+    "domain": "CAE",
+    "name": "Keep result as comparison baseline",
+    "nameJa": "比較基準に保持",
+    "description": "Keep a copy of the current analysis result in memory as the baseline for subsequent comparisons.",
+    "descriptionJa": "現在の解析結果のコピーをメモリ内に保持し、以後の比較基準にします。",
+    "family": "result-comparison",
+    "role": "command",
+    "tags": [
+      "baseline",
+      "reference result",
+      "in memory",
+      "基準",
+      "比較"
+    ],
+    "aliases": [
+      "pin baseline",
+      "set comparison baseline",
+      "基準に保存",
+      "比較基準"
+    ],
+    "references": [
+      {
+        "id": "pdxadv-comparison-actions",
+        "title": "pdxadv baseline, comparison and report actions (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/app.js#L440-L472",
+        "scope": "Retain a copied current result in memory, compare paired results and generate reports"
+      }
+    ],
+    "reviewNote": "Copies the current run/view and records its job ID; does not write a file or promise persistent storage. A pinned result sheet distinguishes this action from generic Save or Bookmark."
+  },
+  {
+    "id": "cae-analysis-report",
+    "domain": "CAE",
+    "name": "Generate analysis report",
+    "nameJa": "解析レポート生成",
+    "description": "Generate a report combining analysis conditions, results, diagnostics, figures and selected 3D models, with optional before-and-after comparisons.",
+    "descriptionJa": "解析条件・結果・診断・図・選択した3Dモデルをまとめ、必要に応じて前後比較を含む解析レポートを生成します。",
+    "family": "analysis-reporting",
+    "role": "command",
+    "tags": [
+      "analysis report",
+      "diagnostics",
+      "report generation",
+      "解析レポート",
+      "報告書"
+    ],
+    "aliases": [
+      "HTML analysis report",
+      "PPTX analysis report",
+      "解析報告書"
+    ],
+    "references": [
+      {
+        "id": "pdxadv-analysis-report",
+        "title": "pdxadv analysis-report generation (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/src/report.rs#L419-L590",
+        "scope": "Assemble analysis reports with figures, selected 3D models and optional before/after data"
+      },
+      {
+        "id": "pdxadv-comparison-actions",
+        "title": "pdxadv baseline, comparison and report actions (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/app.js#L440-L472",
+        "scope": "Retain a copied current result in memory, compare paired results and generate reports"
+      }
+    ],
+    "reviewNote": "HTML and PPTX are output formats of one report operation, not independent SVGs. Distinct from dimensional-inspection reporting."
+  }
+]

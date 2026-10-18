@@ -148,9 +148,9 @@ quality=json.loads((ROOT/'src/quality_review.json').read_text())
 theme=json.loads((ROOT/'qa/theme-audit.json').read_text())
 parts=[f'''# CAX Studio coverage and geometry review
 
-Date: 2026-10-18. Version: {m['version']}. Baseline: the preserved 403-symbol v2.3 tree `0419c0d994e944530fc495a032b11be6750cbeec`; public base commit `cd269ffe836d8a905f2730c29a5ab0538e850474` contains 357 symbols.
+Date: 2026-10-18. Historical version: 2.4.0. Baseline: the preserved 403-symbol v2.3 tree `0419c0d994e944530fc495a032b11be6750cbeec`; public base commit `cd269ffe836d8a905f2730c29a5ab0538e850474` contains 357 symbols.
 
-This pass adds **{len(studio)} independently useful commands**, revises **{len(quality)} existing drawings**, and enriches **{len(studio_reuse)} reused symbols** without creating synonyms. The resulting collection contains **{m['count']} SVGs**, including **{m['usageCounts']['model-tree']}** symbols with model-tree use. Every existing ID is retained.
+This historical pass added **{len(studio)} independently useful commands**, revised **{len(quality)} existing drawings**, and enriched **{len(studio_reuse)} reused symbols** without creating synonyms. Its checkpoint contains **410 SVGs**, including **186** symbols with model-tree use. Every existing ID was retained. The later pdxadv additions are documented in [PDXADV_REVIEW.md](PDXADV_REVIEW.md).
 
 ![Source-verified CAX commands](../qa/studio-additions.png)
 
@@ -208,7 +208,7 @@ The 22-example sheet includes every new and revised drawing plus representative 
 
 - Python: 9 groups covering XML safety, hashes, roles, bilingual metadata, source records, reuse, reviewed geometry and normalized uniqueness
 - JavaScript: 15 script-level groups, including CAX command search, persistent-node labels, recognized-result reuse, all three preview selections, palette scoping and unchanged standalone copy/download data
-- Raster: all {m['count']} SVGs, zero empty output, zero viewBox overflow and zero identical color-normalized renders
+- Raster: all 410 SVGs at the v2.4 checkpoint, zero empty output, zero viewBox overflow and zero identical color-normalized renders
 - Reproducible category, additions, native model-tree, correction and theme sheets
 - Actual browser integration remains **unverified**. The supported cloud browser rejected the local `file:` URL; no alternate browser-control route was used to bypass that policy. CSS computed styles, native dialog focus/Escape, real clipboard and saved downloads therefore remain on the manual checklist.
 
@@ -216,3 +216,52 @@ See [QA.md](QA.md) for the current verification report. These are UI symbols, no
 ''')
 (ROOT/'docs/CAX_STUDIO_REVIEW.md').write_text(''.join(parts))
 print('Refreshed CAX source coverage and geometry review')
+
+pdxadv=json.loads((ROOT/'src/pdxadv_commands.json').read_text())
+pdxadv_reuse=json.loads((ROOT/'src/pdxadv_reuse.json').read_text())
+parts=[f'''# pdxadv analysis and design workflow
+
+Date: 2026-10-18. Version: {m['version']}. Baseline: `490d20684866e39c7075485bf2dc95abb95dd341` (410 symbols).
+
+This pass adds **{len(pdxadv)} independent meanings** selected from implemented pdxadv workflows: six analysis/design meanings and three supporting result actions. The catalog contains **{m['count']} unique SVGs**, including **{m['usageCounts']['model-tree']}** model-tree-compatible entries. All **410 existing SVG files remain byte-for-byte unchanged**. The count follows useful functions; no numerical target or state/format product is used.
+
+![pdxadv additions](../qa/pdxadv-additions.png)
+
+## Source scope
+
+Implementation evidence is pinned to [`cslroot/cax-pdxadv` commit `40cc394fd59e18b76f48efa1161a25d460bafc6d`](https://github.com/cslroot/cax-pdxadv/tree/40cc394fd59e18b76f48efa1161a25d460bafc6d). The audit inspected result-field definitions, coordinate-search optimization, local mesh deformation, baseline/comparison controls and report assembly. This establishes vocabulary and scope; pdxadv itself was not compiled or runtime-tested for this icon task.
+
+All nine entries are display/design/report commands. The local wall patch has a region list in pdxadv, but hierarchical model-tree display was not established, so this pass does not add model-tree claims.
+
+## Nine additions and evidence
+
+| ID | English / Japanese | Meaning and limits | Pinned primary sources |
+| --- | --- | --- | --- |
+''']
+for i in pdxadv:
+ refs='; '.join(f'[{r["title"]}]({r["url"]})' for r in i['references'])
+ parts.append(f'| `{i["id"]}` | {i["name"]} / {i["nameJa"]} | {i["description"]} {i["reviewNote"]} | {refs} |\n')
+parts.append('''
+## Reuse and semantic boundaries
+
+- **Sensitivity:** raw, normalized, density and contribution vocabulary all resolve to one sensitivity icon. The derivative is with respect to element isotropic linear shrinkage, not wall thickness. The tangent drawing represents a local response derivative.
+- **Thickness design:** bounded coordinate search regenerates, remeshes and reanalyzes candidates under thickness, volume and lock constraints. It is not topology optimization and does not promise a global optimum.
+- **Local wall offset:** the smooth mesh displacement has a finite influence radius and an explicit fixed back plane. The icon shows a localized raised section above an unchanged hatched back plane. It is not a B-rep face edit, generic smoothing or wall boundary condition.
+- **Result fields:** local thickness, effective linear shrinkage and sink tendency are independent computed quantities. Linear shrinkage is not volumetric shrinkage. Sink tendency is the uncalibrated reference index `100 × linear shrinkage × (local thickness / median thickness)^2`, not a measured or predicted defect depth. Its icon uses a surface hotspot with no depth dimension or pass/fail mark.
+- **Comparison:** two analysis results use synchronized cameras and a shared display range. Normalized sensitivity is still normalized independently within each result and displayed on a common −1 to 1 range. This is not measured/CAD deviation.
+- **Baseline:** copies the current result in memory; does not save a file or guarantee persistence. A pin and result sheet distinguish it from Save and location bookmarks.
+- **Report:** analysis conditions, results, diagnostics, figures, selected 3D models and optional comparisons share one report operation. HTML and PPTX do not become duplicate SVGs; dimensional inspection keeps its existing separate meaning.
+- **Deformation reuse:** `cae-deformation-result` gains warpage, residual displacement and total-displacement aliases without changing its SVG. Total displacement includes uniform shrinkage after rigid-motion removal; residual warpage also removes uniform shrinkage. They share the visualization symbol while remaining distinct data fields.
+
+## Visual design and verification
+
+![Light, dark and checker previews](../qa/pdxadv-themes.png)
+
+All geometry is original and uses the established 32 px grid, rounded joins and caps, pale body fill and teal accent. The additions sheet and three-background sheet show actual 48 / 24 / 16 px renders. The theme sheet extracts color roles from production CSS and is a **static SVG render, not a browser screenshot**.
+
+The regression suite verifies all nine source records, pinned reference commits, bilingual search, single-family alias reuse, command-only usage, the in-memory baseline wording, and the SHA-256 hashes of every baseline SVG. XML/security/metadata/geometry tests and the full-catalog raster audit cover all 419 symbols. No blank, overflow or identical normalized raster group was found. The rebuild is deterministic.
+
+Independent semantic and visual review status is recorded in [QA.md](QA.md). Real-browser layout, computed CSS, native dialog behavior, system clipboard and actual downloads remain unverified; this pass does not claim to resolve the earlier browser-access limitation. No CI, deployment or pdxadv runtime behavior is changed.
+''')
+(ROOT/'docs/PDXADV_REVIEW.md').write_text(''.join(parts))
+print('Refreshed pdxadv meaning and reuse review')

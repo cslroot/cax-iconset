@@ -1,8 +1,8 @@
 # CAX Studio coverage and geometry review
 
-Date: 2026-10-18. Version: 2.4.0. Baseline: the preserved 403-symbol v2.3 tree `0419c0d994e944530fc495a032b11be6750cbeec`; public base commit `cd269ffe836d8a905f2730c29a5ab0538e850474` contains 357 symbols.
+Date: 2026-10-18. Historical version: 2.4.0. Baseline: the preserved 403-symbol v2.3 tree `0419c0d994e944530fc495a032b11be6750cbeec`; public base commit `cd269ffe836d8a905f2730c29a5ab0538e850474` contains 357 symbols.
 
-This pass adds **7 independently useful commands**, revises **11 existing drawings**, and enriches **9 reused symbols** without creating synonyms. The resulting collection contains **410 SVGs**, including **186** symbols with model-tree use. Every existing ID is retained.
+This historical pass added **7 independently useful commands**, revised **11 existing drawings**, and enriched **9 reused symbols** without creating synonyms. Its checkpoint contains **410 SVGs**, including **186** symbols with model-tree use. Every existing ID was retained. The later pdxadv additions are documented in [PDXADV_REVIEW.md](PDXADV_REVIEW.md).
 
 ![Source-verified CAX commands](../qa/studio-additions.png)
 
@@ -78,7 +78,7 @@ The 22-example sheet includes every new and revised drawing plus representative 
 
 - Python: 9 groups covering XML safety, hashes, roles, bilingual metadata, source records, reuse, reviewed geometry and normalized uniqueness
 - JavaScript: 15 script-level groups, including CAX command search, persistent-node labels, recognized-result reuse, all three preview selections, palette scoping and unchanged standalone copy/download data
-- Raster: all 410 SVGs, zero empty output, zero viewBox overflow and zero identical color-normalized renders
+- Raster: all 410 SVGs at the v2.4 checkpoint, zero empty output, zero viewBox overflow and zero identical color-normalized renders
 - Reproducible category, additions, native model-tree, correction and theme sheets
 - Actual browser integration remains **unverified**. The supported cloud browser rejected the local `file:` URL; no alternate browser-control route was used to bypass that policy. CSS computed styles, native dialog focus/Escape, real clipboard and saved downloads therefore remain on the manual checklist.
 

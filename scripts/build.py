@@ -12,6 +12,7 @@ from extension import EXTENSION
 from application import APPLICATION, apply_reuse
 from robotics import ROBOTICS, apply_robotics_reuse
 from studio import STUDIO, apply_studio_reuse
+from pdxadv import PDXADV, apply_pdxadv_reuse
 from usage import apply_usage
 from sources import SOURCE_IDS, REFERENCES
 
@@ -23,7 +24,7 @@ def build():
  previous=json.loads((ROOT/'manifest.json').read_text())['icons'] if (ROOT/'manifest.json').exists() else []
  collection={'Common':COMMON+EXTENSION.get('Common',[])+APPLICATION.get('Common',[])+STUDIO.get('Common',[])}
  for domain,items in CORE.items():
-  collection[domain]=items+ENGINEERING.get(domain,[])+EXTENSION.get(domain,[])+APPLICATION.get(domain,[])+ROBOTICS.get(domain,[])+STUDIO.get(domain,[])
+  collection[domain]=items+ENGINEERING.get(domain,[])+EXTENSION.get(domain,[])+APPLICATION.get(domain,[])+ROBOTICS.get(domain,[])+STUDIO.get(domain,[])+PDXADV.get(domain,[])
  ids=[domain.lower()+'-'+base['id'] for domain,items in collection.items() for base in items]
  if len(ids)!=len(set(ids)):raise ValueError('Duplicate semantic ID in source records')
  for domain,items in collection.items():
@@ -37,6 +38,7 @@ def build():
    apply_reuse(item)
    apply_robotics_reuse(item)
    apply_studio_reuse(item)
+   apply_pdxadv_reuse(item)
    apply_usage(item)
    content=svg(item); (ROOT/item['file']).write_text(content)
    item['sha256']=hashlib.sha256(content.encode()).hexdigest(); data.append(item)
@@ -44,7 +46,7 @@ def build():
  for old in previous:
   if old['file'] not in keep and old['file'].startswith('icons/'):(ROOT/old['file']).unlink(missing_ok=True)
  from collections import Counter
- manifest={'counts':dict(Counter(i['role'] for i in data)),'categories':dict(Counter(i['category'] for i in data)),'sourceReferences':REFERENCES,'categoryMemberships':dict(Counter(c for i in data for c in i['categories'])),'usageCounts':dict(Counter(u for i in data for u in i['usages'])),'version':'2.4.0','viewBox':'0 0 32 32','license':'MIT','count':len(data),'scope':'One semantic entry per independent command, tool, object or status; reuse geometry across command and model-tree contexts; no profile or trajectory variants.','icons':data}
+ manifest={'counts':dict(Counter(i['role'] for i in data)),'categories':dict(Counter(i['category'] for i in data)),'sourceReferences':REFERENCES,'categoryMemberships':dict(Counter(c for i in data for c in i['categories'])),'usageCounts':dict(Counter(u for i in data for u in i['usages'])),'version':'2.5.0','viewBox':'0 0 32 32','license':'MIT','count':len(data),'scope':'One semantic entry per independent command, tool, object or status; reuse geometry across command and model-tree contexts; no profile or trajectory variants.','icons':data}
  (ROOT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,separators=(',',':'))+'\n')
  (ROOT/'catalog.js').write_text('window.CAX_CATALOG='+json.dumps(manifest,ensure_ascii=False,separators=(',',':'))+';\n')
  print(f'Built {len(data)} icons')

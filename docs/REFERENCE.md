@@ -12,12 +12,12 @@ The earlier operation × profile/trajectory generator has been removed, along wi
 | Common | 73 |
 | CAD | 135 |
 | CAM | 44 |
-| CAE | 52 |
+| CAE | 61 |
 | CMM | 34 |
 | OLP | 72 |
-| **Total** | **410** |
+| **Total** | **419** |
 
-Primary roles: 389 commands, 9 selectable tools, 9 objects and 3 status symbols. Every SVG is counted once.
+Primary roles: 398 commands, 9 selectable tools, 9 objects and 3 status symbols. Every SVG is counted once.
 
 186 entries support model-tree use, including reused command/tool symbols; these are not additional SVGs.
 <!-- coverage:end -->
@@ -249,6 +249,12 @@ Vendor and OSS documentation informs the functional taxonomy, not the artwork. N
 | cax-studio-photo-render | [CAX Studio photo renderer (afe7a7a)](https://github.com/cslroot/cax-studio/blob/afe7a7a4abf7896b525be66b695367a819516fdc/src/ui/PhotoRenderDialog.tsx#L25-L29) | CPU path-traced image generation, independent of viewport screenshot capture |
 | cax-recognized-thread | [CAX thread recognizer (62319d8)](https://github.com/cslroot/cax-feature-recognition/blob/62319d8a27c6950d9271a52ddab278dd18574bb7/src/recognizers/thread.rs) | B-rep-only ThreadRecognizer produces a Thread feature result; mesh thread recognition is not claimed |
 | cax-mesh2brep-methods | [CAX mesh-to-B-rep methods (8dfe1d5)](https://github.com/cslroot/cax-mesh2brep/blob/8dfe1d5036c4a803d4e0e3ec550a28520d40dd54/README.md#L8-L17) | Faceted, analytic, quad, subdivision and hybrid conversion methods |
+| pdxadv-result-fields | [pdxadv result-field definitions (40cc394)](https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/viewport.js#L3-L37) | Displacement, residual warpage, shrinkage sensitivity, local thickness, effective linear shrinkage and uncalibrated sink tendency |
+| pdxadv-thickness-advisor | [pdxadv bounded coordinate-search advisor (40cc394)](https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/src/workflow.rs#L401-L556) | Bounded wall-thickness candidates with complete regeneration, remeshing and reanalysis, volume limits and locked parameters |
+| pdxadv-local-wall-offset | [pdxadv local wall modifier (40cc394)](https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/src/design.rs#L1-L85) | Radius-bounded smooth mesh deformation with a fixed back plane; source CAD is retained and no edited B-rep is produced |
+| pdxadv-comparison-actions | [pdxadv baseline, comparison and report actions (40cc394)](https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/app.js#L440-L472) | Retain a copied current result in memory, compare paired results and generate reports |
+| pdxadv-comparison-display | [pdxadv synchronized result comparison (40cc394)](https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/app.js#L240-L258) | Before/after display uses common field ranges and synchronized view settings |
+| pdxadv-analysis-report | [pdxadv analysis-report generation (40cc394)](https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/src/report.rs#L419-L590) | Assemble analysis reports with figures, selected 3D models and optional before/after data |
 <!-- references:end -->
 
 ## Source-backed expansion

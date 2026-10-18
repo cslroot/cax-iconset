@@ -1,0 +1,26 @@
+[
+  {
+    "id": "cae-deformation-result",
+    "aliases": [
+      "warpage",
+      "residual warpage",
+      "total displacement",
+      "そり",
+      "そり変形",
+      "残差変位",
+      "全変位"
+    ],
+    "tags": [
+      "pdxadv"
+    ],
+    "references": [
+      {
+        "id": "pdxadv-result-fields",
+        "title": "pdxadv result-field definitions (40cc394)",
+        "url": "https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/viewport.js#L3-L37",
+        "scope": "Displacement, residual warpage, shrinkage sensitivity, local thickness, effective linear shrinkage and uncalibrated sink tendency"
+      }
+    ],
+    "reviewNote": "Reuse the deformation-view glyph. Total displacement includes uniform shrinkage after rigid-motion removal; warpage additionally removes uniform shrinkage. These remain distinct data fields but share the deformation visualization meaning; no extra warpage SVG."
+  }
+]

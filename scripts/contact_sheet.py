@@ -36,4 +36,6 @@ from robotics import GLYPHS as ROBOTICS_GLYPHS
 sheet([i for i in manifest['icons'] if i['id'] in ROBOTICS_GLYPHS],'robotics-additions','CAX / robotics, programming and simulation')
 from studio import GLYPHS as STUDIO_GLYPHS
 sheet([i for i in manifest['icons'] if i['id'] in STUDIO_GLYPHS],'studio-additions','CAX / source-verified Studio commands')
-print('Built six category sheets and four reviewed-additions sheets')
+from pdxadv import GLYPHS as PDXADV_GLYPHS
+sheet([i for i in manifest['icons'] if i['id'] in PDXADV_GLYPHS],'pdxadv-additions','CAX / pdxadv analysis and design workflow')
+print('Built six category sheets and five reviewed-additions sheets')

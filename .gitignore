@@ -5,3 +5,5 @@ qa/raster-atlas.png
 qa/*.log
 
 qa/dark-render/
+
+.DS_Store

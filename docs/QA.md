@@ -1,3 +1,5 @@
+Historical 419-release QA record. For the source-scoped GUI additions and current validation limits, see [GUI_COVERAGE.md](GUI_COVERAGE.md).
+
 # QA report
 
 Date: 2026-10-18. Scope: bulk SVG/PNG ZIP download, infinite gallery loading, filtered dialog navigation, synchronized preview backgrounds, standalone light/dark SVGs and transparent PNG export for all 419 semantic IDs. The [pdxadv review](PDXADV_REVIEW.md) and [historical geometry/theme review](CAX_STUDIO_REVIEW.md) retain the earlier source coverage. Profile/trajectory/state variants remain excluded; light/dark palettes do not inflate meaning counts.

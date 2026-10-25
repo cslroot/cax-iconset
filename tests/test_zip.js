@@ -31,7 +31,7 @@ const root=path.resolve(__dirname,'..');
   for(const theme of ['light','dark']){
    const bundle=new Zip();
    for(const icon of manifest.icons)bundle.add(icon.id+(theme==='dark'?'.dark':'')+'.svg',fs.readFileSync(path.join(root,icon.variants[theme].file)));
-   const archive=bundle.finish(),contents=await readZip(archive);assert.equal(contents.size,419);
+   const archive=bundle.finish(),contents=await readZip(archive);assert.equal(contents.size,manifest.icons.length);
    for(const icon of manifest.icons)assert.deepEqual(contents.get(icon.id+(theme==='dark'?'.dark':'')+'.svg'),fs.readFileSync(path.join(root,icon.variants[theme].file)));
    fs.writeFileSync(path.join(temp,theme+'.zip'),Buffer.from(await archive.arrayBuffer()));
   }
@@ -43,5 +43,5 @@ const root=path.resolve(__dirname,'..');
   }
  }finally{fs.rmSync(temp,{recursive:true,force:true});}
  console.log('PASS ZIP32 headers, offsets, UTF-8 names, binary bytes, CRC-32, safe paths, limits, finalization and empty archive');
- console.log('PASS all 838 exact SVG entries; independent Node reader, Python zipfile and unzip -t');
+ console.log('PASS all catalog SVG entries in both themes; independent Node reader, Python zipfile and unzip -t');
 })().catch(error=>{console.error(error);process.exitCode=1;});

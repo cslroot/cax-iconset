@@ -69,3 +69,13 @@ REFERENCES.update(STUDIO_REFERENCES)
 
 from pdxadv import PDXADV_REFERENCES
 REFERENCES.update(PDXADV_REFERENCES)
+
+# GUI taxonomy, not copied artwork or a claim that every upstream command is implemented.
+REFERENCES.update({
+ 'solidcraft-commands': {'title':'SolidCraft command reference','url':'https://docs.solidcraft.io/reference/commands.html','scope':'Parametric sketch, feature, surface, configuration and inspection command taxonomy; checked 2026-10-24'},
+ 'solidworks-sketch': {'title':'SOLIDWORKS Sketch toolbar','url':'https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_sketch_toolbar.htm','scope':'Sketch creation and constraint GUI families; original CAX geometry'},
+ 'solidworks-surfaces': {'title':'SOLIDWORKS Surfaces toolbar','url':'https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Surfaces_Toolbar.htm','scope':'Surface creation and editing GUI families; original CAX geometry'},
+})
+
+from coverage import COVERAGE_REFERENCES
+REFERENCES.update(COVERAGE_REFERENCES)

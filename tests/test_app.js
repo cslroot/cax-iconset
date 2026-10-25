@@ -80,8 +80,8 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
  const total=manifest.count;
  const batchCount=Math.ceil(total/96);
  await test('initial count, bounded first batch and category controls',async()=>{assert.equal(count(),total);assert.equal(cards().length,96);assert.equal($('load-status').textContent,`96 of ${total} icons shown`);assert.equal($('load-more').disabled,false);assert.equal(document.querySelectorAll('.category').length,7);assert.match($('collection-scope').textContent,/common application symbols/);assert.ok(!html.includes('Context variants'));assert.ok(!ids.has('kind'));});
- await test('English, Japanese, AND and Unicode-normalized searches',async()=>{await input('common save');assert.deepEqual(cards().map(c=>c.dataset.id),['common-save','common-save-as','common-save-all']);await input('名前を付けて保存');assert.equal(cards()[0].dataset.id,'common-save-as');await input('ファイル 開く');assert.ok(cards().some(c=>c.dataset.id==='common-open-file'));await input('ＣＡＤ');const normalized=count();await input('CAD');assert.equal(count(),normalized);assert.ok(count()>=20);await input('no-such-icon-xyz');assert.equal(count(),0);assert.equal($('empty').hidden,false);assert.equal($('load-more').disabled,true);await $('clear').click();assert.equal(count(),total);assert.equal($('empty').hidden,true);assert.equal(document.activeElement,$('search'));});
- await test('separate common and engineering categories and query intersections',async()=>{for(const category of ['Common','CAD','CAM','CAE','CMM','OLP']){await document.querySelectorAll('.category').find(e=>e.dataset.category===category).click();assert.equal(count(),manifest.categoryMemberships[category]);}await document.querySelectorAll('.category').find(e=>e.dataset.category==='Common').click();await input('save');assert.equal(count(),3);await document.querySelectorAll('.category').find(e=>e.dataset.category==='CAD').click();assert.equal(count(),0);await $('reset').click();assert.equal(count(),total);});
+ await test('English, Japanese, AND and Unicode-normalized searches',async()=>{await input('common-save');assert.deepEqual(cards().map(c=>c.dataset.id),['common-save','common-save-as','common-save-all']);await input('common save');assert.deepEqual(cards().map(c=>c.dataset.id),['common-save','common-save-as','common-save-all','common-checkpoint-save','common-checkpoint-restore']);await input('名前を付けて保存');assert.equal(cards()[0].dataset.id,'common-save-as');await input('ファイル 開く');assert.ok(cards().some(c=>c.dataset.id==='common-open-file'));await input('ＣＡＤ');const normalized=count();await input('CAD');assert.equal(count(),normalized);assert.ok(count()>=20);await input('no-such-icon-xyz');assert.equal(count(),0);assert.equal($('empty').hidden,false);assert.equal($('load-more').disabled,true);await $('clear').click();assert.equal(count(),total);assert.equal($('empty').hidden,true);assert.equal(document.activeElement,$('search'));});
+ await test('separate common and engineering categories and query intersections',async()=>{for(const category of ['Common','CAD','CAM','CAE','CMM','OLP']){await document.querySelectorAll('.category').find(e=>e.dataset.category===category).click();assert.equal(count(),manifest.categoryMemberships[category]);}await document.querySelectorAll('.category').find(e=>e.dataset.category==='Common').click();await input('common-save');assert.equal(count(),3);await document.querySelectorAll('.category').find(e=>e.dataset.category==='CAD').click();assert.equal(count(),0);await $('reset').click();assert.equal(count(),total);});
  await test('usage filter, node labels, category intersections and reuse without duplicate cards',async()=>{await change('usage','model-tree');assert.equal(count(),manifest.usageCounts['model-tree']);assert.equal(cards().length,Math.min(96,count()));await input('cae-material-assignment');assert.equal(count(),1);assert.equal(cards()[0].children.at(-1).textContent,'Material');await cards()[0].click();assert.equal($('detail-name').textContent,'Material');assert.match($('detail-usage').textContent,/command \/ model-tree/);await $('close').click();await change('language','ja');assert.equal(cards()[0].children.at(-1).textContent,'材料');await document.querySelectorAll('.category').find(e=>e.dataset.category==='CAD').click();assert.equal(count(),1);await change('usage','status');assert.equal(count(),0);await $('reset').click();assert.equal($('usage').value,'all');assert.equal(count(),total);await change('language','en');await change('usage','tool');assert.equal(count(),manifest.usageCounts.tool);await change('usage','status');assert.equal(count(),manifest.usageCounts.status);await change('usage','command');assert.equal(count(),manifest.usageCounts.command);await change('usage','model-tree');await input('cad-part component instance');assert.equal(count(),1);assert.equal(cards()[0].dataset.id,'cad-part');await $('reset').click();});
  await test('application-family aliases, shared categories and advanced tree names',async()=>{await input('raster finishing');assert.deepEqual(cards().map(c=>c.dataset.id),['cam-parallel-finishing']);await input('ICP');assert.deepEqual(cards().map(c=>c.dataset.id),['cmm-best-fit-alignment']);await input('shut-off patch');assert.deepEqual(cards().map(c=>c.dataset.id),['cad-surface-patch']);await input('merge coincident nodes');assert.deepEqual(cards().map(c=>c.dataset.id),['cad-mesh-merge-vertices']);await document.querySelectorAll('.category').find(e=>e.dataset.category==='CAE').click();assert.equal(count(),1);await input('重複 節点');assert.equal(count(),1);await $('reset').click();await input('cad-sheet-metal-form-tool');await change('usage','model-tree');assert.equal(cards()[0].children.at(-1).textContent,'Formed feature');await change('language','ja');assert.equal(cards()[0].children.at(-1).textContent,'成形フィーチャ');await change('language','en');await $('reset').click();});
  await test('robotics commands, reused joints and bilingual persistent-node names',async()=>{await document.querySelectorAll('.category').find(e=>e.dataset.category==='OLP').click();await input('olp-program-if');assert.equal(count(),1);await change('usage','model-tree');assert.equal(cards()[0].children.at(-1).textContent,'Conditional branch');await change('language','ja');assert.equal(cards()[0].children.at(-1).textContent,'条件分岐');await change('language','en');await input('planning group');assert.ok(cards().some(c=>c.dataset.id==='olp-planning-group'));await input('cad-revolute-joint');assert.equal(count(),1);await input('cad-part robot link');assert.deepEqual(cards().map(c=>c.dataset.id),['cad-part']);await input('olp-reference-calibration');assert.equal(count(),0);await change('usage','command');assert.equal(count(),1);await $('reset').click();});
@@ -100,7 +100,7 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
    const other=theme==='dark'?'light':'dark';await change('detail-theme',other);assert.equal($('theme').value,other);assert.equal($('results').className,'icon-grid '+other+'-bg');assert.equal($('detail-preview').className,'detail-preview '+other+'-bg');assert.equal(backgrounds.find(b=>b.dataset.background===other).attributes['aria-pressed'],'true');await backgrounds[2].click();assert.equal($('detail-preview').className,'detail-preview grid-bg');assert.equal($('theme').value,other);
    await $('close').click();
   }
-  await change('theme','light');await $('reset').click();assert.equal(count(),419);
+  await change('theme','light');await $('reset').click();assert.equal(count(),total);
  });
  await test('theme and language updates preserve loaded cards and the original opener',async()=>{
   await $('reset').click();await $('load-more').click();const before=cards()[130];before.focus();await before.click();
@@ -128,7 +128,7 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
   const first=observers.at(-1);assert.equal(first.target,$('load-sentinel'));assert.equal(first.options.rootMargin,'0px 0px 240px 0px');
   first.emit(false);assert.equal(cards().length,96);first.emit();assert.equal(cards().length,192);assert.equal(first.disconnected,true);
   first.emit();assert.equal(cards().length,192);
-  const old=observers.at(-1);await input('common save');old.emit();assert.equal(cards().length,3);assert.equal(old.disconnected,true);
+  const old=observers.at(-1);await input('common-save');old.emit();assert.equal(cards().length,3);assert.equal(old.disconnected,true);
   await $('reset').click();const beforeOpen=observers.at(-1);await cards()[0].click();assert.equal(beforeOpen.disconnected,true);beforeOpen.emit();assert.equal(cards().length,96);
   await $('close').click();assert.notEqual(observers.at(-1),beforeOpen);
   for(let i=1;i<batchCount;i++)observers.at(-1).emit();
@@ -142,7 +142,7 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
   assert.equal($('detail-id').textContent,manifest.icons.at(-1).id);assert.equal($('detail-next').disabled,true);assert.equal(document.activeElement,$('detail-previous'));
   await $('detail-next').dispatch('click');assert.equal($('detail-id').textContent,manifest.icons.at(-1).id);
   await $('close').click();assert.equal(document.activeElement,opener);
-  await input('common save');await cards()[0].click();assert.equal($('detail-previous').disabled,true);await $('detail-previous').dispatch('click');assert.equal($('detail-id').textContent,'common-save');
+  await input('common-save');await cards()[0].click();assert.equal($('detail-previous').disabled,true);await $('detail-previous').dispatch('click');assert.equal($('detail-id').textContent,'common-save');
   await $('detail-next').click();assert.equal($('detail-id').textContent,'common-save-as');await $('detail-next').click();assert.equal($('detail-id').textContent,'common-save-all');assert.equal($('detail-next').disabled,true);
   await $('close').click();await change('usage','model-tree');await input('cae-material-assignment');await change('language','ja');await cards()[0].click();
   assert.equal($('detail-position').textContent,'1 / 1 · 材料');assert.equal($('detail-previous').disabled,true);assert.equal($('detail-next').disabled,true);await $('close').click();await change('language','en');await $('reset').click();
@@ -166,7 +166,7 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
  await test('SVG download filename and blob contents',async()=>{await $('download').click();assert.equal(downloads.at(-1).name,'common-open-file.svg');assert.equal(blobs.at(-1).type,'image/svg+xml');assert.match(await blobs.at(-1).text(),/<svg xmlns=/);assert.ok((await blobs.at(-1).text()).includes(manifest.icons.find(i=>i.id==='common-open-file').body));await $('close').click();});
  await test('navigated selection drives SVG exports and preserves an in-flight PNG snapshot',async()=>{
   navigator.clipboard.writeText=async text=>clipboard.push(text);
-  await input('common save');await cards()[0].click();await $('detail-next').click();await change('detail-theme','dark');
+  await input('common-save');await cards()[0].click();await $('detail-next').click();await change('detail-theme','dark');
   const item=manifest.icons.find(i=>i.id==='common-save-as');const exact=fs.readFileSync(path.join(ROOT,item.variants.dark.file),'utf8');
   await $('copy').click();assert.equal(clipboard.at(-1),exact);await $('download').click();assert.equal(downloads.at(-1).name,'common-save-as.dark.svg');assert.equal(await blobs.at(-1).text(),exact);runTimers(1000);
   await change('png-size','64');png.mode='hold-image';const index=blobs.length;const pending=$('download-png').click();
@@ -179,7 +179,7 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
  });
  await test('both themes copy and download every exact standalone file without count inflation',async()=>{
   navigator.clipboard.writeText=async text=>clipboard.push(text);
-  await $('reset').click();assert.equal(count(),419);
+  await $('reset').click();assert.equal(count(),total);
   for(const item of manifest.icons){
    await input(item.id);const card=cards().find(c=>c.dataset.id===item.id);assert.ok(card);await card.click();
    for(const theme of ['light','dark']){
@@ -193,7 +193,7 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
    }
    await $('close').click();
   }
-  await change('theme','light');await $('reset').click();assert.equal(count(),419);
+  await change('theme','light');await $('reset').click();assert.equal(count(),total);
  });
  await test('PNG controls offer seven exact sizes with an independent 32 px default',async()=>{
   const select=/<select id="png-size"[^>]*>([\s\S]*?)<\/select>/.exec(html)[1];
@@ -206,7 +206,7 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
   assert.equal(document.documentElement.style['--icon-size'],'64px');
   runTimers(1000);assert.equal(liveURLs.size,0);
  });
- await test('all 838 selected SVG variants feed transparent PNG exports at all seven sizes',async()=>{
+ await test('all selected SVG variants feed transparent PNG exports at all seven sizes',async()=>{
   const before=downloads.length;
   for(const item of manifest.icons){
    await input(item.id);await cards().find(c=>c.dataset.id===item.id).click();
@@ -230,8 +230,8 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
    }
    await $('close').click();
   }
-  assert.equal(downloads.length-before,5866);
-  await change('theme','light');await $('reset').click();assert.equal(count(),419);
+  assert.equal(downloads.length-before,total*2*7);
+  await change('theme','light');await $('reset').click();assert.equal(count(),total);
  });
  await test('PNG exports never include light, dark or checker preview backgrounds',async()=>{
   await input('common-info');await cards()[0].click();await change('png-size','64');
@@ -300,8 +300,8 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
  await test('bulk controls inherit theme, describe complete results and reject empty filters',async()=>{
   await $('reset').click();await change('theme','dark');$('bulk-download').focus();await $('bulk-download').click();
   assert.equal($('bulk').open,true);assert.equal($('bulk-theme').value,'dark');assert.equal($('bulk-scope').value,'filtered');
-  assert.match($('bulk-summary').textContent,/419 icons · Dark SVG · one ZIP/);assert.equal($('bulk-size-label').hidden,true);
-  assert.match($('bulk-scope-all').textContent,/419/);assert.match($('bulk-scope-filtered').textContent,/419/);
+  assert.match($('bulk-summary').textContent,new RegExp(`${total} icons · Dark SVG · one ZIP`));assert.equal($('bulk-size-label').hidden,true);
+  assert.match($('bulk-scope-all').textContent,new RegExp(String(total)));assert.match($('bulk-scope-filtered').textContent,new RegExp(String(total)));
   const select=/<select id="bulk-size"[^>]*>([\s\S]*?)<\/select>/.exec(html)[1];
   assert.deepEqual([...select.matchAll(/value="(\d+)"/g)].map(m=>Number(m[1])),[16,24,32,48,64,128,256]);assert.match(select,/<option value="32" selected>/);
   await $('bulk-download').dispatch('click');assert.equal($('bulk').open,true);
@@ -317,34 +317,34 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
   for(const theme of ['light','dark']){
    await $('bulk-download').click();await change('bulk-format','svg');await change('bulk-theme',theme);await change('bulk-scope','all');
    const before=downloads.length;await $('bulk-start').click();assert.equal(downloads.length,before+1);assert.equal(cards().length,96);
-   assert.equal(downloads.at(-1).name,`cax-icons-all-419.${theme}.svg.zip`);assert.equal(blobs.at(-1).type,'application/zip');
-   const entries=await readZip(blobs.at(-1));assert.equal(entries.size,419);
+   assert.equal(downloads.at(-1).name,`cax-icons-all-${total}.${theme}.svg.zip`);assert.equal(blobs.at(-1).type,'application/zip');
+   const entries=await readZip(blobs.at(-1));assert.equal(entries.size,total);
    for(const item of manifest.icons)assert.deepEqual(entries.get(item.id+(theme==='dark'?'.dark':'')+'.svg'),fs.readFileSync(path.join(ROOT,item.variants[theme].file)));
-   assert.match($('bulk-status').textContent,/ZIP download started: 419/);assert.equal($('bulk-start').disabled,false);assert.equal($('bulk-start').attributes['aria-busy'],'false');
+   assert.match($('bulk-status').textContent,new RegExp(`ZIP download started: ${total}`));assert.equal($('bulk-start').disabled,false);assert.equal($('bulk-start').attributes['aria-busy'],'false');
    await $('bulk-close').click();runTimers(1000);assert.equal(liveURLs.size,0);
   }
  });
  await test('bulk filtered selection respects category, usage and query while all scope ignores them',async()=>{
   const {readZip}=require('./zip_helpers.js');
-  await input('common save');await $('bulk-download').click();await change('bulk-theme','light');
+  await input('common-save');await $('bulk-download').click();await change('bulk-theme','light');
   await $('bulk-start').click();let entries=await readZip(blobs.at(-1));assert.deepEqual([...entries.keys()],['common-save.svg','common-save-as.svg','common-save-all.svg']);
   assert.equal(downloads.at(-1).name,'cax-icons-filtered-3.light.svg.zip');
-  await change('bulk-scope','all');await $('bulk-start').click();assert.equal((await readZip(blobs.at(-1))).size,419);await $('bulk-close').click();
+  await change('bulk-scope','all');await $('bulk-start').click();assert.equal((await readZip(blobs.at(-1))).size,total);await $('bulk-close').click();
   await $('reset').click();await change('usage','model-tree');await document.querySelectorAll('.category').find(e=>e.dataset.category==='CAD').click();await input('cae-material-assignment');
   await $('bulk-download').click();await $('bulk-start').click();entries=await readZip(blobs.at(-1));assert.deepEqual([...entries.keys()],['cae-material-assignment.svg']);
   await $('bulk-close').click();await $('reset').click();await change('usage','model-tree');assert.equal(cards().length,96);
   await $('bulk-download').click();await $('bulk-start').click();entries=await readZip(blobs.at(-1));assert.equal(entries.size,186);assert.equal(cards().length,96);
   await $('bulk-close').click();await $('reset').click();runTimers(1000);assert.equal(liveURLs.size,0);
  });
- await test('bulk PNG ZIP captures all 419 images per theme and all seven supported sizes',async()=>{
+ await test('bulk PNG ZIP captures all catalog images per theme and all seven supported sizes',async()=>{
   const {readZip}=require('./zip_helpers.js');
   for(const theme of ['light','dark']){
    await $('bulk-download').click();await change('bulk-format','png');await change('bulk-theme',theme);await change('bulk-size','32');await change('bulk-scope','all');
    assert.equal($('bulk-size-label').hidden,false);assert.equal($('bulk-size').disabled,false);
-   const before=downloads.length,imageStart=png.images.length;await $('bulk-start').click();assert.equal(downloads.length,before+1);assert.equal(png.images.length-imageStart,419);
-   const entries=await readZip(blobs.at(-1));assert.equal(entries.size,419);
+   const before=downloads.length,imageStart=png.images.length;await $('bulk-start').click();assert.equal(downloads.length,before+1);assert.equal(png.images.length-imageStart,total);
+   const entries=await readZip(blobs.at(-1));assert.equal(entries.size,total);
    for(const item of manifest.icons)assert.equal(entries.get(`${item.id}.${theme}.32.png`).toString(),'mock PNG pixels');
-   assert.equal(downloads.at(-1).name,`cax-icons-all-419.${theme}.32.png.zip`);await $('bulk-close').click();runTimers(1000);assert.equal(liveURLs.size,0);
+   assert.equal(downloads.at(-1).name,`cax-icons-all-${total}.${theme}.32.png.zip`);await $('bulk-close').click();runTimers(1000);assert.equal(liveURLs.size,0);
   }
   await input('common-info');await $('bulk-download').click();
   for(const theme of ['light','dark'])for(const size of [16,24,32,48,64,128,256]){
@@ -360,7 +360,7 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
  await test('bulk snapshot and repeated-click guard survive changes to filters, theme, format and size',async()=>{
   const {readZip}=require('./zip_helpers.js');
   const waitFor=async predicate=>{for(let i=0;i<1000&&!predicate();i++)await new Promise(resolve=>setTimeout(resolve,1));assert.ok(predicate());};
-  await input('common save');await $('bulk-download').click();await change('bulk-theme','dark');await change('bulk-size','128');
+  await input('common-save');await $('bulk-download').click();await change('bulk-theme','dark');await change('bulk-size','128');
   png.mode='hold-image';const before=downloads.length,imageCount=png.images.length,blobStart=blobs.length;const pending=$('bulk-start').click();
   assert.equal($('bulk-start').disabled,true);assert.equal($('bulk-start').attributes['aria-busy'],'true');assert.equal(document.activeElement,$('bulk-cancel'));
   await waitFor(()=>png.pendingImages.length>0);await $('bulk-start').dispatch('click');assert.equal(png.images.length,imageCount+1);
@@ -375,7 +375,7 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
  });
  await test('bulk cancellation before work, during decode/encode and before final download is atomic',async()=>{
   const waitFor=async predicate=>{for(let i=0;i<1000&&!predicate();i++)await new Promise(resolve=>setTimeout(resolve,1));assert.ok(predicate());};
-  await input('common save');await $('bulk-download').click();await change('bulk-format','svg');const before=downloads.length;
+  await input('common-save');await $('bulk-download').click();await change('bulk-format','svg');const before=downloads.length;
   let pending=$('bulk-start').click();await $('bulk-cancel').click();await pending;assert.equal(downloads.length,before);assert.match($('bulk-status').textContent,/cancelled/);
   await change('bulk-format','png');await change('bulk-size','32');
   for(const mode of ['hold-image','hold-encode']){
@@ -407,7 +407,7 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
  });
  await test('bulk conversion and ZIP failures never download partial files and allow retry',async()=>{
   const waitFor=async predicate=>{for(let i=0;i<1000&&!predicate();i++)await new Promise(resolve=>setTimeout(resolve,1));assert.ok(predicate());};
-  await input('common save');await $('bulk-download').click();await change('bulk-format','png');
+  await input('common-save');await $('bulk-download').click();await change('bulk-format','png');
   const before=downloads.length;png.mode='hold-image';let pending=$('bulk-start').click();await waitFor(()=>png.pendingImages.length>0);png.pendingImages.shift()();await waitFor(()=>png.pendingImages.length>0);png.mode='image-error';png.pendingImages.shift()();await pending;
   assert.equal(downloads.length,before);assert.match($('bulk-status').textContent,/failed at common-save-as/);assert.equal(liveURLs.size,0);
   for(const mode of ['canvas-null','draw-error','encode-error','null-blob','empty-blob','wrong-mime','source-url-error','zip-url-error','anchor-error','image-hang','encode-hang']){

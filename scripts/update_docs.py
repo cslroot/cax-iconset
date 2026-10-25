@@ -223,7 +223,7 @@ parts=[f'''# pdxadv analysis and design workflow
 
 Date: 2026-10-18. Historical version: 2.5.0. Baseline: `490d20684866e39c7075485bf2dc95abb95dd341` (410 symbols).
 
-This pass adds **{len(pdxadv)} independent meanings** selected from implemented pdxadv workflows: six analysis/design meanings and three supporting result actions. The catalog contains **{m['count']} unique SVGs**, including **{m['usageCounts']['model-tree']}** model-tree-compatible entries. All **410 existing SVG files remain byte-for-byte unchanged**. The count follows useful functions; no numerical target or state/format product is used.
+This pass adds **{len(pdxadv)} independent meanings** selected from implemented pdxadv workflows: six analysis/design meanings and three supporting result actions. This historical checkpoint contained **419 unique SVGs**, including **186** model-tree-compatible entries. All **410 existing SVG files remain byte-for-byte unchanged**. The count follows useful functions; no numerical target or state/format product is used.
 
 ![pdxadv additions](../qa/pdxadv-additions.png)
 
@@ -265,3 +265,42 @@ Independent semantic and visual review status is recorded in [QA.md](QA.md). Rea
 ''')
 (ROOT/'docs/PDXADV_REVIEW.md').write_text(''.join(parts))
 print('Refreshed pdxadv meaning and reuse review')
+
+# Reviewed GUI additions use the catalog as their single metadata source.
+import sys
+sys.path.insert(0,str(ROOT/'src'))
+from gui_features import ITEMS as first_features
+from gui_sketch import ITEMS as first_sketch
+from gui_surface import ITEMS as first_surface
+first_ids={'cad-'+i['id'] for i in first_features+first_sketch+first_surface}
+new=[i for i in m['icons'] if i['id'] in first_ids]
+lines=['# CAD GUI expansion', '', 'Reviewed on 2026-10-24 against main 04057de766e4b2694593f47a82690f32bdedfc27.', '',
+       'Historical first GUI pass: 30 new meanings, 449 total at that checkpoint. Light/dark are variants, not additional meanings. All 419 original SVGs in both themes are byte-preserved. Artwork is original; vendor documentation provides command taxonomy only.', '',
+       'This is a focused gap-filling pass, not complete coverage of either product. A documented SolidCraft command is not a promise that every upstream operation is implemented or robust. Planned surface fillet was not included.', '',
+       '## New command mapping', '', '| CAX ID | English / 日本語 | Source command aliases | Purpose |', '| --- | --- | --- | --- |']
+for i in new:
+ aliases=', '.join(a for a in i.get('aliases',[]) if '.' in a)
+ lines.append(f"| {i['id']} | {i['name']} / {i['nameJa']} | {aliases} | {i['description']} |")
+lines += ['', '## Reuse instead of duplicate icons', '',
+          '- Polygon input methods share one icon. Straight slot construction methods share one icon; arc-slot geometry is not falsely labeled straight.',
+          '- Centerline / construction geometry share one construction-line symbol.',
+          '- Surface match reuses cad-surface-match; it is not a new surface-stitch meaning.',
+          '- Gear coupling reuses cad-joint-coupling; center of mass reuses cad-mass-properties.',
+          '- Face push/pull reuses cad-face-offset; parameter editing reuses cad-parameters; recompute reuses cad-recompute.',
+          '- Datum creation methods reuse existing plane/axis symbols. Material assignment reuses the existing shared cae-material-assignment.',
+          '- Face splitting is distinct from cad-split-body; B-rep normal reversal differs from mesh face orientation.',
+          '- History rollback changes the active history position, unlike common-history review. Body comparison is geometry, not cae-compare-results analysis fields.', '',
+          '## Evidence', '']
+for key in ['solidcraft-commands','solidworks-sketch','solidworks-surfaces']:
+ ref=m['sourceReferences'][key];lines.append(f"- [{ref['title']}]({ref['url']}): {ref['scope']}.")
+lines += ['', '## Verification and limits', '',
+          '- XML, bilingual metadata, source registration, safe SVG, normalized geometry uniqueness and exact new-set membership checks.',
+          '- The old 419-entry theme hash file is unchanged. Its hashes are checked as a preserved subset; new entries are checked separately. All theme geometry/mask checks still apply to every entry.',
+          '- Raster audit: all entries nonblank, within viewBox, no identical color-normalized renders.',
+          '- Native PNG exports at 16/24/32/48/64/128/256 px, both themes; alpha, dimensions, file integrity and cutout checks.',
+          '- App and ZIP Node harness tests, including no IntersectionObserver fallback. Harness tests are not live-browser tests.',
+          '- New icons visually reviewed at native 16/24/32 px in light and dark. [Preview](../qa/gui-additions.png).',
+          '- No new browser/CUA, mobile, screen-reader or production integration validation; no source application functionality was changed.', '',
+          'Regenerate this document with scripts/update_docs.py. Regenerate the native preview with scripts/gui_sheet.py.', '']
+(ROOT/'docs/GUI_EXPANSION.md').write_text('\n'.join(lines))
+print('Refreshed GUI meaning and reuse review')

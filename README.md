@@ -1,5 +1,20 @@
 # CAX Iconset
 
+<!-- coverage-expansion:start -->
+## Systematic GUI coverage (2026-10-25)
+
+244 new original command glyphs were implemented from the frozen source audit, with documented reuse and unresolved bindings. The current catalog contains **693 semantic icons / 1386 standalone SVG files**. All 449 previously delivered records and both theme SVGs remain unchanged.
+
+See [scope, decisions and source mapping](docs/GUI_COVERAGE.md), [all 1,089 evidence rows with implementation status](docs/GUI_IMPLEMENTATION_TRACKING.csv), and [native-size preview page list](qa/coverage-preview/pages.json). This is source-scoped coverage, not a claim that all SOLIDWORKS product editions or every uncertain GUI binding are complete.
+<!-- coverage-expansion:end -->
+
+## Initial GUI expansion (2026-10-24)
+
+30 independently useful CAD meanings were added after checking the SolidCraft command reference and SOLIDWORKS sketch/surface toolbars. That checkpoint contained **449 semantic icons / 898 standalone SVG files**. All 419 previous light and dark SVG files are unchanged. See [the reviewed command mapping and reuse decisions](docs/GUI_EXPANSION.md) and [native 16 / 24 / 32 px preview](qa/gui-additions.png).
+
+The new set has XML, metadata, geometry, raster, theme contrast, native PNG and app/ZIP harness coverage. Historical live-browser checks below covered the former 419-icon release, not this expansion. No new live browser, mobile, clipboard integration or accessibility check is claimed.
+
+
 Original rounded SVG symbols for everyday application commands, model-tree objects and CAD, CAM, CAE, CMM and Robotics / OLP. Every entry has a semantic ID, English and Japanese names, bilingual search tags, and a one-sentence purpose in both languages.
 
 **The collection is organized by meaning, not by a target icon count.** Shape/profile/trajectory combinations have been removed from the catalog, source generator and exported SVGs. The previous collection remains recoverable in Git history.
@@ -11,15 +26,15 @@ Original rounded SVG symbols for everyday application commands, model-tree objec
 <!-- coverage:start -->
 | Primary category | Symbols |
 | --- | ---: |
-| Common | 73 |
-| CAD | 135 |
+| Common | 87 |
+| CAD | 395 |
 | CAM | 44 |
 | CAE | 61 |
 | CMM | 34 |
 | OLP | 72 |
-| **Total** | **419** |
+| **Total** | **693** |
 
-Primary roles: 398 commands, 9 selectable tools, 9 objects and 3 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
+Primary roles: 672 commands, 9 selectable tools, 9 objects and 3 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
 
 186 entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.
 <!-- coverage:end -->
@@ -140,7 +155,7 @@ The standalone-theme audit embeds actual file bytes without host CSS in an atlas
 
 ## Files and license
 
-- `icons/`: 419 original light SVG files; only reviewed semantic entries
+- `icons/`: 693 original light SVG files; only reviewed semantic entries
 - `icons-dark/`: generated standalone dark variants of the same IDs
 - `src/themes.py`, `src/theme_baseline_hashes.json`: single palette source and byte-preservation regression for all 419 originals
 - `src/core.py`, `src/common.py`, `src/engineering.py`, `src/extension.py`, `src/application.py`, `src/robotics.py`, `src/studio.py`, `src/pdxadv.py`: hand-authored geometry
@@ -161,6 +176,6 @@ The standalone-theme audit embeds actual file bytes without host CSS in an atlas
 
 一般アプリ操作とCAD/CAM/CAE/CMM/ロボットOLP向けの独自SVGアイコン集です。新規・開く・保存などの基本操作に加え、他アプリの実在機能を参考に、メッシュ編集、自由曲面、点群処理、板金・溶接・金型、2D編集、加工、解析前後処理、ロボット軌道計画を追加しました。
 
-ロボティクスの46用途に加え、cax-studioと関連リポジトリの実装から不足していた7用途を追加しました。さらにpdxadvの実装を根拠に、そり感度・肉厚対策・局所肉厚変更・結果分布・比較・基準保持・解析レポートの9用途を追加しました。全419件、186件がモデルツリーに対応します。各IDにライト／ダークの独立SVGを用意しましたが、用途の件数は419件のままです。ダーク版はCSSなしで使えます。切り欠きなどの不透明な塗りは背景色#192c3cに固定して重なりを保つため、別の背景では色の差が見える場合があります。今回のテーマ追加では元の419件をバイト単位で維持しています。先のpdxadv用途追加では既存410件のSVGを変更していません。認識されたねじやメッシュ変換方式などは既存SVGを再利用し、件数を増やしていません。全403件の目視監査で見つかった形状の問題・改善点を11件修正し、ダーク背景で内部線が消える配色も改善しました。
+ロボティクスの46用途に加え、cax-studioと関連リポジトリの実装から不足していた7用途を追加しました。さらにpdxadvの実装を根拠に、そり感度・肉厚対策・局所肉厚変更・結果分布・比較・基準保持・解析レポートの9用途を追加しました。今回のGUI拡充後は全693件、186件がモデルツリーに対応します。各IDにライト／ダークの独立SVGを用意しましたが、用途の件数は693件です。ダーク版はCSSなしで使えます。切り欠きなどの不透明な塗りは背景色#192c3cに固定して重なりを保つため、別の背景では色の差が見える場合があります。今回のテーマ追加では元の419件をバイト単位で維持しています。先のpdxadv用途追加では既存410件のSVGを変更していません。認識されたねじやメッシュ変換方式などは既存SVGを再利用し、件数を増やしていません。全403件の目視監査で見つかった形状の問題・改善点を11件修正し、ダーク背景で内部線が消える配色も改善しました。
 
-断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。追加一覧、11件の修正前後、light/dark/checker見本、70行の16pxロボット階層見本を同梱しています。アイコンとメタデータだけを作成し、実機接続・操作は行いません。詳細画面からライト／ダークの透過PNGも16・24・32・48・64・128・256pxで保存できます。プレビュー背景は含めず、重なりを隠す内部の不透明な塗りはそのまま保持します。一覧は96件ずつの無限スクロールに対応し、「Load more」でも追加できます。詳細は左右のボタン・矢印キーで絞り込み結果全体を前後移動できます。テーマ変更時は背景も連動し、その後はチェック柄などへ手動変更できます。検索横の「Download ZIP」で全419件または絞り込み結果全体を一括保存できます。SVG／透過PNG、ライト／ダーク、PNGサイズを選べ、進捗表示・キャンセルにも対応します。公開ページでは一覧・詳細移動、Escapeとフォーカス復帰、SVGコピー、選択した64px PNGをChromeで確認済みです。一括ZIPも全419件の両テーマSVG・32px PNG、絞り込み結果、キャンセルを確認済みです。モバイル・他ブラウザの検証は別途必要です。
+断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。追加一覧、11件の修正前後、light/dark/checker見本、70行の16pxロボット階層見本を同梱しています。アイコンとメタデータだけを作成し、実機接続・操作は行いません。詳細画面からライト／ダークの透過PNGも16・24・32・48・64・128・256pxで保存できます。プレビュー背景は含めず、重なりを隠す内部の不透明な塗りはそのまま保持します。一覧は96件ずつの無限スクロールに対応し、「Load more」でも追加できます。詳細は左右のボタン・矢印キーで絞り込み結果全体を前後移動できます。テーマ変更時は背景も連動し、その後はチェック柄などへ手動変更できます。検索横の「Download ZIP」で全693件または絞り込み結果全体を一括保存できます。SVG／透過PNG、ライト／ダーク、PNGサイズを選べ、進捗表示・キャンセルにも対応します。公開ページでは一覧・詳細移動、Escapeとフォーカス復帰、SVGコピー、選択した64px PNGをChromeで確認済みです。一括ZIPも全419件の両テーマSVG・32px PNG、絞り込み結果、キャンセルを確認済みです。モバイル・他ブラウザの検証は別途必要です。

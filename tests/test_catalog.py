@@ -133,12 +133,13 @@ class CatalogTests(unittest.TestCase):
         baseline=json.loads((ROOT/'src/theme_baseline_hashes.json').read_text())
         self.assertEqual(baseline['commit'],'08d22603e7b21b47da35f67025ba36a6572c3c95')
         self.assertEqual(len(baseline['icons']),419)
-        self.assertEqual({i['id'] for i in M['icons']},set(baseline['icons']))
-        self.assertEqual({p.stem for p in (ROOT/'icons-dark').glob('*.svg')},set(baseline['icons']))
+        self.assertTrue(set(baseline['icons']) <= {i['id'] for i in M['icons']})
+        self.assertEqual({p.stem for p in (ROOT/'icons-dark').glob('*.svg')},{i['id'] for i in M['icons']})
         cutouts=0
         for item in M['icons']:
             with self.subTest(icon=item['id']):
-                self.assertEqual(item['sha256'],baseline['icons'][item['id']])
+                if item['id'] in baseline['icons']:
+                    self.assertEqual(item['sha256'],baseline['icons'][item['id']])
                 self.assertEqual(set(item['variants']),{'light','dark'})
                 self.assertEqual(item['variants']['light'],{'file':item['file'],'sha256':item['sha256']})
                 variant=item['variants']['dark']
@@ -167,10 +168,70 @@ class CatalogTests(unittest.TestCase):
                             self.assertEqual(value,THEMES['dark']['palette'][PAINT_ROLES[(key,original)]])
                         else:self.assertEqual(value,original)
                     if before.get('fill')=='white':
-                        cutouts+=1;self.assertEqual(after.get('fill'),'#192c3c')
+                        if item['id'] in baseline['icons']:cutouts+=1
+                        self.assertEqual(after.get('fill'),'#192c3c')
                 self.assertEqual(dark.get('stroke'),THEMES['dark']['palette']['ink'])
         self.assertEqual(cutouts,184)
         with self.assertRaises(ValueError):themed_body('<path fill="#123456"/>','dark')
+
+    def test_gui_additions_are_exactly_the_reviewed_new_set(self):
+        import sys
+        sys.path.insert(0,str(ROOT/'src'))
+        from gui_features import ITEMS as features
+        from gui_sketch import ITEMS as sketch
+        from gui_surface import ITEMS as surface
+        items=features+sketch+surface
+        expected={'cad-'+i['id'] for i in items}
+        baseline=json.loads((ROOT/'src/theme_baseline_hashes.json').read_text())['icons']
+        current={i['id']:i for i in M['icons']}
+        reviewed=set('''boundary-fill emboss pattern-path mounting-boss lip-groove snap-fit
+            configuration-table history-rollback curvature-comb curvature-map continuity-analysis
+            isocurve-analysis minimum-radius-analysis compare-bodies sketch-ellipse sketch-polygon
+            sketch-slot sketch-text sketch-construction-line constraint-collinear constraint-curvature
+            sketch-auto-constrain replace-face delete-face split-face surface-extend surface-untrim
+            surface-unstitch surface-ruled surface-reverse-normal'''.split())
+        self.assertEqual(expected,{'cad-'+id for id in reviewed})
+        self.assertEqual(len(items),30)
+        self.assertEqual(len(expected),len(items))
+        self.assertTrue(expected <= set(current)-set(baseline))
+        self.assertFalse(expected & set(baseline))
+        for record in items:
+            output=current['cad-'+record['id']]
+            self.assertEqual(output['body'],record['body'])
+            self.assertEqual(output['usages'],['command'])
+            self.assertIn('solidcraft-commands',output['sources'])
+            self.assertTrue(output['aliases'])
+            self.assertTrue(output['descriptionJa'])
+
+    def test_systematic_coverage_set_and_delivered449_preservation(self):
+        import sys
+        sys.path.insert(0,str(ROOT/'src'))
+        from coverage import COVERAGE
+        baseline=json.loads((ROOT/'src/gui_expansion_baseline.json').read_text())['icons']
+        self.assertEqual(len(baseline),449)
+        current={i['id']:i for i in M['icons']}
+        additions={domain.lower()+'-'+i['id'] for domain,items in COVERAGE.items() for i in items}
+        self.assertEqual(set(current)-set(baseline),additions)
+        self.assertFalse(additions & set(baseline))
+        for id,record in baseline.items():
+            item=current[id]
+            digest=hashlib.sha256(json.dumps(item,sort_keys=True,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+            self.assertEqual(digest,record['record_sha256'],id)
+            for theme in ('light','dark'):
+                self.assertEqual(item['variants'][theme]['sha256'],record[theme],id)
+        decisions=json.loads((ROOT/'src/coverage_decisions.json').read_text())
+        covered_groups=[g for i in decisions for g in i['audit_groups']]
+        audited=json.loads((ROOT/'src/coverage_audit_groups.json').read_text())
+        self.assertEqual(set(covered_groups),set(audited))
+        self.assertEqual(len(covered_groups),len(set(covered_groups)))
+        for row in decisions:
+            self.assertTrue(row['reason'])
+            self.assertIn(row['decision'],{'new-glyph','reuse','uncertain','not-applicable'})
+            if row['decision'] in {'new-glyph','reuse'}:
+                self.assertIn(row['icon_id'],current)
+            if row['decision']=='new-glyph':
+                self.assertIn(row['icon_id'],additions)
+        self.assertEqual({i['icon_id'] for i in decisions if i['decision']=='new-glyph'},additions)
 
     def test_reviewed_application_commands_and_alias_reuse(self):
         import sys
@@ -263,7 +324,7 @@ class CatalogTests(unittest.TestCase):
         baseline=json.loads((ROOT/'src/pdxadv_baseline_hashes.json').read_text())
         self.assertEqual(baseline['commit'],'490d20684866e39c7075485bf2dc95abb95dd341')
         self.assertEqual(len(baseline['icons']),410)
-        self.assertEqual(set(by_id)-set(baseline['icons']),set(GLYPHS))
+        self.assertTrue(set(GLYPHS) <= set(by_id)-set(baseline['icons']))
         for id,sha in baseline['icons'].items():self.assertEqual(by_id[id]['sha256'],sha,id)
 
     def test_reviewed_occlusion_and_projected_mesh(self):

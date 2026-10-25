@@ -9,15 +9,15 @@ The earlier operation × profile/trajectory generator has been removed, along wi
 <!-- coverage:start -->
 | Primary category | Symbols |
 | --- | ---: |
-| Common | 73 |
-| CAD | 135 |
+| Common | 87 |
+| CAD | 395 |
 | CAM | 44 |
 | CAE | 61 |
 | CMM | 34 |
 | OLP | 72 |
-| **Total** | **419** |
+| **Total** | **693** |
 
-Primary roles: 398 commands, 9 selectable tools, 9 objects and 3 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
+Primary roles: 672 commands, 9 selectable tools, 9 objects and 3 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
 
 186 entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.
 <!-- coverage:end -->
@@ -255,6 +255,62 @@ Vendor and OSS documentation informs the functional taxonomy, not the artwork. N
 | pdxadv-comparison-actions | [pdxadv baseline, comparison and report actions (40cc394)](https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/app.js#L440-L472) | Retain a copied current result in memory, compare paired results and generate reports |
 | pdxadv-comparison-display | [pdxadv synchronized result comparison (40cc394)](https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/web/app.js#L240-L258) | Before/after display uses common field ranges and synchronized view settings |
 | pdxadv-analysis-report | [pdxadv analysis-report generation (40cc394)](https://github.com/cslroot/cax-pdxadv/blob/40cc394fd59e18b76f48efa1161a25d460bafc6d/src/report.rs#L419-L590) | Assemble analysis reports with figures, selected 3D models and optional before/after data |
+| solidcraft-commands | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html) | Parametric sketch, feature, surface, configuration and inspection command taxonomy; checked 2026-10-24 |
+| solidworks-sketch | [SOLIDWORKS Sketch toolbar](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_sketch_toolbar.htm) | Sketch creation and constraint GUI families; original CAX geometry |
+| solidworks-surfaces | [SOLIDWORKS Surfaces toolbar](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Surfaces_Toolbar.htm) | Surface creation and editing GUI families; original CAX geometry |
+| gui-audit-f30c7dc7d5 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_view_toolbar.htm?id=d7123216e4cc48df9f6b6be904699b39) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-4396f7e3ba | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_tools_toolbar.htm?id=2.12.4.1.39) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-7830b955e2 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2021/english/SolidWorks/sldworks/r_Drawing_Toolbar.htm) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-8f5f9d7f22 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_standard.htm?id=2.12.4.1.33) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-32463001c1 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Annotations_Toolbar.htm?id=2.12.4.1.2) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-9b51c95f92 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2023/english/SolidWorks/sldworks/r_table_toolbar.htm?id=3.13.4.1.35) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-8a41850734 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Assembly_Toolbar.htm?id=2.12.4.1.3) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-aad95a4813 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#sketch--inspect) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-cf394eb201 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#sketch--insert) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-770ce672d7 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-canvas) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-5952aec4b6 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_sketch_toolbar.htm?id=2.12.4.1.29) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-27d4ba3bf3 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#sketch--constraints) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-318833252a | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Spline_Tools_Toolbar.htm?id=a4ff97c5f9a44cdfa2f834f95f252946) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-4023a9e23d | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-sketch) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-1bed7f8e51 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_blocks_toolbar.htm?id=2.12.4.1.4) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-3762e45220 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#sketch--create) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-f00a42accf | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#sketch--modify) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-43d4d0f047 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-render) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-64d1c36155 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#surface--create) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-f42456e152 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Surfaces_Toolbar.htm?id=228c84f71d5c424ab88a08a5e57b3e33) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-efdc5a5641 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#surface--modify) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-117fa3c165 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/t_Changing_from_One_Display_State_to_Another.htm) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-8ff0ee5324 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/HIDD_NEW_ADD_CONFIG.htm?id=9.2.0.2) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-875626de06 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-view) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-08eeb2032b | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-appearance) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-ecd16ac847 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#solid--modify) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-a3a82707e9 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-edit) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-e02b0eaa69 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-config) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-a5fe59e311 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-diagnostics) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-950e136ff6 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-parameters) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-676d40e2c6 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-timeline) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-0b7fca4246 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-library) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-1360b317c3 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-material) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-406303650d | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-expr) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-cba07c324a | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_select_flyout_menu_assembly.htm?id=7.1.4.0) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-c14a946b6f | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-browser) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-c2a5f59b1b | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Features_Toolbar.htm?id=2.12.4.1.11) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-e00cc276d0 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-component) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-952753343a | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#solid--assemble) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-682bbc8192 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_mate_icons_featuremanager_design_tree.htm?id=7.7.4) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-5b19650212 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#solid--create) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-2bf9f54b30 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#solid--position) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-aa090f2a75 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/English/SolidWorks/sldworks/r_weldments_toolbar.htm?id=a668b8ee4e4b429aa9a10dda92a9a6f4) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-48d928339e | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#solid--construct) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-3abc9063cf | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-parts) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-c977662189 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#solid--insert) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-2f3c6a71c2 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-frame) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-319974c257 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/japanese/SolidWorks/sldworks/r_Mold_Tools_Toolbar_mold.htm) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-73a2f59c6c | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#plastic--create) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-1b7d149ee8 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#other-motion) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-710dd04d55 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Sheet_Metal_Toolbar.htm?id=2.12.4.1.28) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-749742060e | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#sheet-metal--create) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-audit-f87ed3acf1 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#sheet-metal--modify) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
 <!-- references:end -->
 
 ## Source-backed expansion

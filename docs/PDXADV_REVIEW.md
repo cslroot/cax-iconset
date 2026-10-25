@@ -2,7 +2,7 @@
 
 Date: 2026-10-18. Historical version: 2.5.0. Baseline: `490d20684866e39c7075485bf2dc95abb95dd341` (410 symbols).
 
-This pass adds **9 independent meanings** selected from implemented pdxadv workflows: six analysis/design meanings and three supporting result actions. The catalog contains **419 unique SVGs**, including **186** model-tree-compatible entries. All **410 existing SVG files remain byte-for-byte unchanged**. The count follows useful functions; no numerical target or state/format product is used.
+This pass adds **9 independent meanings** selected from implemented pdxadv workflows: six analysis/design meanings and three supporting result actions. This historical checkpoint contained **419 unique SVGs**, including **186** model-tree-compatible entries. All **410 existing SVG files remain byte-for-byte unchanged**. The count follows useful functions; no numerical target or state/format product is used.
 
 ![pdxadv additions](../qa/pdxadv-additions.png)
 

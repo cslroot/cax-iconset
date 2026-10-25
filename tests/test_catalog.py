@@ -215,7 +215,9 @@ class CatalogTests(unittest.TestCase):
         additions={domain.lower()+'-'+i['id'] for domain,items in COVERAGE.items() for i in items}
         followup={domain.lower()+'-'+i['id'] for domain,items in BINDING_ADDITIONS.items() for i in items}
         toolbar={domain.lower()+'-'+i['id'] for domain,items in TOOLBAR_ADDITIONS.items() for i in items}
-        self.assertEqual(set(current)-set(baseline),additions|followup|toolbar)
+        from oct25_additions import REQUIREMENTS
+        requested={r['id'] for r in REQUIREMENTS}
+        self.assertEqual(set(current)-set(baseline),additions|followup|toolbar|requested)
         self.assertFalse(additions & set(baseline))
         for id,record in baseline.items():
             item=current[id]

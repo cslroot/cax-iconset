@@ -1,9 +1,13 @@
 # CAX Iconset
 
+## October 25 A/B additions
+
+**800 semantic icons / 1,600 theme SVGs.** Added all 42 requested meanings (25 current substitutions, 17 future features), preserving the published 758. [Exact request-to-ID mapping](docs/OCT25_ADDITIONS.md) and [CSV](docs/OCT25_ADDITIONS.csv). Consumer application integration is not included.
+
 <!-- binding-review:start -->
 ## Conditional GUI binding review (2026-10-25)
 
-21 additional original glyphs support the reviewed command bindings. Current catalog: **758 semantic icons / 1516 theme SVGs**. The published 693-icon baseline is unchanged.
+21 additional original glyphs support the reviewed command bindings. Catalog at this checkpoint: **758 semantic icons / 1516 theme SVGs**. The published 693-icon baseline is unchanged.
 
 See [conditions, evidence and unresolved branches](docs/GUI_BINDINGS.md), [binding JSON](command-bindings.json) and [180-row resolution CSV](docs/GUI_BINDING_RESOLUTIONS.csv). Conditional reuse does not mean a consumer GUI has implemented the required labels, states or routing.
 <!-- binding-review:end -->
@@ -11,7 +15,7 @@ See [conditions, evidence and unresolved branches](docs/GUI_BINDINGS.md), [bindi
 <!-- coverage-expansion:start -->
 ## Systematic GUI coverage (2026-10-25)
 
-244 new original command glyphs were implemented from the frozen source audit, with documented reuse and unresolved bindings. The current catalog contains **758 semantic icons / 1516 standalone SVG files**. All 449 previously delivered records and both theme SVGs remain unchanged.
+244 new original command glyphs were implemented from the frozen source audit, with documented reuse and unresolved bindings. That checkpoint contained **758 semantic icons / 1516 standalone SVG files**. All 449 previously delivered records and both theme SVGs remain unchanged.
 
 See [scope, decisions and source mapping](docs/GUI_COVERAGE.md), [all 1,089 evidence rows with implementation status](docs/GUI_IMPLEMENTATION_TRACKING.csv), and [native-size preview page list](qa/coverage-preview/pages.json). This is source-scoped coverage, not a claim that all SOLIDWORKS product editions or every uncertain GUI binding are complete.
 <!-- coverage-expansion:end -->
@@ -34,17 +38,13 @@ Original rounded SVG symbols for everyday application commands, model-tree objec
 <!-- coverage:start -->
 | Primary category | Symbols |
 | --- | ---: |
-| Common | 91 |
-| CAD | 454 |
+| Common | 100 |
+| CAD | 483 |
 | CAM | 44 |
-| CAE | 62 |
+| CAE | 66 |
 | CMM | 34 |
 | OLP | 73 |
-| **Total** | **758** |
-
-Primary roles: 733 commands, 9 selectable tools, 12 objects and 4 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
-
-189 entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.
+| **Total** | **800** |
 <!-- coverage:end -->
 
 - Common: new, open, recent files, close, save / save as / save all, import, export, print, undo / redo, clipboard, search / replace, filtering, selection, display, navigation and application controls
@@ -190,6 +190,6 @@ The standalone-theme audit embeds actual file bytes without host CSS in an atlas
 
 ## Distinct toolbar requirements (2026-10-25)
 
-44 new glyphs and 2 exact existing reuses cover the requested 18 groups / 46 meanings. Current catalog: **758 icons / 1,516 light and dark SVGs**. All prior714 records and SVG bytes remain unchanged.
+44 new glyphs and 2 exact existing reuses cover the requested 18 groups / 46 meanings. Catalog at that checkpoint: **758 icons / 1,516 light and dark SVGs**. All prior714 records and SVG bytes remain unchanged.
 
 See [acceptance checklist](docs/TOOLBAR_REQUIREMENTS.md), [46-row CSV](docs/TOOLBAR_REQUIREMENTS.csv), and [specific toolbar bindings](toolbar-bindings.json). Modes, views and filters have distinct glyphs rather than generic icon plus label substitution. Studio/viewer were inspected read-only; no consumer UI code was changed. This does not claim coverage of every product GUI.

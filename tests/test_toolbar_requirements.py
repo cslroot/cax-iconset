@@ -32,7 +32,9 @@ class ToolbarRequirements(unittest.TestCase):
    self.assertEqual(len({r['icon_id'] for r in selected}),n,family)
    self.assertEqual(len({self.icons[r['icon_id']]['body'] for r in selected}),n,family)
  def test_new_art_fully_accounted_for(self):
-  added=set(self.icons)-set(self.baseline)
+  # This historical acceptance unit covers 714 -> 758, not later additions.
+  published758=json.loads((R/'src/published758_baseline.json').read_text())['icons']
+  added=set(published758)-set(self.baseline)
   mapped={r['icon_id'] for r in self.requirements['bindings'] if r['status']=='new-art'}
   self.assertEqual(added,mapped)
   self.assertTrue(self.requirements['source_snapshot'])

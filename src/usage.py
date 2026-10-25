@@ -99,6 +99,8 @@ NAMES.update(STUDIO_NAMES)
 from toolbar_context_additions import TREE as TOOLBAR_CONTEXT_TREE
 TREE.update(TOOLBAR_CONTEXT_TREE)
 
+TREE['cad-implicit-body']={'objectType':'implicit-body'}
+
 def apply_usage(item):
     role = item['role']
     item['usages'] = [] if role == 'object' else [role]

@@ -89,3 +89,5 @@ REFERENCES['cax-toolbar-requirements-2026-10-25'] = {
  'url':'https://github.com/cslroot/cax-studio/tree/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313',
  'scope':'Explicit 18-group toolbar requirement; actual consumer source snapshots and line-linked mappings are in toolbar-bindings.json. Original art, not copied vendor icons; no claim of consumer integration.'
 }
+
+REFERENCES['cax-oct25-additional-request']={'title':'CAX additional icon request, October 25 2026 (A/B)', 'url':'https://github.com/cslroot/cax-iconset/blob/main/docs/OCT25_ADDITIONS.md', 'scope':'User-provided 25 current-substitution and 17 future-function meanings; original artwork, not a claim of consumer integration.'}

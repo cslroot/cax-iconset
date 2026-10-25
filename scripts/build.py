@@ -20,6 +20,7 @@ from gui_surface import ITEMS as GUI_SURFACE
 from coverage import COVERAGE
 from binding_additions import BINDING_ADDITIONS
 from toolbar_additions import TOOLBAR_ADDITIONS
+from oct25_additions import ADDITIONS as OCT25_ADDITIONS
 from usage import apply_usage
 from sources import SOURCE_IDS, REFERENCES
 
@@ -39,6 +40,8 @@ def build():
  for domain,items in BINDING_ADDITIONS.items():
   collection.setdefault(domain, []).extend(items)
  for domain,items in TOOLBAR_ADDITIONS.items():
+  collection.setdefault(domain, []).extend(items)
+ for domain,items in OCT25_ADDITIONS.items():
   collection.setdefault(domain, []).extend(items)
  for domain,items in COVERAGE.items():
   collection.setdefault(domain,[]).extend(items)
@@ -72,7 +75,7 @@ def build():
  for stale in (ROOT/'icons-dark').glob('*.svg'):
   if stale.stem not in set(ids):stale.unlink()
  from collections import Counter
- manifest={'counts':dict(Counter(i['role'] for i in data)),'categories':dict(Counter(i['category'] for i in data)),'sourceReferences':REFERENCES,'categoryMemberships':dict(Counter(c for i in data for c in i['categories'])),'usageCounts':dict(Counter(u for i in data for u in i['usages'])),'version':'2.10.0','themes':THEMES,'defaultTheme':'light','viewBox':'0 0 32 32','license':'MIT','count':len(data),'scope':'One semantic entry per independent command, tool, object or status; reuse geometry across command and model-tree contexts; no profile or trajectory variants.','icons':data}
+ manifest={'counts':dict(Counter(i['role'] for i in data)),'categories':dict(Counter(i['category'] for i in data)),'sourceReferences':REFERENCES,'categoryMemberships':dict(Counter(c for i in data for c in i['categories'])),'usageCounts':dict(Counter(u for i in data for u in i['usages'])),'version':'2.11.0','themes':THEMES,'defaultTheme':'light','viewBox':'0 0 32 32','license':'MIT','count':len(data),'scope':'One semantic entry per independent command, tool, object or status; reuse geometry across command and model-tree contexts; no profile or trajectory variants.','icons':data}
  (ROOT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,separators=(',',':'))+'\n')
  (ROOT/'catalog.js').write_text('window.CAX_CATALOG='+json.dumps(manifest,ensure_ascii=False,separators=(',',':'))+';\n')
  print(f'Built {len(data)} semantic icons, each with light and dark SVG variants')

@@ -1,0 +1,342 @@
+{
+  "baseline": "c433bb7942a880b1bbbef430f1f1ceccda699b68",
+  "scope": "User A/B request only; consumer integration not performed",
+  "bindings": [
+    {
+      "id": "cad-rotate-selected-face",
+      "section": "A",
+      "meaning": "Rotate a selected face about an axis; distinct from translating that face.",
+      "nameJa": "選択面を回転",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-silhouette-edges",
+      "section": "A",
+      "meaning": "Show view-dependent silhouette contours, not all topological model edges.",
+      "nameJa": "シルエットエッジ表示",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-ground-shadow",
+      "section": "A",
+      "meaning": "Show a shadow cast onto a floor plane rather than shadows between scene objects.",
+      "nameJa": "床面の影",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-shadow-maps",
+      "section": "A",
+      "meaning": "Enable object-to-object shadow casting; distinct from an isolated floor shadow.",
+      "nameJa": "シャドウマップ",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-selection-filter-component",
+      "section": "A",
+      "meaning": "Restrict picking to whole assembly components, not individual faces.",
+      "nameJa": "部品選択フィルタ",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-selection-filter-face",
+      "section": "A",
+      "meaning": "Restrict picking to topological faces.",
+      "nameJa": "面選択フィルタ",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-selection-filter-face-edge",
+      "section": "A",
+      "meaning": "Allow picking faces and edges together; not generic object selection.",
+      "nameJa": "面と稜線の選択フィルタ",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-face-reblend",
+      "section": "A",
+      "meaning": "Reconstruct a blend after editing neighboring faces rather than create a first fillet.",
+      "nameJa": "面のフィレット付け直し",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-copy-face-feature",
+      "section": "A",
+      "meaning": "Copy a face-defined feature to another location, not a linear pattern.",
+      "nameJa": "面形状フィーチャーのコピー",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-sketch-fillet",
+      "section": "A",
+      "meaning": "Replace a planar sketch corner by a tangent arc, not a solid-edge fillet.",
+      "nameJa": "スケッチの角丸め",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-sketch-chamfer",
+      "section": "A",
+      "meaning": "Replace a planar sketch corner by a straight bevel segment.",
+      "nameJa": "スケッチの面取り",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-sketch-radius-dimension",
+      "section": "A",
+      "meaning": "Dimension the radius from a circle or arc center to its curve.",
+      "nameJa": "スケッチ半径寸法",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-sketch-clear",
+      "section": "A",
+      "meaning": "Remove all geometry in the active sketch, not delete the sketch object.",
+      "nameJa": "スケッチを全消去",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-edit-feature",
+      "section": "A",
+      "meaning": "Open a feature definition for editing; simplified silhouette for 16px tree-row buttons.",
+      "nameJa": "フィーチャーを編集",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-attach-reference",
+      "section": "A",
+      "meaning": "Attach a side reference to a feature or part, not a generic hyperlink.",
+      "nameJa": "側面参照を追加",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-component-list",
+      "section": "A",
+      "meaning": "Show a list of assembly components rather than create a single part.",
+      "nameJa": "部品一覧",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-open-sheet-metal-sample",
+      "section": "A",
+      "meaning": "Open a sheet-metal example, distinct from the general sample chooser.",
+      "nameJa": "板金サンプルを開く",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "common-reset",
+      "section": "A",
+      "meaning": "Restore default settings rather than refresh or reload current data.",
+      "nameJa": "既定値に戻す",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "common-background-color",
+      "section": "A",
+      "meaning": "Choose the viewport background color, not the object material color.",
+      "nameJa": "背景色",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-surface-lit",
+      "section": "A",
+      "meaning": "Shade surfaces using scene lighting, distinct from matcap and zebra analysis.",
+      "nameJa": "通常ライティング",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-markup-freehand",
+      "section": "A",
+      "meaning": "Draw a freehand review annotation, not an editable sketch spline.",
+      "nameJa": "フリーハンドマークアップ",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-markup-circle",
+      "section": "A",
+      "meaning": "Draw a circular review annotation without creating sketch geometry.",
+      "nameJa": "円マークアップ",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-markup-rectangle",
+      "section": "A",
+      "meaning": "Draw a rectangular review annotation without creating sketch geometry.",
+      "nameJa": "矩形マークアップ",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cae-export-pptx-report",
+      "section": "A",
+      "meaning": "Export an analysis report as a PowerPoint presentation, not an HTML report.",
+      "nameJa": "PowerPointレポート出力",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "common-tree-node-expanded",
+      "section": "A",
+      "meaning": "Indicate an expanded tree node; a downward disclosure chevron.",
+      "nameJa": "ツリー展開マーク",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-implicit-body",
+      "section": "B",
+      "meaning": "Represent an implicit isosurface rather than an exact boundary representation.",
+      "nameJa": "陰関数ボディ",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-sdf-convert",
+      "section": "B",
+      "meaning": "Convert geometry to a signed distance field; not SDFormat robot export.",
+      "nameJa": "SDFへ変換",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-csg-tree",
+      "section": "B",
+      "meaning": "Inspect constructive-solid-geometry operands and Boolean operations.",
+      "nameJa": "CSG演算ツリー",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-lattice-gyroid",
+      "section": "B",
+      "meaning": "Create a smooth triply periodic gyroid-style lattice rather than rod struts.",
+      "nameJa": "ジャイロイド格子",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-lattice-rod",
+      "section": "B",
+      "meaning": "Create connected straight lattice struts, distinct from a gyroid sheet lattice.",
+      "nameJa": "ロッド格子",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cae-mesh-settings",
+      "section": "B",
+      "meaning": "Configure mesh generation parameters rather than solver settings.",
+      "nameJa": "メッシュ設定",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cae-mesh-refine-region",
+      "section": "B",
+      "meaning": "Apply local mesh refinement inside a selected region.",
+      "nameJa": "領域メッシュ細分化",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cae-boundary-layer",
+      "section": "B",
+      "meaning": "Configure layered cells next to a wall, not a generic tetrahedral mesh.",
+      "nameJa": "境界層設定",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "common-timeline",
+      "section": "B",
+      "meaning": "Open the time axis and keyframe track for animation.",
+      "nameJa": "タイムライン",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "common-record",
+      "section": "B",
+      "meaning": "Start recording animation or keyframe capture; not playback.",
+      "nameJa": "アニメーション記録",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "common-loop",
+      "section": "B",
+      "meaning": "Repeat animation playback rather than reset its parameters.",
+      "nameJa": "ループ再生",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "common-playback-speed",
+      "section": "B",
+      "meaning": "Adjust the animation time multiplier without changing recorded motion.",
+      "nameJa": "再生速度",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "common-step-forward",
+      "section": "B",
+      "meaning": "Advance animation by one frame or discrete step.",
+      "nameJa": "1ステップ進む",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "common-step-back",
+      "section": "B",
+      "meaning": "Move animation back by one frame or discrete step.",
+      "nameJa": "1ステップ戻る",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-pmi-edit",
+      "section": "B",
+      "meaning": "Edit a product-manufacturing annotation, not geometry parameters.",
+      "nameJa": "PMIを編集",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-pmi-associate",
+      "section": "B",
+      "meaning": "Associate a PMI annotation to an explicit geometric target.",
+      "nameJa": "PMIを形状へ関連付け",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    },
+    {
+      "id": "cad-quad-remesh",
+      "section": "B",
+      "meaning": "Remesh a surface into a quadrilateral layout, distinct from generic remeshing.",
+      "nameJa": "四角形リメッシュ",
+      "status": "new-art",
+      "consumer_ui_integrated": false
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+id,section,meaning,nameJa,status,consumer_ui_integrated
+cad-rotate-selected-face,A,Rotate a selected face about an axis; distinct from translating that face.,選択面を回転,new-art,False
+cad-silhouette-edges,A,"Show view-dependent silhouette contours, not all topological model edges.",シルエットエッジ表示,new-art,False
+cad-ground-shadow,A,Show a shadow cast onto a floor plane rather than shadows between scene objects.,床面の影,new-art,False
+cad-shadow-maps,A,Enable object-to-object shadow casting; distinct from an isolated floor shadow.,シャドウマップ,new-art,False
+cad-selection-filter-component,A,"Restrict picking to whole assembly components, not individual faces.",部品選択フィルタ,new-art,False
+cad-selection-filter-face,A,Restrict picking to topological faces.,面選択フィルタ,new-art,False
+cad-selection-filter-face-edge,A,Allow picking faces and edges together; not generic object selection.,面と稜線の選択フィルタ,new-art,False
+cad-face-reblend,A,Reconstruct a blend after editing neighboring faces rather than create a first fillet.,面のフィレット付け直し,new-art,False
+cad-copy-face-feature,A,"Copy a face-defined feature to another location, not a linear pattern.",面形状フィーチャーのコピー,new-art,False
+cad-sketch-fillet,A,"Replace a planar sketch corner by a tangent arc, not a solid-edge fillet.",スケッチの角丸め,new-art,False
+cad-sketch-chamfer,A,Replace a planar sketch corner by a straight bevel segment.,スケッチの面取り,new-art,False
+cad-sketch-radius-dimension,A,Dimension the radius from a circle or arc center to its curve.,スケッチ半径寸法,new-art,False
+cad-sketch-clear,A,"Remove all geometry in the active sketch, not delete the sketch object.",スケッチを全消去,new-art,False
+cad-edit-feature,A,Open a feature definition for editing; simplified silhouette for 16px tree-row buttons.,フィーチャーを編集,new-art,False
+cad-attach-reference,A,"Attach a side reference to a feature or part, not a generic hyperlink.",側面参照を追加,new-art,False
+cad-component-list,A,Show a list of assembly components rather than create a single part.,部品一覧,new-art,False
+cad-open-sheet-metal-sample,A,"Open a sheet-metal example, distinct from the general sample chooser.",板金サンプルを開く,new-art,False
+common-reset,A,Restore default settings rather than refresh or reload current data.,既定値に戻す,new-art,False
+common-background-color,A,"Choose the viewport background color, not the object material color.",背景色,new-art,False
+cad-surface-lit,A,"Shade surfaces using scene lighting, distinct from matcap and zebra analysis.",通常ライティング,new-art,False
+cad-markup-freehand,A,"Draw a freehand review annotation, not an editable sketch spline.",フリーハンドマークアップ,new-art,False
+cad-markup-circle,A,Draw a circular review annotation without creating sketch geometry.,円マークアップ,new-art,False
+cad-markup-rectangle,A,Draw a rectangular review annotation without creating sketch geometry.,矩形マークアップ,new-art,False
+cae-export-pptx-report,A,"Export an analysis report as a PowerPoint presentation, not an HTML report.",PowerPointレポート出力,new-art,False
+common-tree-node-expanded,A,Indicate an expanded tree node; a downward disclosure chevron.,ツリー展開マーク,new-art,False
+cad-implicit-body,B,Represent an implicit isosurface rather than an exact boundary representation.,陰関数ボディ,new-art,False
+cad-sdf-convert,B,Convert geometry to a signed distance field; not SDFormat robot export.,SDFへ変換,new-art,False
+cad-csg-tree,B,Inspect constructive-solid-geometry operands and Boolean operations.,CSG演算ツリー,new-art,False
+cad-lattice-gyroid,B,Create a smooth triply periodic gyroid-style lattice rather than rod struts.,ジャイロイド格子,new-art,False
+cad-lattice-rod,B,"Create connected straight lattice struts, distinct from a gyroid sheet lattice.",ロッド格子,new-art,False
+cae-mesh-settings,B,Configure mesh generation parameters rather than solver settings.,メッシュ設定,new-art,False
+cae-mesh-refine-region,B,Apply local mesh refinement inside a selected region.,領域メッシュ細分化,new-art,False
+cae-boundary-layer,B,"Configure layered cells next to a wall, not a generic tetrahedral mesh.",境界層設定,new-art,False
+common-timeline,B,Open the time axis and keyframe track for animation.,タイムライン,new-art,False
+common-record,B,Start recording animation or keyframe capture; not playback.,アニメーション記録,new-art,False
+common-loop,B,Repeat animation playback rather than reset its parameters.,ループ再生,new-art,False
+common-playback-speed,B,Adjust the animation time multiplier without changing recorded motion.,再生速度,new-art,False
+common-step-forward,B,Advance animation by one frame or discrete step.,1ステップ進む,new-art,False
+common-step-back,B,Move animation back by one frame or discrete step.,1ステップ戻る,new-art,False
+cad-pmi-edit,B,"Edit a product-manufacturing annotation, not geometry parameters.",PMIを編集,new-art,False
+cad-pmi-associate,B,Associate a PMI annotation to an explicit geometric target.,PMIを形状へ関連付け,new-art,False
+cad-quad-remesh,B,"Remesh a surface into a quadrilateral layout, distinct from generic remeshing.",四角形リメッシュ,new-art,False

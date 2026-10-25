@@ -96,6 +96,9 @@ NAMES.update(ROBOTICS_NAMES)
 TREE.update(STUDIO_TREE)
 NAMES.update(STUDIO_NAMES)
 
+from toolbar_context_additions import TREE as TOOLBAR_CONTEXT_TREE
+TREE.update(TOOLBAR_CONTEXT_TREE)
+
 def apply_usage(item):
     role = item['role']
     item['usages'] = [] if role == 'object' else [role]

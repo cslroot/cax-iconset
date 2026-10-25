@@ -6,7 +6,8 @@ from PIL import Image,ImageDraw,ImageFont
 ROOT=Path(__file__).resolve().parents[1]
 m=json.loads((ROOT/'manifest.json').read_text())
 baseline=json.loads((ROOT/'src/published693_baseline.json').read_text())['icons']
-items=[i for i in m['icons'] if i['id'] not in baseline]
+trace=json.loads((ROOT/'src/binding_art_trace.json').read_text())
+items=[i for i in m['icons'] if i['id'] in trace]
 out=ROOT/'qa/binding-preview';out.mkdir(exist_ok=True)
 font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',12)
 W=1200;row=100;cols=3;per_page=24

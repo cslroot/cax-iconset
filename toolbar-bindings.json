@@ -1,0 +1,1262 @@
+{
+  "schema_version": 1,
+  "scope": "Explicit 18-group toolbar requirements of 2026-10-25. Distinct buttons have distinct glyphs, not generic icon plus label substitution. Frozen source audit remains unchanged.",
+  "source_snapshot": {
+    "cax-studio": "dd49d9cd2fc899885a28a5f3cbd286fdc36c5313",
+    "cax-viewer": "243062d5cdd26cd70952dd6fd06413ff6cf0b6a6"
+  },
+  "iconset_baseline": "a573719378fc70141ec4675110724a661de02b24",
+  "claims_all_product_commands": false,
+  "integration_policy": "Use these specific IDs for the listed toolbar choices before older generic command-bindings.json mappings. Generic menu icons remain available. This JSON is declarative metadata, not code deployed into consumers. Active state, accessible names and tooltips are still required.",
+  "limitations": [
+    "pdxadv, cnc-sim and cax-cable-sim consumer routes not inspected in this assigned Studio/viewer audit.",
+    "BIM exact object-route integration not established.",
+    "Catalog additions do not mean consumer imports/buttons have been changed."
+  ],
+  "bindings": [
+    {
+      "group": 1,
+      "priority": "high",
+      "semantic": "Depth display",
+      "icon_id": "cad-display-depth",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "display-mode",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L44-L48",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4347-L4357"
+      ],
+      "consumer_evidence": "Studio has five distinct icon-only toolbar buttons, viewer seven render mode options. Studio edges means shaded + edges. Normal is rendering, not face-normal condition. Viewer currently common-layers heads the dropdown.",
+      "binding_conditions": "Seven distinct glyph identities; active state retained. Depth uses depth encoding; normal uses orientation encoding; hidden-line and wireframe must remain different; tessellated indicates facets, not generic mesh object.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "shaded",
+        "edges",
+        "wireframe",
+        "depth",
+        "normal",
+        "hidden-line",
+        "tessellated"
+      ],
+      "consumer_command_values": [
+        "depth"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 1,
+      "priority": "high",
+      "semantic": "Hidden-line display",
+      "icon_id": "cad-display-hidden-line",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "display-mode",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L44-L48",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4347-L4357"
+      ],
+      "consumer_evidence": "Studio has five distinct icon-only toolbar buttons, viewer seven render mode options. Studio edges means shaded + edges. Normal is rendering, not face-normal condition. Viewer currently common-layers heads the dropdown.",
+      "binding_conditions": "Seven distinct glyph identities; active state retained. Depth uses depth encoding; normal uses orientation encoding; hidden-line and wireframe must remain different; tessellated indicates facets, not generic mesh object.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "shaded",
+        "edges",
+        "wireframe",
+        "depth",
+        "normal",
+        "hidden-line",
+        "tessellated"
+      ],
+      "consumer_command_values": [
+        "hidden-line"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 1,
+      "priority": "high",
+      "semantic": "Shaded display",
+      "icon_id": "cad-display-shaded",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "display-mode",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L44-L48",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4347-L4357"
+      ],
+      "consumer_evidence": "Studio has five distinct icon-only toolbar buttons, viewer seven render mode options. Studio edges means shaded + edges. Normal is rendering, not face-normal condition. Viewer currently common-layers heads the dropdown.",
+      "binding_conditions": "Seven distinct glyph identities; active state retained. Depth uses depth encoding; normal uses orientation encoding; hidden-line and wireframe must remain different; tessellated indicates facets, not generic mesh object.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "shaded",
+        "edges",
+        "wireframe",
+        "depth",
+        "normal",
+        "hidden-line",
+        "tessellated"
+      ],
+      "consumer_command_values": [
+        "shaded"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 1,
+      "priority": "high",
+      "semantic": "Shaded display with edges",
+      "icon_id": "cad-display-shaded-edges",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "display-mode",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L44-L48",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4347-L4357"
+      ],
+      "consumer_evidence": "Studio has five distinct icon-only toolbar buttons, viewer seven render mode options. Studio edges means shaded + edges. Normal is rendering, not face-normal condition. Viewer currently common-layers heads the dropdown.",
+      "binding_conditions": "Seven distinct glyph identities; active state retained. Depth uses depth encoding; normal uses orientation encoding; hidden-line and wireframe must remain different; tessellated indicates facets, not generic mesh object.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "shaded",
+        "edges",
+        "wireframe",
+        "depth",
+        "normal",
+        "hidden-line",
+        "tessellated"
+      ],
+      "consumer_command_values": [
+        "edges"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 1,
+      "priority": "high",
+      "semantic": "Surface-normal display",
+      "icon_id": "cad-display-normals",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "display-mode",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L44-L48",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4347-L4357"
+      ],
+      "consumer_evidence": "Studio has five distinct icon-only toolbar buttons, viewer seven render mode options. Studio edges means shaded + edges. Normal is rendering, not face-normal condition. Viewer currently common-layers heads the dropdown.",
+      "binding_conditions": "Seven distinct glyph identities; active state retained. Depth uses depth encoding; normal uses orientation encoding; hidden-line and wireframe must remain different; tessellated indicates facets, not generic mesh object.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "shaded",
+        "edges",
+        "wireframe",
+        "depth",
+        "normal",
+        "hidden-line",
+        "tessellated"
+      ],
+      "consumer_command_values": [
+        "normal"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 1,
+      "priority": "high",
+      "semantic": "Tessellation display",
+      "icon_id": "cad-display-tessellation",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "display-mode",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L44-L48",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4347-L4357"
+      ],
+      "consumer_evidence": "Studio has five distinct icon-only toolbar buttons, viewer seven render mode options. Studio edges means shaded + edges. Normal is rendering, not face-normal condition. Viewer currently common-layers heads the dropdown.",
+      "binding_conditions": "Seven distinct glyph identities; active state retained. Depth uses depth encoding; normal uses orientation encoding; hidden-line and wireframe must remain different; tessellated indicates facets, not generic mesh object.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "shaded",
+        "edges",
+        "wireframe",
+        "depth",
+        "normal",
+        "hidden-line",
+        "tessellated"
+      ],
+      "consumer_command_values": [
+        "tessellated"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 1,
+      "priority": "high",
+      "semantic": "Wireframe display",
+      "icon_id": "cad-display-wireframe",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "display-mode",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L44-L48",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4347-L4357"
+      ],
+      "consumer_evidence": "Studio has five distinct icon-only toolbar buttons, viewer seven render mode options. Studio edges means shaded + edges. Normal is rendering, not face-normal condition. Viewer currently common-layers heads the dropdown.",
+      "binding_conditions": "Seven distinct glyph identities; active state retained. Depth uses depth encoding; normal uses orientation encoding; hidden-line and wireframe must remain different; tessellated indicates facets, not generic mesh object.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "shaded",
+        "edges",
+        "wireframe",
+        "depth",
+        "normal",
+        "hidden-line",
+        "tessellated"
+      ],
+      "consumer_command_values": [
+        "wireframe"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 2,
+      "priority": "high",
+      "semantic": "Back view",
+      "icon_id": "cad-view-back",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "standard-view",
+      "source_urls": [
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L3526-L3540",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4334-L4345",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L41-L43"
+      ],
+      "consumer_evidence": "Viewer standard views are six distinct camera commands plus iso. Front yaw0 pitch0; back yawπ; top/bottom ±pitch limit; left/right yaw∓π/2. Studio currently front/top buttons and separate iso.",
+      "binding_conditions": "Six visually distinct directions. Do not map all six to standard-view or orthographic projection. Preserve camera naming and tooltip.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "front",
+        "back",
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "consumer_command_values": [
+        "back"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 2,
+      "priority": "high",
+      "semantic": "Bottom view",
+      "icon_id": "cad-view-bottom",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "standard-view",
+      "source_urls": [
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L3526-L3540",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4334-L4345",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L41-L43"
+      ],
+      "consumer_evidence": "Viewer standard views are six distinct camera commands plus iso. Front yaw0 pitch0; back yawπ; top/bottom ±pitch limit; left/right yaw∓π/2. Studio currently front/top buttons and separate iso.",
+      "binding_conditions": "Six visually distinct directions. Do not map all six to standard-view or orthographic projection. Preserve camera naming and tooltip.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "front",
+        "back",
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "consumer_command_values": [
+        "bottom"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 2,
+      "priority": "high",
+      "semantic": "Front view",
+      "icon_id": "cad-view-front",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "standard-view",
+      "source_urls": [
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L3526-L3540",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4334-L4345",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L41-L43"
+      ],
+      "consumer_evidence": "Viewer standard views are six distinct camera commands plus iso. Front yaw0 pitch0; back yawπ; top/bottom ±pitch limit; left/right yaw∓π/2. Studio currently front/top buttons and separate iso.",
+      "binding_conditions": "Six visually distinct directions. Do not map all six to standard-view or orthographic projection. Preserve camera naming and tooltip.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "front",
+        "back",
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "consumer_command_values": [
+        "front"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 2,
+      "priority": "high",
+      "semantic": "Left view",
+      "icon_id": "cad-view-left",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "standard-view",
+      "source_urls": [
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L3526-L3540",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4334-L4345",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L41-L43"
+      ],
+      "consumer_evidence": "Viewer standard views are six distinct camera commands plus iso. Front yaw0 pitch0; back yawπ; top/bottom ±pitch limit; left/right yaw∓π/2. Studio currently front/top buttons and separate iso.",
+      "binding_conditions": "Six visually distinct directions. Do not map all six to standard-view or orthographic projection. Preserve camera naming and tooltip.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "front",
+        "back",
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "consumer_command_values": [
+        "left"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 2,
+      "priority": "high",
+      "semantic": "Right view",
+      "icon_id": "cad-view-right",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "standard-view",
+      "source_urls": [
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L3526-L3540",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4334-L4345",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L41-L43"
+      ],
+      "consumer_evidence": "Viewer standard views are six distinct camera commands plus iso. Front yaw0 pitch0; back yawπ; top/bottom ±pitch limit; left/right yaw∓π/2. Studio currently front/top buttons and separate iso.",
+      "binding_conditions": "Six visually distinct directions. Do not map all six to standard-view or orthographic projection. Preserve camera naming and tooltip.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "front",
+        "back",
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "consumer_command_values": [
+        "right"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 2,
+      "priority": "high",
+      "semantic": "Top view",
+      "icon_id": "cad-view-top",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "standard-view",
+      "source_urls": [
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L3526-L3540",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4334-L4345",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L41-L43"
+      ],
+      "consumer_evidence": "Viewer standard views are six distinct camera commands plus iso. Front yaw0 pitch0; back yawπ; top/bottom ±pitch limit; left/right yaw∓π/2. Studio currently front/top buttons and separate iso.",
+      "binding_conditions": "Six visually distinct directions. Do not map all six to standard-view or orthographic projection. Preserve camera naming and tooltip.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "front",
+        "back",
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "consumer_command_values": [
+        "top"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 3,
+      "priority": "high",
+      "semantic": "Select edges only",
+      "icon_id": "cad-selection-filter-edge",
+      "status": "new-art",
+      "reason": "Restrict picking to topological edges; this is not edge visibility or hidden-line rendering.",
+      "distinct_family": "selection-filter",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L54-L56",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/icons.tsx#L66-L68"
+      ],
+      "consumer_evidence": "Studio exposes component, face and edge pick filters, edge custom icon highlights one cube edge. Vertex is user-requested complementary icon; not observed in Studio toolbar.",
+      "binding_conditions": "Distinct edge and vertex eligibility icons, not visibility toggles; selected filter active state. Do not claim vertex integration.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "selectionType=edge",
+        "selectionType=vertex"
+      ],
+      "consumer_command_values": [
+        "selectionType=edge"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 3,
+      "priority": "high",
+      "semantic": "Select vertices only",
+      "icon_id": "cad-selection-filter-vertex",
+      "status": "new-art",
+      "reason": "Restrict picking to topological vertices; not a generic point creation tool.",
+      "distinct_family": "selection-filter",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L54-L56",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/icons.tsx#L66-L68"
+      ],
+      "consumer_evidence": "Studio exposes component, face and edge pick filters, edge custom icon highlights one cube edge. Vertex is user-requested complementary icon; not observed in Studio toolbar.",
+      "binding_conditions": "Distinct edge and vertex eligibility icons, not visibility toggles; selected filter active state. Do not claim vertex integration.",
+      "evidence_status": "requested-addition-route-unverified",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "selectionType=edge",
+        "selectionType=vertex"
+      ],
+      "consumer_command_values": [],
+      "route_status": "requested-semantic-consumer-route-unverified"
+    },
+    {
+      "group": 4,
+      "priority": "high",
+      "semantic": "Create box primitive",
+      "icon_id": "cad-primitive-box",
+      "status": "new-art",
+      "reason": "Create a solid rectangular cuboid with three dimensions, not an extrusion or a mesh bounding box.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L139-L140",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/icons.tsx#L25"
+      ],
+      "consumer_evidence": "Studio block primitive uses its own cube pictogram and part operation.",
+      "binding_conditions": "Use solid rectangular prism creation semantics, distinguish object/body type and isometric view.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "block"
+      ],
+      "consumer_command_values": [
+        "block"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 5,
+      "priority": "high",
+      "semantic": "Reset CAD work coordinates",
+      "icon_id": "cad-reset-work-coordinate-system",
+      "status": "new-art",
+      "reason": "Restore the CAD working frame to its defined default origin and orientation; does not reset the camera.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L180-L195"
+      ],
+      "consumer_evidence": "Work frame specifies origin and rotations; reset sets all origin/angles to zero. This is CAD editing context, not CAM machine offset.",
+      "binding_conditions": "Distinct working-frame and reset-working-frame icons. Do not replace CAM WCS or axis-triad display toggle.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "workFrame",
+        "workFrameReset"
+      ],
+      "consumer_command_values": [
+        "workFrameReset"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 5,
+      "priority": "high",
+      "semantic": "Set CAD work coordinates",
+      "icon_id": "cad-work-coordinate-system",
+      "status": "new-art",
+      "reason": "Set the working origin and axes for CAD modeling; independent of machining setup or robot tool frames.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L180-L195"
+      ],
+      "consumer_evidence": "Work frame specifies origin and rotations; reset sets all origin/angles to zero. This is CAD editing context, not CAM machine offset.",
+      "binding_conditions": "Distinct working-frame and reset-working-frame icons. Do not replace CAM WCS or axis-triad display toggle.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "workFrame",
+        "workFrameReset"
+      ],
+      "consumer_command_values": [
+        "workFrame"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 6,
+      "priority": "high",
+      "semantic": "Assembly mates",
+      "icon_id": "cad-mate",
+      "status": "new-art",
+      "reason": "Create or edit a relation between assembly components without choosing a particular mate type.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L169",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L297-L299"
+      ],
+      "consumer_evidence": "Studio constraints opens sketch constraint handling; assemblyMates opens Mates section and currently reuses fasten.",
+      "binding_conditions": "Separate generic constraint and generic mate entry points; neither implies a particular coincident/fixed constraint.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "constraints",
+        "assemblyMates"
+      ],
+      "consumer_command_values": [
+        "assemblyMates"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 6,
+      "priority": "high",
+      "semantic": "Geometric constraints",
+      "icon_id": "cad-constraint",
+      "status": "new-art",
+      "reason": "Open or apply geometric relations to sketch entities; the icon does not assert a particular constraint type.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L169",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L297-L299"
+      ],
+      "consumer_evidence": "Studio constraints opens sketch constraint handling; assemblyMates opens Mates section and currently reuses fasten.",
+      "binding_conditions": "Separate generic constraint and generic mate entry points; neither implies a particular coincident/fixed constraint.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "constraints",
+        "assemblyMates"
+      ],
+      "consumer_command_values": [
+        "constraints"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 7,
+      "priority": "high",
+      "semantic": "Fly navigation",
+      "icon_id": "cad-navigate-fly",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "navigation-mode",
+      "source_urls": [
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L1598-L1603",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4245-L4253",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L3416",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4822"
+      ],
+      "consumer_evidence": "Viewer currently reuses common-rotate-view for both orbit and turntable; fly is text F. Turntable uses left drag and pitch wheel; fly right drag look and useFlyKeys.",
+      "binding_conditions": "Distinct turntable (upright spin) and fly (camera travel) glyphs, neither pan nor orbit alias. Keep active state.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "turntable",
+        "fly"
+      ],
+      "consumer_command_values": [
+        "fly"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 7,
+      "priority": "high",
+      "semantic": "Turntable navigation",
+      "icon_id": "cad-navigate-turntable",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "navigation-mode",
+      "source_urls": [
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L1598-L1603",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4245-L4253",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L3416",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4822"
+      ],
+      "consumer_evidence": "Viewer currently reuses common-rotate-view for both orbit and turntable; fly is text F. Turntable uses left drag and pitch wheel; fly right drag look and useFlyKeys.",
+      "binding_conditions": "Distinct turntable (upright spin) and fly (camera travel) glyphs, neither pan nor orbit alias. Keep active state.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "turntable",
+        "fly"
+      ],
+      "consumer_command_values": [
+        "turntable"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 8,
+      "priority": "medium",
+      "semantic": "Close sketch contour",
+      "icon_id": "cad-sketch-close-contour",
+      "status": "new-art",
+      "reason": "Join the open ends of a sketch contour to form a closed loop, without filling or extruding it.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L273-L280",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L295"
+      ],
+      "consumer_evidence": "Scale uses center and factor; mirror uses center plus mirrorX/mirrorY; close joins sketch contour. Existing Studio custom glyphs separate these.",
+      "binding_conditions": "Sketch-specific scale, mirror and close-profile glyphs; no generic 3D stretch alias.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "sketchScale",
+        "sketchMirror",
+        "sketchClose"
+      ],
+      "consumer_command_values": [
+        "sketchClose"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 8,
+      "priority": "medium",
+      "semantic": "Mirror sketch geometry",
+      "icon_id": "cad-sketch-mirror",
+      "status": "new-art",
+      "reason": "Reflect selected planar sketch entities about a sketch line; not a solid-feature mirror.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L273-L280",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L295"
+      ],
+      "consumer_evidence": "Scale uses center and factor; mirror uses center plus mirrorX/mirrorY; close joins sketch contour. Existing Studio custom glyphs separate these.",
+      "binding_conditions": "Sketch-specific scale, mirror and close-profile glyphs; no generic 3D stretch alias.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "sketchScale",
+        "sketchMirror",
+        "sketchClose"
+      ],
+      "consumer_command_values": [
+        "sketchMirror"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 8,
+      "priority": "medium",
+      "semantic": "Scale sketch geometry",
+      "icon_id": "cad-sketch-scale",
+      "status": "new-art",
+      "reason": "Resize selected planar sketch entities about a reference point; not a body scale or view zoom.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L273-L280",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L295"
+      ],
+      "consumer_evidence": "Scale uses center and factor; mirror uses center plus mirrorX/mirrorY; close joins sketch contour. Existing Studio custom glyphs separate these.",
+      "binding_conditions": "Sketch-specific scale, mirror and close-profile glyphs; no generic 3D stretch alias.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "sketchScale",
+        "sketchMirror",
+        "sketchClose"
+      ],
+      "consumer_command_values": [
+        "sketchScale"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 9,
+      "priority": "medium",
+      "semantic": "Create lattice",
+      "icon_id": "cad-lattice",
+      "status": "new-art",
+      "reason": "Create a spatial network of connected struts or cells; not a screen grid or tessellation overlay.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/KernelPanel.tsx#L112-L113",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/KernelPanel.tsx#L207-L219"
+      ],
+      "consumer_evidence": "Studio exposes separate create box lattice and fill existing body buttons, both currently lattice icon. Infill also accepts skin thickness.",
+      "binding_conditions": "Distinct lattice creation and body lattice infill. Do not call an ordinary 2D grid a structural lattice.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "createLattice",
+        "fillLattice"
+      ],
+      "consumer_command_values": [
+        "createLattice"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 9,
+      "priority": "medium",
+      "semantic": "Fill volume with lattice",
+      "icon_id": "cad-lattice-fill",
+      "status": "new-art",
+      "reason": "Fill a bounded volume with an internal lattice while retaining its enclosing shape.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/KernelPanel.tsx#L112-L113",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/KernelPanel.tsx#L207-L219"
+      ],
+      "consumer_evidence": "Studio exposes separate create box lattice and fill existing body buttons, both currently lattice icon. Infill also accepts skin thickness.",
+      "binding_conditions": "Distinct lattice creation and body lattice infill. Do not call an ordinary 2D grid a structural lattice.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "createLattice",
+        "fillLattice"
+      ],
+      "consumer_command_values": [
+        "fillLattice"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 10,
+      "priority": "medium",
+      "semantic": "Make geometry editable",
+      "icon_id": "cad-make-editable",
+      "status": "new-art",
+      "reason": "Release an imported source to make its bodies independently editable; source names, layers and drawings are dropped, while Undo can restore them.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L390-L394",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L354-L361",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L417",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/i18n.ts#L920",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/i18n.ts#L937-L938"
+      ],
+      "consumer_evidence": "faceDistance MOVES selected planar face to maintain input distance from parallel target; it is not measurement. rangeStretch moves wholly enclosed faces and stretches crossing faces. releaseSource makes imported bodies editable and drops source names/layers/drawings, undoable.",
+      "binding_conditions": "Three separate edit commands. Face-distance edit must not be minimum-clearance measurement. Source-release should indicate unlink/editability, not open-file.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "faceDistance",
+        "rangeStretch",
+        "releaseSource"
+      ],
+      "consumer_command_values": [
+        "releaseSource"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 10,
+      "priority": "medium",
+      "semantic": "Set planar face distance",
+      "icon_id": "cad-set-face-distance",
+      "status": "new-art",
+      "reason": "Move a selected planar face to a specified separation from a parallel target face; edits geometry, not a measurement or persistent assembly mate.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L390-L394",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L354-L361",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L417",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/i18n.ts#L920",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/i18n.ts#L937-L938"
+      ],
+      "consumer_evidence": "faceDistance MOVES selected planar face to maintain input distance from parallel target; it is not measurement. rangeStretch moves wholly enclosed faces and stretches crossing faces. releaseSource makes imported bodies editable and drops source names/layers/drawings, undoable.",
+      "binding_conditions": "Three separate edit commands. Face-distance edit must not be minimum-clearance measurement. Source-release should indicate unlink/editability, not open-file.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "faceDistance",
+        "rangeStretch",
+        "releaseSource"
+      ],
+      "consumer_command_values": [
+        "faceDistance"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 10,
+      "priority": "medium",
+      "semantic": "Stretch 3D region",
+      "icon_id": "cad-stretch-volume",
+      "status": "new-art",
+      "reason": "Move faces wholly inside a body-coordinate selection box and stretch faces crossing its boundary; geometry outside the affected region remains fixed.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L390-L394",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L354-L361",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L417",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/i18n.ts#L920",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/i18n.ts#L937-L938"
+      ],
+      "consumer_evidence": "faceDistance MOVES selected planar face to maintain input distance from parallel target; it is not measurement. rangeStretch moves wholly enclosed faces and stretches crossing faces. releaseSource makes imported bodies editable and drops source names/layers/drawings, undoable.",
+      "binding_conditions": "Three separate edit commands. Face-distance edit must not be minimum-clearance measurement. Source-release should indicate unlink/editability, not open-file.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "faceDistance",
+        "rangeStretch",
+        "releaseSource"
+      ],
+      "consumer_command_values": [
+        "rangeStretch"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 11,
+      "priority": "medium",
+      "semantic": "Make assembly from part",
+      "icon_id": "cad-make-assembly-from-part-assembly",
+      "status": "existing-exact",
+      "reason": "Exact semantics and distinct glyph: part cube with arrow entering an assembly tree.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L165-L169",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L456",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/i18n.ts#L452",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src-tauri/src/state/kernel/assembly.rs#L2094-L2179"
+      ],
+      "consumer_evidence": "Command label Use Open Part / 開いているパートを使用 under assembly setup; current icon fasten. Handler adopt_kernel_part creates a new assembly containing the open part; adopt_kernel_source creates an assembly and inserts a linked/copied source.",
+      "binding_conditions": "Convert/adopt current part into assembly context; distinct from new empty assembly, component insertion and mating.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "adoptAssembly"
+      ],
+      "consumer_command_values": [
+        "adoptAssembly"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 12,
+      "priority": "medium",
+      "semantic": "Fasten two solids",
+      "icon_id": "cad-fixed-joint",
+      "status": "existing-exact",
+      "reason": "Consumer implements fixed mate. Existing glyph joins two separate blocks rigidly and its fixed-joint semantics match; not hardware insertion or Boolean union.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L336",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src-tauri/src/state/kernel/fasten.rs#L1-L15",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src-tauri/src/state/kernel/fasten.rs#L12-L34"
+      ],
+      "consumer_evidence": "Backend places second solid by fastened mate to first, with feature following both when applicable. It is not Boolean union or standard hardware insertion.",
+      "binding_conditions": "Fixed relationship/fastening between components, not bolt glyph alone. Distinguish generic mate entry point.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "fasten"
+      ],
+      "consumer_command_values": [
+        "fasten"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 13,
+      "priority": "medium",
+      "semantic": "generic cable",
+      "icon_id": "cad-cable",
+      "status": "new-art",
+      "reason": "Create or inspect a flexible cable route with end connections; not a rigid pipe or a generic spline.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L426-L427",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/i18n.ts#L542-L543"
+      ],
+      "consumer_evidence": "Studio command names Dress-pack study and Clearance sample. Broad cable-sim reuse is user-requested but that repo is not inspected here.",
+      "binding_conditions": "Cable/dress-pack routing glyph and separate minimum-separation glyph. Do not confuse static clearance/min distance with penetration/interference or face-distance edit. Do not assert cax-cable-sim integration.",
+      "evidence_status": "requested-addition-route-unverified",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "dressPack",
+        "clearance"
+      ],
+      "consumer_command_values": [],
+      "route_status": "requested-semantic-consumer-route-unverified"
+    },
+    {
+      "group": 13,
+      "priority": "medium",
+      "semantic": "minimum clearance",
+      "icon_id": "cad-minimum-clearance",
+      "status": "new-art",
+      "reason": "Measure the shortest separation between the surfaces of two objects; not a prescribed mate distance or an arbitrary point-to-point measurement.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L426-L427",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/i18n.ts#L542-L543"
+      ],
+      "consumer_evidence": "Studio command names Dress-pack study and Clearance sample. Broad cable-sim reuse is user-requested but that repo is not inspected here.",
+      "binding_conditions": "Cable/dress-pack routing glyph and separate minimum-separation glyph. Do not confuse static clearance/min distance with penetration/interference or face-distance edit. Do not assert cax-cable-sim integration.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "dressPack",
+        "clearance"
+      ],
+      "consumer_command_values": [
+        "clearance"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 13,
+      "priority": "medium",
+      "semantic": "robot dresspack",
+      "icon_id": "olp-dresspack",
+      "status": "new-art",
+      "reason": "Create or inspect a bundled service cable or hose routed along an articulated robot arm, including its slack loop.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L426-L427",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/i18n.ts#L542-L543"
+      ],
+      "consumer_evidence": "Studio command names Dress-pack study and Clearance sample. Broad cable-sim reuse is user-requested but that repo is not inspected here.",
+      "binding_conditions": "Cable/dress-pack routing glyph and separate minimum-separation glyph. Do not confuse static clearance/min distance with penetration/interference or face-distance edit. Do not assert cax-cable-sim integration.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "dressPack",
+        "clearance"
+      ],
+      "consumer_command_values": [
+        "dressPack"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 14,
+      "priority": "medium",
+      "semantic": "open sample",
+      "icon_id": "common-open-sample",
+      "status": "new-art",
+      "reason": "Open a bundled example or demonstration document, distinct from browsing for an arbitrary user file.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L424",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L464-L467"
+      ],
+      "consumer_evidence": "Studio sample is shared across workbenches; currently custom sample cube. pdxadv/cnc-sim sharing is requested, not inspected in this bounded Studio/viewer audit.",
+      "binding_conditions": "Open sample/example document, visually distinguish open arbitrary file and primitive creation.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "sample"
+      ],
+      "consumer_command_values": [
+        "sample"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 15,
+      "priority": "medium",
+      "semantic": "Set face-normal condition",
+      "icon_id": "cad-face-normal-condition",
+      "status": "new-art",
+      "reason": "Set a face-normal direction and a minimum cosine threshold for directional acceptance; not normal-map display, a pressure load, or a geometric mate.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/gadgets/builtin.tsx#L5-L28",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/KernelPanel.tsx#L282-L302",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/kernelCommands.ts#L110-L111"
+      ],
+      "consumer_evidence": "Builtin gadgets explicitly define nav-cube and axis-triad. Face normal condition has normal XYZ, minimumCosine and reference/owner; UI shows cos ≥ threshold. Current add uses normalMap icon, an incorrect semantic reuse for new catalog binding.",
+      "binding_conditions": "Separate navigation-cube visibility and axis-triad visibility glyphs, active state. Separate face-normal condition glyph (normal acceptance/angle criterion), not rendering normals or reverse normals. Set/edit/remove remain action modifiers; not required to invent three independent core concepts.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "toggle nav-cube",
+        "toggle axis-triad",
+        "setFaceNormalCondition",
+        "editFaceNormalCondition",
+        "removeFaceNormalCondition"
+      ],
+      "consumer_command_values": [
+        "setFaceNormalCondition",
+        "editFaceNormalCondition"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 15,
+      "priority": "medium",
+      "semantic": "Toggle axis triad",
+      "icon_id": "cad-toggle-axis-triad",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "gadget-toggle",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/gadgets/builtin.tsx#L5-L28",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/KernelPanel.tsx#L282-L302",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/kernelCommands.ts#L110-L111"
+      ],
+      "consumer_evidence": "Builtin gadgets explicitly define nav-cube and axis-triad. Face normal condition has normal XYZ, minimumCosine and reference/owner; UI shows cos ≥ threshold. Current add uses normalMap icon, an incorrect semantic reuse for new catalog binding.",
+      "binding_conditions": "Separate navigation-cube visibility and axis-triad visibility glyphs, active state. Separate face-normal condition glyph (normal acceptance/angle criterion), not rendering normals or reverse normals. Set/edit/remove remain action modifiers; not required to invent three independent core concepts.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "toggle nav-cube",
+        "toggle axis-triad",
+        "setFaceNormalCondition",
+        "editFaceNormalCondition",
+        "removeFaceNormalCondition"
+      ],
+      "consumer_command_values": [
+        "toggle axis-triad"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 15,
+      "priority": "medium",
+      "semantic": "Toggle navigation cube",
+      "icon_id": "cad-toggle-navigation-cube",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "gadget-toggle",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/gadgets/builtin.tsx#L5-L28",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/KernelPanel.tsx#L282-L302",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/kernelCommands.ts#L110-L111"
+      ],
+      "consumer_evidence": "Builtin gadgets explicitly define nav-cube and axis-triad. Face normal condition has normal XYZ, minimumCosine and reference/owner; UI shows cos ≥ threshold. Current add uses normalMap icon, an incorrect semantic reuse for new catalog binding.",
+      "binding_conditions": "Separate navigation-cube visibility and axis-triad visibility glyphs, active state. Separate face-normal condition glyph (normal acceptance/angle criterion), not rendering normals or reverse normals. Set/edit/remove remain action modifiers; not required to invent three independent core concepts.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "toggle nav-cube",
+        "toggle axis-triad",
+        "setFaceNormalCondition",
+        "editFaceNormalCondition",
+        "removeFaceNormalCondition"
+      ],
+      "consumer_command_values": [
+        "toggle nav-cube"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 16,
+      "priority": "low",
+      "semantic": "Bloom glow",
+      "icon_id": "cad-effect-bloom",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "visual-effect",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L134-L140",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4373-L4392"
+      ],
+      "consumer_evidence": "Studio live effects menu includes lit/matcap clay, metal, glossy/zebra; viewer uses visual-effect toggles including bloom/reflection and matcap surface selection.",
+      "binding_conditions": "Three distinct matcap/bloom/reflection identities, do not silently treat photoreal render as all effects. Material presets may share matcap icon plus preset labels; user asked effects not each material preset.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "surface=matcap",
+        "bloom",
+        "reflection"
+      ],
+      "consumer_command_values": [
+        "bloom"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 16,
+      "priority": "low",
+      "semantic": "Matcap shading",
+      "icon_id": "cad-effect-matcap",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "visual-effect",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L134-L140",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4373-L4392"
+      ],
+      "consumer_evidence": "Studio live effects menu includes lit/matcap clay, metal, glossy/zebra; viewer uses visual-effect toggles including bloom/reflection and matcap surface selection.",
+      "binding_conditions": "Three distinct matcap/bloom/reflection identities, do not silently treat photoreal render as all effects. Material presets may share matcap icon plus preset labels; user asked effects not each material preset.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "surface=matcap",
+        "bloom",
+        "reflection"
+      ],
+      "consumer_command_values": [
+        "surface=matcap"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 16,
+      "priority": "low",
+      "semantic": "Rendered reflections",
+      "icon_id": "cad-effect-reflections",
+      "status": "new-art",
+      "reason": "Dedicated geometry for this toolbar mode, direction or effect. Existing generic menu glyph is not a substitute.",
+      "distinct_family": "visual-effect",
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/ui/ViewToolbar.tsx#L134-L140",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L4373-L4392"
+      ],
+      "consumer_evidence": "Studio live effects menu includes lit/matcap clay, metal, glossy/zebra; viewer uses visual-effect toggles including bloom/reflection and matcap surface selection.",
+      "binding_conditions": "Three distinct matcap/bloom/reflection identities, do not silently treat photoreal render as all effects. Material presets may share matcap icon plus preset labels; user asked effects not each material preset.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "surface=matcap",
+        "bloom",
+        "reflection"
+      ],
+      "consumer_command_values": [
+        "reflection"
+      ],
+      "route_status": "source-verified-control-or-command"
+    },
+    {
+      "group": 17,
+      "priority": "low",
+      "semantic": "BIM building",
+      "icon_id": "cad-bim-building",
+      "status": "new-art",
+      "reason": "Identify or create a whole building in an IFC/BIM spatial hierarchy, distinct from one storey or one enclosed space.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L374",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L914",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L467"
+      ],
+      "consumer_evidence": "Viewer accepts IFC file extensions and recognizes building-scene family, but building/storey/space-specific UI mappings were not located in retrieved source files. User explicitly requests all three semantic objects.",
+      "binding_conditions": "Provide three object glyphs; no claim these are wired into Studio/viewer today. Storey is a building floor level, not ground plane; space is bounded spatial volume, not workspace layout.",
+      "evidence_status": "requested-addition-route-unverified",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "BIM building",
+        "BIM storey",
+        "BIM space"
+      ],
+      "consumer_command_values": [],
+      "route_status": "requested-semantic-consumer-route-unverified"
+    },
+    {
+      "group": 17,
+      "priority": "low",
+      "semantic": "BIM space",
+      "icon_id": "cad-bim-space",
+      "status": "new-art",
+      "reason": "Identify or create a bounded room or spatial volume in an IFC/BIM hierarchy, distinct from a building element or a complete storey.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L374",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L914",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L467"
+      ],
+      "consumer_evidence": "Viewer accepts IFC file extensions and recognizes building-scene family, but building/storey/space-specific UI mappings were not located in retrieved source files. User explicitly requests all three semantic objects.",
+      "binding_conditions": "Provide three object glyphs; no claim these are wired into Studio/viewer today. Storey is a building floor level, not ground plane; space is bounded spatial volume, not workspace layout.",
+      "evidence_status": "requested-addition-route-unverified",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "BIM building",
+        "BIM storey",
+        "BIM space"
+      ],
+      "consumer_command_values": [],
+      "route_status": "requested-semantic-consumer-route-unverified"
+    },
+    {
+      "group": 17,
+      "priority": "low",
+      "semantic": "BIM storey",
+      "icon_id": "cad-bim-storey",
+      "status": "new-art",
+      "reason": "Identify or create one building storey or level in an IFC/BIM spatial hierarchy, not the whole building.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L374",
+        "https://github.com/cslroot/cax-viewer/blob/243062d5cdd26cd70952dd6fd06413ff6cf0b6a6/src/App.tsx#L914",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L467"
+      ],
+      "consumer_evidence": "Viewer accepts IFC file extensions and recognizes building-scene family, but building/storey/space-specific UI mappings were not located in retrieved source files. User explicitly requests all three semantic objects.",
+      "binding_conditions": "Provide three object glyphs; no claim these are wired into Studio/viewer today. Storey is a building floor level, not ground plane; space is bounded spatial volume, not workspace layout.",
+      "evidence_status": "requested-addition-route-unverified",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "BIM building",
+        "BIM storey",
+        "BIM space"
+      ],
+      "consumer_command_values": [],
+      "route_status": "requested-semantic-consumer-route-unverified"
+    },
+    {
+      "group": 18,
+      "priority": "low",
+      "semantic": "generic report export",
+      "icon_id": "common-export-report",
+      "status": "new-art",
+      "reason": "Export a general structured report document; does not imply physics analysis, inspection results or a particular output format.",
+      "distinct_family": null,
+      "source_urls": [
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L136-L139",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src/commands.ts#L178",
+        "https://github.com/cslroot/cax-studio/blob/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313/src-tauri/src/report.rs#L1"
+      ],
+      "consumer_evidence": "Studio exportReport currently generic export icon and is a snapshot report command, not restricted to analysis results.",
+      "binding_conditions": "Generic document report export distinct from analysis-report generation and generic model export.",
+      "evidence_status": "verified-current-consumer",
+      "consumer_ui_integrated": false,
+      "evidence_group_commands": [
+        "exportReport"
+      ],
+      "consumer_command_values": [
+        "exportReport"
+      ],
+      "route_status": "source-verified-control-or-command"
+    }
+  ],
+  "command_value_note": "Exact matching control/command values per icon are consumer_command_values. evidence_group_commands are research context only and must never be interpreted as all binding to that icon. Toggle labels and selectionType=... denote control semantics, not executable dispatcher syntax. Empty route lists are deliberately unverified, not inferred."
+}

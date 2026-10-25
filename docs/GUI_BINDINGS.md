@@ -1,6 +1,6 @@
 # Conditional GUI binding review
 
-This review covers exactly the 180 uncertain rows in the frozen 1,089-row source audit. It adds 21 independently reviewed original glyphs to the published 693-icon baseline; the catalog now has 714 semantic entries. All 693 previous records and both SVG variants are unchanged.
+This review covers exactly the 180 uncertain rows in the frozen 1,089-row source audit. It adds 21 independently reviewed original glyphs to the published 693-icon baseline; the catalog now has 758 semantic entries. All 693 previous records and both SVG variants are unchanged.
 
 ## What these results mean
 

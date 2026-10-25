@@ -333,7 +333,7 @@ async function test(name,fn){await fn();tests.push(name);console.log('PASS '+nam
   await $('reset').click();await change('usage','model-tree');await document.querySelectorAll('.category').find(e=>e.dataset.category==='CAD').click();await input('cae-material-assignment');
   await $('bulk-download').click();await $('bulk-start').click();entries=await readZip(blobs.at(-1));assert.deepEqual([...entries.keys()],['cae-material-assignment.svg']);
   await $('bulk-close').click();await $('reset').click();await change('usage','model-tree');assert.equal(cards().length,96);
-  await $('bulk-download').click();await $('bulk-start').click();entries=await readZip(blobs.at(-1));assert.equal(entries.size,186);assert.equal(cards().length,96);
+  await $('bulk-download').click();await $('bulk-start').click();entries=await readZip(blobs.at(-1));const treeItems=manifest.icons.filter(i=>i.usages.includes('model-tree'));assert.equal(entries.size,treeItems.length);assert.deepEqual([...entries.keys()].sort(),Array.from(treeItems,i=>i.id+'.svg').sort());assert.equal(cards().length,96);
   await $('bulk-close').click();await $('reset').click();runTimers(1000);assert.equal(liveURLs.size,0);
  });
  await test('bulk PNG ZIP captures all catalog images per theme and all seven supported sizes',async()=>{

@@ -82,3 +82,10 @@ REFERENCES.update(COVERAGE_REFERENCES)
 
 from binding_additions import BINDING_REFERENCES
 REFERENCES.update(BINDING_REFERENCES)
+
+# Requested independent toolbar meanings, checked against current consumer source.
+REFERENCES['cax-toolbar-requirements-2026-10-25'] = {
+ 'title':'CAX Studio and viewer toolbar semantics (2026-10-25)',
+ 'url':'https://github.com/cslroot/cax-studio/tree/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313',
+ 'scope':'Explicit 18-group toolbar requirement; actual consumer source snapshots and line-linked mappings are in toolbar-bindings.json. Original art, not copied vendor icons; no claim of consumer integration.'
+}

@@ -3,7 +3,7 @@
 <!-- binding-review:start -->
 ## Conditional GUI binding review (2026-10-25)
 
-21 additional original glyphs support the reviewed command bindings. Current catalog: **714 semantic icons / 1428 theme SVGs**. The published 693-icon baseline is unchanged.
+21 additional original glyphs support the reviewed command bindings. Current catalog: **758 semantic icons / 1516 theme SVGs**. The published 693-icon baseline is unchanged.
 
 See [conditions, evidence and unresolved branches](docs/GUI_BINDINGS.md), [binding JSON](command-bindings.json) and [180-row resolution CSV](docs/GUI_BINDING_RESOLUTIONS.csv). Conditional reuse does not mean a consumer GUI has implemented the required labels, states or routing.
 <!-- binding-review:end -->
@@ -11,7 +11,7 @@ See [conditions, evidence and unresolved branches](docs/GUI_BINDINGS.md), [bindi
 <!-- coverage-expansion:start -->
 ## Systematic GUI coverage (2026-10-25)
 
-244 new original command glyphs were implemented from the frozen source audit, with documented reuse and unresolved bindings. The current catalog contains **714 semantic icons / 1428 standalone SVG files**. All 449 previously delivered records and both theme SVGs remain unchanged.
+244 new original command glyphs were implemented from the frozen source audit, with documented reuse and unresolved bindings. The current catalog contains **758 semantic icons / 1516 standalone SVG files**. All 449 previously delivered records and both theme SVGs remain unchanged.
 
 See [scope, decisions and source mapping](docs/GUI_COVERAGE.md), [all 1,089 evidence rows with implementation status](docs/GUI_IMPLEMENTATION_TRACKING.csv), and [native-size preview page list](qa/coverage-preview/pages.json). This is source-scoped coverage, not a claim that all SOLIDWORKS product editions or every uncertain GUI binding are complete.
 <!-- coverage-expansion:end -->
@@ -34,17 +34,17 @@ Original rounded SVG symbols for everyday application commands, model-tree objec
 <!-- coverage:start -->
 | Primary category | Symbols |
 | --- | ---: |
-| Common | 89 |
-| CAD | 413 |
+| Common | 91 |
+| CAD | 454 |
 | CAM | 44 |
 | CAE | 62 |
 | CMM | 34 |
-| OLP | 72 |
-| **Total** | **714** |
+| OLP | 73 |
+| **Total** | **758** |
 
-Primary roles: 692 commands, 9 selectable tools, 9 objects and 4 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
+Primary roles: 733 commands, 9 selectable tools, 12 objects and 4 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
 
-186 entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.
+189 entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.
 <!-- coverage:end -->
 
 - Common: new, open, recent files, close, save / save as / save all, import, export, print, undo / redo, clipboard, search / replace, filtering, selection, display, navigation and application controls
@@ -187,3 +187,9 @@ The standalone-theme audit embeds actual file bytes without host CSS in an atlas
 ロボティクスの46用途に加え、cax-studioと関連リポジトリの実装から不足していた7用途を追加しました。さらにpdxadvの実装を根拠に、そり感度・肉厚対策・局所肉厚変更・結果分布・比較・基準保持・解析レポートの9用途を追加しました。今回のGUI拡充後は全693件、186件がモデルツリーに対応します。各IDにライト／ダークの独立SVGを用意しましたが、用途の件数は693件です。ダーク版はCSSなしで使えます。切り欠きなどの不透明な塗りは背景色#192c3cに固定して重なりを保つため、別の背景では色の差が見える場合があります。今回のテーマ追加では元の419件をバイト単位で維持しています。先のpdxadv用途追加では既存410件のSVGを変更していません。認識されたねじやメッシュ変換方式などは既存SVGを再利用し、件数を増やしていません。全403件の目視監査で見つかった形状の問題・改善点を11件修正し、ダーク背景で内部線が消える配色も改善しました。
 
 断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。追加一覧、11件の修正前後、light/dark/checker見本、70行の16pxロボット階層見本を同梱しています。アイコンとメタデータだけを作成し、実機接続・操作は行いません。詳細画面からライト／ダークの透過PNGも16・24・32・48・64・128・256pxで保存できます。プレビュー背景は含めず、重なりを隠す内部の不透明な塗りはそのまま保持します。一覧は96件ずつの無限スクロールに対応し、「Load more」でも追加できます。詳細は左右のボタン・矢印キーで絞り込み結果全体を前後移動できます。テーマ変更時は背景も連動し、その後はチェック柄などへ手動変更できます。検索横の「Download ZIP」で全693件または絞り込み結果全体を一括保存できます。SVG／透過PNG、ライト／ダーク、PNGサイズを選べ、進捗表示・キャンセルにも対応します。公開ページでは一覧・詳細移動、Escapeとフォーカス復帰、SVGコピー、選択した64px PNGをChromeで確認済みです。一括ZIPも全419件の両テーマSVG・32px PNG、絞り込み結果、キャンセルを確認済みです。モバイル・他ブラウザの検証は別途必要です。
+
+## Distinct toolbar requirements (2026-10-25)
+
+44 new glyphs and 2 exact existing reuses cover the requested 18 groups / 46 meanings. Current catalog: **758 icons / 1,516 light and dark SVGs**. All prior714 records and SVG bytes remain unchanged.
+
+See [acceptance checklist](docs/TOOLBAR_REQUIREMENTS.md), [46-row CSV](docs/TOOLBAR_REQUIREMENTS.csv), and [specific toolbar bindings](toolbar-bindings.json). Modes, views and filters have distinct glyphs rather than generic icon plus label substitution. Studio/viewer were inspected read-only; no consumer UI code was changed. This does not claim coverage of every product GUI.

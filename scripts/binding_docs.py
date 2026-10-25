@@ -3,7 +3,7 @@
 import json,collections,re
 from pathlib import Path
 R=Path(__file__).resolve().parents[1]
-p=json.loads((R/'command-bindings.json').read_text());m=json.loads((R/'manifest.json').read_text());b=json.loads((R/'src/published693_baseline.json').read_text())['icons'];new=[i for i in m['icons'] if i['id'] not in b]
+p=json.loads((R/'command-bindings.json').read_text());m=json.loads((R/'manifest.json').read_text());b=json.loads((R/'src/published693_baseline.json').read_text())['icons'];trace=json.loads((R/'src/binding_art_trace.json').read_text());new=[i for i in m['icons'] if i['id'] in trace]
 counts=collections.Counter(r['outcome'] for r in p['bindings']);unknown=[r for r in p['bindings'] if r['outcome']=='unresolved']
 lines=['# Conditional GUI binding review','',f'This review covers exactly the 180 uncertain rows in the frozen 1,089-row source audit. It adds {len(new)} independently reviewed original glyphs to the published 693-icon baseline; the catalog now has {m["count"]} semantic entries. All 693 previous records and both SVG variants are unchanged.','',
 '## What these results mean','',

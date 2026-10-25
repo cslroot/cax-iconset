@@ -9,17 +9,17 @@ The earlier operation × profile/trajectory generator has been removed, along wi
 <!-- coverage:start -->
 | Primary category | Symbols |
 | --- | ---: |
-| Common | 89 |
-| CAD | 413 |
+| Common | 91 |
+| CAD | 454 |
 | CAM | 44 |
 | CAE | 62 |
 | CMM | 34 |
-| OLP | 72 |
-| **Total** | **714** |
+| OLP | 73 |
+| **Total** | **758** |
 
-Primary roles: 692 commands, 9 selectable tools, 9 objects and 4 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
+Primary roles: 733 commands, 9 selectable tools, 12 objects and 4 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
 
-186 entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.
+189 entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.
 <!-- coverage:end -->
 
 The manifest `role` field identifies the primary role: command, tool, object or status. `usages` describes supported contexts and can contain both `command` and `model-tree`; reused entries are still counted once. `nodeName`, `nodeNameJa` and `objectType` provide contextual noun labels. Part definitions and their placed instances deliberately use the same part icon.
@@ -366,6 +366,7 @@ Vendor and OSS documentation informs the functional taxonomy, not the artwork. N
 | gui-binding-f767c22588 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/api/swconst/SolidWorks.Interop.swconst~SolidWorks.Interop.swconst.swSelectType_e.html?id=2.10.1.729) | Command meaning only; original artwork, no vendor assets |
 | gui-binding-5886e6220c | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2024/english/SolidWorks/sldworks/c_Weldments_Fillet_Weld_Beads.htm?id=35.0.15.7) | Command meaning only; original artwork, no vendor assets |
 | gui-binding-0aa6ca630b | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/api/sldworksapi/Insert_Weldment_Features_Example_CSharp.htm) | Command meaning only; original artwork, no vendor assets |
+| cax-toolbar-requirements-2026-10-25 | [CAX Studio and viewer toolbar semantics (2026-10-25)](https://github.com/cslroot/cax-studio/tree/dd49d9cd2fc899885a28a5f3cbd286fdc36c5313) | Explicit 18-group toolbar requirement; actual consumer source snapshots and line-linked mappings are in toolbar-bindings.json. Original art, not copied vendor icons; no claim of consumer integration. |
 <!-- references:end -->
 
 ## Source-backed expansion

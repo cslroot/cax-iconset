@@ -2,7 +2,7 @@
 
 The source audit is frozen separately: 459 SolidCraft command entries and 630 retrieved SOLIDWORKS documentation appearances, 1,089 evidence rows. It is not a claim about every edition, add-in, context menu or current-year toolbar. Drawing/Table source-year and access limits remain explicit.
 
-This implementation contains **244 new semantic glyphs**, making **693 semantic icons / 1386 standalone theme SVG files**. All 449 delivered records and 898 SVG files are preserved byte-for-byte. No count target determines the additions.
+This implementation contains **244 new semantic glyphs**, making **714 semantic icons / 1428 standalone theme SVG files**. All 449 delivered records and 898 SVG files are preserved byte-for-byte. No count target determines the additions.
 
 ## Decisions
 

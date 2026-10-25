@@ -207,11 +207,13 @@ class CatalogTests(unittest.TestCase):
         import sys
         sys.path.insert(0,str(ROOT/'src'))
         from coverage import COVERAGE
+        from binding_additions import BINDING_ADDITIONS
         baseline=json.loads((ROOT/'src/gui_expansion_baseline.json').read_text())['icons']
         self.assertEqual(len(baseline),449)
         current={i['id']:i for i in M['icons']}
         additions={domain.lower()+'-'+i['id'] for domain,items in COVERAGE.items() for i in items}
-        self.assertEqual(set(current)-set(baseline),additions)
+        followup={domain.lower()+'-'+i['id'] for domain,items in BINDING_ADDITIONS.items() for i in items}
+        self.assertEqual(set(current)-set(baseline),additions|followup)
         self.assertFalse(additions & set(baseline))
         for id,record in baseline.items():
             item=current[id]

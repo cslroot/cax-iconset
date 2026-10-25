@@ -1,9 +1,17 @@
 # CAX Iconset
 
+<!-- binding-review:start -->
+## Conditional GUI binding review (2026-10-25)
+
+21 additional original glyphs support the reviewed command bindings. Current catalog: **714 semantic icons / 1428 theme SVGs**. The published 693-icon baseline is unchanged.
+
+See [conditions, evidence and unresolved branches](docs/GUI_BINDINGS.md), [binding JSON](command-bindings.json) and [180-row resolution CSV](docs/GUI_BINDING_RESOLUTIONS.csv). Conditional reuse does not mean a consumer GUI has implemented the required labels, states or routing.
+<!-- binding-review:end -->
+
 <!-- coverage-expansion:start -->
 ## Systematic GUI coverage (2026-10-25)
 
-244 new original command glyphs were implemented from the frozen source audit, with documented reuse and unresolved bindings. The current catalog contains **693 semantic icons / 1386 standalone SVG files**. All 449 previously delivered records and both theme SVGs remain unchanged.
+244 new original command glyphs were implemented from the frozen source audit, with documented reuse and unresolved bindings. The current catalog contains **714 semantic icons / 1428 standalone SVG files**. All 449 previously delivered records and both theme SVGs remain unchanged.
 
 See [scope, decisions and source mapping](docs/GUI_COVERAGE.md), [all 1,089 evidence rows with implementation status](docs/GUI_IMPLEMENTATION_TRACKING.csv), and [native-size preview page list](qa/coverage-preview/pages.json). This is source-scoped coverage, not a claim that all SOLIDWORKS product editions or every uncertain GUI binding are complete.
 <!-- coverage-expansion:end -->
@@ -26,15 +34,15 @@ Original rounded SVG symbols for everyday application commands, model-tree objec
 <!-- coverage:start -->
 | Primary category | Symbols |
 | --- | ---: |
-| Common | 87 |
-| CAD | 395 |
+| Common | 89 |
+| CAD | 413 |
 | CAM | 44 |
-| CAE | 61 |
+| CAE | 62 |
 | CMM | 34 |
 | OLP | 72 |
-| **Total** | **693** |
+| **Total** | **714** |
 
-Primary roles: 672 commands, 9 selectable tools, 9 objects and 3 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
+Primary roles: 692 commands, 9 selectable tools, 9 objects and 4 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
 
 186 entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.
 <!-- coverage:end -->

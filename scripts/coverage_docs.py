@@ -5,7 +5,8 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 m=json.loads((ROOT/'manifest.json').read_text());d=json.loads((ROOT/'src/coverage_decisions.json').read_text())
 baseline=json.loads((ROOT/'src/gui_expansion_baseline.json').read_text())['icons']
-new=[i for i in m['icons'] if i['id'] not in baseline];byid={i['id']:i for i in m['icons']}
+reviewed={r['icon_id'] for r in d if r['decision']=='new-glyph'}
+new=[i for i in m['icons'] if i['id'] in reviewed];byid={i['id']:i for i in m['icons']}
 counts=dict(collections.Counter(i['decision'] for i in d))
 lines=['# Source-scoped GUI coverage implementation','',
  'The source audit is frozen separately: 459 SolidCraft command entries and 630 retrieved SOLIDWORKS documentation appearances, 1,089 evidence rows. It is not a claim about every edition, add-in, context menu or current-year toolbar. Drawing/Table source-year and access limits remain explicit.', '',

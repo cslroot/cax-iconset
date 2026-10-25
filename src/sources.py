@@ -79,3 +79,6 @@ REFERENCES.update({
 
 from coverage import COVERAGE_REFERENCES
 REFERENCES.update(COVERAGE_REFERENCES)
+
+from binding_additions import BINDING_REFERENCES
+REFERENCES.update(BINDING_REFERENCES)

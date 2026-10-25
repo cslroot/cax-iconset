@@ -9,15 +9,15 @@ The earlier operation × profile/trajectory generator has been removed, along wi
 <!-- coverage:start -->
 | Primary category | Symbols |
 | --- | ---: |
-| Common | 87 |
-| CAD | 395 |
+| Common | 89 |
+| CAD | 413 |
 | CAM | 44 |
-| CAE | 61 |
+| CAE | 62 |
 | CMM | 34 |
 | OLP | 72 |
-| **Total** | **693** |
+| **Total** | **714** |
 
-Primary roles: 672 commands, 9 selectable tools, 9 objects and 3 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
+Primary roles: 692 commands, 9 selectable tools, 9 objects and 4 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
 
 186 entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.
 <!-- coverage:end -->
@@ -311,6 +311,61 @@ Vendor and OSS documentation informs the functional taxonomy, not the artwork. N
 | gui-audit-710dd04d55 | [SOLIDWORKS official GUI documentation](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Sheet_Metal_Toolbar.htm?id=2.12.4.1.28) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
 | gui-audit-749742060e | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#sheet-metal--create) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
 | gui-audit-f87ed3acf1 | [SolidCraft command reference](https://docs.solidcraft.io/reference/commands.html#sheet-metal--modify) | Reviewed command taxonomy; original CAX artwork. The bounded coverage audit records source-year and retrieval limits. |
+| gui-binding-95ed3a6ad9 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/English/SolidWorks/sldworks/c_replace_sketch_entities.htm?id=60e56696b89a4838bd298f13b38a545a) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-6935560205 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2025/english/SolidWorks/sldworks/HIDD_DVE_REPLACE_COMPS.htm?id=7.11.8) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-ccf6084f52 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/japanese/SolidWorks/sldworks/HIDD_DVE_REPLACE_COMPS.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-c706fb842d | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2025/english/SolidWorks/sldworks/hidd_dve_feat_move_face.htm?id=23.6.36.2.14) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-8b14449f5f | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2025/english/SolidWorks/sldworks/c_Freeforms_Folder.htm?id=ed52e5d0bb4949d881b206d79ae6e160) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-159490dd9a | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2022/english/SolidWorks/sldworks/HIDD_DVE_FEAT_PPGORDON.htm?id=2b6c7bfd8ce44176b235661493bbb122) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-b3e2d17dd0 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2025/english/solidworks/sldworks/c_Deforms_Top_Folder.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-f0c46894c1 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2012/English/SolidWorks/sldworks/HIDD_DVE_DEFORM.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-ecd16ac847 | [Official command semantics for conditional GUI bindings](https://docs.solidcraft.io/reference/commands.html#solid--modify) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-5c2115eb24 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2025/english/SolidWorks/sldworks/HIDD_DVE_PLANAR_SURFACE.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-4d9736f9fd | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2025/english/SolidWorks/sldworks/HIDD_DVE_SURF_WRAPPING_SKETCH.htm?id=23.6.40) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-e3a26b2837 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/api/swconst/SolidWorks.Interop.swconst~SolidWorks.Interop.swconst.swWrapSketchType_e.html) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-aa1eeeab9d | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/t_creating_groove_beads.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-b3db87199e | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2025/english/WhatsNew/c_wn2025_weldments_groove_beads.htm?id=9.7) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-f7a6b6fdd8 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2024/english/SolidWorks/sldworks/c_Weld_Beads.htm?id=35.0.15) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-f30c7dc7d5 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_view_toolbar.htm?id=d7123216e4cc48df9f6b6be904699b39) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-172ac8ab94 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/simtutorialonline/t_viewing_optimization_results.htm?id=0.2.6.8) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-9baa1e8232 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2022/english/SolidWorks/sldworks/t_displaying_sw_sim_results_inga.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-4396f7e3ba | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_tools_toolbar.htm?id=2.12.4.1.39) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-53d9c98fae | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/c_Design_Studies_SOLIDWORKS.htm?id=e0490acf4f374e5a800fca910b819154) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-8e7060fa2f | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/cworks/c_Design_Study.htm?id=26.13) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-62e45fcfa1 | [Official command semantics for conditional GUI bindings](https://docs.solidcraft.io/reference/commands.html#solid--inspect) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-41d1a1b3a5 | [Official command semantics for conditional GUI bindings](https://docs.solidcraft.io/reference/commands.html) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-3188d0fc7e | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/HIDD_MEASURE.htm?id=3.10) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-9404158c15 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2025/english/api/swcommands/SolidWorks.Interop.swcommands~SolidWorks.Interop.swcommands.swCommands_e.html?id=cec41382bfc941eb83f24f6c8425852b) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-db8c551af6 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2024/english/SolidWorks/sldworks/t_using_make_sw_desktop.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-dd7dc4c73a | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/English/SolidWorks/DFMXpress/c_DFMXpress_overview.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-6f3e2bf88e | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/c_assy_facility_layout.htm?id=7.13.1) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-16018f6014 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2025/English/SolidWorks/sldworks/r_asset_publisher_propertymanager.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-3ee9115b27 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_publish_3dcloudbymePM.htm?id=5.17.0) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-61ac1ec318 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/c_share_files.htm?id=5.15) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-32463001c1 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Annotations_Toolbar.htm?id=2.12.4.1.2) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-0f21262562 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2025/english/SolidWorks/sldworks/c_notes.htm?id=d1b8b71f6dfd4415a1d5301ae125061f) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-bd40dd11ab | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_annotation_leaders.htm?id=13.7.11.0) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-952753343a | [Official command semantics for conditional GUI bindings](https://docs.solidcraft.io/reference/commands.html#solid--assemble) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-30f1eca701 | [Official command semantics for conditional GUI bindings](https://docs.solidcraft.io/guide/assemblies.html) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-12b8f73d64 | [Official command semantics for conditional GUI bindings](https://docs.solidcraft.io/reference/commands.html#other-joint) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-8a41850734 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Assembly_Toolbar.htm?id=2.12.4.1.3) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-90542fecaa | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/English/SolidWorks/sldworks/HIDD_NEW_ADD_MATE.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-cfb0ccd92c | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_mate_pm_advanced.htm?id=7.7.3.1) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-e52e39f2ba | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2024/english/SolidWorks/sldworks/r_mate_pm_mechanical.htm?id=9f5542b7de6347a99d867200d6c17f68) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-7b9d6a9d5a | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/c_machine_desing_tools_overview.htm?id=3.2) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-f162e6bff2 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2025/English/SolidWorks/sldworks/t_Universal_Joint_Mate_SWassy.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-682bbc8192 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_mate_icons_featuremanager_design_tree.htm?id=7.7.4) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-8effa5b625 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2024/english/SolidWorks/sldworks/t_Limit_Mates_SWassy.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-710dd04d55 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/r_Sheet_Metal_Toolbar.htm?id=2.12.4.1.28) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-c181701d3d | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/Sldworks/t_Creating_Forming_Tools.htm) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-cd1e1268cc | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/c_Weld_Beads.htm?id=35.0.15) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-083a22261c | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2014/english/SolidWorks/sldworks/t_Adding_Weld_Beads_to_Sheet_Metal_Corners.htm?id=21.1.20) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-16771073df | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/HIDD_SHEET_METAL_WELD_BEAD.htm?id=25.1.24) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-82adec05d8 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/SolidWorks/sldworks/t_Adding_Weld_Beads_to_Sheet_Metal_Corners.htm?id=25.1.23) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-aa090f2a75 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/English/SolidWorks/sldworks/r_weldments_toolbar.htm?id=a668b8ee4e4b429aa9a10dda92a9a6f4) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-f767c22588 | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/api/swconst/SolidWorks.Interop.swconst~SolidWorks.Interop.swconst.swSelectType_e.html?id=2.10.1.729) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-5886e6220c | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2024/english/SolidWorks/sldworks/c_Weldments_Fillet_Weld_Beads.htm?id=35.0.15.7) | Command meaning only; original artwork, no vendor assets |
+| gui-binding-0aa6ca630b | [Official command semantics for conditional GUI bindings](https://help.solidworks.com/2026/english/api/sldworksapi/Insert_Weldment_Features_Example_CSharp.htm) | Command meaning only; original artwork, no vendor assets |
 <!-- references:end -->
 
 ## Source-backed expansion

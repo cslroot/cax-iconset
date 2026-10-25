@@ -1,0 +1,227 @@
+{
+  "cad-replace-selected-object": {
+    "sources": [
+      "gui-binding-95ed3a6ad9",
+      "gui-binding-6935560205",
+      "gui-binding-ccf6084f52"
+    ],
+    "aliases": [
+      "Replace Entity",
+      "Replace Components"
+    ]
+  },
+  "cad-transform-selected-face": {
+    "sources": [
+      "gui-binding-c706fb842d"
+    ],
+    "aliases": [
+      "Move Face"
+    ]
+  },
+  "cad-deform-shape": {
+    "sources": [
+      "gui-binding-8b14449f5f",
+      "gui-binding-159490dd9a",
+      "gui-binding-b3e2d17dd0",
+      "gui-binding-f0c46894c1"
+    ],
+    "aliases": [
+      "Freeform",
+      "Deform"
+    ]
+  },
+  "cad-align-body": {
+    "sources": [
+      "gui-binding-ecd16ac847"
+    ],
+    "aliases": [
+      "solid.align"
+    ]
+  },
+  "cad-surface-planar": {
+    "sources": [
+      "gui-binding-5c2115eb24"
+    ],
+    "aliases": [
+      "Planar Surface"
+    ]
+  },
+  "cad-wrap-profile": {
+    "sources": [
+      "gui-binding-4d9736f9fd",
+      "gui-binding-e3a26b2837"
+    ],
+    "aliases": [
+      "Wrap"
+    ]
+  },
+  "cad-groove-bead": {
+    "sources": [
+      "gui-binding-aa1eeeab9d",
+      "gui-binding-b3db87199e",
+      "gui-binding-f7a6b6fdd8"
+    ],
+    "aliases": [
+      "Groove Bead"
+    ]
+  },
+  "cae-simulation-overlay": {
+    "sources": [
+      "gui-binding-f30c7dc7d5",
+      "gui-binding-172ac8ab94",
+      "gui-binding-9baa1e8232"
+    ],
+    "aliases": [
+      "simulation-display"
+    ]
+  },
+  "cad-design-study": {
+    "sources": [
+      "gui-binding-4396f7e3ba",
+      "gui-binding-53d9c98fae",
+      "gui-binding-8e7060fa2f"
+    ],
+    "aliases": [
+      "design-study"
+    ]
+  },
+  "common-measure-geometry": {
+    "sources": [
+      "gui-binding-62e45fcfa1",
+      "gui-binding-41d1a1b3a5",
+      "gui-binding-4396f7e3ba",
+      "gui-binding-3188d0fc7e"
+    ],
+    "aliases": [
+      "inspect.measure",
+      "measure"
+    ]
+  },
+  "common-launch-external-service": {
+    "sources": [
+      "gui-binding-4396f7e3ba",
+      "gui-binding-9404158c15",
+      "gui-binding-db8c551af6"
+    ],
+    "aliases": [
+      "3dexperience-simulation-connector",
+      "on-demand-manufacturing"
+    ]
+  },
+  "cad-manufacturability-check": {
+    "sources": [
+      "gui-binding-4396f7e3ba",
+      "gui-binding-dd7dc4c73a"
+    ],
+    "aliases": [
+      "dfmxpress-analysis-wizard"
+    ]
+  },
+  "cad-author-asset-references": {
+    "sources": [
+      "gui-binding-4396f7e3ba",
+      "gui-binding-6f3e2bf88e",
+      "gui-binding-16018f6014"
+    ],
+    "aliases": [
+      "asset-publisher"
+    ]
+  },
+  "cad-publish-model-cloud": {
+    "sources": [
+      "gui-binding-4396f7e3ba",
+      "gui-binding-3ee9115b27",
+      "gui-binding-61ac1ec318",
+      "gui-binding-9404158c15"
+    ],
+    "aliases": [
+      "publish-to-3dcloudbyme",
+      "publish-to-homebyme"
+    ]
+  },
+  "cad-annotation-note": {
+    "sources": [
+      "gui-binding-32463001c1",
+      "gui-binding-0f21262562",
+      "gui-binding-bd40dd11ab"
+    ],
+    "aliases": [
+      "note"
+    ]
+  },
+  "cad-cylindrical-joint": {
+    "sources": [
+      "gui-binding-952753343a",
+      "gui-binding-41d1a1b3a5",
+      "gui-binding-30f1eca701"
+    ],
+    "aliases": [
+      "joint.create",
+      "joint.as_built"
+    ]
+  },
+  "cad-line-on-plane": {
+    "sources": [
+      "gui-binding-952753343a",
+      "gui-binding-41d1a1b3a5",
+      "gui-binding-30f1eca701"
+    ],
+    "aliases": [
+      "joint.create"
+    ]
+  },
+  "cad-linear-travel-limits": {
+    "sources": [
+      "gui-binding-12b8f73d64",
+      "gui-binding-41d1a1b3a5",
+      "gui-binding-8a41850734",
+      "gui-binding-90542fecaa",
+      "gui-binding-cfb0ccd92c",
+      "gui-binding-e52e39f2ba",
+      "gui-binding-7b9d6a9d5a",
+      "gui-binding-f162e6bff2",
+      "gui-binding-682bbc8192",
+      "gui-binding-8effa5b625"
+    ],
+    "aliases": [
+      "joint.limits",
+      "Mate",
+      "Limit, Distance",
+      "Limit"
+    ]
+  },
+  "cad-define-forming-tool": {
+    "sources": [
+      "gui-binding-710dd04d55",
+      "gui-binding-c181701d3d"
+    ],
+    "aliases": [
+      "Forming Tool"
+    ]
+  },
+  "cad-solid-corner-weld": {
+    "sources": [
+      "gui-binding-710dd04d55",
+      "gui-binding-cd1e1268cc",
+      "gui-binding-083a22261c",
+      "gui-binding-16771073df",
+      "gui-binding-82adec05d8",
+      "gui-binding-aa090f2a75",
+      "gui-binding-f767c22588",
+      "gui-binding-5886e6220c",
+      "gui-binding-0aa6ca630b"
+    ],
+    "aliases": [
+      "Welded Corner",
+      "Fillet Bead"
+    ]
+  },
+  "cad-mate-path-to-ground": {
+    "sources": [
+      "gui-binding-682bbc8192"
+    ],
+    "aliases": [
+      "Mates in path to ground"
+    ]
+  }
+}

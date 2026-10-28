@@ -3114,6 +3114,27 @@
     ]
   },
   {
+    "semantic": "solid-pipe",
+    "requested_id": "cad-solid-pipe",
+    "decision": "new-glyph",
+    "icon_id": "cad-solid-pipe",
+    "reason": "Creates a solid or hollow round pipe along a path curve in one step. cad-sweep needs a separately drawn profile, and cad-cable is a routed harness object, so neither reads as this command.",
+    "glyph_design": "A bent tube with an open end showing its bore and a dashed centre line for the path.",
+    "aliases": [
+      "solid.pipe",
+      "Pipe"
+    ],
+    "sources": [
+      "gui-audit-5b19650212"
+    ],
+    "audit_groups": [
+      "solid-pipe"
+    ],
+    "source_urls": [
+      "https://docs.solidcraft.io/reference/commands.html#solid--create"
+    ]
+  },
+  {
     "semantic": "solid-dome",
     "requested_id": "cad-solid-dome",
     "decision": "new-glyph",

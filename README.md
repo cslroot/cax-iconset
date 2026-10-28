@@ -2,7 +2,7 @@
 
 ## October 28 addition
 
-**801 semantic icons / 1,602 theme SVGs.** Added `cad-primitive-cone` (Create cone) beside the cylinder, sphere and torus primitives, for CAX Studio's Cone command.
+**802 semantic icons / 1,604 theme SVGs.** Added `cad-primitive-cone` (Create cone) beside the cylinder, sphere and torus primitives, for CAX Studio's Cone command, and `cad-solid-pipe` (Create solid pipe) beside the solid coil, for its Pipe command.
 
 ## October 25 A/B additions
 

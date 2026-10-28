@@ -1,5 +1,9 @@
 # CAX Iconset
 
+## October 28 addition
+
+**801 semantic icons / 1,602 theme SVGs.** Added `cad-primitive-cone` (Create cone) beside the cylinder, sphere and torus primitives, for CAX Studio's Cone command.
+
 ## October 25 A/B additions
 
 **800 semantic icons / 1,600 theme SVGs.** Added all 42 requested meanings (25 current substitutions, 17 future features), preserving the published 758. [Exact request-to-ID mapping](docs/OCT25_ADDITIONS.md) and [CSV](docs/OCT25_ADDITIONS.csv). Consumer application integration is not included.

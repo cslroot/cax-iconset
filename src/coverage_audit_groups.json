@@ -142,6 +142,7 @@
   "previous-view",
   "primitive-cylinder",
   "primitive-sphere",
+  "primitive-cone",
   "primitive-torus",
   "print3d",
   "punch-table",

@@ -2610,6 +2610,26 @@
     ]
   },
   {
+    "semantic": "primitive-cone",
+    "requested_id": "cad-primitive-cone",
+    "decision": "new-glyph",
+    "icon_id": "cad-primitive-cone",
+    "reason": "Creates a cone or truncated cone primitive directly. No command-level cone primitive icon exists; the cylinder glyph would read as the wrong solid.",
+    "glyph_design": "A tapered solid with an elliptical base, a height dimension and a base radius cue.",
+    "aliases": [
+      "solid.cone"
+    ],
+    "sources": [
+      "gui-audit-5b19650212"
+    ],
+    "audit_groups": [
+      "primitive-cone"
+    ],
+    "source_urls": [
+      "https://docs.solidcraft.io/reference/commands.html#solid--create"
+    ]
+  },
+  {
     "semantic": "primitive-torus",
     "requested_id": "cad-primitive-torus",
     "decision": "new-glyph",

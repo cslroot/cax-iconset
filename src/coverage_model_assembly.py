@@ -348,6 +348,12 @@ add('primitive-torus', 'Create torus', 'トーラスを作成',
     p('M3 16 C3 3 29 3 29 16 C29 29 3 29 3 16Z', fill=PALE)
     + p('M10 15 C10 9 22 9 22 15 C22 21 10 21 10 15Z', fill='white')
     + p('M10 15 Q16 12 22 15') + accent('M16 15 H28 M25 12 28 15 25 18'), 'solid-primitive')
+add('primitive-cone', 'Create cone', '円錐を作成',
+    'Create a conical solid primitive from bottom and top radii and height.',
+    '底面と上面の半径、高さを指定して円錐ソリッドを作成します。',
+    p('M7 25 L16 4 L25 25 C25 31 7 31 7 25Z', fill=PALE)
+    + p('M7 25 C7 19 25 19 25 25')
+    + accent('M16 25 H25 M22 22 25 25 22 28') + p('M3 4 V25 M1 4 H5 M1 25 H5'), 'solid-primitive')
 
 # Repair, ownership and reference replacement are not rigid transforms.
 add('repair-mates', 'Repair assembly mates', 'アセンブリ合致を修復',
@@ -493,6 +499,13 @@ add('solid-coil', 'Create solid coil', 'ソリッドコイルを作成',
     p('M7 6 C7 1 25 1 25 6 C25 12 7 11 7 17 C7 23 25 22 25 27 L22 29 C22 25 4 26 4 20 C4 13 22 15 22 9 C22 5 10 4 10 7Z', fill=PALE)
     + p('M7 14 C7 9 25 9 25 14 C25 20 7 19 7 25 L10 28 C10 23 28 23 28 17 C28 11 10 13 10 9Z', fill=PALE)
     + accent('M7 6 C7 11 25 10 25 14 M7 17 C7 22 25 21 25 27'), 'solid-creation')
+add('solid-pipe', 'Create solid pipe', 'ソリッドパイプを作成',
+    'Sweep a round or hollow section along a path curve into a solid pipe.',
+    '円形または中空の断面を経路曲線に沿って掃引し、ソリッドのパイプを作成します。',
+    p('M4 28 V16 C4 9 9 4 16 4 H26 V12 H16 C14 12 12 14 12 16 V28Z', fill=PALE)
+    + p('M26 4 C29 4 29 12 26 12 C23 12 23 4 26 4Z', fill='white')
+    + p('M26 6.5 C27.2 6.5 27.2 9.5 26 9.5 C24.8 9.5 24.8 6.5 26 6.5Z')
+    + accent('M8 28 V16 C8 11 11 8 16 8 H23', stroke_dasharray='3 2'), 'solid-creation')
 add('solid-dome', 'Dome feature', 'ドームフィーチャ',
     'Bulge a selected face into a dome-shaped solid feature.',
     '選択面を膨らませてドーム状のソリッドフィーチャを作成します。',
@@ -638,6 +651,7 @@ _TRACE = {'activate-component': {'aliases': ['component.activate', 'Edit Compone
  'pattern-table': {'aliases': ['Table Driven Pattern'], 'sources': ['gui-audit-c2a5f59b1b']},
  'pattern-variable': {'aliases': ['Variable Pattern'], 'sources': ['gui-audit-c2a5f59b1b']},
  'plastic-rest': {'aliases': ['plastic.rest'], 'sources': ['gui-audit-73a2f59c6c']},
+ 'primitive-cone': {'aliases': ['solid.cone'], 'sources': ['gui-audit-5b19650212']},
  'primitive-cylinder': {'aliases': ['solid.cylinder'], 'sources': ['gui-audit-5b19650212']},
  'primitive-sphere': {'aliases': ['solid.sphere'], 'sources': ['gui-audit-5b19650212']},
  'primitive-torus': {'aliases': ['solid.torus'], 'sources': ['gui-audit-5b19650212']},
@@ -667,6 +681,7 @@ _TRACE = {'activate-component': {'aliases': ['component.activate', 'Edit Compone
  'solid-boundary': {'aliases': ['Boundary Boss/Base'], 'sources': ['gui-audit-c2a5f59b1b']},
  'solid-boundary-cut': {'aliases': ['Boundary Cut'], 'sources': ['gui-audit-c2a5f59b1b']},
  'solid-coil': {'aliases': ['solid.coil'], 'sources': ['gui-audit-5b19650212']},
+ 'solid-pipe': {'aliases': ['solid.pipe', 'Pipe'], 'sources': ['gui-audit-5b19650212']},
  'solid-dome': {'aliases': ['Dome'], 'sources': ['gui-audit-c2a5f59b1b']},
  'solid-flex': {'aliases': ['Flex'], 'sources': ['gui-audit-c2a5f59b1b']},
  'solid-indent': {'aliases': ['Indent'], 'sources': ['gui-audit-c2a5f59b1b']},

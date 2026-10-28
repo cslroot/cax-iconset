@@ -2610,6 +2610,26 @@
     ]
   },
   {
+    "semantic": "primitive-cone",
+    "requested_id": "cad-primitive-cone",
+    "decision": "new-glyph",
+    "icon_id": "cad-primitive-cone",
+    "reason": "Creates a cone or truncated cone primitive directly. No command-level cone primitive icon exists; the cylinder glyph would read as the wrong solid.",
+    "glyph_design": "A tapered solid with an elliptical base, a height dimension and a base radius cue.",
+    "aliases": [
+      "solid.cone"
+    ],
+    "sources": [
+      "gui-audit-5b19650212"
+    ],
+    "audit_groups": [
+      "primitive-cone"
+    ],
+    "source_urls": [
+      "https://docs.solidcraft.io/reference/commands.html#solid--create"
+    ]
+  },
+  {
     "semantic": "primitive-torus",
     "requested_id": "cad-primitive-torus",
     "decision": "new-glyph",
@@ -3088,6 +3108,27 @@
     ],
     "audit_groups": [
       "solid-coil"
+    ],
+    "source_urls": [
+      "https://docs.solidcraft.io/reference/commands.html#solid--create"
+    ]
+  },
+  {
+    "semantic": "solid-pipe",
+    "requested_id": "cad-solid-pipe",
+    "decision": "new-glyph",
+    "icon_id": "cad-solid-pipe",
+    "reason": "Creates a solid or hollow round pipe along a path curve in one step. cad-sweep needs a separately drawn profile, and cad-cable is a routed harness object, so neither reads as this command.",
+    "glyph_design": "A bent tube with an open end showing its bore and a dashed centre line for the path.",
+    "aliases": [
+      "solid.pipe",
+      "Pipe"
+    ],
+    "sources": [
+      "gui-audit-5b19650212"
+    ],
+    "audit_groups": [
+      "solid-pipe"
     ],
     "source_urls": [
       "https://docs.solidcraft.io/reference/commands.html#solid--create"

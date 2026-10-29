@@ -1,6 +1,6 @@
 # Standalone light and dark SVG variants
 
-Version 2.6.0. There are **419 semantic IDs**, each with a light and dark file. The catalog, category totals, usage totals and searches still count 419 icons. No new meanings, state variants or geometry are introduced. All 419 original SVG files match commit `08d22603e7b21b47da35f67025ba36a6572c3c95` byte-for-byte.
+Historical theme-introduction record (version 2.6.0): the catalog then contained **419 semantic IDs**, each with a light and dark file, and all 419 originals matched commit `08d22603e7b21b47da35f67025ba36a6572c3c95`. The current catalog contains 802 semantic IDs / 1,604 theme files; see current counts in [README](../README.md). The design and palette guidance below still describes the current theme format.
 
 ![Standalone raw-file comparison](../qa/dark-svg-comparison.png)
 
@@ -49,7 +49,7 @@ python3 scripts/dark_theme_audit.py
 
 The audit embeds each raw file as a separate SVG image in an atlas with 16 / 24 / 32 px output cells. These are atlas measurements, including possible resampling from the source image’s intrinsic 32 px size. It compares their alpha channels, rejects blank renders and checks that each dark icon retains at least eight pixels of 3:1 contrast against each tested surface. That pixel threshold detects gross visibility failures, not recognizability or accessibility conformance. Static palette contrast is 7.10:1 for ink/body, 4.91:1 for accent/body, and at least 7.61:1 for the accent against the three tested dark surfaces.
 
-XML tests cover both variants, exact hashes, local-reference safety, exhaustive palette roles, unchanged structure/geometry/order, all opaque cutouts and the 419-original baseline. Script-level application tests copy and download all **838** files and require exact equality with the selected standalone file. They cover repeated theme/background changes and restoration of focus to the detail opener after a theme switch.
+The historical 2.6.0 validation covered both variants, exact hashes, local-reference safety, exhaustive palette roles, unchanged structure/geometry/order, opaque cutouts and the 419-original baseline. Current test suites validate the present catalog; the old **838-file** interaction total is checkpoint evidence, not a current count.
 
 Results: [machine-readable audit](../qa/dark-theme-audit.json), [QA report](QA.md). Complete three-surface embedded-SVG sheets: [Common](../qa/dark-common.png), [CAD](../qa/dark-cad.png), [CAM](../qa/dark-cam.png), [CAE](../qa/dark-cae.png), [CMM](../qa/dark-cmm.png), [OLP](../qa/dark-olp.png).
 

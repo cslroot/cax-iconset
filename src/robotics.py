@@ -216,7 +216,7 @@ def tree_metadata(id, data):
         ROBOTICS_NAMES[id] = (node['name'], node['nameJa'])
 
 def _load():
-    records = json.loads(Path(__file__).with_name('robotics_commands.json').read_text())
+    records = json.loads(Path(__file__).with_name('robotics_commands.json').read_text(encoding='utf-8'))
     expected = {i['id'] for i in records}
     if len(expected) != len(records) or expected != set(GLYPHS):
         raise ValueError('Robotics review/drawing mismatch')
@@ -232,7 +232,7 @@ def _load():
         data.setdefault('role', 'command')
         data['tags'] = list(dict.fromkeys(data['tags'] + [data['name'].lower(), data['nameJa'], 'robotics', 'ロボティクス']))
         ROBOTICS.setdefault(domain, []).append(data)
-    for raw in json.loads(Path(__file__).with_name('robotics_reuse.json').read_text()):
+    for raw in json.loads(Path(__file__).with_name('robotics_reuse.json').read_text(encoding='utf-8')):
         data = dict(raw)
         id = data.pop('id')
         if id in ROBOTICS_REUSE:

@@ -32,7 +32,7 @@ def build():
  data=[]
  (ROOT/'icons').mkdir(exist_ok=True)
  (ROOT/'icons-dark').mkdir(exist_ok=True)
- previous=json.loads((ROOT/'manifest.json').read_text())['icons'] if (ROOT/'manifest.json').exists() else []
+ previous=json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))['icons'] if (ROOT/'manifest.json').exists() else []
  collection={'Common':COMMON+EXTENSION.get('Common',[])+APPLICATION.get('Common',[])+STUDIO.get('Common',[])}
  for domain,items in CORE.items():
   collection[domain]=items+ENGINEERING.get(domain,[])+EXTENSION.get(domain,[])+APPLICATION.get(domain,[])+ROBOTICS.get(domain,[])+STUDIO.get(domain,[])+PDXADV.get(domain,[])
@@ -60,10 +60,10 @@ def build():
    apply_studio_reuse(item)
    apply_pdxadv_reuse(item)
    apply_usage(item)
-   content=svg(item); (ROOT/item['file']).write_text(content)
+   content=svg(item); (ROOT/item['file']).write_text(content, encoding='utf-8', newline='\n')
    item['sha256']=hashlib.sha256(content.encode()).hexdigest()
    dark_content=svg(item,'dark'); dark_file='icons-dark/'+item['id']+'.svg'
-   (ROOT/dark_file).write_text(dark_content)
+   (ROOT/dark_file).write_text(dark_content, encoding='utf-8', newline='\n')
    item['variants']={
     'light':{'file':item['file'],'sha256':item['sha256']},
     'dark':{'file':dark_file,'sha256':hashlib.sha256(dark_content.encode()).hexdigest(),'body':themed_body(item['body'],'dark')}
@@ -76,7 +76,7 @@ def build():
   if stale.stem not in set(ids):stale.unlink()
  from collections import Counter
  manifest={'counts':dict(Counter(i['role'] for i in data)),'categories':dict(Counter(i['category'] for i in data)),'sourceReferences':REFERENCES,'categoryMemberships':dict(Counter(c for i in data for c in i['categories'])),'usageCounts':dict(Counter(u for i in data for u in i['usages'])),'version':'2.11.0','themes':THEMES,'defaultTheme':'light','viewBox':'0 0 32 32','license':'MIT','count':len(data),'scope':'One semantic entry per independent command, tool, object or status; reuse geometry across command and model-tree contexts; no profile or trajectory variants.','icons':data}
- (ROOT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,separators=(',',':'))+'\n')
- (ROOT/'catalog.js').write_text('window.CAX_CATALOG='+json.dumps(manifest,ensure_ascii=False,separators=(',',':'))+';\n')
+ (ROOT/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,separators=(',',':'))+'\n', encoding='utf-8', newline='\n')
+ (ROOT/'catalog.js').write_text('window.CAX_CATALOG='+json.dumps(manifest,ensure_ascii=False,separators=(',',':'))+';\n', encoding='utf-8', newline='\n')
  print(f'Built {len(data)} semantic icons, each with light and dark SVG variants')
 if __name__=='__main__':build()

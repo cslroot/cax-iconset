@@ -9,16 +9,16 @@ ROOT = Path(__file__).resolve().parents[1]
 class BindingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.catalog = json.loads((ROOT/'manifest.json').read_text())
+        cls.catalog = json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
         cls.icons = {i['id']: i for i in cls.catalog['icons']}
-        cls.policy = json.loads((ROOT/'command-bindings.json').read_text())
-        cls.baseline = json.loads((ROOT/'src/published693_baseline.json').read_text())['icons']
+        cls.policy = json.loads((ROOT/'command-bindings.json').read_text(encoding='utf-8'))
+        cls.baseline = json.loads((ROOT/'src/published693_baseline.json').read_text(encoding='utf-8'))['icons']
 
     def test_all_180_rows_once_and_source_identity(self):
         rows = self.policy['bindings']
         self.assertEqual(len(rows), 180)
         self.assertEqual({r['uncertain_index'] for r in rows}, set(range(180)))
-        frozen = json.loads((ROOT/'src/binding_audit_rows.json').read_text())
+        frozen = json.loads((ROOT/'src/binding_audit_rows.json').read_text(encoding='utf-8'))
         for r in rows:
             original = frozen[r['uncertain_index']]
             for key in ('product','command'):
@@ -49,7 +49,7 @@ class BindingTests(unittest.TestCase):
                 self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), baseline[theme], (id,theme))
 
     def test_new_art_has_explicit_row_and_source_trace(self):
-        trace = json.loads((ROOT/'src/binding_art_trace.json').read_text())
+        trace = json.loads((ROOT/'src/binding_art_trace.json').read_text(encoding='utf-8'))
         # The original binding release is fixed; later toolbar art has its own tests.
         new_ids = set(trace)
         self.assertTrue(new_ids <= set(self.icons))

@@ -83,7 +83,7 @@ def references(data):
     return ids
 
 def _load():
-    records = json.loads(Path(__file__).with_name('pdxadv_commands.json').read_text())
+    records = json.loads(Path(__file__).with_name('pdxadv_commands.json').read_text(encoding='utf-8'))
     if len({i['id'] for i in records}) != len(records) or {i['id'] for i in records} != set(GLYPHS):
         raise ValueError('pdxadv review/drawing mismatch')
     for raw in records:
@@ -97,7 +97,7 @@ def _load():
         data.setdefault('role', 'command')
         data['tags'] = list(dict.fromkeys(data['tags'] + [data['name'].lower(), data['nameJa'], 'pdxadv']))
         PDXADV.setdefault(domain, []).append(data)
-    for raw in json.loads(Path(__file__).with_name('pdxadv_reuse.json').read_text()):
+    for raw in json.loads(Path(__file__).with_name('pdxadv_reuse.json').read_text(encoding='utf-8')):
         data = dict(raw)
         id = data.pop('id')
         if id in PDXADV_REUSE or id in GLYPHS:

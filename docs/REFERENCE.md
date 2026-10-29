@@ -9,17 +9,17 @@ The earlier operation × profile/trajectory generator has been removed, along wi
 <!-- coverage:start -->
 | Primary category | Symbols |
 | --- | ---: |
-| Common | 91 |
-| CAD | 454 |
+| Common | 100 |
+| CAD | 485 |
 | CAM | 44 |
-| CAE | 62 |
+| CAE | 66 |
 | CMM | 34 |
 | OLP | 73 |
-| **Total** | **758** |
+| **Total** | **802** |
 
-Primary roles: 733 commands, 9 selectable tools, 12 objects and 4 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
+Primary roles: 775 commands, 9 selectable tools, 13 objects and 5 status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.
 
-189 entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.
+190 entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.
 <!-- coverage:end -->
 
 The manifest `role` field identifies the primary role: command, tool, object or status. `usages` describes supported contexts and can contain both `command` and `model-tree`; reused entries are still counted once. `nodeName`, `nodeNameJa` and `objectType` provide contextual noun labels. Part definitions and their placed instances deliberately use the same part icon.

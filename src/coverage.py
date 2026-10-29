@@ -13,4 +13,4 @@ for source in (SKETCH_SURFACE, MODEL_ASSEMBLY, DRAWING_ANALYSIS, UTILITIES):
         domain = item.pop('domain')
         COVERAGE.setdefault(domain, []).append(item)
 
-COVERAGE_REFERENCES = json.loads((Path(__file__).parent/'coverage_sources.json').read_text())
+COVERAGE_REFERENCES = json.loads((Path(__file__).parent/'coverage_sources.json').read_text(encoding='utf-8'))

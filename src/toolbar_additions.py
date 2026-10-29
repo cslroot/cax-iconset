@@ -14,7 +14,7 @@ import json
 from pathlib import Path
 _binding_path=Path(__file__).resolve().parents[1]/'toolbar-bindings.json'
 if _binding_path.exists():
-    _bindings={r['icon_id']:r for r in json.loads(_binding_path.read_text())['bindings']}
+    _bindings={r['icon_id']:r for r in json.loads(_binding_path.read_text(encoding='utf-8'))['bindings']}
     for domain,items in TOOLBAR_ADDITIONS.items():
         for item in items:
             row=_bindings[domain.lower()+'-'+item['id']]

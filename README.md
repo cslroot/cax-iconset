@@ -1,5 +1,17 @@
 # CAX Iconset
 
+## Current catalog
+
+The current catalog contains **802 semantic icons**: 100 Common, 485 CAD, 44 CAM,
+66 CAE, 34 CMM and 73 OLP. Each ID has a light and dark SVG, for **1,604 theme
+files** total. Theme variants are not separate meanings. `manifest.json` is the
+source for these counts and SHA-256 hashes.
+
+Generated SVG hashes cover exact UTF-8 bytes with LF line endings. Repository
+attributes preserve SVG bytes on checkout, including on Windows, and the
+generator writes UTF-8/LF explicitly. Historical counts below describe dated
+checkpoints, not the current catalog.
+
 ## October 28 addition
 
 **802 semantic icons / 1,604 theme SVGs.** Added `cad-primitive-cone` (Create cone) beside the cylinder, sphere and torus primitives, for CAX Studio's Cone command, and `cad-solid-pipe` (Create solid pipe) beside the solid coil, for its Pipe command.
@@ -48,7 +60,7 @@ Original rounded SVG symbols for everyday application commands, model-tree objec
 | CAE | 66 |
 | CMM | 34 |
 | OLP | 73 |
-| **Total** | **800** |
+| **Total** | **802** |
 <!-- coverage:end -->
 
 - Common: new, open, recent files, close, save / save as / save all, import, export, print, undo / redo, clipboard, search / replace, filtering, selection, display, navigation and application controls
@@ -79,7 +91,7 @@ Open `http://127.0.0.1:8000` in a modern browser, or use the [public catalog](ht
 - Explicit light / dark SVG theme choice that also sets the matching preview background; background swatches can then be changed manually, and preview/copy/download use the selected file variant
 - Detail view with previous/next buttons and ← / → navigation through the complete filtered list, bilingual purpose, selected variant path, copy SVG and individual SVG download
 - Transparent PNG download in 16 / 24 / 32 / 48 / 64 / 128 / 256 px; selected light/dark colors, independent of preview background
-- Bulk ZIP download for all 419 icons or the complete current filter results, with SVG/PNG, light/dark, PNG-size options, progress and cancellation
+- Bulk ZIP download for all 802 icons or the complete current filter results, with SVG/PNG, light/dark, PNG-size options, progress and cancellation
 - Keyboard focus, `/` search shortcut, native dialog with Escape dismissal, clear first/last boundaries and empty-state reset
 - No analytics or runtime external requests
 
@@ -101,7 +113,7 @@ SVGs use basic vector elements without fonts or external resources. Each file ha
 
 ## Standalone dark files
 
-All **419 semantic icons** now have two file variants: original light files in `icons/` and dark files in `icons-dark/`, with the same IDs. The 419 originals are byte-for-byte preserved. Dark files contain their own colors and work as `<img>`, external SVGs or inline SVGs without the catalog's CSS. Theme variants do not increase search/category/usage counts.
+Each of the **802 semantic icons** has two file variants: light files in `icons/` and dark files in `icons-dark/`, with the same IDs and geometry. Dark files contain their own colors and work as `<img>`, external SVGs or inline SVGs without the catalog's CSS. Theme variants do not increase search/category/usage counts. The 419-icon preservation statement applies to the original 2.6.0 theme introduction, not to the current catalog.
 
 Choose **SVG → Dark** in the catalog or detail view before copying/downloading. Choosing a theme also switches the gallery and detail preview to its matching background; you can then select light, dark or checkerboard manually without changing the SVG colors. Downloads are named `<id>.dark.svg` for clarity, while repository paths are `icons-dark/<id>.svg`.
 
@@ -111,7 +123,7 @@ The dark palette targets **#192c3c**. Its opaque cutouts also use that color to 
 
 Open an icon's detail view, choose **Icon theme → Light / Dark**, select **PNG size**, then click **Download PNG**. Available square sizes are **16, 24, 32, 48, 64, 128 and 256 px**; the default is **32 px**. PNG size is independent of the gallery's preview size. Files are named `<id>.<light|dark>.<size>.png`, for example `cad-extrude.dark.64.png`.
 
-The browser rasterizes the selected standalone SVG on a fresh alpha-enabled Canvas. The canvas around the drawing is transparent; the light, dark and checkerboard preview surfaces are never painted into the PNG. Existing solid fills, including the opaque cutouts in 64 icons, are preserved: white in light files and #192c3c in dark files. These interior shapes do not become transparent, because they hide covered geometry. PNG does not automatically adapt those colors to another background.
+The browser rasterizes the selected standalone SVG on a fresh alpha-enabled Canvas. The canvas around the drawing is transparent; the light, dark and checkerboard preview surfaces are never painted into the PNG. Authored opaque cutouts are preserved: white in light files and #192c3c in dark files. These interior shapes do not become transparent, because they hide covered geometry. PNG does not automatically adapt those colors to another background.
 
 Conversion happens locally in the browser without an external service or network request. While one PNG is being prepared, its button is disabled. The requested icon/theme/size are captured when clicked; changing the detail controls afterward does not change that export. A failed or timed-out conversion produces an error message instead of an empty download. The original SVG copy/download options remain available.
 
@@ -119,7 +131,7 @@ See [PNG implementation and verification](docs/PNG_EXPORT.md). The tests include
 
 ## Bulk ZIP download
 
-Click **Download ZIP** beside the search field. Choose **Current results** to include all matching icons, even those not yet scrolled into view, or **All 419 icons** to ignore the current filters. Select **SVG** or **PNG**, **Light / Dark**, and a PNG size if needed. The theme initially follows the gallery. A zero-result filtered selection cannot be exported; **All icons** remains available.
+Click **Download ZIP** beside the search field. Choose **Current results** to include all matching icons, even those not yet scrolled into view, or **All icons** to ignore the current filters. Select **SVG** or **PNG**, **Light / Dark**, and a PNG size if needed. The theme initially follows the gallery. A zero-result filtered selection cannot be exported; **All icons** remains available.
 
 One ZIP contains one file per selected icon. SVGs are byte-exact standalone files, named `<id>.svg` or `<id>.dark.svg`. PNGs use `<id>.<light|dark>.<size>.png`, with transparent surroundings and preserved opaque cutouts. Archive names include scope, count, theme, format and PNG size, for example `cax-icons-filtered-3.dark.64.png.zip`.
 
@@ -130,25 +142,25 @@ Conversion and ZIP assembly happen locally, without a CDN, upload or external se
 Python 3.10+ builds the collection. Node.js runs application tests. The optional raster audits and sheet exports use already-installed Inkscape and Pillow; the PNG audit also uses NumPy.
 
 ```sh
-python3 scripts/build.py
-python3 tests/test_catalog.py
+py -3 scripts/build.py
+py -3 tests/test_catalog.py
 node --check app.js
 node --check catalog.js
 node --check zip.js
 node tests/test_zip.js
 node tests/test_app.js
 NO_INTERSECTION_OBSERVER=1 node tests/test_app.js
-python3 scripts/raster_audit.py
-python3 scripts/dark_theme_audit.py
-python3 scripts/png_export_audit.py
-python3 scripts/contact_sheet.py
-python3 scripts/model_tree_sheet.py
-python3 scripts/application_tree_sheet.py
-python3 scripts/robotics_tree_sheet.py
-python3 scripts/quality_sheet.py
-python3 scripts/theme_sheet.py
-python3 scripts/theme_sheet.py --pdxadv
-python3 scripts/update_docs.py
+py -3 scripts/raster_audit.py
+py -3 scripts/dark_theme_audit.py
+py -3 scripts/png_export_audit.py
+py -3 scripts/contact_sheet.py
+py -3 scripts/model_tree_sheet.py
+py -3 scripts/application_tree_sheet.py
+py -3 scripts/robotics_tree_sheet.py
+py -3 scripts/quality_sheet.py
+py -3 scripts/theme_sheet.py
+py -3 scripts/theme_sheet.py --pdxadv
+py -3 scripts/update_docs.py
 for category in common cad cam cae cmm olp additions application-additions robotics-additions studio-additions pdxadv-additions pdxadv-themes quality-before-after theme-preview; do
   inkscape "qa/$category.svg" --export-type=png --export-filename="qa/$category.png"
 done
@@ -159,17 +171,17 @@ inkscape qa/robotics-model-tree.svg --export-type=png --export-filename=qa/robot
 
 The XML/integrity suite checks both theme variants of every icon, its safe elements, local references, hash, bilingual metadata and normalized geometry. The raster audit checks all entries for blank output, painting outside the viewBox and identical color-normalized renders. Script-level app tests cover filtering, bilingual search, infinite loading, filtered detail navigation, clipboard fallback and download content.
 
-The pdxadv review adds nine source-verified analysis/design commands while preserving all 410 existing SVGs. See the [nine additions on light / dark / checker backgrounds](qa/pdxadv-themes.png). The previous CAX Studio review checked all 403 baseline symbols visually, seven new commands, 11 focused geometry corrections, and a preview-only dark palette. See [before / after geometry](qa/quality-before-after.png) and [light / dark / checker examples](qa/theme-preview.png). The dark palette preserves separate body, ink, accent, warning and opaque-cutout roles; that historical preview-only behavior is superseded by the explicit standalone theme selection above.
+Historical review sheets document the pdxadv and CAX Studio additions at their original checkpoints: [pdxadv additions](qa/pdxadv-additions.png), [geometry corrections](qa/quality-before-after.png) and [theme examples](qa/theme-preview.png). They are historical evidence, not current catalog-size or whole-catalog QA reports.
 
 The standalone-theme audit embeds actual file bytes without host CSS in an atlas with 16 / 24 / 32 px output cells, plus dark variants on #192c3c, #23262b and #121212. It checks nonblank output, light/dark alpha preservation and meaningful contrast pixels in that atlas. Inkscape may resample embedded images from their intrinsic 32 px size; these are not direct native-size vector exports. The separate PNG audit directly exports original files at all seven requested sizes. Copy/download tests require exact byte equality with every selected file.
 
-**The DOM harness is not a browser layout engine.** Separate live Chrome checks passed for gallery/navigation, native Escape/focus restoration, exact SVG clipboard bytes, and selected light/dark 64 px PNG downloads. Live ZIP checks passed for both complete 419-file SVG archives (byte-exact), both complete 32 px PNG archives (valid RGBA with matching alpha), filtered downloads, cancellation and native Escape. Mobile, other browsers and assistive-technology behavior remain unverified. See [QA coverage and manual checklist](docs/QA.md).
+**The DOM harness is not a browser layout engine.** Separate live Chrome checks passed for gallery/navigation, native Escape/focus restoration, exact SVG clipboard bytes, and selected light/dark 64 px PNG downloads. The live ZIP and Chrome evidence in [QA](docs/QA.md) is from the historical 419-icon release; it is not a fresh 802-icon browser verification. Mobile, other browsers and assistive-technology behavior remain unverified.
 
 ## Files and license
 
-- `icons/`: 693 original light SVG files; only reviewed semantic entries
+- `icons/`: 802 generated light SVG files; one per semantic entry
 - `icons-dark/`: generated standalone dark variants of the same IDs
-- `src/themes.py`, `src/theme_baseline_hashes.json`: single palette source and byte-preservation regression for all 419 originals
+- `src/themes.py`, `src/theme_baseline_hashes.json`: single palette source and byte-preservation regression for the original 419-icon theme checkpoint
 - `src/core.py`, `src/common.py`, `src/engineering.py`, `src/extension.py`, `src/application.py`, `src/robotics.py`, `src/studio.py`, `src/pdxadv.py`: hand-authored geometry
 - `src/application_commands.json`, `src/application_reuse.json`: individually reviewed meanings, references and aliases
 - `src/robotics_commands.json`, `src/robotics_reuse.json`: robotics functions, persistent objects, references and reuse decisions
@@ -188,9 +200,9 @@ The standalone-theme audit embeds actual file bytes without host CSS in an atlas
 
 一般アプリ操作とCAD/CAM/CAE/CMM/ロボットOLP向けの独自SVGアイコン集です。新規・開く・保存などの基本操作に加え、他アプリの実在機能を参考に、メッシュ編集、自由曲面、点群処理、板金・溶接・金型、2D編集、加工、解析前後処理、ロボット軌道計画を追加しました。
 
-ロボティクスの46用途に加え、cax-studioと関連リポジトリの実装から不足していた7用途を追加しました。さらにpdxadvの実装を根拠に、そり感度・肉厚対策・局所肉厚変更・結果分布・比較・基準保持・解析レポートの9用途を追加しました。今回のGUI拡充後は全693件、186件がモデルツリーに対応します。各IDにライト／ダークの独立SVGを用意しましたが、用途の件数は693件です。ダーク版はCSSなしで使えます。切り欠きなどの不透明な塗りは背景色#192c3cに固定して重なりを保つため、別の背景では色の差が見える場合があります。今回のテーマ追加では元の419件をバイト単位で維持しています。先のpdxadv用途追加では既存410件のSVGを変更していません。認識されたねじやメッシュ変換方式などは既存SVGを再利用し、件数を増やしていません。全403件の目視監査で見つかった形状の問題・改善点を11件修正し、ダーク背景で内部線が消える配色も改善しました。
+現行カタログは802件（Common 100、CAD 485、CAM 44、CAE 66、CMM 34、OLP 73）で、各IDにライト／ダークのSVGがあり、テーマ別ファイルは合計1,604個です。テーマ違いは別の用途として数えません。モデルツリー用途は190件です。過去の追加レビューではロボティクス、CAX Studio、pdxadvなどの用途を加えましたが、README内の各追加件数・保存件数は記録時点の履歴です。ダーク版はCSSなしで使用できます。不透明な切り欠き塗りは背景色#192c3cに固定されるため、別の背景色では差が見えることがあります。
 
-断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。追加一覧、11件の修正前後、light/dark/checker見本、70行の16pxロボット階層見本を同梱しています。アイコンとメタデータだけを作成し、実機接続・操作は行いません。詳細画面からライト／ダークの透過PNGも16・24・32・48・64・128・256pxで保存できます。プレビュー背景は含めず、重なりを隠す内部の不透明な塗りはそのまま保持します。一覧は96件ずつの無限スクロールに対応し、「Load more」でも追加できます。詳細は左右のボタン・矢印キーで絞り込み結果全体を前後移動できます。テーマ変更時は背景も連動し、その後はチェック柄などへ手動変更できます。検索横の「Download ZIP」で全693件または絞り込み結果全体を一括保存できます。SVG／透過PNG、ライト／ダーク、PNGサイズを選べ、進捗表示・キャンセルにも対応します。公開ページでは一覧・詳細移動、Escapeとフォーカス復帰、SVGコピー、選択した64px PNGをChromeで確認済みです。一括ZIPも全419件の両テーマSVG・32px PNG、絞り込み結果、キャンセルを確認済みです。モバイル・他ブラウザの検証は別途必要です。
+断面形状・軌跡・表示状態の掛け算による件数合わせは行いません。全件に日英の名前・タグ・用途説明、role/usages、参照資料があります。ライト／ダークの透過PNGを16・24・32・48・64・128・256pxで保存できます。プレビュー背景はPNGに含まず、重なりを隠す内部の不透明な塗りを保持します。一覧は96件ずつの無限スクロールと「Load more」に対応し、詳細は絞り込み結果全体を前後移動できます。テーマ変更時は背景も連動し、その後は手動変更できます。検索横の「Download ZIP」では全802件または絞り込み結果をSVG／透過PNG、ライト／ダーク、PNGサイズ指定で保存でき、進捗とキャンセルにも対応します。過去のChrome検証は419件版を対象としており、現行802件全体の実ブラウザ検証ではありません。モバイル・他ブラウザ・支援技術での検証も未実施です。
 
 ## Distinct toolbar requirements (2026-10-25)
 

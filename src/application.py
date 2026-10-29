@@ -280,7 +280,7 @@ APPLICATION_NAMES = {}
 APPLICATION_REUSE = {}
 
 def _load():
-    records = json.loads(Path(__file__).with_name('application_commands.json').read_text())
+    records = json.loads(Path(__file__).with_name('application_commands.json').read_text(encoding='utf-8'))
     expected = {item['id'] for item in records}
     if len(expected) != len(records):
         raise ValueError('Duplicate reviewed command ID')
@@ -316,7 +316,7 @@ def _load():
 
 _load()
 
-for entry in json.loads(Path(__file__).with_name('application_reuse.json').read_text()):
+for entry in json.loads(Path(__file__).with_name('application_reuse.json').read_text(encoding='utf-8')):
     data = dict(entry)
     id = data.pop('id')
     source = data.pop('sourceId')

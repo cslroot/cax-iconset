@@ -9,7 +9,11 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-M = json.loads((ROOT / 'manifest.json').read_text())
+
+def read_utf8(path):
+    return path.read_text(encoding='utf-8')
+
+M = json.loads(read_utf8(ROOT / 'manifest.json'))
 NS = '{http://www.w3.org/2000/svg}'
 ALLOWED = {'svg', 'title', 'path', 'rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon', 'g', 'defs', 'clipPath'}
 
@@ -38,7 +42,7 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(M['counts'], dict(collections.Counter(i['role'] for i in M['icons'])))
         self.assertEqual(M['categories'], dict(collections.Counter(i['category'] for i in M['icons'])))
         self.assertEqual(len({i['id'] for i in M['icons']}), M['count'])
-        self.assertEqual({str(p.relative_to(ROOT)) for p in (ROOT/'icons').glob('*.svg')}, {i['file'] for i in M['icons']})
+        self.assertEqual({p.relative_to(ROOT).as_posix() for p in (ROOT/'icons').glob('*.svg')}, {i['file'] for i in M['icons']})
         self.assertEqual(set(M['categories']), {'Common','CAD','CAM','CAE','CMM','OLP'})
         for i in M['icons']:
             for key in ['id', 'name', 'nameJa', 'family', 'body', 'tags', 'sources', 'description', 'descriptionJa', 'role']:
@@ -130,7 +134,7 @@ class CatalogTests(unittest.TestCase):
         from themes import THEMES, PAINT_ROLES, themed_body
         self.assertEqual(M['themes'],THEMES)
         self.assertEqual(M['defaultTheme'],'light')
-        baseline=json.loads((ROOT/'src/theme_baseline_hashes.json').read_text())
+        baseline=json.loads(read_utf8(ROOT/'src/theme_baseline_hashes.json'))
         self.assertEqual(baseline['commit'],'08d22603e7b21b47da35f67025ba36a6572c3c95')
         self.assertEqual(len(baseline['icons']),419)
         self.assertTrue(set(baseline['icons']) <= {i['id'] for i in M['icons']})
@@ -182,7 +186,7 @@ class CatalogTests(unittest.TestCase):
         from gui_surface import ITEMS as surface
         items=features+sketch+surface
         expected={'cad-'+i['id'] for i in items}
-        baseline=json.loads((ROOT/'src/theme_baseline_hashes.json').read_text())['icons']
+        baseline=json.loads(read_utf8(ROOT/'src/theme_baseline_hashes.json'))['icons']
         current={i['id']:i for i in M['icons']}
         reviewed=set('''boundary-fill emboss pattern-path mounting-boss lip-groove snap-fit
             configuration-table history-rollback curvature-comb curvature-map continuity-analysis
@@ -209,7 +213,7 @@ class CatalogTests(unittest.TestCase):
         from coverage import COVERAGE
         from binding_additions import BINDING_ADDITIONS
         from toolbar_additions import TOOLBAR_ADDITIONS
-        baseline=json.loads((ROOT/'src/gui_expansion_baseline.json').read_text())['icons']
+        baseline=json.loads(read_utf8(ROOT/'src/gui_expansion_baseline.json'))['icons']
         self.assertEqual(len(baseline),449)
         current={i['id']:i for i in M['icons']}
         additions={domain.lower()+'-'+i['id'] for domain,items in COVERAGE.items() for i in items}
@@ -225,9 +229,9 @@ class CatalogTests(unittest.TestCase):
             self.assertEqual(digest,record['record_sha256'],id)
             for theme in ('light','dark'):
                 self.assertEqual(item['variants'][theme]['sha256'],record[theme],id)
-        decisions=json.loads((ROOT/'src/coverage_decisions.json').read_text())
+        decisions=json.loads(read_utf8(ROOT/'src/coverage_decisions.json'))
         covered_groups=[g for i in decisions for g in i['audit_groups']]
-        audited=json.loads((ROOT/'src/coverage_audit_groups.json').read_text())
+        audited=json.loads(read_utf8(ROOT/'src/coverage_audit_groups.json'))
         self.assertEqual(set(covered_groups),set(audited))
         self.assertEqual(len(covered_groups),len(set(covered_groups)))
         for row in decisions:
@@ -244,7 +248,7 @@ class CatalogTests(unittest.TestCase):
         sys.path.insert(0,str(ROOT/'src'))
         from application import APPLICATION, GLYPHS, APPLICATION_REUSE
         by_id={i['id']:i for i in M['icons']}
-        reviewed=json.loads((ROOT/'src/application_commands.json').read_text())
+        reviewed=json.loads(read_utf8(ROOT/'src/application_commands.json'))
         self.assertEqual(set(GLYPHS),{i['id'] for i in reviewed})
         self.assertEqual(len(GLYPHS),sum(len(v) for v in APPLICATION.values()))
         self.assertTrue(set(GLYPHS) <= set(by_id))
@@ -274,8 +278,8 @@ class CatalogTests(unittest.TestCase):
         sys.path.insert(0,str(ROOT/'src'))
         from studio import GLYPHS, STUDIO, STUDIO_REUSE, STUDIO_TREE, STUDIO_NAMES
         by_id={i['id']:i for i in M['icons']}
-        reviewed=json.loads((ROOT/'src/studio_commands.json').read_text())
-        reused=json.loads((ROOT/'src/studio_reuse.json').read_text())
+        reviewed=json.loads(read_utf8(ROOT/'src/studio_commands.json'))
+        reused=json.loads(read_utf8(ROOT/'src/studio_reuse.json'))
         self.assertEqual(set(GLYPHS),{i['id'] for i in reviewed})
         self.assertEqual(len(GLYPHS),sum(len(v) for v in STUDIO.values()))
         self.assertTrue(set(STUDIO_REUSE) <= set(by_id))
@@ -303,8 +307,8 @@ class CatalogTests(unittest.TestCase):
         sys.path.insert(0,str(ROOT/'src'))
         from pdxadv import GLYPHS, PDXADV, PDXADV_REUSE
         by_id={i['id']:i for i in M['icons']}
-        reviewed=json.loads((ROOT/'src/pdxadv_commands.json').read_text())
-        reused=json.loads((ROOT/'src/pdxadv_reuse.json').read_text())
+        reviewed=json.loads(read_utf8(ROOT/'src/pdxadv_commands.json'))
+        reused=json.loads(read_utf8(ROOT/'src/pdxadv_reuse.json'))
         self.assertEqual(set(GLYPHS),{i['id'] for i in reviewed})
         self.assertEqual(len(GLYPHS),sum(len(v) for v in PDXADV.values()))
         self.assertEqual(len(GLYPHS),9)
@@ -327,7 +331,7 @@ class CatalogTests(unittest.TestCase):
         self.assertIn('uncalibrated',by_id['cae-sink-tendency']['description'])
         self.assertIn('in memory',by_id['cae-set-baseline']['description'])
         self.assertFalse({'cae-warpage-result','cae-raw-sensitivity','cae-normalized-sensitivity','cae-sensitivity-density','cae-html-report','cae-pptx-report'}&set(by_id))
-        baseline=json.loads((ROOT/'src/pdxadv_baseline_hashes.json').read_text())
+        baseline=json.loads(read_utf8(ROOT/'src/pdxadv_baseline_hashes.json'))
         self.assertEqual(baseline['commit'],'490d20684866e39c7075485bf2dc95abb95dd341')
         self.assertEqual(len(baseline['icons']),410)
         self.assertTrue(set(GLYPHS) <= set(by_id)-set(baseline['icons']))
@@ -335,7 +339,7 @@ class CatalogTests(unittest.TestCase):
 
     def test_reviewed_occlusion_and_projected_mesh(self):
         by_id={i['id']:i for i in M['icons']}
-        reviews=json.loads((ROOT/'src/quality_review.json').read_text())
+        reviews=json.loads(read_utf8(ROOT/'src/quality_review.json'))
         self.assertEqual(len(reviews),11)
         self.assertEqual(len({i['id'] for i in reviews}),len(reviews))
         for review in reviews:
@@ -343,7 +347,7 @@ class CatalogTests(unittest.TestCase):
             self.assertTrue(review['reason'])
             self.assertNotEqual(review['beforeBody'],by_id[review['id']]['body'])
             ET.fromstring('<svg>'+review['beforeBody']+'</svg>')
-        cutter=ET.fromstring((ROOT/by_id['cam-swarf-milling']['file']).read_text())
+        cutter=ET.fromstring(read_utf8(ROOT/by_id['cam-swarf-milling']['file']))
         flutes=[e for e in cutter.iter(NS+'rect') if e.get('x')=='12' and e.get('y')=='10']
         self.assertEqual(len(flutes),1)
         self.assertEqual(flutes[0].get('fill'),'white')
@@ -355,9 +359,9 @@ class CatalogTests(unittest.TestCase):
         self.assertNotIn('M11 8 V27',mesh)
 
     def test_bundle_and_document_links(self):
-        bundle = (ROOT/'catalog.js').read_text()
+        bundle = read_utf8(ROOT/'catalog.js')
         self.assertEqual(json.loads(bundle.removeprefix('window.CAX_CATALOG=').strip().removesuffix(';')), M)
-        html = (ROOT/'index.html').read_text()
+        html = read_utf8(ROOT/'index.html')
         ids = re.findall(r'\bid="([^"]+)"', html)
         self.assertEqual(len(ids), len(set(ids)))
         for target in re.findall(r'(?:src|href)="([^"]+)"', html):
@@ -372,8 +376,8 @@ class CatalogTests(unittest.TestCase):
         sys.path.insert(0,str(ROOT/'src'))
         from robotics import GLYPHS, ROBOTICS, ROBOTICS_REUSE, ROBOTICS_TREE, ROBOTICS_NAMES
         by_id={i['id']:i for i in M['icons']}
-        reviewed=json.loads((ROOT/'src/robotics_commands.json').read_text())
-        reused=json.loads((ROOT/'src/robotics_reuse.json').read_text())
+        reviewed=json.loads(read_utf8(ROOT/'src/robotics_commands.json'))
+        reused=json.loads(read_utf8(ROOT/'src/robotics_reuse.json'))
         self.assertEqual(set(GLYPHS),{i['id'] for i in reviewed})
         self.assertEqual(len(GLYPHS),sum(len(v) for v in ROBOTICS.values()))
         self.assertTrue(set(ROBOTICS_REUSE) <= set(by_id))

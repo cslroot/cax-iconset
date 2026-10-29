@@ -5,9 +5,9 @@ R=Path(__file__).resolve().parents[1]
 class ToolbarRequirements(unittest.TestCase):
  @classmethod
  def setUpClass(cls):
-  cls.icons={i['id']:i for i in json.loads((R/'manifest.json').read_text())['icons']}
-  cls.baseline=json.loads((R/'src/published714_baseline.json').read_text())['icons']
-  cls.requirements=json.loads((R/'toolbar-bindings.json').read_text())
+  cls.icons={i['id']:i for i in json.loads((R/'manifest.json').read_text(encoding='utf-8'))['icons']}
+  cls.baseline=json.loads((R/'src/published714_baseline.json').read_text(encoding='utf-8'))['icons']
+  cls.requirements=json.loads((R/'toolbar-bindings.json').read_text(encoding='utf-8'))
  def test_published714_immutable(self):
   self.assertEqual(len(self.baseline),714)
   for id,b in self.baseline.items():
@@ -33,7 +33,7 @@ class ToolbarRequirements(unittest.TestCase):
    self.assertEqual(len({self.icons[r['icon_id']]['body'] for r in selected}),n,family)
  def test_new_art_fully_accounted_for(self):
   # This historical acceptance unit covers 714 -> 758, not later additions.
-  published758=json.loads((R/'src/published758_baseline.json').read_text())['icons']
+  published758=json.loads((R/'src/published758_baseline.json').read_text(encoding='utf-8'))['icons']
   added=set(published758)-set(self.baseline)
   mapped={r['icon_id'] for r in self.requirements['bindings'] if r['status']=='new-art'}
   self.assertEqual(added,mapped)

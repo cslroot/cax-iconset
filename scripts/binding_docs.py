@@ -3,7 +3,7 @@
 import json,collections,re
 from pathlib import Path
 R=Path(__file__).resolve().parents[1]
-p=json.loads((R/'command-bindings.json').read_text());m=json.loads((R/'manifest.json').read_text());b=json.loads((R/'src/published693_baseline.json').read_text())['icons'];trace=json.loads((R/'src/binding_art_trace.json').read_text());new=[i for i in m['icons'] if i['id'] in trace]
+p=json.loads((R/'command-bindings.json').read_text(encoding='utf-8'));m=json.loads((R/'manifest.json').read_text(encoding='utf-8'));b=json.loads((R/'src/published693_baseline.json').read_text(encoding='utf-8'))['icons'];trace=json.loads((R/'src/binding_art_trace.json').read_text(encoding='utf-8'));new=[i for i in m['icons'] if i['id'] in trace]
 counts=collections.Counter(r['outcome'] for r in p['bindings']);unknown=[r for r in p['bindings'] if r['outcome']=='unresolved']
 lines=['# Conditional GUI binding review','',f'This review covers exactly the 180 uncertain rows in the frozen 1,089-row source audit. It adds {len(new)} independently reviewed original glyphs to the published 693-icon baseline; the catalog now has {m["count"]} semantic entries. All 693 previous records and both SVG variants are unchanged.','',
 '## What these results mean','',
@@ -21,8 +21,8 @@ for i in new:lines.append(f'| {i["id"]} | {i["name"]} / {i["nameJa"]} | {i["desc
 lines += ['','## Validation and delivery','',
 'Full catalog and binding tests pin all published 693 records/SVG hashes, require all 180 rows exactly once, validate IDs and sources, and trace every new glyph to a binding. XML, geometry duplication, native light/dark rendering, clipping, contrast, PNG export and application/ZIP regressions are rerun after integration. Native preview sheets and raw validation outputs are in the complete delivery package; they are not proof of browser or assistive-technology integration.','',
 'This follow-on unit preserves the previously published 693-icon commit as its baseline. Consult repository history for the publication state of this revision.','']
-(R/'docs/GUI_BINDINGS.md').write_text('\n'.join(lines))
-readme=R/'README.md';s=readme.read_text();block=f'''<!-- binding-review:start -->
+(R/'docs/GUI_BINDINGS.md').write_text('\n'.join(lines), encoding='utf-8', newline='\n')
+readme=R/'README.md';s=readme.read_text(encoding='utf-8');block=f'''<!-- binding-review:start -->
 ## Conditional GUI binding review (2026-10-25)
 
 {len(new)} additional original glyphs support the reviewed command bindings. Current catalog: **{m['count']} semantic icons / {2*m['count']} theme SVGs**. The published 693-icon baseline is unchanged.
@@ -31,5 +31,5 @@ See [conditions, evidence and unresolved branches](docs/GUI_BINDINGS.md), [bindi
 <!-- binding-review:end -->'''
 if '<!-- binding-review:start -->' in s:s=re.sub(r'<!-- binding-review:start -->.*?<!-- binding-review:end -->',block,s,flags=re.S)
 else:s=s.replace('# CAX Iconset','# CAX Iconset\n\n'+block,1)
-readme.write_text(s)
+readme.write_text(s, encoding='utf-8', newline='\n')
 print(dict(counts),len(new),'new glyphs')

@@ -163,7 +163,7 @@ def main():
     args = parser.parse_args()
     if not shutil.which("inkscape"):
         parser.error("Inkscape must already be installed")
-    manifest = json.loads((ROOT / "manifest.json").read_text())
+    manifest = json.loads((ROOT / "manifest.json").read_text(encoding='utf-8'))
     entries = []
     failures = {key: [] for key in (
         "sourceHashMismatch", "dimensions", "nonRgbaPng", "blank",

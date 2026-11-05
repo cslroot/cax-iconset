@@ -13,12 +13,12 @@ from themes import THEMES, PAINT_ROLES, themed_body
 palette={(kind,old):THEMES['dark']['palette'][role] for (kind,old),role in PAINT_ROLES.items()}
 ink=THEMES['dark']['palette']['ink']
 bg=THEMES['dark']['surface']
-items={i['id']:i for i in json.loads((ROOT/'manifest.json').read_text())['icons']}
-reviewed=json.loads((ROOT/'src/quality_review.json').read_text())
-new=json.loads((ROOT/'src/studio_commands.json').read_text())
+items={i['id']:i for i in json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))['icons']}
+reviewed=json.loads((ROOT/'src/quality_review.json').read_text(encoding='utf-8'))
+new=json.loads((ROOT/'src/studio_commands.json').read_text(encoding='utf-8'))
 ids=list(dict.fromkeys(['common-info','common-save-all','olp-swept-volume','olp-singularity-check']+[i['id'] for i in reviewed+new]))
 if args.pdxadv:
-    ids=[i['id'] for i in json.loads((ROOT/'src/pdxadv_commands.json').read_text())]
+    ids=[i['id'] for i in json.loads((ROOT/'src/pdxadv_commands.json').read_text(encoding='utf-8'))]
 name='pdxadv-themes' if args.pdxadv else 'theme-preview'
 title='CAX / pdxadv workflow: light, dark and checker' if args.pdxadv else 'CAX / light, dark and checker palette'
 width=1200; height=100+len(ids)*102
@@ -36,7 +36,7 @@ for n,id in enumerate(ids):
             unique=re.sub(r'id="([^"]+)"',lambda m:f'id="{prefix}{m[1]}"',body)
             unique=re.sub(r'url\(#([^)]+)\)',lambda m:f'url(#{prefix}{m[1]})',unique)
             parts.append(f'<svg x="{x+dx}" y="{y+26+(48-size)/2}" width="{size}" height="{size}" viewBox="0 0 32 32" fill="none" stroke="{ink if theme=="Dark" else "#253b53"}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">{unique}</svg>')
-parts.append('</g></svg>');(ROOT/f'qa/{name}.svg').write_text(''.join(parts))
+parts.append('</g></svg>');(ROOT/f'qa/{name}.svg').write_text(''.join(parts), encoding='utf-8', newline='\n')
 def luminance(color):
     rgb=[int(color[i:i+2],16)/255 for i in [1,3,5]]
     rgb=[v/12.92 if v<=0.04045 else ((v+0.055)/1.055)**2.4 for v in rgb]
@@ -47,5 +47,5 @@ def contrast(a,b):
 body=palette[('fill','#d7efed')]; accent=palette[('stroke','#178b88')]
 report={'method':'Static color-role contrast from source palette; not browser computed-style or accessibility certification','examples':len(ids),'sizes':[48,24,16],'darkPalette':{'background':bg,'ink':ink,'body':body,'accent':accent},'contrast':{'ink_on_body':contrast(ink,body),'accent_on_body':contrast(accent,body),'ink_on_background':contrast(ink,bg),'accent_on_background':contrast(accent,bg)},'opaqueCutoutPreserved':palette.get(('fill','white'))==bg}
 assert min(report['contrast'].values())>=3
-(ROOT/f'qa/{"pdxadv-theme-audit" if args.pdxadv else "theme-audit"}.json').write_text(json.dumps(report,indent=2)+'\n')
+(ROOT/f'qa/{"pdxadv-theme-audit" if args.pdxadv else "theme-audit"}.json').write_text(json.dumps(report,indent=2)+'\n', encoding='utf-8', newline='\n')
 print(json.dumps(report,indent=2))

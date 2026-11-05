@@ -8,7 +8,7 @@ import json, re
 from html import escape
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-ICONS={i['id']:i for i in json.loads((ROOT/'manifest.json').read_text())['icons']}
+ICONS={i['id']:i for i in json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))['icons']}
 TREES=[('Cell and program instructions',[
  (0,'olp-robot-cell','Offline workcell'),
  (1,'olp-robot-controller','Controller configuration'),
@@ -98,5 +98,5 @@ for col,(title,rows) in enumerate(TREES):
   body=re.sub(r'url\(#([^)]+)\)',lambda m:f'url(#{prefix}{m[1]})',body)
   parts.append(f'<svg x="{ix}" y="{y}" width="16" height="16" viewBox="0 0 32 32" fill="none" stroke="#253b53" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">{body}</svg><text x="{ix+23}" y="{y+12}" font-family="sans-serif" font-size="12" fill="#253b53">{escape(label)}</text>')
 parts.append(f'<text x="24" y="{height-35}" font-family="sans-serif" font-size="12" fill="#526f68">Visual and collision meshes, gripper instances and robot morphologies reuse symbols. Joint types express different degrees of freedom.</text><text x="24" y="{height-15}" font-family="sans-serif" font-size="11" fill="#526f68">Cross-application examples only. Not runnable robot logic, an exact vendor UI, certified safety boundaries or a live controller connection.</text></svg>')
-(ROOT/'qa/robotics-model-tree.svg').write_text(''.join(parts))
+(ROOT/'qa/robotics-model-tree.svg').write_text(''.join(parts), encoding='utf-8', newline='\n')
 print(f'Built robotics hierarchy with {sum(len(r) for _,r in TREES)} native 16px rows')

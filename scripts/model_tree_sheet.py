@@ -9,7 +9,7 @@ import json,re
 from pathlib import Path
 from html import escape
 ROOT=Path(__file__).resolve().parents[1]
-M=json.loads((ROOT/'manifest.json').read_text())
+M=json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
 ICONS={i['id']:i for i in M['icons']}
 TREES=[('CAD / design & topology',[
  (0,'cad-assembly','Drive assembly'),
@@ -86,5 +86,5 @@ for col,(title,rows) in enumerate(TREES):
   prefix=f'tree-{col}-{n}-';body=re.sub(r'id="([^"]+)"',lambda m:f'id="{prefix}{m[1]}"',i['body']);body=re.sub(r'url\(#([^)]+)\)',lambda m:f'url(#{prefix}{m[1]})',body)
   parts.append(f'<svg x="{ix}" y="{y}" width="16" height="16" viewBox="0 0 32 32" fill="none" stroke="#253b53" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">{body}</svg><text x="{ix+23}" y="{y+12}" font-family="sans-serif" font-size="12" fill="#253b53">{escape(label)}</text>')
 parts.append('<text x="24" y="644" font-family="sans-serif" font-size="12" fill="#526f68">Feature/operation/condition nodes reuse the command artwork. Part definitions and occurrences share a symbol.</text><text x="24" y="663" font-family="sans-serif" font-size="11" fill="#526f68">Face is a topology-selection example. No selected/hidden/error × object variants are generated. Check final app contrast and accessibility.</text></svg>')
-(ROOT/'qa/model-tree.svg').write_text(''.join(parts))
+(ROOT/'qa/model-tree.svg').write_text(''.join(parts), encoding='utf-8', newline='\n')
 print('Built CAD/CAM/CAE model-tree specimen with '+str(sum(len(rows) for _,rows in TREES))+' native 16px rows')

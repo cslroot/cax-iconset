@@ -4,7 +4,7 @@ import json,subprocess,tempfile
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
 ROOT=Path(__file__).resolve().parents[1]
-m=json.loads((ROOT/'manifest.json').read_text())
+m=json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
 import sys
 sys.path.insert(0,str(ROOT/'src'))
 from gui_features import ITEMS as first_features
@@ -12,7 +12,8 @@ from gui_sketch import ITEMS as first_sketch
 from gui_surface import ITEMS as first_surface
 first_ids={'cad-'+i['id'] for i in first_features+first_sketch+first_surface}
 items=[i for i in m['icons'] if i['id'] in first_ids]
-font=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',12)
+from sheet_common import load_font
+font=load_font(12)
 W=1200; row=100; cols=3; H=60+((len(items)+cols-1)//cols)*row
 im=Image.new('RGB',(W,H),'#eef3f5');draw=ImageDraw.Draw(im)
 draw.text((20,12),'CAX GUI additions | native 16 / 24 / 32 px | light and dark',font=font,fill='#253b53')

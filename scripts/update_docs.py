@@ -3,21 +3,21 @@
 import json,re
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-m=json.loads((ROOT/'manifest.json').read_text())
+m=json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
 coverage='\n| Primary category | Symbols |\n| --- | ---: |\n'+''.join(f'| {c} | {n} |\n' for c,n in m['categories'].items())+f'| **Total** | **{m["count"]}** |\n\n'
 coverage+=f'Primary roles: {m["counts"]["command"]} commands, {m["counts"]["tool"]} selectable tools, {m["counts"]["object"]} objects and {m["counts"]["status"]} status symbols. Every semantic icon is counted once; light/dark files are color variants of the same ID.\n\n'
 coverage+=f'{m["usageCounts"]["model-tree"]} entries support model-tree use, including reused command/tool symbols; these are not additional semantic icons.\n'
 for file in ['README.md','docs/REFERENCE.md']:
- p=ROOT/file;s=p.read_text();s=re.sub(r'(?<=<!-- coverage:start -->).*?(?=<!-- coverage:end -->)',coverage,s,flags=re.S)
+ p=ROOT/file;s=p.read_text(encoding='utf-8');s=re.sub(r'(?<=<!-- coverage:start -->).*?(?=<!-- coverage:end -->)',coverage,s,flags=re.S)
  if file=='docs/REFERENCE.md':
   refs='\n| Source | Primary documentation | Taxonomy |\n| --- | --- | --- |\n'+''.join(f'| {id} | [{v["title"]}]({v["url"]}) | {v["scope"]} |\n' for id,v in m['sourceReferences'].items())
   s=re.sub(r'(?<=<!-- references:start -->).*?(?=<!-- references:end -->)',refs,s,flags=re.S)
- p.write_text(s)
+ p.write_text(s, encoding='utf-8', newline='\n')
 print('Refreshed coverage and primary-source documentation')
 
 # Per-command evidence is generated from the same curated records as the SVGs.
-records=json.loads((ROOT/'src/application_commands.json').read_text())
-reused=json.loads((ROOT/'src/application_reuse.json').read_text())
+records=json.loads((ROOT/'src/application_commands.json').read_text(encoding='utf-8'))
+reused=json.loads((ROOT/'src/application_reuse.json').read_text(encoding='utf-8'))
 by_id={i['id']:i for i in m['icons']}
 from collections import Counter
 counts=Counter(i['domain'] for i in records)
@@ -73,11 +73,11 @@ Independent application-family and manufacturing/analysis reviews found no block
 
 These checks do not establish real-browser layout, native dialog focus/Escape, system clipboard or saved-download behavior. No deployment or CI configuration is added.
 ''')
-(ROOT/'docs/APPLICATION_EXPANSION.md').write_text(''.join(parts))
+(ROOT/'docs/APPLICATION_EXPANSION.md').write_text(''.join(parts), encoding='utf-8', newline='\n')
 print('Refreshed per-command application expansion review')
 
-robotics=json.loads((ROOT/'src/robotics_commands.json').read_text())
-robotics_reuse=json.loads((ROOT/'src/robotics_reuse.json').read_text())
+robotics=json.loads((ROOT/'src/robotics_commands.json').read_text(encoding='utf-8'))
+robotics_reuse=json.loads((ROOT/'src/robotics_reuse.json').read_text(encoding='utf-8'))
 roles=Counter(i.get('role','command') for i in robotics)
 new_tree=sum('modelTree' in i for i in robotics)
 parts=[f'''# Robotics command and model-tree review
@@ -139,13 +139,13 @@ Independent commercial-robotics and open-source-model reviews found no blocking 
 
 These results describe the historical v2.3 checkpoint; [QA.md](QA.md) records the current catalog. The work creates UI artwork and metadata only. It does not connect to, configure or control physical robots. These illustrations are not executable robot programs, certified safety symbols or validated system controls. Real-browser layout, focus, clipboard and download behavior remain unverified. No CI or deployment configuration is changed.
 ''')
-(ROOT/'docs/ROBOTICS_EXPANSION.md').write_text(''.join(parts))
+(ROOT/'docs/ROBOTICS_EXPANSION.md').write_text(''.join(parts), encoding='utf-8', newline='\n')
 print('Refreshed robotics evidence and reuse review')
 
-studio=json.loads((ROOT/'src/studio_commands.json').read_text())
-studio_reuse=json.loads((ROOT/'src/studio_reuse.json').read_text())
-quality=json.loads((ROOT/'src/quality_review.json').read_text())
-theme=json.loads((ROOT/'qa/theme-audit.json').read_text())
+studio=json.loads((ROOT/'src/studio_commands.json').read_text(encoding='utf-8'))
+studio_reuse=json.loads((ROOT/'src/studio_reuse.json').read_text(encoding='utf-8'))
+quality=json.loads((ROOT/'src/quality_review.json').read_text(encoding='utf-8'))
+theme=json.loads((ROOT/'qa/theme-audit.json').read_text(encoding='utf-8'))
 parts=[f'''# CAX Studio coverage and geometry review
 
 Date: 2026-10-18. Historical version: 2.4.0. Baseline: the preserved 403-symbol v2.3 tree `0419c0d994e944530fc495a032b11be6750cbeec`; public base commit `cd269ffe836d8a905f2730c29a5ab0538e850474` contains 357 symbols.
@@ -214,11 +214,11 @@ The 22-example sheet includes every new and revised drawing plus representative 
 
 See [QA.md](QA.md) for the current verification report. These are UI symbols, not certified manufacturing, GD&T or robot-safety controls.
 ''')
-(ROOT/'docs/CAX_STUDIO_REVIEW.md').write_text(''.join(parts))
+(ROOT/'docs/CAX_STUDIO_REVIEW.md').write_text(''.join(parts), encoding='utf-8', newline='\n')
 print('Refreshed CAX source coverage and geometry review')
 
-pdxadv=json.loads((ROOT/'src/pdxadv_commands.json').read_text())
-pdxadv_reuse=json.loads((ROOT/'src/pdxadv_reuse.json').read_text())
+pdxadv=json.loads((ROOT/'src/pdxadv_commands.json').read_text(encoding='utf-8'))
+pdxadv_reuse=json.loads((ROOT/'src/pdxadv_reuse.json').read_text(encoding='utf-8'))
 parts=[f'''# pdxadv analysis and design workflow
 
 Date: 2026-10-18. Historical version: 2.5.0. Baseline: `490d20684866e39c7075485bf2dc95abb95dd341` (410 symbols).
@@ -263,7 +263,7 @@ The regression suite verifies all nine source records, pinned reference commits,
 
 Independent semantic and visual review status is recorded in [QA.md](QA.md). Real-browser layout, computed CSS, native dialog behavior, system clipboard and actual downloads remain unverified; this pass does not claim to resolve the earlier browser-access limitation. No CI, deployment or pdxadv runtime behavior is changed.
 ''')
-(ROOT/'docs/PDXADV_REVIEW.md').write_text(''.join(parts))
+(ROOT/'docs/PDXADV_REVIEW.md').write_text(''.join(parts), encoding='utf-8', newline='\n')
 print('Refreshed pdxadv meaning and reuse review')
 
 # Reviewed GUI additions use the catalog as their single metadata source.
@@ -302,5 +302,5 @@ lines += ['', '## Verification and limits', '',
           '- New icons visually reviewed at native 16/24/32 px in light and dark. [Preview](../qa/gui-additions.png).',
           '- No new browser/CUA, mobile, screen-reader or production integration validation; no source application functionality was changed.', '',
           'Regenerate this document with scripts/update_docs.py. Regenerate the native preview with scripts/gui_sheet.py.', '']
-(ROOT/'docs/GUI_EXPANSION.md').write_text('\n'.join(lines))
+(ROOT/'docs/GUI_EXPANSION.md').write_text('\n'.join(lines), encoding='utf-8', newline='\n')
 print('Refreshed GUI meaning and reuse review')

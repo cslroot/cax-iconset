@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Render actual standalone file bytes as independent SVG images without CSS.
 
-The native-size atlas includes all 419 files in each theme at 16/24/32 px.
+The native-size atlas includes every catalog file in each theme at 16/24/32 px.
 Three dark-surface composites and a selected before/after comparison are derived
 from those raw files. These are static Inkscape renders, not browser screenshots.
 """
@@ -12,7 +12,7 @@ from PIL import Image, ImageColor
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
 from themes import THEMES
-M=json.loads((ROOT/'manifest.json').read_text()); items=M['icons']
+M=json.loads((ROOT/'manifest.json').read_text(encoding='utf-8')); items=M['icons']
 SIZES=(16,24,32); SURFACES=tuple(dict.fromkeys((THEMES['dark']['surface'],'#23262b','#121212')))
 COLS=32; CELL=48; ROWS=math.ceil(len(items)/COLS)
 TMP=ROOT/'qa/dark-render';TMP.mkdir(exist_ok=True)
@@ -41,7 +41,7 @@ for theme in ('light','dark'):
             x=(n%COLS)*CELL+(CELL-size)//2;y=(band*ROWS+n//COLS)*CELL+(CELL-size)//2
             parts.append(raw_image(item,theme,x,y,size))
     parts.append('</svg>');svg=TMP/f'{theme}-native.svg';png=TMP/f'{theme}-native.png'
-    svg.write_text(''.join(parts));render(svg,png);atlases[theme]=Image.open(png).convert('RGBA')
+    svg.write_text(''.join(parts), encoding='utf-8', newline='\n');render(svg,png);atlases[theme]=Image.open(png).convert('RGBA')
     raw_hashes[theme]={i['id']:hashlib.sha256((ROOT/i['variants'][theme]['file']).read_bytes()).hexdigest() for i in items}
     print(f'Rendered {len(items)} standalone {theme} files at {SIZES}',flush=True)
 blank=[];alpha_mismatch=[];low_contrast=[]
@@ -76,12 +76,12 @@ for category in M['categories']:
             yy=y+21+row*40
             parts.append(f'<rect x="{x+6}" y="{yy}" width="{w-12}" height="38" rx="4" fill="{surface}"/>')
             for size,dx in zip(SIZES,(24,84,151)):parts.append(raw_image(item,'dark',x+dx,yy+(38-size)//2,size))
-    parts.append('</g></svg>');svg=ROOT/f'qa/dark-{category.lower()}.svg';png=svg.with_suffix('.png');svg.write_text(''.join(parts));render(svg,png)
+    parts.append('</g></svg>');svg=ROOT/f'qa/dark-{category.lower()}.svg';png=svg.with_suffix('.png');svg.write_text(''.join(parts), encoding='utf-8', newline='\n');render(svg,png)
     print(f'Wrote {category} raw-file three-surface sheet',flush=True)
 
 selected=['common-info','common-save-all','cad-extrude','cad-shell','cam-swarf-milling','cae-hexahedral-mesh','cmm-measure-circle','olp-swept-volume','olp-singularity-check','cae-local-wall-offset','cae-sink-tendency','cae-analysis-report']
 by_id={i['id']:i for i in items};width=1470;height=140+len(selected)*88
-parts=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}"><rect width="100%" height="100%" fill="#f4f7f5"/><g font-family="sans-serif"><text x="24" y="34" font-size="25" fill="#253b53">Standalone dark SVGs · 419 meanings, two file variants each</text><text x="24" y="59" font-size="13" fill="#45665f">Actual SVG file bytes, no CSS · native 16 / 24 / 32 px in each cell · original files preserved byte-for-byte</text><text x="24" y="82" font-size="12" fill="#45665f">Opaque cutouts stay #192c3c to preserve hidden edges; their fixed color is visible on other surfaces.</text>']
+parts=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}"><rect width="100%" height="100%" fill="#f4f7f5"/><g font-family="sans-serif"><text x="24" y="34" font-size="25" fill="#253b53">Standalone dark SVGs · {len(items)} meanings, two file variants each</text><text x="24" y="59" font-size="13" fill="#45665f">Actual SVG file bytes, no CSS · native 16 / 24 / 32 px in each cell · original files preserved byte-for-byte</text><text x="24" y="82" font-size="12" fill="#45665f">Opaque cutouts stay #192c3c to preserve hidden edges; their fixed color is visible on other surfaces.</text>']
 columns=[('Original / white','light','#ffffff'),('Original / Studio dark','light','#23262b'),('Dark / Studio dark','dark','#23262b'),('Dark / matching surface','dark','#192c3c'),('Dark / neutral dark','dark','#121212')]
 for col,(label,theme,surface) in enumerate(columns):
     x=300+col*232;parts.append(f'<text x="{x+7}" y="113" font-size="12" fill="#253b53">{label}</text>')
@@ -90,8 +90,8 @@ for row,id in enumerate(selected):
     for col,(label,theme,surface) in enumerate(columns):
         x=300+col*232;parts.append(f'<rect x="{x}" y="{y}" width="222" height="76" rx="7" fill="{surface}" stroke="#acb8b4"/>')
         for size,dx in zip(SIZES,(25,90,160)):parts.append(raw_image(item,theme,x+dx,y+(76-size)//2,size))
-parts.append('</g></svg>');svg=ROOT/'qa/dark-svg-comparison.svg';svg.write_text(''.join(parts));render(svg,svg.with_suffix('.png'))
+parts.append('</g></svg>');svg=ROOT/'qa/dark-svg-comparison.svg';svg.write_text(''.join(parts), encoding='utf-8', newline='\n');render(svg,svg.with_suffix('.png'))
 p=THEMES['dark']['palette']
 report={'method':'Actual standalone SVG bytes embedded as independent images and rendered by Inkscape; no host CSS, not a browser test','semanticCount':len(items),'filesPerTheme':len(items),'themes':['light','dark'],'sizes':list(SIZES),'darkSurfaces':list(SURFACES),'renders':len(items)*len(SIZES)*2,'darkSurfaceChecks':len(items)*len(SIZES)*len(SURFACES),'blank':blank,'alphaMismatch':alpha_mismatch,'fewerThanEight3to1Pixels':low_contrast,'opaqueCutoutColor':p['cutout'],'opaqueCutoutIcons':sum('fill="white"' in i['body'] for i in items),'contrast':{**{f'{role}_on_{surface}':contrast(p[role],surface) for role in ('ink','accent','warning') for surface in SURFACES},'ink_on_body':contrast(p['ink'],p['body']),'accent_on_body':contrast(p['accent'],p['body']),'warning_on_warningBody':contrast(p['warning'],p['warningBody'])},'inputHash':hashlib.sha256(json.dumps(raw_hashes,sort_keys=True).encode()).hexdigest()}
-(ROOT/'qa/dark-theme-audit.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2),flush=True)
+(ROOT/'qa/dark-theme-audit.json').write_text(json.dumps(report,indent=2)+'\n', encoding='utf-8', newline='\n');print(json.dumps(report,indent=2),flush=True)
 if blank or alpha_mismatch or low_contrast:raise SystemExit(1)

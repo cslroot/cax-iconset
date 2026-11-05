@@ -4,8 +4,8 @@ import json, re
 from pathlib import Path
 from html import escape
 ROOT=Path(__file__).resolve().parents[1]
-current={i['id']:i for i in json.loads((ROOT/'manifest.json').read_text())['icons']}
-reviews=json.loads((ROOT/'src/quality_review.json').read_text())
+current={i['id']:i for i in json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))['icons']}
+reviews=json.loads((ROOT/'src/quality_review.json').read_text(encoding='utf-8'))
 width=1080
 height=100+len(reviews)*156
 parts=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}"><rect width="100%" height="100%" fill="#f5f8f5"/><g font-family="sans-serif" fill="#253b53"><text x="24" y="34" font-size="24">CAX / geometry corrections</text><text x="24" y="61" font-size="14">Before and after: 64 / 32 / 24 / 16 px. Rounded strokes and semantic IDs retained.</text>']
@@ -21,5 +21,5 @@ for n,review in enumerate(reviews):
             unique=re.sub(r'url\(#([^)]+)\)',lambda m:f'url(#{prefix}{m[1]})',unique)
             parts.append(f'<svg x="{x+dx}" y="{y+43+(64-size)/2}" width="{size}" height="{size}" viewBox="0 0 32 32" fill="none" stroke="#253b53" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">{unique}</svg>')
 parts.append('</g></svg>')
-(ROOT/'qa/quality-before-after.svg').write_text(''.join(parts))
+(ROOT/'qa/quality-before-after.svg').write_text(''.join(parts), encoding='utf-8', newline='\n')
 print(f'Built {len(reviews)} before/after comparisons')

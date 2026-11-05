@@ -8,7 +8,7 @@ import json, re
 from html import escape
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-ICONS={i['id']:i for i in json.loads((ROOT/'manifest.json').read_text())['icons']}
+ICONS={i['id']:i for i in json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))['icons']}
 TREES=[('CAD / fabricated components',[
  (0,'cad-assembly','Frame assembly'),
  (1,'cad-part','Folded bracket'),
@@ -88,5 +88,5 @@ for col,(title,rows) in enumerate(TREES):
   body=re.sub(r'url\(#([^)]+)\)',lambda m:f'url(#{prefix}{m[1]})',body)
   parts.append(f'<svg x="{ix}" y="{y}" width="16" height="16" viewBox="0 0 32 32" fill="none" stroke="#253b53" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">{body}</svg><text x="{ix+23}" y="{y+12}" font-family="sans-serif" font-size="12" fill="#253b53">{escape(label)}</text>')
 parts.append('<text x="24" y="644" font-family="sans-serif" font-size="12" fill="#526f68">The same part/mesh/hatch symbols are reused for repeated objects. Editing commands need not become persistent nodes.</text><text x="24" y="663" font-family="sans-serif" font-size="11" fill="#526f68">Node names describe stored objects, not actions. No selected/hidden/error state variants are generated.</text></svg>')
-(ROOT/'qa/application-model-tree.svg').write_text(''.join(parts))
+(ROOT/'qa/application-model-tree.svg').write_text(''.join(parts), encoding='utf-8', newline='\n')
 print(f'Built additional model-tree specimen with {sum(len(rows) for _,rows in TREES)} native 16px rows')

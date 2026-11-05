@@ -4,7 +4,7 @@ import json, math
 from pathlib import Path
 from html import escape
 ROOT=Path(__file__).resolve().parents[1]
-manifest=json.loads((ROOT/'manifest.json').read_text())
+manifest=json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
 
 def sheet(items, name, title):
  cols=8; width=1440; height=88+math.ceil(len(items)/cols)*126
@@ -20,7 +20,7 @@ def sheet(items, name, title):
    body=re.sub(r'url\(#([^)]+)\)',lambda m:f'url(#{prefix}{m[1]})',body)
    parts.append(f'<svg x="{x+dx}" y="{y+15+(48-size)/2}" width="{size}" height="{size}" viewBox="0 0 32 32" fill="none" stroke="#253b53" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">{body}</svg>')
   parts.append(f'<text x="{x+8}" y="{y+84}" font-family="sans-serif" font-size="10" fill="#253b53">{escape(i["name"])}</text><text x="{x+8}" y="{y+102}" font-family="sans-serif" font-size="7.5" fill="#45665f">{escape(i["id"])}</text>')
- parts.append('</svg>');(ROOT/f'qa/{name}.svg').write_text(''.join(parts))
+ parts.append('</svg>');(ROOT/f'qa/{name}.svg').write_text(''.join(parts), encoding='utf-8', newline='\n')
 for category in manifest['categories']:
  sheet([i for i in manifest['icons'] if i['category']==category],category.lower(),'CAX / '+category)
 # Keep the reviewed-additions sheet reproducible independently of Git HEAD.
